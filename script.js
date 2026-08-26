@@ -1,8 +1,10 @@
-﻿// ============================================================
+// ============================================================
 // CORE
 // ============================================================
 function getLang() { return localStorage.getItem("site-lang") || "fa"; }
 function setLang(l) { localStorage.setItem("site-lang", l); }
+function getTheme() { return localStorage.getItem("site-theme") || "dark"; }
+function setTheme(t) { localStorage.setItem("site-theme", t); document.documentElement.dataset.theme = t; }
 
 function el(tag, cls, html) {
   const n = document.createElement(tag);
@@ -68,6 +70,11 @@ function renderNav(data, page) {
   });
   document.querySelectorAll("[data-lang-toggle]").forEach(b => {
     b.textContent = data.lang === "fa" ? "EN" : "fa";
+  });
+  document.querySelectorAll("[data-theme-toggle]").forEach(function(b) {
+    var light = getTheme() === "light";
+    b.setAttribute("aria-label", light ? "فعال‌سازی تم تاریک" : "فعال‌سازی تم روشن");
+    b.querySelector(".theme-icon").textContent = light ? "☾" : "☼";
   });
 }
 
@@ -507,7 +514,14 @@ function initNavToggle() {
 
 document.addEventListener("DOMContentLoaded", function() {
   var page = document.body.dataset.page || "home";
+  setTheme(getTheme());
   render(page);
   initLangToggle(page);
   initNavToggle();
+  document.querySelectorAll("[data-theme-toggle]").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      setTheme(getTheme() === "dark" ? "light" : "dark");
+      render(page);
+    });
+  });
 });
