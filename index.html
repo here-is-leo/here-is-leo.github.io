@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ایلیا فراهانی | برنامه‌نویس Python و علاقه‌مند به امنیت وب</title>
+  <meta name="description" content="صفحه شخصی ایلیا فراهانی؛ برنامه‌نویس Python، علاقه‌مند به امنیت وب و لینوکس. مشاهده پروژه‌ها، مهارت‌ها و راه‌های ارتباطی." />
+  <meta name="author" content="Ilia Farahani" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://here-is-leo.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ایلیا فراهانی | برنامه‌نویس Python و علاقه‌مند به امنیت وب" />
+  <meta property="og:description" content="صفحه شخصی ایلیا فراهانی؛ برنامه‌نویس Python، علاقه‌مند به امنیت وب و لینوکس." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ilia Farahani",
+    "alternateName": "ایلیا فراهانی",
+    "url": "https://here-is-leo.github.io/",
+    "sameAs": ["https://github.com/here-is-leo"],
+    "email": "mailto:ilyafarahanii@gmail.com",
+    "jobTitle": "Python Developer",
+    "knowsAbout": ["Python", "Linux", "Web Security", "Penetration Testing"],
+    "address": { "@type": "PostalAddress", "addressLocality": "Tehran", "addressCountry": "IR" }
+  }
+  </script>
+</head>
+<body data-page="home">
+  <div class="bg-ambient">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="#home" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <ul class="nav-links">
+        <li><a href="#skills" data-nav-skills>مهارت‌ها</a></li>
+        <li><a href="#projects" data-nav-projects>پروژه‌ها</a></li>
+        <li><a href="#contact" data-nav-contact>تماس</a></li>
+        <li><a href="about.html" data-nav-about>درباره من</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-toggle" data-lang-toggle>EN</button>
+        <button class="nav-toggle" aria-label="menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text" id="hero-content"></div>
+        <div class="hero-avatar" id="hero-avatar"></div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="stats-section" style="padding-top:0;border-top:0;">
+      <div class="container">
+        <div class="stats-grid" id="stats-grid"></div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="skills-tag"></span>
+          <h2 id="skills-title"></h2>
+          <p id="skills-subtitle"></p>
+        </div>
+        <div class="skills-grid" id="skills-grid"></div>
+      </div>
+    </section>
+
+    <!-- CURRENT FOCUS -->
+    <section id="focus">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="focus-tag"></span>
+          <h2 id="focus-title"></h2>
+          <p id="focus-subtitle"></p>
+        </div>
+        <div class="focus-grid" id="focus-grid"></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="projects-tag"></span>
+          <h2 id="projects-title"></h2>
+          <p id="projects-subtitle"></p>
+        </div>
+        <div class="projects-grid" id="projects-grid"></div>
+      </div>
+    </section>
+
+    <!-- DONATION BANNER -->
+    <section id="donation" style="border-top:0;">
+      <div class="container">
+        <div class="donation-banner-wrapper">
+          <div class="donation-banner">
+            <div class="confetti-container">
+              <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+              <div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div><div class="confetti"></div>
+            </div>
+            <div class="donation-content">
+              <div class="donation-badge" id="donation-badge"></div>
+              <h2 class="donation-title" id="donation-title"></h2>
+              <p class="donation-sub" id="donation-sub"></p>
+              <div class="donation-footer">
+                <a href="https://www.coffeebede.com/leo" target="_blank" class="donate-btn" id="donateBtn">
+                  <span class="icon">☕</span><span class="btn-text"></span>
+                </a>
+                <div class="donate-message" id="donate-message"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT PREVIEW -->
+    <section>
+      <div class="container">
+        <div class="about-preview">
+          <div>
+            <h3 id="about-preview-title"></h3>
+            <p id="about-preview-desc"></p>
+          </div>
+          <a href="about.html" class="btn btn-primary" id="about-preview-cta"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="contact-tag"></span>
+          <h2 id="contact-title"></h2>
+          <p id="contact-subtitle"></p>
+        </div>
+        <div class="contact-grid" id="contact-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" id="footer-text"></div>
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

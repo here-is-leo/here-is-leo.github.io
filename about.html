@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>درباره ایلیا فراهانی</title>
+  <meta name="description" content="بیوگرافی، تحصیلات، دوره‌ها و مهارت‌های ایلیا فراهانی." />
+  <meta name="author" content="Ilia Farahani" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://here-is-leo.github.io/about.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="about">
+  <div class="bg-ambient">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
+        <li><a href="index.html#projects" data-nav-projects>پروژه‌ها</a></li>
+        <li><a href="index.html#contact" data-nav-contact>تماس</a></li>
+        <li><a href="about.html" data-nav-about class="active">درباره من</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-toggle" data-lang-toggle>EN</button>
+        <button class="nav-toggle" aria-label="menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <div class="container">
+        <div class="hero-avatar" id="hero-avatar"></div>
+        <h1 id="about-hero-title"></h1>
+        <p id="about-hero-subtitle" style="color:var(--text-dim); max-width:560px; margin:0 auto;"></p>
+      </div>
+    </section>
+
+    <section style="border-top:0;">
+      <div class="container">
+        <span class="section-tag" id="intro-tag"></span>
+        <p id="intro-text" style="font-size:1.05rem; max-width:720px;"></p>
+      </div>
+    </section>
+
+    <section id="stats-section" style="padding-top:0;border-top:0;">
+      <div class="container">
+        <div class="stats-grid" id="stats-grid"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="edu-tag"></span>
+          <h2 id="edu-title"></h2>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="about-skills-tag"></span>
+          <h2 id="about-skills-title"></h2>
+        </div>
+        <div class="tags-row" id="about-skills-tags"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="lang-tag"></span>
+          <h2 id="lang-title"></h2>
+        </div>
+        <div class="tags-row" id="lang-tags"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag" id="github-tag"></span>
+          <p id="github-text" style="color:var(--text-dim); max-width:640px;"></p>
+          <a id="github-link" class="project-link" target="_blank" rel="noopener"></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" id="footer-text"></div>
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
