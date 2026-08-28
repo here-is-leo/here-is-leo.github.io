@@ -161,7 +161,7 @@ const SITE = {
       eyebrow: "Open to learning & collaboration",
       title1: "Hi, I'm",
       name: "Ilia Farahani",
-      title2: "👋",
+      title2: "",
       typewriter: ["Python Developer", "Web Security Enthusiast", "Linux Lover", "Project-Driven Learner"],
       subtitle: "Coding is my escape from limits. I build my world with Python, Linux, and security challenges. Every line of code is a step forward.",
       cta1: "View Projects",
