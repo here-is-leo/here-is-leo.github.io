@@ -1,5 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://here-is-leo.github.io/</loc></url>
-  <url><loc>https://here-is-leo.github.io/about.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  
+  <!-- ============================================ -->
+  <!-- PAGE PRINCIPALE (HOME)                       -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    
+    <!-- Version linguistique alternative -->
+    <xhtml:link rel="alternate" hreflang="fa" href="https://here-is-leo-blog.ilyafarahanii.workers.dev/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://here-is-leo-blog.ilyafarahanii.workers.dev/?lang=en" />
+    
+    <!-- Image associée à la page -->
+    <image:image>
+      <image:loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/logo.png</image:loc>
+      <image:title>ایلیا فراهانی | برنامه‌نویس Python و امنیت وب</image:title>
+      <image:caption>لوگوی شخصی ایلیا فراهانی</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- PAGE ABOUT (درباره من)                       -->
+  <!-- ============================================ -->
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/about.html</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    
+    <!-- Version linguistique alternative -->
+    <xhtml:link rel="alternate" hreflang="fa" href="https://here-is-leo-blog.ilyafarahanii.workers.dev/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://here-is-leo-blog.ilyafarahanii.workers.dev/about.html?lang=en" />
+    
+    <!-- Image associée à la page -->
+    <image:image>
+      <image:loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/logo.png</image:loc>
+      <image:title>درباره ایلیا فراهانی</image:title>
+      <image:caption>بیوگرافی، تحصیلات و مهارت‌های ایلیا فراهانی</image:caption>
+    </image:image>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- PROJETS (liens directs vers les projets)     -->
+  <!-- ============================================ -->
+  
+  <!-- Projet: overthewire-natas -->
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/#projects</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- ANCRES PRINCIPALES (Navigation)              -->
+  <!-- ============================================ -->
+  
+  <!-- Section Skills -->
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/#skills</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Section Focus -->
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/#focus</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Section Contact -->
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/#contact</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- RESSOURCES STATIQUES (CSS, JS, Images)      -->
+  <!-- ============================================ -->
+  
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/style.css</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/script.js</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/content.js</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/logo.png</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://here-is-leo-blog.ilyafarahanii.workers.dev/robots.txt</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.2</priority>
+  </url>
+
 </urlset>
