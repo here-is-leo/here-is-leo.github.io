@@ -3,114 +3,64 @@ const SITE = {
     dir: "rtl", lang: "fa",
     meta: {
       titleHome: "ایلیا فراهانی | برنامه‌نویس Python و C# | متخصص لینوکس و امنیت وب",
-      descHome: "صفحه شخصی ایلیا فراهانی (ایلیا عزیزابادی | here-is-leo)؛ برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali. آماده همکاری در پروژه‌های امنیتی و توسعه.",
-      titleAbout: "درباره ایلیا فراهانی | برنامه‌نویس، متخصص لینوکس و تست نفوذ",
-      descAbout: "بیوگرافی، تخصص‌ها و مهارت‌های ایلیا فراهانی — برنامه‌نویس Python و C#، متخصص لینوکس، تست‌نفوذگر Kali. آماده همکاری و کارآموزی."
+      descHome: "صفحه شخصی ایلیا فراهانی؛ برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali. مشاهده پروژه‌ها، مهارت‌ها و راه‌های ارتباطی.",
+      titleAbout: "درباره ایلیا فراهانی",
+      descAbout: "بیوگرافی، تحصیلات، دوره‌ها و مهارت‌های ایلیا فراهانی — برنامه‌نویس Python و C#، متخصص لینوکس و Kali Linux."
     },
     nav: { home: "خانه", skills: "مهارت‌ها", projects: "پروژه‌ها", contact: "تماس", about: "درباره من", blog: "نوشته‌ها" },
-    
     hero: {
-      eyebrow: "🚀 آماده همکاری در پروژه‌های چالش‌برانگیز",
+      eyebrow: "در دسترس برای یادگیری و همکاری",
       title1: "سلام، من",
-      name: "ایلیا فراهانی (ایلیا عزیزابادی | here-is-leo)",
+      name: "ایلیا فراهانی",
       title2: "هستم",
-      typewriter: [
-        "برنامه‌نویس Python و C#", 
-        "متخصص لینوکس و Kali", 
-        "تست‌نفوذگر امنیت وب",
-        "آماده همکاری با شما"
-      ],
-      subtitle: "من با ترکیب **برنامه‌نویسی**، **لینوکس** و **امنیت**، راه‌حل‌هایی می‌سازم که فراتر از کدنویسی هستند. اگر به دنبال عضو تیمی هستید که هم کد بزند، هم امنیت را ببیند و هم عاشق چالش باشد — من همان نفر هستم. بیایید با هم چیزی بزرگ بسازیم.",
+      typewriter: ["برنامه‌نویس Python", "متخصص لینوکس", "تست‌نفوذگر Kali Linux"],
+      subtitle: "برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.",
       cta1: "مشاهده پروژه‌ها",
       cta2: "درباره من"
     },
-    
     stats: [
       { number: 35, suffix: "+", label: "چالش امنیتی حل شده" },
       { number: 87, suffix: "", label: "مشارکت در یک سال" },
       { number: 4, suffix: "", label: "پروژه عملی" },
       { number: 3, suffix: "", label: "زبان برنامه‌نویسی" }
     ],
-    
     skills: {
-      tag: "🧠 توانمندی‌های من",
-      title: "با این ابزارها، مشکلات را حل می‌کنم",
-      subtitle: "هر مهارت من، یک راه‌حل برای چالش‌های شماست. از توسعه تا امنیت، از لینوکس تا وب — من اینجا هستم تا تیم شما را قدرتمندتر کنم.",
+      tag: "مهارت‌ها",
+      title: "چیزهایی که باهاش کار می‌کنم",
+      subtitle: "ترکیبی از برنامه‌نویسی، سیستم‌عامل و امنیت.",
       items: [
-        { 
-          icon: "🐍", 
-          title: "Python — توسعه و امنیت", 
-          desc: "توسعه ابزارهای امنیتی، اسکریپت‌های اتوماسیون، بک‌اند API و راه‌حل‌های سفارشی. اگر به توسعه‌دهنده‌ای نیاز دارید که امنیت را هم ببیند، من انتخاب شما هستم." 
-        },
-        { 
-          icon: "#️⃣", 
-          title: "C# (MVC) — وب حرفه‌ای", 
-          desc: "توسعه وب‌اپلیکیشن‌های مقیاس‌پذیر با معماری MVC، Entity Framework و RESTful API. آماده همکاری در پروژه‌های دات‌نت." 
-        },
-        { 
-          icon: "🐧", 
-          title: "لینوکس — از صفر تا صد", 
-          desc: "مدیریت سرور، شبکه‌سازی، bash scripting، امنیت و عیب‌یابی. اگر تیم شما به متخصص لینوکس نیاز دارد، من بیش از ۱۰ توزیع را حرفه‌ای کار کرده‌ام." 
-        },
-        { 
-          icon: "🛡️", 
-          title: "Kali Linux — تست نفوذ تخصصی", 
-          desc: "شناسایی آسیب‌پذیری‌ها با Nmap، بهره‌برداری با Metasploit، تحلیل ترافیک با Wireshark و تست نفوذ وب با Burp Suite. امنیت برای من یک تخصص است، نه یک علاقه." 
-        },
-        { 
-          icon: "🗄️", 
-          title: "پایگاه داده — طراحی و مدیریت", 
-          desc: "طراحی دیتابیس، بهینه‌سازی کوئری، مدیریت داده با SQL Server و SQLite. داده‌های شما در دستان امن." 
-        },
-        { 
-          icon: "🌐", 
-          title: "امنیت وب — از Natas تا PWK", 
-          desc: "تکمیل ۳۵ مرحله چالش Natas، آشنایی با OWASP Top 10، تحلیل آسیب‌پذیری و راهکارهای مقابله. وب شما را امن می‌کنم." 
-        }
+        { icon: "🐍", title: "Python", desc: "اسکریپت‌نویسی، ابزارسازی، بک‌اند و پروژه‌های امنیتی." },
+        { icon: "#️⃣", title: "C# (MVC)", desc: "توسعه وب با معماری MVC، Entity Framework و RESTful API." },
+        { icon: "🐧", title: "لینوکس", desc: "مدیریت سرور، bash scripting، شبکه‌سازی و امنیت." },
+        { icon: "🛡️", title: "Kali Linux", desc: "تست نفوذ با Nmap، Metasploit، Burp Suite و Wireshark." },
+        { icon: "🗄️", title: "پایگاه داده", desc: "طراحی و مدیریت داده با SQL Server و SQLite." },
+        { icon: "🌐", title: "امنیت وب", desc: "تحلیل آسیب‌پذیری، چالش‌های Natas و آشنایی با PWK." }
       ]
     },
-    
     focus: {
-      tag: "🔥 الان روی چه چیزی کار می‌کنم؟",
-      title: "پروژه‌هایی که ارزش سرمایه‌گذاری دارند",
-      subtitle: "من به دنبال پروژه‌های چالش‌برانگیز و تیم‌های حرفه‌ای هستم. اگر به دنبال همکاری هستید، همین الان با من تماس بگیرید.",
+      tag: "الان مشغولم به",
+      title: "روی چه چیزی کار می‌کنم؟",
+      subtitle: "هر روز یک قدم به جلو.",
       items: [
-        { 
-          icon: "📘", 
-          title: "امنیت وب پیشرفته", 
-          desc: "مطالعه آسیب‌پذیری‌های روز و شرکت در چالش‌های CTF. اگر تیم امنیتی دارید، من آماده همکاری هستم." 
-        },
-        { 
-          icon: "🔧", 
-          title: "ساخت ابزارهای امنیتی", 
-          desc: "توسعه ابزارهای خط فرمان با Python برای تست نفوذ. اگر به ابزارساز نیاز دارید، من می‌سازم." 
-        },
-        { 
-          icon: "🌱", 
-          title: "مشارکت در متن‌باز", 
-          desc: "کمک به پروژه‌های امنیتی متن‌باز. اگر پروژه‌ای دارید که نیاز به همکار دارد، من هستم." 
-        },
-        { 
-          icon: "🎯", 
-          title: "جستجوی همکاری حرفه‌ای", 
-          desc: "به دنبال فرصت‌های همکاری، کارآموزی و پروژه‌های چالش‌برانگیز هستم. اگر به تیم خود نیاز به یک عضو قوی دارید، با من تماس بگیرید." 
-        }
+        { icon: "📘", title: "امنیت وب پیشرفته", desc: "مطالعه آسیب‌پذیری‌های جدید و شرکت در چالش‌های CTF." },
+        { icon: "🔧", title: "ابزارهای امنیتی", desc: "توسعه ابزارهای خط فرمان با Python." },
+        { icon: "🌱", title: "متن‌باز", desc: "مشارکت در پروژه‌های امنیتی." },
+        { icon: "🎯", title: "کارآموزی", desc: "به دنبال فرصت‌های یادگیری و همکاری." }
       ]
     },
-    
     projects: {
-      tag: "📂 نمونه‌کارهای من",
-      title: "پروژه‌هایی که حرف می‌زنند",
-      subtitle: "این پروژه‌ها نشان می‌دهند که من چه کسی هستم و چه می‌توانم بسازم. اگر به دنبال همکاری هستید، اینها فقط شروع کار من هستند.",
+      tag: "پروژه‌ها",
+      title: "نمونه‌کارها",
+      subtitle: "پروژه‌هایی که با یادگیری خودآموز ساخته‌ام.",
       items: [
         {
           title: "overthewire-natas",
           date: "۱۴۰۵",
-          desc: "یک راهنمای کامل و دوزبانه برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas — یکی از معروف‌ترین سری چالش‌های امنیتی OverTheWire. این پروژه نشان می‌دهد که من تحلیلگر و مدرس خوبی هستم.",
+          desc: "راهنمای دوزبانه آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas.",
           bullets: [
-            "تحلیل مرحله‌به‌مرحله هر چالش با توضیح دقیق آسیب‌پذیری (SQL Injection، Command Injection، Path Traversal، XSS و...)",
-            "ارائه کد اکسپلویت عملی و راهکارهای مقابله برای هر نوع حمله",
-            "طراحی رابط کاربری نئونی با شبیه‌ساز ترمینال و Progress Tracker"
+            "تحلیل مرحله‌به‌مرحله هر چالش با توضیح آسیب‌پذیری",
+            "ارائه کد اکسپلویت و راهکارهای مقابله",
+            "رابط کاربری نئونی با شبیه‌ساز ترمینال"
           ],
           tech: ["HTML", "CSS", "JavaScript", "Web Security"],
           href: "https://github.com/here-is-leo"
@@ -118,11 +68,11 @@ const SITE = {
         {
           title: "V-Tunnel",
           date: "مرداد ۱۴۰۵",
-          desc: "Telegram Mini App برای مدیریت اتصالات امن و پروکسی — یک ابزار کاربردی برای ارتباطات امن که نشان می‌دهد من هم برنامه‌نویسم و هم به امنیت اهمیت می‌دهم.",
+          desc: "Telegram Mini App برای مدیریت اتصالات امن و پروکسی.",
           bullets: [
-            "مدیریت DNS عمومی (Google DNS، Cloudflare) و MTProto Proxies",
-            "مدیریت کانفیگ‌های V2Ray برای ارتباطات امن",
-            "طراحی با سبک Glassmorphism، تم تیره و پشتیبانی دوزبانه"
+            "مدیریت DNS عمومی و MTProto Proxies",
+            "مدیریت کانفیگ‌های V2Ray",
+            "طراحی با سبک Glassmorphism و تم تیره"
           ],
           tech: ["Python", "HTML/CSS/JS", "Telegram API"],
           href: "https://github.com/here-is-leo"
@@ -130,10 +80,10 @@ const SITE = {
         {
           title: "kali-linux-complete-guide",
           date: "مرداد ۱۴۰۵",
-          desc: "راهنمای جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — یک دانشنامه فشرده برای تست‌نفوذگران که نشان می‌دهد من در لینوکس و امنیت تخصص دارم.",
+          desc: "راهنمای جامع ابزارهای Kali Linux برای تست‌نفوذگران.",
           bullets: [
-            "پوشش ابزارهای کلیدی: Nmap، Metasploit، Wireshark، John the Ripper",
-            "فهرست مطالب تعاملی و پشتیبانی از حالت روشن/تاریک",
+            "پوشش ابزارهای کلیدی: Nmap، Metasploit، Wireshark",
+            "فهرست مطالب تعاملی و حالت روشن/تاریک",
             "محتوای دوزبانه فارسی/انگلیسی"
           ],
           tech: ["HTML", "CSS", "JavaScript", "Kali Linux"],
@@ -142,224 +92,156 @@ const SITE = {
         {
           title: "Bale-Bot",
           date: "مرداد ۱۴۰۵",
-          desc: "ربات پیام‌رسان هوشمند برای پلتفرم بله — یک پروژه در حال توسعه که نشان می‌دهد من عاشق چالش‌های جدید هستم و از یادگیری نمی‌ترسم.",
-          bullets: [
-            "پیاده‌سازی نسخه ابتدایی ربات با قابلیت پاسخگویی خودکار",
-            "توسعه و اضافه کردن ماژول‌های جدید در حال انجام"
-          ],
+          desc: "ربات پیام‌رسان هوشمند برای پلتفرم بله.",
+          bullets: ["نسخه ابتدایی با قابلیت پاسخگویی خودکار", "در حال توسعه با ماژول‌های جدید"],
           tech: ["Python", "Bale API"],
           href: "https://github.com/here-is-leo"
         }
       ]
     },
-    
     donation: {
-      badge: "🎉 حمایت از تولید محتوا",
+      badge: "🎉 حمایت",
       title1: "اگر از محتوای من",
       title2: "لذت می‌برید",
-      sub: "با <strong>یک قهوه ☕</strong> از من حمایت کنید تا بتوانم محتوای باکیفیت‌تری تولید کنم. هر حمایت شما، انگیزه‌ای برای ساخت محتوای بهتر است.",
-      btnText: "برای من قهوه بخر",
-      msg: "🎊 هر قهوه = یک جشن تازه"
+      sub: "با <strong>یک قهوه ☕</strong> از من حمایت کنید.",
+      btnText: "قهوه بخر",
+      msg: "🎊 ممنون از حمایت شما"
     },
-    
     aboutPreview: {
-      title: "آماده همکاری هستم",
-      desc: "اگر به دنبال یک برنامه‌نویس، متخصص لینوکس یا تست‌نفوذگر برای تیم خود هستید — من اینجا هستم. مهارت‌ها، پروژه‌ها و مسیر یادگیری من را ببینید و با من تماس بگیرید.",
-      cta: "درباره من"
+      title: "درباره من",
+      desc: "تحصیلات، دوره‌ها، مهارت‌ها و مسیر یادگیری من را ببینید.",
+      cta: "مشاهده"
     },
-    
     contact: {
-      tag: "📞 بیایید با هم کار کنیم",
-      title: "همین الان با من تماس بگیرید",
-      subtitle: "من به دنبال همکاری، کارآموزی و پروژه‌های چالش‌برانگیز هستم. اگر فکر می‌کنید می‌توانم به تیم شما کمک کنم — یک پیام بفرستید. منتظر شما هستم.",
+      tag: "تماس",
+      title: "در ارتباط باشیم",
+      subtitle: "برای همکاری، یادگیری یا هر سوالی خوشحال می‌شوم پاسخگو باشم.",
       items: [
         { icon: "✉️", label: "ایمیل", value: "ilyafarahanii@gmail.com", href: "mailto:ilyafarahanii@gmail.com" },
         { icon: "📱", label: "تماس", value: "۰۹۰۳۰۸۳۹۷۹۰", href: "tel:+989030839790" },
-        { icon: "📍", label: "موقعیت", value: "تهران، ایران — آماده همکاری آنلاین", href: null },
+        { icon: "📍", label: "موقعیت", value: "تهران، ایران", href: null },
         { icon: "🐙", label: "گیت‌هاب", value: "github.com/here-is-leo", href: "https://github.com/here-is-leo" }
       ]
     },
-    
-    footer: "© " + new Date().getFullYear() + " ایلیا فراهانی (ایلیا عزیزابادی | here-is-leo). ساخته شده با ☕ و عشق به کد — آماده همکاری با شما",
-    
+    footer: "© " + new Date().getFullYear() + " ایلیا فراهانی",
     about: {
-      heroTitle: "درباره من — بیایید با هم کار کنیم",
-      heroSubtitle: "برنامه‌نویس Python و C# | متخصص لینوکس | تست‌نفوذگر امنیت وب | آماده همکاری",
+      heroTitle: "درباره من",
+      heroSubtitle: "برنامه‌نویس Python و C# | متخصص لینوکس و Kali Linux",
       
-      introTag: "💡 من کی هستم و چه می‌خواهم؟",
-      intro: "من **ایلیا فراهانی** هستم، برنامه‌نویس و متخصص امنیت سایبری. اما بیشتر از هر چیز، من یک **حل‌کننده مشکل** هستم. اگر تیم شما به کسی نیاز دارد که:\n\n🔹 با **Python** ابزارهای امنیتی بسازد و بک‌اند توسعه دهد\n🔹 با **C# (MVC)** وب‌اپلیکیشن‌های حرفه‌ای طراحی کند\n🔹 **لینوکس** را از صفر تا صد مدیریت کند و سرورها را امن نگه دارد\n🔹 با **Kali Linux** تست نفوذ انجام دهد و آسیب‌پذیری‌ها را شناسایی کند\n\nپس من همان نفر هستم. من به دنبال **همکاری، کارآموزی و پروژه‌های چالش‌برانگیز** هستم. اگر فکر می‌کنید می‌توانم به تیم شما اضافه شوم — همین الان با من تماس بگیرید.",
+      introTag: "بیوگرافی",
+      intro: "من ایلیا فراهانی هستم. از همان روزهای اول، لینوکس برایم فراتر از یک سیستم‌عامل بود. با گذراندن ۳۵ مرحله چالش Natas، به امنیت وب علاقه‌مند شدم.\n\nامروز با Python و C# ابزار می‌سازم، با لینوکس و Kali امنیت را آزمایش می‌کنم و هر روز چیزی جدید یاد می‌گیرم.",
       
-      eduTag: "🎓 تخصص‌های من — چرا من را انتخاب کنید؟",
-      eduTitle: "مسیری که من را به اینجا رساند",
+      eduTag: "تحصیلات و دوره‌ها",
+      eduTitle: "مسیر یادگیری",
       timeline: [
         { 
-          title: "🐧 تسلط کامل بر لینوکس", 
-          sub: "مدیریت سرور و ابزارهای حرفه‌ای — بیش از ۱۰ توزیع", 
-          desc: "کار با توزیع‌های مختلف لینوکس از جمله Ubuntu، Debian، CentOS، Fedora و تخصص ویژه روی **Kali Linux**. تسلط کامل بر خط فرمان، bash scripting، مدیریت فرآیندها، شبکه‌سازی، فایروال و امنیت لینوکس. اگر تیم شما به یک متخصص لینوکس نیاز دارد، من آماده‌ام." 
+          title: "تسلط بر لینوکس", 
+          sub: "مدیریت سرور و ابزارهای حرفه‌ای", 
+          desc: "کار با توزیع‌های مختلف لینوکس، bash scripting، شبکه‌سازی و امنیت." 
         },
         { 
-          title: "🛡️ تست نفوذ تخصصی با Kali Linux", 
-          sub: "آسیب‌پذیری‌یابی و امنیت تهاجمی — ابزارهای حرفه‌ای", 
-          desc: "آشنایی عمیق با ابزارهای پیشرفته Kali شامل **Nmap** (اسکن شبکه)، **Metasploit** (بهره‌برداری)، **Wireshark** (تحلیل ترافیک)، **John the Ripper** (کرک پسورد)، **Burp Suite** (تست نفوذ وب) و **Aircrack-ng** (امنیت وای‌فای). انجام تست نفوذ در محیط‌های کنترل‌شده و شبیه‌سازی حملات واقعی. اگر به دنبال تست‌نفوذگر هستید که حرفه‌ای کار کند، من انتخاب شما هستم." 
+          title: "تست نفوذ با Kali Linux", 
+          sub: "ابزارهای حرفه‌ای امنیت", 
+          desc: "کار با Nmap، Metasploit، Wireshark، John the Ripper و Burp Suite." 
         },
         { 
-          title: "#️⃣ برنامه‌نویسی C# (MVC)", 
-          sub: "توسعه وب با معماری مدرن — پروژه‌های مقیاس‌پذیر", 
-          desc: "طراحی و پیاده‌سازی وب‌اپلیکیشن‌های پویا با معماری MVC در **C#**. تسلط بر Entity Framework، LINQ، Razor Pages و ساخت APIهای RESTful. تجربه عملی در توسعه پروژه‌های مقیاس‌پذیر با دات‌نت. اگر تیم شما به توسعه‌دهنده C# نیاز دارد، من آماده همکاری هستم." 
+          title: "برنامه‌نویسی C# (MVC)", 
+          sub: "توسعه وب با معماری مدرن", 
+          desc: "طراحی وب‌اپلیکیشن با C#، Entity Framework و RESTful API." 
         },
         { 
-          title: "🎯 دوره‌های تخصصی امنیت", 
-          sub: "از شبکه تا وب اپلیکیشن — آموزش دیده و آماده", 
-          desc: "**دوره PWK** (Penetration Testing with Kali Linux) — متدولوژی‌های تست نفوذ استاندارد. **دوره Network+** — مفاهیم پیشرفته شبکه، پروتکل‌ها و امنیت زیرساخت. **دوره فناوری‌های پیشرفته** — آکادمی دانشگاه شریف و تکنو شریف. من نه تنها خودآموز هستم، بلکه دوره‌های تخصصی را هم گذرانده‌ام." 
+          title: "دوره‌های تخصصی", 
+          sub: "آکادمی شریف و PWK", 
+          desc: "دوره فناوری‌های پیشرفته، PWK و Network+." 
         }
       ],
       
-      skillsTag: "🧰 مهارت‌های من — همان چیزی که تیم شما نیاز دارد",
-      skillsTitle: "خلاصه توانمندی‌های حرفه‌ای",
+      skillsTag: "مهارت‌ها",
+      skillsTitle: "خلاصه مهارت‌ها",
       skillsList: [
-        "🐍 Python — توسعه ابزارهای امنیتی، بک‌اند و اتوماسیون",
-        "#️⃣ C# (MVC) — توسعه وب حرفه‌ای و API",
-        "🐧 لینوکس — تسلط کامل (مدیریت، شبکه، امنیت، bash)",
-        "🛡️ Kali Linux — تست نفوذ تخصصی و آسیب‌پذیری‌یابی",
-        "🔍 Nmap — اسکن و شناسایی پیشرفته شبکه",
-        "💥 Metasploit — بهره‌برداری و تست نفوذ حرفه‌ای",
-        "🌐 Burp Suite — تحلیل و تست امنیت وب",
-        "🗄️ SQL Server / SQLite — طراحی و مدیریت داده",
-        "📡 Wireshark — تحلیل ترافیک و عیب‌یابی شبکه",
-        "🔑 John the Ripper — کرک و امنیت پسورد",
-        "📱 WordPress — توسعه، شخصی‌سازی و امنیت",
-        "📂 Git / GitHub — کنترل نسخه و همکاری تیمی"
+        "Python — ابزارسازی و بک‌اند",
+        "C# (MVC) — توسعه وب",
+        "لینوکس — مدیریت و شبکه",
+        "Kali Linux — تست نفوذ",
+        "SQL Server / SQLite",
+        "امنیت وب — Natas و PWK"
       ],
       
-      langTag: "🌍 زبان‌ها — ارتباط بدون مرز",
+      langTag: "زبان‌ها",
       langTitle: "زبان‌های مسلط",
       langList: [
-        "🇮🇷 فارسی — زبان مادری — ارتباط روان و حرفه‌ای",
-        "🇬🇧 انگلیسی — سطح پیشرفته (B2+) — مطالعه مستندات تخصصی، منابع امنیتی و ارتباط با تیم‌های بین‌المللی"
+        "فارسی — زبان مادری",
+        "انگلیسی — B2+"
       ],
       
-      githubTag: "📊 فعالیت گیت‌هاب — تعهد و پشتکار",
-      githubText: "۸۷ مشارکت (commit) در یک سال اخیر با تمرکز بر پروژه‌های امنیتی و آموزشی. بیشترین فعالیت در مرداد ۱۴۰۵ — ساخت ابزارهای تست نفوذ، راهنماهای امنیتی و اسکریپت‌های اتوماسیون لینوکس. اگر به دنبال کسی هستید که متعهد و پرکار باشد، من همان نفر هستم.",
-      githubLinkText: "github.com/here-is-leo — مشاهده پروژه‌ها"
+      githubTag: "گیت‌هاب",
+      githubText: "۸۷ مشارکت در یک سال اخیر، با تمرکز بر پروژه‌های امنیتی و آموزشی.",
+      githubLinkText: "github.com/here-is-leo"
     }
   },
-  
-  // ============================================================
-  // ENGLISH VERSION — PROFESSIONAL INVITATION
-  // ============================================================
   
   en: {
     dir: "ltr", lang: "en",
     meta: {
-      titleHome: "Ilia Farahani | Python & C# Developer | Linux Expert & Security Specialist",
-      descHome: "Personal site of Ilia Farahani (Ilia Azizabadi | here-is-leo); Python & C# developer, Linux expert, Kali Linux pentester. Open for collaboration and internships.",
-      titleAbout: "About Ilia Farahani | Developer, Linux Expert & Pentester — Open for Collaboration",
-      descAbout: "Biography, expertise and skills of Ilia Farahani — Python & C# developer, Linux expert, Kali Linux penetration tester. Ready for collaboration and challenging projects."
+      titleHome: "Ilia Farahani | Python & C# Developer | Linux & Security Specialist",
+      descHome: "Personal site of Ilia Farahani; Python & C# developer, Linux expert and Kali Linux pentester. Explore projects, skills and contact info.",
+      titleAbout: "About Ilia Farahani",
+      descAbout: "Biography, education, courses and skills of Ilia Farahani — Python & C# developer, Linux expert and Kali Linux specialist."
     },
     nav: { home: "Home", skills: "Skills", projects: "Projects", contact: "Contact", about: "About", blog: "Blog" },
-    
     hero: {
-      eyebrow: "🚀 Open for Challenging Collaborations",
+      eyebrow: "Open to learning & collaboration",
       title1: "Hi, I'm",
-      name: "Ilia Farahani (Ilia Azizabadi | here-is-leo)",
-      title2: "👋",
-      typewriter: [
-        "Python & C# Developer",
-        "Linux & Kali Expert",
-        "Web Security Pentester",
-        "Ready to Collaborate"
-      ],
-      subtitle: "I combine **development**, **Linux**, and **security** to build solutions that go beyond code. If you're looking for a team member who codes, thinks about security, and loves challenges — I'm the one. Let's build something great together.",
+      name: "Ilia Farahani",
+      title2: "",
+      typewriter: ["Python Developer", "Linux Expert", "Kali Linux Pentester"],
+      subtitle: "Programming and security, two sides of the same coin. With Python, C#, Linux and Kali, I build solutions that are both efficient and secure.",
       cta1: "View Projects",
       cta2: "About Me"
     },
-    
     stats: [
-      { number: 35, suffix: "+", label: "Security Challenges Solved" },
-      { number: 87, suffix: "", label: "Commits in a Year" },
-      { number: 4, suffix: "", label: "Hands-on Projects" },
-      { number: 3, suffix: "", label: "Programming Languages" }
+      { number: 35, suffix: "+", label: "Security Challenges" },
+      { number: 87, suffix: "", label: "Commits" },
+      { number: 4, suffix: "", label: "Projects" },
+      { number: 3, suffix: "", label: "Languages" }
     ],
-    
     skills: {
-      tag: "🧠 My Skills",
-      title: "Tools I use to solve problems",
-      subtitle: "Every skill of mine is a solution to your challenges. From development to security, from Linux to web — I'm here to make your team stronger.",
+      tag: "Skills",
+      title: "What I work with",
+      subtitle: "A mix of programming, systems and security.",
       items: [
-        { 
-          icon: "🐍", 
-          title: "Python — Development & Security", 
-          desc: "Building security tools, automation scripts, backend APIs, and custom solutions. If you need a developer who also understands security, I'm your choice." 
-        },
-        { 
-          icon: "#️⃣", 
-          title: "C# (MVC) — Professional Web", 
-          desc: "Developing scalable web applications with MVC architecture, Entity Framework, and RESTful APIs. Ready for .NET projects." 
-        },
-        { 
-          icon: "🐧", 
-          title: "Linux — From Zero to Hero", 
-          desc: "Server administration, networking, bash scripting, security, and troubleshooting. If your team needs a Linux expert, I've worked professionally with 10+ distributions." 
-        },
-        { 
-          icon: "🛡️", 
-          title: "Kali Linux — Specialized Pentesting", 
-          desc: "Vulnerability identification with Nmap, exploitation with Metasploit, traffic analysis with Wireshark, and web pentesting with Burp Suite. Security is my expertise, not just an interest." 
-        },
-        { 
-          icon: "🗄️", 
-          title: "Databases — Design & Management", 
-          desc: "Database design, query optimization, data management with SQL Server and SQLite. Your data is in safe hands." 
-        },
-        { 
-          icon: "🌐", 
-          title: "Web Security — From Natas to PWK", 
-          desc: "Completed all 35 levels of Natas challenges, familiar with OWASP Top 10, vulnerability analysis, and mitigation strategies. I'll keep your web secure." 
-        }
+        { icon: "🐍", title: "Python", desc: "Scripting, tooling, backend and security projects." },
+        { icon: "#️⃣", title: "C# (MVC)", desc: "Web development with MVC, Entity Framework and RESTful API." },
+        { icon: "🐧", title: "Linux", desc: "Server administration, bash scripting, networking and security." },
+        { icon: "🛡️", title: "Kali Linux", desc: "Pentesting with Nmap, Metasploit, Burp Suite and Wireshark." },
+        { icon: "🗄️", title: "Databases", desc: "Design and management with SQL Server and SQLite." },
+        { icon: "🌐", title: "Web Security", desc: "Vulnerability analysis, Natas challenges and PWK." }
       ]
     },
-    
     focus: {
-      tag: "🔥 What I'm Working On",
-      title: "Projects worth investing in",
-      subtitle: "I'm looking for challenging projects and professional teams. If you're interested in collaboration, contact me right now.",
+      tag: "Currently focused on",
+      title: "What I'm working on",
+      subtitle: "One step forward every day.",
       items: [
-        { 
-          icon: "📘", 
-          title: "Advanced Web Security", 
-          desc: "Studying latest vulnerabilities and participating in CTF challenges. If you have a security team, I'm ready to join." 
-        },
-        { 
-          icon: "🔧", 
-          title: "Building Security Tools", 
-          desc: "Developing Python CLI tools for penetration testing. If you need a tool builder, I can create." 
-        },
-        { 
-          icon: "🌱", 
-          title: "Open Source Contributions", 
-          desc: "Contributing to security-related open-source projects. If you have a project that needs a collaborator, I'm here." 
-        },
-        { 
-          icon: "🎯", 
-          title: "Seeking Professional Collaboration", 
-          desc: "Looking for collaboration opportunities, internships, and challenging projects. If your team needs a strong member, contact me." 
-        }
+        { icon: "📘", title: "Web Security", desc: "Studying vulnerabilities and CTF challenges." },
+        { icon: "🔧", title: "Security Tools", desc: "Building Python CLI tools." },
+        { icon: "🌱", title: "Open Source", desc: "Contributing to security projects." },
+        { icon: "🎯", title: "Internship", desc: "Looking for learning opportunities." }
       ]
     },
-    
     projects: {
-      tag: "📂 My Portfolio",
-      title: "Projects that speak for themselves",
-      subtitle: "These projects show who I am and what I can build. If you're looking for collaboration, this is just the beginning.",
+      tag: "Projects",
+      title: "Portfolio",
+      subtitle: "Projects built through self-driven learning.",
       items: [
         {
           title: "overthewire-natas",
           date: "2026",
-          desc: "A complete bilingual guide for teaching web security through 35 levels of Natas challenges — one of the most famous OverTheWire security series. This project shows I'm a great analyst and teacher.",
+          desc: "Bilingual guide for learning web security through 35 Natas challenges.",
           bullets: [
-            "Step-by-step analysis of each level with detailed vulnerability explanations (SQL Injection, Command Injection, Path Traversal, XSS, etc.)",
-            "Practical exploit code and mitigation strategies for every attack type",
-            "Neon-styled UI with terminal simulator and built-in Progress Tracker"
+            "Step-by-step analysis with vulnerability explanations",
+            "Exploit code and mitigation strategies",
+            "Neon-styled UI with terminal simulator"
           ],
           tech: ["HTML", "CSS", "JavaScript", "Web Security"],
           href: "https://github.com/here-is-leo"
@@ -367,11 +249,11 @@ const SITE = {
         {
           title: "V-Tunnel",
           date: "Aug 2026",
-          desc: "A Telegram Mini App for managing secure connections and proxies — a practical tool that shows I'm both a developer and security-conscious.",
+          desc: "Telegram Mini App for managing secure connections and proxies.",
           bullets: [
-            "Manage public DNS servers (Google DNS, Cloudflare) and MTProto proxies",
-            "Manage V2Ray configs for secure communication",
-            "Glassmorphism dark-themed UI with bilingual support"
+            "DNS and MTProto proxy management",
+            "V2Ray configuration management",
+            "Glassmorphism dark-themed UI"
           ],
           tech: ["Python", "HTML/CSS/JS", "Telegram API"],
           href: "https://github.com/here-is-leo"
@@ -379,10 +261,10 @@ const SITE = {
         {
           title: "kali-linux-complete-guide",
           date: "Aug 2026",
-          desc: "A comprehensive guide (40+ pages) covering Kali Linux tools — a compact encyclopedia for penetration testers that shows my Linux and security expertise.",
+          desc: "Comprehensive guide to Kali Linux tools for penetration testers.",
           bullets: [
-            "Covers key tools: Nmap, Metasploit, Wireshark, John the Ripper",
-            "Interactive table of contents and light/dark mode support",
+            "Covers Nmap, Metasploit, Wireshark",
+            "Interactive TOC and light/dark mode",
             "Bilingual Persian/English content"
           ],
           tech: ["HTML", "CSS", "JavaScript", "Kali Linux"],
@@ -391,102 +273,91 @@ const SITE = {
         {
           title: "Bale-Bot",
           date: "Aug 2026",
-          desc: "An intelligent messaging bot for the Bale platform — a project in development that shows I love new challenges and never stop learning.",
-          bullets: ["Initial bot version with auto-reply capability implemented", "Adding new modules and features in progress"],
+          desc: "Intelligent messaging bot for the Bale platform.",
+          bullets: ["Initial version with auto-reply", "Adding new modules in progress"],
           tech: ["Python", "Bale API"],
           href: "https://github.com/here-is-leo"
         }
       ]
     },
-    
     donation: {
-      badge: "🎉 Support Content Creation",
+      badge: "🎉 Support",
       title1: "If you enjoy",
       title2: "my content",
-      sub: "Support me with <strong>a coffee ☕</strong> so I can keep producing high-quality content. Your support motivates me to create better content.",
-      btnText: "Buy me a coffee",
-      msg: "🎊 Every coffee = a new celebration"
+      sub: "Support me with <strong>a coffee ☕</strong>.",
+      btnText: "Buy coffee",
+      msg: "🎊 Thank you for your support"
     },
-    
     aboutPreview: {
-      title: "Ready to Collaborate",
-      desc: "If you're looking for a developer, Linux expert, or penetration tester for your team — I'm here. Check out my skills, projects, and learning path, then contact me.",
-      cta: "About Me"
+      title: "About Me",
+      desc: "View my education, courses, skills and learning path.",
+      cta: "View"
     },
-    
     contact: {
-      tag: "📞 Let's Work Together",
-      title: "Contact Me Right Now",
-      subtitle: "I'm looking for collaboration, internships, and challenging projects. If you think I can help your team — send me a message. I'm waiting for you.",
+      tag: "Contact",
+      title: "Let's connect",
+      subtitle: "Happy to connect for collaboration, learning or any questions.",
       items: [
         { icon: "✉️", label: "Email", value: "ilyafarahanii@gmail.com", href: "mailto:ilyafarahanii@gmail.com" },
         { icon: "📱", label: "Phone", value: "+98 903 083 9790", href: "tel:+989030839790" },
-        { icon: "📍", label: "Location", value: "Tehran, Iran — Ready for Remote Work", href: null },
+        { icon: "📍", label: "Location", value: "Tehran, Iran", href: null },
         { icon: "🐙", label: "GitHub", value: "github.com/here-is-leo", href: "https://github.com/here-is-leo" }
       ]
     },
-    
-    footer: "© " + new Date().getFullYear() + " Ilia Farahani (Ilia Azizabadi | here-is-leo). Made with ☕ and love for code — Ready to Collaborate",
-    
+    footer: "© " + new Date().getFullYear() + " Ilia Farahani",
     about: {
-      heroTitle: "About Me — Let's Work Together",
-      heroSubtitle: "Python & C# Developer | Linux Expert | Web Security Pentester | Open for Collaboration",
+      heroTitle: "About Me",
+      heroSubtitle: "Python & C# Developer | Linux & Kali Linux Expert",
       
-      introTag: "💡 Who I Am & What I Want",
-      intro: "I'm **Ilia Farahani**, a developer and cybersecurity specialist. But more than anything, I'm a **problem solver**. If your team needs someone who:\n\n🔹 Builds security tools and develops backends with **Python**\n🔹 Designs professional web applications with **C# (MVC)**\n🔹 Manages **Linux** from zero to hero and keeps servers secure\n🔹 Performs penetration testing with **Kali Linux** and identifies vulnerabilities\n\nThen I'm the one. I'm looking for **collaboration, internships, and challenging projects**. If you think I can add value to your team — contact me right now.",
+      introTag: "Biography",
+      intro: "I'm Ilia Farahani. From the early days, Linux was more than an OS to me. After completing 35 Natas challenges, I became passionate about web security.\n\nToday I build tools with Python and C#, test security with Linux and Kali, and learn something new every day.",
       
-      eduTag: "🎓 My Expertise — Why Choose Me?",
-      eduTitle: "The Path That Brought Me Here",
+      eduTag: "Education & Courses",
+      eduTitle: "Learning Path",
       timeline: [
         { 
-          title: "🐧 Complete Linux Mastery", 
-          sub: "Server Administration & Professional Tools — 10+ Distributions", 
-          desc: "Working with various Linux distributions including Ubuntu, Debian, CentOS, Fedora, with specialized expertise in **Kali Linux**. Complete command-line fluency, bash scripting, process management, networking, firewalls, and Linux security hardening. If your team needs a Linux expert, I'm ready." 
+          title: "Linux Mastery", 
+          sub: "Server Administration", 
+          desc: "Working with Linux distributions, bash scripting, networking and security." 
         },
         { 
-          title: "🛡️ Specialized Pentesting with Kali", 
-          sub: "Vulnerability Assessment & Offensive Security — Professional Tools", 
-          desc: "Deep familiarity with advanced Kali tools: **Nmap** (network scanning), **Metasploit** (exploitation), **Wireshark** (traffic analysis), **John the Ripper** (password cracking), **Burp Suite** (web pentesting), and **Aircrack-ng** (WiFi security). Conducting penetration tests in controlled environments and simulating real-world attacks. If you need a professional pentester, I'm your choice." 
+          title: "Kali Linux Pentesting", 
+          sub: "Security Tools", 
+          desc: "Working with Nmap, Metasploit, Wireshark, John the Ripper and Burp Suite." 
         },
         { 
-          title: "#️⃣ C# (MVC) Development", 
-          sub: "Modern Web Architecture — Scalable Projects", 
-          desc: "Designing and implementing dynamic web applications with **C#** MVC architecture. Expertise in Entity Framework, LINQ, Razor Pages, and building RESTful APIs. Practical experience in scalable .NET development. If your team needs a C# developer, I'm ready to collaborate." 
+          title: "C# (MVC) Development", 
+          sub: "Web Architecture", 
+          desc: "Web development with C#, Entity Framework and RESTful API." 
         },
         { 
-          title: "🎯 Security Specialization Courses", 
-          sub: "From Network to Web Application — Trained & Ready", 
-          desc: "**PWK Course** (Penetration Testing with Kali Linux) — standard penetration testing methodologies. **Network+ Course** — advanced network concepts, protocols, and infrastructure security. **Advanced Technologies Course** — Sharif University Academy & Techno Sharif. I'm not just self-taught; I've completed professional courses too." 
+          title: "Specialized Courses", 
+          sub: "Sharif Academy & PWK", 
+          desc: "Advanced Technologies, PWK and Network+ courses." 
         }
       ],
       
-      skillsTag: "🧰 My Skills — What Your Team Needs",
-      skillsTitle: "Professional Skills Summary",
+      skillsTag: "Skills",
+      skillsTitle: "Skills Summary",
       skillsList: [
-        "🐍 Python — Security Tools, Backend & Automation",
-        "#️⃣ C# (MVC) — Professional Web Development & API",
-        "🐧 Linux — Complete Mastery (Admin, Networking, Security, Bash)",
-        "🛡️ Kali Linux — Specialized Pentesting & Vulnerability Assessment",
-        "🔍 Nmap — Advanced Network Scanning & Discovery",
-        "💥 Metasploit — Professional Exploitation & Pentesting",
-        "🌐 Burp Suite — Web Security Analysis & Testing",
-        "🗄️ SQL Server / SQLite — Data Design & Management",
-        "📡 Wireshark — Traffic Analysis & Network Troubleshooting",
-        "🔑 John the Ripper — Password Security & Cracking",
-        "📱 WordPress — Development, Customization & Security",
-        "📂 Git / GitHub — Version Control & Team Collaboration"
+        "Python — Tooling & Backend",
+        "C# (MVC) — Web Development",
+        "Linux — Administration & Networking",
+        "Kali Linux — Penetration Testing",
+        "SQL Server / SQLite",
+        "Web Security — Natas & PWK"
       ],
       
-      langTag: "🌍 Languages — Communication Without Borders",
+      langTag: "Languages",
       langTitle: "Languages",
       langList: [
-        "🇮🇷 Persian — Native — Fluent & Professional Communication",
-        "🇬🇧 English — Advanced (B2+) — Technical Documentation, Security Research & International Teams"
+        "Persian — Native",
+        "English — B2+"
       ],
       
-      githubTag: "📊 GitHub Activity — Commitment & Dedication",
-      githubText: "87 commits in the past year focused on security and educational projects. Peak activity in August 2026 — building pentesting tools, security guides, and Linux automation scripts. If you need someone committed and hardworking, I'm the one.",
-      githubLinkText: "github.com/here-is-leo — View My Projects"
+      githubTag: "GitHub",
+      githubText: "87 commits in the past year, focused on security and educational projects.",
+      githubLinkText: "github.com/here-is-leo"
     }
   }
 };
