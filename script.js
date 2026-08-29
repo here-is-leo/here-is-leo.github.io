@@ -6,6 +6,13 @@ function setLang(l) { localStorage.setItem("site-lang", l); }
 function getTheme() { return localStorage.getItem("site-theme") || "dark"; }
 function setTheme(t) { localStorage.setItem("site-theme", t); document.documentElement.dataset.theme = t; }
 
+// ============================================================
+// DETECT MOBILE
+// ============================================================
+function isMobile() {
+  return window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+}
+
 function el(tag, cls, html) {
   const n = document.createElement(tag);
   if (cls) n.className = cls;
@@ -34,6 +41,28 @@ function iconSVG(value) {
   };
   var path = paths[key] || "<circle cx='12' cy='12' r='8'/><path d='M12 8v8M8 12h8'/>";
   return "<svg class='icon-svg' viewBox='0 0 24 24' aria-hidden='true' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>" + path + "</svg>";
+}
+
+// آیکون‌های فالبک برای موبایل (حروف اختصاری)
+function getIconFallback(emoji) {
+  var map = {
+    "🐍": "Py",
+    "🖥️": "Ln",
+    "🛡️": "Sec",
+    "🗄️": "DB",
+    "#️⃣": "C#",
+    "🌐": "WP",
+    "📘": "Lrn",
+    "🔧": "Tl",
+    "🌱": "OSS",
+    "🎯": "Goal",
+    "✉️": "Mail",
+    "📱": "Ph",
+    "📍": "Loc",
+    "🐙": "Git",
+    "☕": "Cof"
+  };
+  return map[emoji] || "•";
 }
 
 // ============================================================
@@ -140,7 +169,7 @@ function animateCounters() {
 }
 
 // ============================================================
-// SCROLL REVEAL (Intersection Observer)
+// SCROLL REVEAL
 // ============================================================
 function initReveal() {
   var observer = new IntersectionObserver(function(entries) {
@@ -180,6 +209,9 @@ function initRipple() {
 }
 
 function initSpotlights() {
+  // فقط در دسکتاپ
+  if (isMobile()) return;
+  
   var cards = document.querySelectorAll(".skill-card,.focus-card,.project-card,.contact-card,.stat-card");
   cards.forEach(function(card) {
     card.addEventListener("pointermove", function(e) {
@@ -192,7 +224,7 @@ function initSpotlights() {
 
 function initParallax() {
   var hero = document.querySelector(".hero-text");
-  if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!hero || window.matchMedia("(prefers-reduced-motion: reduce)").matches || isMobile()) return;
   var ticking = false;
   window.addEventListener("scroll", function() {
     if (ticking) return;
@@ -207,8 +239,13 @@ function initParallax() {
 }
 
 function initCinematicMotion() {
+  // فقط در دسکتاپ و با رعایت reduce motion
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (isMobile()) return;
+  
   document.querySelectorAll(".particle-field,.cursor-glow").forEach(function(node) { node.remove(); });
+  
+  // Particles
   var field = document.createElement("div");
   field.className = "particle-field";
   for (var i = 0; i < 28; i++) {
@@ -223,6 +260,7 @@ function initCinematicMotion() {
   }
   document.body.appendChild(field);
 
+  // Cursor glow
   var glow = document.createElement("div");
   glow.className = "cursor-glow";
   document.body.appendChild(glow);
@@ -238,10 +276,12 @@ function initCinematicMotion() {
     requestAnimationFrame(follow);
   }
   follow();
+  
   document.querySelectorAll("a,button,.project-card,.skill-card,.focus-card").forEach(function(el) {
     el.addEventListener("pointerenter", function() { glow.classList.add("is-hover"); });
     el.addEventListener("pointerleave", function() { glow.classList.remove("is-hover"); });
   });
+  
   document.querySelectorAll(".project-card,.skill-card,.focus-card,.contact-card").forEach(function(card) {
     card.addEventListener("pointermove", function(e) {
       var r = card.getBoundingClientRect();
@@ -251,6 +291,16 @@ function initCinematicMotion() {
     });
     card.addEventListener("pointerleave", function() { card.style.transform = ""; });
   });
+}
+
+// ============================================================
+// RENDER ICON (با تشخیص موبایل)
+// ============================================================
+function renderIcon(emoji, className) {
+  if (isMobile()) {
+    return `<span class="${className || 'icon'} icon-fallback">${getIconFallback(emoji)}</span>`;
+  }
+  return `<span class="${className || 'icon'}">${iconSVG(emoji)}</span>`;
 }
 
 // ============================================================
@@ -276,6 +326,7 @@ function renderHome(data) {
     hero.appendChild(cta);
     setTimeout(function() { startTypewriter(data.hero.typewriter, tw); }, 600);
   }
+  
   var avatar = document.getElementById("hero-avatar");
   if (avatar) avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
   if (avatar) avatar.querySelector("span").style.display = "none";
@@ -303,7 +354,11 @@ function renderHome(data) {
     skillsGrid.innerHTML = "";
     data.skills.items.forEach(function(s, i) {
       var card = el("div", "skill-card reveal reveal-delay-" + (i % 4));
-      card.append(el("div", "icon", iconSVG(s.icon)), el("h3", null, s.title), el("p", null, s.desc));
+      card.innerHTML = `
+        ${renderIcon(s.icon, "icon")}
+        <h3>${s.title}</h3>
+        <p>${s.desc}</p>
+      `;
       skillsGrid.appendChild(card);
     });
   }
@@ -320,7 +375,11 @@ function renderHome(data) {
     focusGrid.innerHTML = "";
     data.focus.items.forEach(function(f, i) {
       var card = el("div", "focus-card reveal reveal-delay-" + (i % 4));
-      card.append(el("div", "icon", iconSVG(f.icon)), el("h3", null, f.title), el("p", null, f.desc));
+      card.innerHTML = `
+        ${renderIcon(f.icon, "icon")}
+        <h3>${f.title}</h3>
+        <p>${f.desc}</p>
+      `;
       focusGrid.appendChild(card);
     });
   }
@@ -361,10 +420,10 @@ function renderHome(data) {
   if (donationSub) donationSub.innerHTML = data.donation.sub;
   var donateBtn = document.getElementById("donateBtn");
   if (donateBtn) {
-    donateBtn.innerHTML = "<span class=\"icon\">" + iconSVG("☕") + "</span><span class=\"btn-text\">" + data.donation.btnText + "</span>";
+    donateBtn.innerHTML = `<span class="icon">${isMobile() ? '☕' : iconSVG("☕")}</span><span class="btn-text">${data.donation.btnText}</span>`;
   }
   var donateMsg = document.getElementById("donate-message");
-  if (donateMsg) donateMsg.innerHTML = "<span class=\"emoji\">" + iconSVG("🎯") + "</span><span>" + data.donation.msg + "</span>";
+  if (donateMsg) donateMsg.innerHTML = `<span class="emoji">${isMobile() ? '🎯' : iconSVG("🎯")}</span><span>${data.donation.msg}</span>`;
 
   // About preview
   var apTitle = document.getElementById("about-preview-title");
@@ -392,7 +451,10 @@ function renderHome(data) {
       }
       var text = el("div");
       text.append(el("div", "label", c.label), el("div", "value", c.value));
-      wrapper.append(el("div", "icon", iconSVG(c.icon)), text);
+      wrapper.innerHTML = `
+        ${renderIcon(c.icon, "icon")}
+        ${text.outerHTML}
+      `;
       contactGrid.appendChild(wrapper);
     });
   }
