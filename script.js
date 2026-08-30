@@ -43,7 +43,6 @@ function iconSVG(value) {
   return "<svg class='icon-svg' viewBox='0 0 24 24' aria-hidden='true' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>" + path + "</svg>";
 }
 
-// آیکون‌های فالبک برای موبایل (حروف اختصاری)
 function getIconFallback(emoji) {
   var map = {
     "🐍": "Py",
@@ -60,7 +59,10 @@ function getIconFallback(emoji) {
     "📱": "Ph",
     "📍": "Loc",
     "🐙": "Git",
-    "☕": "Cof"
+    "☕": "Cof",
+    "📜": "JS",
+    "⚛️": "NN",
+    "🔒": "Sec"
   };
   return map[emoji] || "•";
 }
@@ -209,7 +211,6 @@ function initRipple() {
 }
 
 function initSpotlights() {
-  // فقط در دسکتاپ
   if (isMobile()) return;
   
   var cards = document.querySelectorAll(".skill-card,.focus-card,.project-card,.contact-card,.stat-card");
@@ -239,13 +240,11 @@ function initParallax() {
 }
 
 function initCinematicMotion() {
-  // فقط در دسکتاپ و با رعایت reduce motion
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (isMobile()) return;
   
   document.querySelectorAll(".particle-field,.cursor-glow").forEach(function(node) { node.remove(); });
   
-  // Particles
   var field = document.createElement("div");
   field.className = "particle-field";
   for (var i = 0; i < 28; i++) {
@@ -260,7 +259,6 @@ function initCinematicMotion() {
   }
   document.body.appendChild(field);
 
-  // Cursor glow
   var glow = document.createElement("div");
   glow.className = "cursor-glow";
   document.body.appendChild(glow);
@@ -294,7 +292,7 @@ function initCinematicMotion() {
 }
 
 // ============================================================
-// RENDER ICON (با تشخیص موبایل)
+// RENDER ICON
 // ============================================================
 function renderIcon(emoji, className) {
   if (isMobile()) {
@@ -354,13 +352,29 @@ function renderHome(data) {
     skillsGrid.innerHTML = "";
     data.skills.items.forEach(function(s, i) {
       var card = el("div", "skill-card reveal reveal-delay-" + (i % 4));
+      var level = s.level || 0;
       card.innerHTML = `
         ${renderIcon(s.icon, "icon")}
         <h3>${s.title}</h3>
         <p>${s.desc}</p>
+        <div class="skill-level">
+          <div class="bar" style="--level: ${level}%;" data-level="${level}"></div>
+        </div>
+        <div class="level-label">
+          <span>مبتدی</span>
+          <span>${level}%</span>
+          <span>حرفه‌ای</span>
+        </div>
       `;
       skillsGrid.appendChild(card);
     });
+    
+    // انیمیشن بارها بعد از لود
+    setTimeout(function() {
+      document.querySelectorAll('.skill-level .bar').forEach(function(bar) {
+        bar.classList.add('animate');
+      });
+    }, 500);
   }
 
   // Focus
