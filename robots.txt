@@ -1,3 +1,9 @@
 User-agent: *
 Allow: /
-Sitemap: https://here-is-leo.github.io/sitemap.xml
+
+# نقشه سایت
+Sitemap: https://www.here-is-leo.ir/sitemap.xml
+
+# جلوگیری از ایندکس شدن صفحات تکراری
+Disallow: /?lang=
+Disallow: /*.json$
