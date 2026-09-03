@@ -627,10 +627,20 @@ function initContactForm() {
 function render(page) {
   var lang = getLang();
   var data = SITE[lang];
+  
+  console.log('📄 render called with page:', page);
+  console.log('📄 data:', data);
+  
+  if (!data) {
+    console.error('❌ Data is undefined!');
+    return;
+  }
+  
   applyMeta(data, page);
   renderNav(data, page);
   if (page === "about") renderAbout(data);
   else renderHome(data);
+  
   setTimeout(function() {
     initReveal();
     initRipple();
