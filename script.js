@@ -628,11 +628,16 @@ function render(page) {
   var lang = getLang();
   var data = SITE[lang];
   
+  // ====== دیباگ ======
   console.log('📄 render called with page:', page);
-  console.log('📄 data:', data);
+  console.log('📄 data loaded:', data ? '✅' : '❌');
+  if (data) {
+    console.log('📄 hero data:', data.hero);
+    console.log('📄 stats data:', data.stats);
+  }
   
   if (!data) {
-    console.error('❌ Data is undefined!');
+    console.error('❌ Data is undefined! Check content.js loading.');
     return;
   }
   
@@ -679,12 +684,17 @@ function initNavToggle() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+  console.log('🚀 DOM fully loaded');
+  
   var page = document.body.dataset.page || "home";
+  console.log('📄 Page:', page);
+  
   setTheme(getTheme());
   render(page);
   initLangToggle(page);
   initNavToggle();
   initContactForm();
+  
   document.querySelectorAll("[data-theme-toggle]").forEach(function(btn) {
     btn.addEventListener("click", function() {
       setTheme(getTheme() === "dark" ? "light" : "dark");
