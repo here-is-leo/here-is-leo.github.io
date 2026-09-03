@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- ====== FAVICON ====== -->
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="shortcut icon" href="logo.png" type="image/png" />
+  
+  <!-- ====== TITLE & DESCRIPTION ====== -->
+  <title>پروژه‌ها | ایلیا فراهانی (ایلیا عزیزآبادی)</title>
+  <meta name="description" content="پروژه‌های شاخص ایلیا فراهانی (ایلیا عزیزآبادی) — از ابزارهای امنیتی تا سیستم‌های مدیریتی و اتوماسیون." />
+  <meta name="author" content="Ilia Farahani" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- ====== KEYWORDS ====== -->
+  <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, پروژه‌های برنامه‌نویسی, امنیت وب, پایتون, سی‌شارپ" />
+  
+  <!-- ====== CANONICAL ====== -->
+  <link rel="canonical" href="https://www.here-is-leo.ir/projects.html" />
+  
+  <!-- ====== OPEN GRAPH ====== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="پروژه‌های ایلیا فراهانی (ایلیا عزیزآبادی)" />
+  <meta property="og:description" content="پروژه‌های شاخص ایلیا فراهانی — از ابزارهای امنیتی تا سیستم‌های مدیریتی." />
+  <meta property="og:url" content="https://www.here-is-leo.ir/projects.html" />
+  <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
+  
+  <!-- ====== TWITTER ====== -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="پروژه‌های ایلیا فراهانی" />
+  <meta name="twitter:description" content="پروژه‌های شاخص ایلیا فراهانی — امنیت، برنامه‌نویسی و اتوماسیون." />
+  
+  <!-- Google Verification -->
+  <meta name="google-site-verification" content="google32cfec778daf2edb" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    .project-detail-card {
+      background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius);
+      padding: 30px;
+      backdrop-filter: blur(14px);
+      transition: all .4s cubic-bezier(.22, 1, .36, 1);
+    }
+    
+    .project-detail-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card-hover);
+    }
+    
+    .project-detail-card .project-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    
+    .project-detail-card h3 {
+      font-size: 1.2rem;
+      margin: 0 0 6px;
+    }
+    
+    .project-detail-card .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0;
+    }
+    
+    .project-detail-card .project-tech span {
+      padding: 3px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-accent);
+      background: rgba(94, 106, 210, .06);
+      color: #b8bfff;
+      font-size: .7rem;
+      font-weight: 500;
+    }
+    
+    .project-detail-card .project-link {
+      color: #b8bfff;
+      font-weight: 600;
+      transition: color .3s;
+    }
+    
+    .project-detail-card .project-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body data-page="projects">
+  <div class="bg-ambient">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
+        <li><a href="projects.html" data-nav-projects class="active">پروژه‌ها</a></li>
+        <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
+        <li><a href="repos.html" data-nav-repos>ریپوها</a></li>
+        <li><a href="about.html" data-nav-about>درباره من</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="تغییر تم"><span class="theme-icon">☼</span></button>
+        <button class="lang-toggle" data-lang-toggle>EN</button>
+        <button class="nav-toggle" aria-label="menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="about-hero" style="padding: 60px 0 30px;">
+      <div class="container">
+        <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;">پروژه‌های شاخص</h1>
+        <p style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;">پروژه‌هایی که با یادگیری خودآموز و عشق به کدنویسی ساخته‌ام.</p>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section style="border-top:0; padding-top:0;">
+      <div class="container">
+        <div class="projects-grid" id="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;">
+          <!-- پروژه‌ها توسط جاوااسکریپت ساخته می‌شوند -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" id="footer-text"></div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // PROJECTS DATA
+    // ============================================================
+    const featuredProjects = [
+      {
+        icon: "🛒",
+        title: "pos-system",
+        description: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار.",
+        tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"],
+        url: "https://github.com/here-is-leo/pos-system"
+      },
+      {
+        icon: "🔍",
+        title: "Paris",
+        description: "اسکنر آسیب‌پذیری وب (Web Vulnerability Scanner) — یک ابزار قدرتمند برای شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.",
+        tech: ["Python", "Web Security", "Penetration Testing"],
+        url: "https://github.com/here-is-leo/Paris"
+      },
+      {
+        icon: "🔒",
+        title: "Moscow",
+        description: "پلاگین پیشرفته تحقیقاتی امنیت وردپرس — یک ابزار آموزشی برای شناسایی نقاط ضعف امنیتی در وردپرس.",
+        tech: ["PHP", "WordPress", "Security Research"],
+        url: "https://github.com/here-is-leo/Moscow"
+      },
+      {
+        icon: "🕸️",
+        title: "overthewire-natas",
+        description: "راهنمای کامل و دوزبانه برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas — یکی از معروف‌ترین سری چالش‌های امنیتی OverTheWire.",
+        tech: ["HTML", "CSS", "JavaScript", "Web Security"],
+        url: "https://github.com/here-is-leo/overthewire-natas"
+      },
+      {
+        icon: "🌐",
+        title: "V-Tunnel",
+        description: "Telegram Mini App برای مدیریت ابزارهای شبکه — سرورهای DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.",
+        tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"],
+        url: "https://github.com/here-is-leo/V-Tunnel"
+      },
+      {
+        icon: "📚",
+        title: "kali-linux-complete-guide",
+        description: "راهنمای جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — یک دانشنامه فشرده برای تست‌نفوذگران.",
+        tech: ["HTML", "CSS", "JavaScript", "Kali Linux"],
+        url: "https://github.com/here-is-leo/kali-linux-complete-guide"
+      },
+      {
+        icon: "⚡",
+        title: "N3XUS",
+        description: "سیستم کنترل پیشرفته مبتنی بر آردوینو با رابط وب، مانیتورینگ سریال و یکپارچه‌سازی سخت‌افزار. مناسب برای پروژه‌های IoT و اتوماسیون.",
+        tech: ["HTML", "CSS", "JavaScript", "Arduino", "IoT"],
+        url: "https://github.com/here-is-leo/N3XUS"
+      },
+      {
+        icon: "🔧",
+        title: "Marshall",
+        description: "سیستم کنترل مبتنی بر آردوینو با پیکربندی ماژولار، مستندسازی جامع و رابط کاربری آسان. مناسب برای سیستم‌های تعبیه‌شده و پروژه‌های اتوماسیون.",
+        tech: ["HTML", "CSS", "JavaScript", "Arduino", "Embedded Systems"],
+        url: "https://github.com/here-is-leo/Marshall"
+      },
+      {
+        icon: "🤖",
+        title: "Bale-Bot",
+        description: "ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.",
+        tech: ["Python", "Bale API"],
+        url: "https://github.com/here-is-leo/Bale-Bot"
+      },
+      {
+        icon: "📦",
+        title: "inventory-bot",
+        description: "ربات مدیریت موجودی و انبار — یک ابزار کاربردی برای پیگیری و مدیریت کالاها با گزارش‌گیری خودکار.",
+        tech: ["Python"],
+        url: "https://github.com/here-is-leo/inventory-bot"
+      }
+    ];
+
+    // ============================================================
+    // RENDER PROJECTS
+    // ============================================================
+    function renderProjects() {
+      const grid = document.getElementById('projects-grid');
+      if (!grid) return;
+
+      grid.innerHTML = featuredProjects.map((project, i) => `
+        <div class="project-detail-card reveal reveal-delay-${i % 4}">
+          <div class="project-icon">${project.icon}</div>
+          <h3>${project.title}</h3>
+          <p style="color: var(--foreground-muted); font-size: .9rem; line-height: 1.9; margin: 8px 0;">${project.description}</p>
+          <div class="project-tech">
+            ${project.tech.map(t => `<span>${t}</span>`).join('')}
+          </div>
+          <a href="${project.url}" target="_blank" rel="noopener" class="project-link">مشاهده در گیت‌هاب →</a>
+        </div>
+      `).join('');
+
+      setTimeout(() => {
+        document.querySelectorAll('.project-detail-card').forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), 100 + i * 60);
+        });
+      }, 200);
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      renderProjects();
+
+      const footer = document.getElementById('footer-text');
+      if (footer) footer.textContent = '© ' + new Date().getFullYear() + ' ایلیا فراهانی';
+    });
+  </script>
+</body>
+</html>
