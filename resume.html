@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- ====== FAVICON ====== -->
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="shortcut icon" href="logo.png" type="image/png" />
+  
+  <!-- ====== TITLE & DESCRIPTION ====== -->
+  <title>رزومه | ایلیا فراهانی (ایلیا عزیزآبادی)</title>
+  <meta name="description" content="رزومه آنلاین ایلیا فراهانی (ایلیا عزیزآبادی) — برنامه‌نویس Python و C#، متخصص لینوکس و امنیت وب." />
+  <meta name="author" content="Ilia Farahani" />
+  <meta name="robots" content="index, follow" />
+  
+  <!-- ====== KEYWORDS ====== -->
+  <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, رزومه, برنامه‌نویس Python, متخصص امنیت وب, لینوکس" />
+  
+  <!-- ====== CANONICAL ====== -->
+  <link rel="canonical" href="https://www.here-is-leo.ir/resume.html" />
+  
+  <!-- ====== OPEN GRAPH ====== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="رزومه ایلیا فراهانی (ایلیا عزیزآبادی)" />
+  <meta property="og:description" content="رزومه آنلاین ایلیا فراهانی — برنامه‌نویس Python و C#، متخصص لینوکس و امنیت وب." />
+  <meta property="og:url" content="https://www.here-is-leo.ir/resume.html" />
+  <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
+  
+  <!-- ====== TWITTER ====== -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="رزومه ایلیا فراهانی" />
+  <meta name="twitter:description" content="رزومه آنلاین ایلیا فراهانی — برنامه‌نویس و متخصص امنیت." />
+  
+  <!-- Google Verification -->
+  <meta name="google-site-verification" content="google32cfec778daf2edb" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  
+  <style>
+    .resume-section {
+      background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius);
+      padding: 28px 30px;
+      backdrop-filter: blur(14px);
+      margin-bottom: 20px;
+      transition: all .3s;
+    }
+    
+    .resume-section:hover {
+      border-color: var(--border-hover);
+    }
+    
+    .resume-section h2 {
+      font-size: 1.3rem;
+      margin: 0 0 14px;
+      color: #b8bfff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .resume-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .resume-section ul li {
+      padding: 6px 0;
+      color: var(--foreground-muted);
+      border-bottom: 1px solid var(--border-default);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .resume-section ul li:last-child {
+      border-bottom: none;
+    }
+    
+    .resume-section ul li .label {
+      color: var(--foreground);
+      font-weight: 500;
+    }
+    
+    .resume-section ul li .value {
+      color: var(--foreground-muted);
+      font-size: .92rem;
+    }
+    
+    .resume-section .skill-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border-accent);
+      background: rgba(94, 106, 210, .06);
+      color: #b8bfff;
+      font-size: .8rem;
+      font-weight: 500;
+      margin: 4px 4px 4px 0;
+    }
+    
+    .resume-section .skill-tag.high {
+      border-color: rgba(0, 255, 65, 0.3);
+      background: rgba(0, 255, 65, 0.06);
+      color: #00FF41;
+    }
+    
+    .resume-section .skill-tag.medium {
+      border-color: rgba(255, 215, 0, 0.3);
+      background: rgba(255, 215, 0, 0.06);
+      color: #FFD700;
+    }
+    
+    .resume-section .skill-tag.low {
+      border-color: rgba(255, 107, 107, 0.2);
+      background: rgba(255, 107, 107, 0.04);
+      color: #ff6b6b;
+    }
+    
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      transition: all .3s;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .download-btn:hover {
+      background: var(--accent-bright);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(94, 106, 210, 0.3);
+    }
+  </style>
+</head>
+<body data-page="resume">
+  <div class="bg-ambient">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
+        <li><a href="projects.html" data-nav-projects>پروژه‌ها</a></li>
+        <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
+        <li><a href="repos.html" data-nav-repos>ریپوها</a></li>
+        <li><a href="about.html" data-nav-about>درباره من</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="تغییر تم"><span class="theme-icon">☼</span></button>
+        <button class="lang-toggle" data-lang-toggle>EN</button>
+        <button class="nav-toggle" aria-label="menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="about-hero" style="padding: 60px 0 30px;">
+      <div class="container">
+        <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;">رزومه</h1>
+        <p style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;">برنامه‌نویس Python و C# | متخصص لینوکس و امنیت وب</p>
+      </div>
+    </section>
+
+    <!-- RESUME CONTENT -->
+    <section style="border-top:0; padding-top:0;">
+      <div class="container">
+        <!-- Download Button -->
+        <div style="text-align: center; margin-bottom: 30px;">
+          <button class="download-btn" onclick="window.print()">
+            <span>📄</span> دانلود رزومه (PDF)
+          </button>
+        </div>
+
+        <!-- Personal Info -->
+        <div class="resume-section">
+          <h2>👤 اطلاعات شخصی</h2>
+          <ul>
+            <li><span class="label">نام</span><span class="value">ایلیا فراهانی (ایلیا عزیزآبادی)</span></li>
+            <li><span class="label">شغل</span><span class="value">برنامه‌نویس Python و C#</span></li>
+            <li><span class="label">موقعیت</span><span class="value">تهران، ایران</span></li>
+            <li><span class="label">ایمیل</span><span class="value">ilyafarahanii@gmail.com</span></li>
+            <li><span class="label">گیت‌هاب</span><span class="value"><a href="https://github.com/here-is-leo" target="_blank" style="color: #b8bfff;">github.com/here-is-leo</a></span></li>
+          </ul>
+        </div>
+
+        <!-- About -->
+        <div class="resume-section">
+          <h2>📖 درباره من</h2>
+          <p style="color: var(--foreground-muted); line-height: 2; margin: 0;">
+            دانش‌آموز و علاقه‌مند به برنامه‌نویسی Python، توسعه با لینوکس و امنیت وب. با گذراندن کامل چالش‌های امنیتی Natas (سری OverTheWire) و ساخت چند پروژه عملی روی گیت‌هاب، دانش فنی خود را به‌صورت خودآموز و پروژه‌محور تقویت کرده‌ام. به‌دنبال فرصت‌های یادگیری، همکاری در پروژه‌های متن‌باز و کارآموزی برای رشد در مسیر برنامه‌نویسی و امنیت سایبری هستم.
+          </p>
+        </div>
+
+        <!-- Skills -->
+        <div class="resume-section">
+          <h2>🛠️ مهارت‌های فنی</h2>
+          <div>
+            <span class="skill-tag high">Python (۹۵%)</span>
+            <span class="skill-tag high">C# (MVC) (۹۰%)</span>
+            <span class="skill-tag high">لینوکس (۹۵%)</span>
+            <span class="skill-tag high">Kali Linux (۹۰%)</span>
+            <span class="skill-tag high">HTML & CSS (۹۰%)</span>
+            <span class="skill-tag medium">JavaScript (۶۵%)</span>
+            <span class="skill-tag medium">Node.js / Next.js (۶۰%)</span>
+            <span class="skill-tag high">SQL Server / SQLite (۸۵%)</span>
+            <span class="skill-tag high">WordPress (۸۰%)</span>
+            <span class="skill-tag high">امنیت وب (۸۵%)</span>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="resume-section">
+          <h2>💼 تجربه پروژه‌ها</h2>
+          <ul>
+            <li><span class="label">pos-system</span><span class="value">سیستم فروشگاهی با Node.js و React</span></li>
+            <li><span class="label">Paris</span><span class="value">اسکنر آسیب‌پذیری وب با Python</span></li>
+            <li><span class="label">Moscow</span><span class="value">پلاگین امنیت وردپرس با PHP</span></li>
+            <li><span class="label">overthewire-natas</span><span class="value">راهنمای ۳۵ مرحله چالش Natas</span></li>
+            <li><span class="label">V-Tunnel</span><span class="value">Mini App تلگرام با Python</span></li>
+            <li><span class="label">kali-linux-complete-guide</span><span class="value">راهنمای ۴۰+ صفحه‌ای Kali Linux</span></li>
+          </ul>
+        </div>
+
+        <!-- Education -->
+        <div class="resume-section">
+          <h2>🎓 تحصیلات و دوره‌ها</h2>
+          <ul>
+            <li><span class="label">دانش‌آموز</span><span class="value">تهران</span></li>
+            <li><span class="label">دوره فناوری‌های پیشرفته</span><span class="value">آکادمی دانشگاه شریف و تکنو شریف</span></li>
+            <li><span class="label">دوره PWK</span><span class="value">Kali Linux — تست نفوذ</span></li>
+            <li><span class="label">دوره امنیت شبکه</span><span class="value">Network+</span></li>
+          </ul>
+        </div>
+
+        <!-- Languages -->
+        <div class="resume-section">
+          <h2>🌍 زبان‌ها</h2>
+          <ul>
+            <li><span class="label">فارسی</span><span class="value">زبان مادری</span></li>
+            <li><span class="label">انگلیسی</span><span class="value">B2+</span></li>
+          </ul>
+        </div>
+
+        <!-- GitHub Stats -->
+        <div class="resume-section">
+          <h2>📊 فعالیت گیت‌هاب</h2>
+          <ul>
+            <li><span class="label">مشارکت (Commit)</span><span class="value">۱۱۳ در یک سال اخیر</span></li>
+            <li><span class="label">پروژه‌ها</span><span class="value">۱۰ پروژه عمومی</span></li>
+            <li><span class="label">تمرکز</span><span class="value">پروژه‌های امنیتی و آموزشی</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" id="footer-text"></div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const footer = document.getElementById('footer-text');
+      if (footer) footer.textContent = '© ' + new Date().getFullYear() + ' ایلیا فراهانی';
+    });
+  </script>
+</body>
+</html>
