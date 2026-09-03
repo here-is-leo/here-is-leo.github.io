@@ -3,43 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <!-- ====== FAVICON ====== -->
   <link rel="icon" href="https://here-is-leo.github.io/avatar.png" type="image/png" />
   <link rel="shortcut icon" href="https://here-is-leo.github.io/avatar.png" type="image/png" />
-  
+
   <!-- ====== TITLE & DESCRIPTION ====== -->
   <title>ایلیا فراهانی | برنامه‌نویس Python و C# | متخصص امنیت وب و لینوکس</title>
   <meta name="description" content="صفحه رسمی ایلیا فراهانی (ایلیا عزیزآبادی | here-is-leo)، برنامه‌نویس پایتون و سی‌شارپ، متخصص لینوکس و تست نفوذ با Kali. مشاهده پروژه‌ها، مهارت‌ها و ارتباط با من." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
-  
+
   <!-- ====== KEYWORDS ====== -->
   <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, ایلیا عزیزابادی, here-is-leo, برنامه‌نویس Python, متخصص امنیت وب, لینوکس, Kali Linux, تست نفوذ" />
-  
+
   <!-- ====== CANONICAL ====== -->
   <link rel="canonical" href="https://www.here-is-leo.ir/" />
-  
+
   <!-- ====== OPEN GRAPH ====== -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="ایلیا فراهانی | برنامه‌نویس Python و C# | متخصص امنیت وب و لینوکس" />
   <meta property="og:description" content="صفحه رسمی ایلیا فراهانی (ایلیا عزیزآبادی)؛ برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali." />
   <meta property="og:url" content="https://www.here-is-leo.ir/" />
   <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
-  
+
   <!-- ====== TWITTER ====== -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="ایلیا فراهانی | برنامه‌نویس و متخصص امنیت" />
   <meta name="twitter:description" content="صفحه رسمی ایلیا فراهانی (ایلیا عزیزآبادی)؛ برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali." />
-  
+
   <!-- Google Verification -->
   <meta name="google-site-verification" content="google32cfec778daf2edb" />
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -53,6 +53,17 @@
     "knowsAbout": ["Python", "C#", "Linux", "Web Security", "Penetration Testing", "Kali Linux"],
     "address": { "@type": "PostalAddress", "addressLocality": "Tehran", "addressCountry": "IR" }
   }
+  </script>
+
+  <!-- ====== EARLY ERROR CATCHER ======
+       Runs before content.js/script.js, so if either file 404s,
+       times out, or throws, we know immediately instead of guessing. -->
+  <script>
+    window.__siteErrors = [];
+    window.addEventListener('error', function(e) {
+      window.__siteErrors.push((e.filename || '?') + ':' + e.lineno + ' ' + e.message);
+      console.error('🔴 Global error caught:', e.message, 'at', e.filename + ':' + e.lineno);
+    });
   </script>
 </head>
 <body data-page="home">
@@ -191,30 +202,30 @@
           <h2>یک پیام برای من بفرستید</h2>
           <p>برای همکاری، پیشنهاد یا هر سوالی، خوشحال می‌شوم از شما بشنوم.</p>
         </div>
-        
+
         <form id="contactForm" action="https://formspree.io/f/mljenkgd" method="POST" style="max-width: 600px; margin: 0 auto; background: rgba(255,255,255,0.03); border: 1px solid var(--border-default); border-radius: var(--radius); padding: 32px; backdrop-filter: blur(14px);">
           <div style="margin-bottom: 16px;">
             <label for="formName" style="display: block; margin-bottom: 6px; color: var(--foreground-muted); font-size: 0.9rem; font-weight: 500;">نام شما</label>
             <input type="text" id="formName" name="name" placeholder="نام خود را وارد کنید..." required style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border-default); background: rgba(255,255,255,0.04); color: var(--foreground); font-size: 0.95rem; transition: border-color 0.3s; outline: none;">
           </div>
-          
+
           <div style="margin-bottom: 16px;">
             <label for="formEmail" style="display: block; margin-bottom: 6px; color: var(--foreground-muted); font-size: 0.9rem; font-weight: 500;">ایمیل شما</label>
             <input type="email" id="formEmail" name="email" placeholder="ایمیل خود را وارد کنید..." required style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border-default); background: rgba(255,255,255,0.04); color: var(--foreground); font-size: 0.95rem; transition: border-color 0.3s; outline: none;">
           </div>
-          
+
           <div style="margin-bottom: 20px;">
             <label for="formMessage" style="display: block; margin-bottom: 6px; color: var(--foreground-muted); font-size: 0.9rem; font-weight: 500;">پیام شما</label>
             <textarea id="formMessage" name="message" rows="5" placeholder="پیام خود را بنویسید..." required style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border-default); background: rgba(255,255,255,0.04); color: var(--foreground); font-size: 0.95rem; transition: border-color 0.3s; outline: none; resize: vertical; font-family: inherit;"></textarea>
           </div>
-          
+
           <!-- anti-spam -->
           <input type="text" name="_gotcha" style="display:none" />
-          
+
           <button type="submit" style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: var(--accent); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden;">
             <span class="btn-text">ارسال پیام</span>
           </button>
-          
+
           <div id="formStatus" style="margin-top: 12px; text-align: center; font-size: 0.9rem; display: none;"></div>
         </form>
       </div>
@@ -225,63 +236,78 @@
     <div class="container" id="footer-text"></div>
   </footer>
 
-  <!-- ====== SCRIPTS — بارگذاری به ترتیب ====== -->
-  <script src="content.js"></script>
-  <script src="script.js"></script>
-  
-  <!-- ====== FIX MOBILE: اگه hero-content خالی موند ====== -->
+  <!-- ====== SCRIPTS ======
+       Cache-busted with a version query param so Cloudflare / mobile
+       browsers can never serve a stale content.js against a fresh
+       script.js (or vice versa) — a mismatched pair was one cause
+       of the blank-page bug. Bump SITE_ASSET_VER whenever you deploy
+       a change to content.js or script.js. -->
+  <script>window.SITE_ASSET_VER = "20260904a";</script>
+  <script src="content.js?v=20260904a"></script>
+  <script src="script.js?v=20260904a"></script>
+
+  <!-- ====== FALLBACK ======
+       Triggers on either signal, whichever comes first:
+       1) script.js explicitly reports failure (SITE missing), or
+       2) nothing rendered into hero-content within 1.5s (script.js
+          never ran / threw before dispatching any event / 404'd).
+       This replaces the old fallback, which only checked whether
+       hero-content was empty — that check could never fire once
+       hero rendering succeeded but a later section crashed, which
+       was happening on every load. -->
   <script>
-    (function() {
-      // صبر کن تا همه چیز لود بشه
-      setTimeout(function() {
+    (function () {
+      var fallbackApplied = false;
+      var renderedOk = false;
+
+      function applyFallback(reason) {
+        if (fallbackApplied || renderedOk) return;
+        fallbackApplied = true;
+        console.warn('⚠️ Using fallback content. Reason:', reason, window.__siteErrors);
+
+        var lang = (function () {
+          try { return localStorage.getItem('site-lang') || 'fa'; }
+          catch (e) { return 'fa'; }
+        })();
+        var data = (window.SITE && window.SITE[lang]) ? window.SITE[lang] : null;
+
         var hero = document.getElementById('hero-content');
-        var stats = document.getElementById('stats-grid');
-        
-        // اگه hero خالی بود، با دیتا پر کن
-        if (hero && hero.innerHTML.trim() === '') {
-          console.log('⚠️ hero-content is empty! Loading fallback...');
-          
-          // استفاده از دیتای SITE اگه موجوده
-          var lang = localStorage.getItem('site-lang') || 'fa';
-          var data = window.SITE ? window.SITE[lang] : null;
-          
+        if (hero) {
           if (data && data.hero) {
-            // استفاده از دیتای اصلی
-            hero.innerHTML = `
-              <span class="eyebrow"><span class="pulse-dot"></span> ${data.hero.eyebrow}</span>
-              <h1>${data.hero.title1} <span class="accent-name">${data.hero.name}</span> ${data.hero.title2}</h1>
-              <div class="typewriter"><span>${data.hero.typewriter[0]}</span><span class="cursor"></span></div>
-              <p>${data.hero.subtitle}</p>
-              <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">${data.hero.cta1}</a>
-                <a href="about.html" class="btn btn-secondary">${data.hero.cta2}</a>
-              </div>
-            `;
-            console.log('✅ Hero loaded from SITE data!');
+            hero.innerHTML =
+              '<span class="eyebrow"><span class="pulse-dot"></span> ' + data.hero.eyebrow + '</span>' +
+              '<h1>' + data.hero.title1 + ' <span class="accent-name">' + data.hero.name + '</span> ' + data.hero.title2 + '</h1>' +
+              '<div class="typewriter"><span></span><span class="cursor"></span></div>' +
+              '<p>' + data.hero.subtitle + '</p>' +
+              '<div class="hero-cta">' +
+                '<a href="#projects" class="btn btn-primary">' + data.hero.cta1 + '</a>' +
+                '<a href="about.html" class="btn btn-secondary">' + data.hero.cta2 + '</a>' +
+              '</div>';
           } else {
-            // استفاده از محتوای ثابت
-            hero.innerHTML = `
-              <span class="eyebrow"><span class="pulse-dot"></span> در دسترس برای یادگیری و همکاری</span>
-              <h1>سلام، من <span class="accent-name">ایلیا فراهانی</span> هستم</h1>
-              <div class="typewriter"><span>برنامه‌نویس Python و C#</span><span class="cursor"></span></div>
-              <p>برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.</p>
-              <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">مشاهده پروژه‌ها</a>
-                <a href="about.html" class="btn btn-secondary">درباره من</a>
-              </div>
-            `;
-            console.log('✅ Hero loaded from fallback!');
+            hero.innerHTML =
+              '<span class="eyebrow"><span class="pulse-dot"></span> در دسترس برای یادگیری و همکاری</span>' +
+              '<h1>سلام، من <span class="accent-name">ایلیا فراهانی</span> هستم</h1>' +
+              '<div class="typewriter"><span></span><span class="cursor"></span></div>' +
+              '<p>برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.</p>' +
+              '<div class="hero-cta">' +
+                '<a href="#projects" class="btn btn-primary">مشاهده پروژه‌ها</a>' +
+                '<a href="about.html" class="btn btn-secondary">درباره من</a>' +
+              '</div>';
           }
-          
-          // راه‌اندازی typewriter
+
           var tw = hero.querySelector('.typewriter');
           if (tw && typeof startTypewriter === 'function') {
             var words = data ? data.hero.typewriter : ['برنامه‌نویس Python', 'متخصص لینوکس', 'تست‌نفوذگر Kali Linux'];
-            setTimeout(function() { startTypewriter(words, tw); }, 600);
+            setTimeout(function () { startTypewriter(words, tw); }, 400);
           }
         }
-        
-        // اگه stats خالی بود، پر کن
+
+        var avatar = document.getElementById('hero-avatar');
+        if (avatar && avatar.innerHTML.trim() === '') {
+          avatar.innerHTML = '<img src="logo.png" alt="Ilia Farahani logo">';
+        }
+
+        var stats = document.getElementById('stats-grid');
         if (stats && stats.innerHTML.trim() === '') {
           var statsData = data ? data.stats : [
             { number: 35, suffix: '+', label: 'چالش امنیتی حل شده' },
@@ -289,13 +315,23 @@
             { number: 10, suffix: '', label: 'پروژه عملی' },
             { number: 5, suffix: '', label: 'زبان برنامه‌نویسی' }
           ];
-          
-          stats.innerHTML = statsData.map(function(s) {
+          stats.innerHTML = statsData.map(function (s) {
             return '<div class="stat-card"><div class="number" data-count="' + s.number + '" data-suffix="' + s.suffix + '">0' + s.suffix + '</div><div class="label">' + s.label + '</div></div>';
           }).join('');
-          console.log('✅ Stats loaded from fallback!');
         }
-      }, 500);
+
+        var footer = document.getElementById('footer-text');
+        if (footer && footer.textContent.trim() === '') {
+          footer.textContent = '© ' + new Date().getFullYear() + ' ایلیا فراهانی';
+        }
+      }
+
+      document.addEventListener('site:rendered', function () { renderedOk = true; });
+      document.addEventListener('site:render-failed', function (e) { applyFallback('render-failed event: ' + JSON.stringify(e.detail)); });
+
+      // last-resort timeout in case script.js 404s, is blocked, or
+      // never runs at all (no events fire in that case)
+      setTimeout(function () { applyFallback('timeout'); }, 1500);
     })();
   </script>
 </body>
