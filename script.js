@@ -569,41 +569,54 @@ function renderAbout(data) {
 }
 
 // ============================================================
-// CONTACT FORM
+// CONTACT FORM — با Formspree
 // ============================================================
 function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
   
-  form.addEventListener('submit', function(e) {
+  form.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const name = document.getElementById('formName').value.trim();
-    const email = document.getElementById('formEmail').value.trim();
-    const message = document.getElementById('formMessage').value.trim();
     const status = document.getElementById('formStatus');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const btnText = submitBtn.querySelector('.btn-text');
     
-    if (!name || !email || !message) {
-      status.style.display = 'block';
-      status.style.color = '#ff6b6b';
-      status.textContent = 'لطفاً همه فیلدها را پر کنید.';
-      return;
-    }
-    
-    const subject = encodeURIComponent(`پیام از ${name} (via سایت)`);
-    const body = encodeURIComponent(`نام: ${name}\nایمیل: ${email}\n\nپیام:\n${message}`);
-    const mailtoLink = `mailto:ilyafarahanii@gmail.com?subject=${subject}&body=${body}`;
-    
-    window.location.href = mailtoLink;
-    
+    // نمایش وضعیت در حال ارسال
     status.style.display = 'block';
-    status.style.color = '#00FF41';
-    status.textContent = 'در حال باز کردن ایمیل...';
+    status.style.color = '#b8bfff';
+    status.textContent = '⏳ در حال ارسال پیام...';
+    submitBtn.disabled = true;
+    btnText.textContent = 'در حال ارسال...';
     
-    setTimeout(() => {
-      form.reset();
-      status.textContent = 'پیام با موفقیت ارسال شد!';
-    }, 1000);
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        status.style.color = '#00FF41';
+        status.textContent = '✅ پیام شما با موفقیت ارسال شد!';
+        form.reset();
+        btnText.textContent = 'ارسال پیام';
+        submitBtn.disabled = false;
+        
+        setTimeout(() => {
+          status.style.display = 'none';
+        }, 5000);
+      } else {
+        throw new Error('خطا در ارسال پیام');
+      }
+    } catch (error) {
+      status.style.color = '#ff6b6b';
+      status.textContent = '❌ خطا در ارسال پیام. لطفاً دوباره تلاش کنید.';
+      btnText.textContent = 'ارسال پیام';
+      submitBtn.disabled = false;
+    }
   });
 }
 
