@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ریپوها | ایلیا فراهانی</title>
+  <meta name="description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
+  <meta name="author" content="Ilia Farahani" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://here-is-leo-blog.ilyafarahanii.workers.dev/repos.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="repos">
+  <div class="bg-ambient">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
+        <li><a href="index.html#projects" data-nav-projects>پروژه‌ها</a></li>
+        <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
+        <li><a href="repos.html" data-nav-repos class="active">ریپوها</a></li>
+        <li><a href="about.html" data-nav-about>درباره من</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" data-theme-toggle aria-label="تغییر تم"><span class="theme-icon">☼</span></button>
+        <button class="lang-toggle" data-lang-toggle>EN</button>
+        <button class="nav-toggle" aria-label="menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="about-hero" style="padding: 60px 0 30px;">
+      <div class="container">
+        <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;">مخازن گیت‌هاب</h1>
+        <p style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;">همه پروژه‌های من در گیت‌هاب — از ابزارهای امنیتی تا سیستم‌های کنترل و اتوماسیون.</p>
+      </div>
+    </section>
+
+    <!-- REPOS -->
+    <section style="border-top:0; padding-top:0;">
+      <div class="container">
+        <div class="repos-grid" id="repos-grid">
+          <!-- ریپوها توسط جاوااسکریپت ساخته می‌شوند -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" id="footer-text"></div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // REPOS DATA — از گیت‌هاب شما
+    // ============================================================
+    const repos = [
+      {
+        name: "pos-system",
+        description: "سیستم جامع فروش و مدیریت انبار (POS) با ۴ اپلیکیشن جداگانه — REST API، پنل ادمین، فروشنده و انباردار.",
+        language: "TypeScript",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/pos-system"
+      },
+      {
+        name: "Paris",
+        description: "اسکنر آسیب‌پذیری وب — شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.",
+        language: "Python",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/Paris"
+      },
+      {
+        name: "Moscow",
+        description: "پلاگین تحقیقاتی امنیت وردپرس — چندین نقطه ورود، Self-Destruct و Deface page.",
+        language: "PHP",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/Moscow"
+      },
+      {
+        name: "overthewire-natas",
+        description: "راهنمای کامل دوزبانه ۳۵ مرحله چالش Natas — تحلیل آسیب‌پذیری و کد اکسپلویت.",
+        language: "HTML",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/overthewire-natas"
+      },
+      {
+        name: "V-Tunnel",
+        description: "Telegram Mini App برای مدیریت DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.",
+        language: "Python",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/V-Tunnel"
+      },
+      {
+        name: "kali-linux-complete-guide",
+        description: "راهنمای جامع ۴۰+ صفحه‌ای ابزارهای Kali Linux — Nmap، Metasploit، Wireshark و...",
+        language: "HTML",
+        stars: 1,
+        forks: 0,
+        url: "https://github.com/here-is-leo/kali-linux-complete-guide"
+      },
+      {
+        name: "N3XUS",
+        description: "سیستم کنترل پیشرفته آردوینو با رابط وب، مانیتورینگ سریال و یکپارچه‌سازی سخت‌افزار.",
+        language: "HTML",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/N3XUS"
+      },
+      {
+        name: "Marshall",
+        description: "سیستم کنترل آردوینو با پیکربندی ماژولار، مستندسازی جامع و رابط کاربری آسان.",
+        language: "HTML",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/Marshall"
+      },
+      {
+        name: "Bale-Bot",
+        description: "ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.",
+        language: "Python",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/Bale-Bot"
+      },
+      {
+        name: "inventory-bot",
+        description: "ربات مدیریت موجودی و انبار — پیگیری و مدیریت کالاها با گزارش‌گیری خودکار.",
+        language: "Python",
+        stars: 0,
+        forks: 0,
+        url: "https://github.com/here-is-leo/inventory-bot"
+      }
+    ];
+
+    // ============================================================
+    // LANGUAGE COLORS
+    // ============================================================
+    const langColors = {
+      "TypeScript": "#3178C6",
+      "Python": "#3572A5",
+      "PHP": "#4F5D95",
+      "HTML": "#E34F26",
+      "CSS": "#563D7C",
+      "JavaScript": "#F1E05A"
+    };
+
+    // ============================================================
+    // RENDER REPOS
+    // ============================================================
+    function renderRepos() {
+      const grid = document.getElementById('repos-grid');
+      if (!grid) return;
+
+      grid.innerHTML = repos.map((repo, i) => `
+        <div class="repo-card reveal reveal-delay-${i % 4}" style="background: linear-gradient(160deg, rgba(255,255,255,.035), rgba(255,255,255,.008)); border: 1px solid var(--border-default); border-radius: var(--radius); padding: 24px 26px; backdrop-filter: blur(14px); transition: all .45s var(--transition);">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
+            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.015em;">
+              <a href="${repo.url}" target="_blank" style="color: inherit; text-decoration: none; transition: color .3s;">${repo.name}</a>
+            </h3>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: .75rem; color: var(--foreground-muted);">
+              <span>⭐ ${repo.stars}</span>
+              <span>⑂ ${repo.forks}</span>
+            </div>
+          </div>
+          <p style="color: var(--foreground-muted); font-size: .87rem; line-height: 1.8; margin: 0 0 14px 0;">${repo.description}</p>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="width: 12px; height: 12px; border-radius: 50%; background: ${langColors[repo.language] || '#888'}; display: inline-block;"></span>
+            <span style="font-size: .78rem; color: var(--foreground-muted);">${repo.language}</span>
+          </div>
+        </div>
+      `).join('');
+
+      // Reveal animation
+      setTimeout(() => {
+        document.querySelectorAll('.repo-card').forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), 100 + i * 60);
+        });
+      }, 200);
+    }
+
+    // ============================================================
+    // NAV
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+      renderRepos();
+
+      // Footer
+      const footer = document.getElementById('footer-text');
+      if (footer) footer.textContent = '© ' + new Date().getFullYear() + ' ایلیا فراهانی';
+    });
+  </script>
+</body>
+</html>
