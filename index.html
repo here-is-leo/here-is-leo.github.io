@@ -55,9 +55,7 @@
   }
   </script>
 
-  <!-- ====== EARLY ERROR CATCHER ======
-       Runs before content.js/script.js, so if either file 404s,
-       times out, or throws, we know immediately instead of guessing. -->
+  <!-- ====== EARLY ERROR CATCHER ====== -->
   <script>
     window.__siteErrors = [];
     window.addEventListener('error', function(e) {
@@ -236,25 +234,12 @@
     <div class="container" id="footer-text"></div>
   </footer>
 
-  <!-- ====== SCRIPTS ======
-       Cache-busted with a version query param so Cloudflare / mobile
-       browsers can never serve a stale content.js against a fresh
-       script.js (or vice versa) — a mismatched pair was one cause
-       of the blank-page bug. Bump SITE_ASSET_VER whenever you deploy
-       a change to content.js or script.js. -->
-  <script>window.SITE_ASSET_VER = "20260904a";</script>
-  <script src="content.js?v=20260904a"></script>
-  <script src="script.js?v=20260904a"></script>
+  <!-- ====== SCRIPTS ====== -->
+  <script>window.SITE_ASSET_VER = "20260904b";</script>
+  <script src="content.js?v=20260904b"></script>
+  <script src="script.js?v=20260904b"></script>
 
-  <!-- ====== FALLBACK ======
-       Triggers on either signal, whichever comes first:
-       1) script.js explicitly reports failure (SITE missing), or
-       2) nothing rendered into hero-content within 1.5s (script.js
-          never ran / threw before dispatching any event / 404'd).
-       This replaces the old fallback, which only checked whether
-       hero-content was empty — that check could never fire once
-       hero rendering succeeded but a later section crashed, which
-       was happening on every load. -->
+  <!-- ====== FALLBACK ====== -->
   <script>
     (function () {
       var fallbackApplied = false;
@@ -280,7 +265,7 @@
               '<div class="typewriter"><span></span><span class="cursor"></span></div>' +
               '<p>' + data.hero.subtitle + '</p>' +
               '<div class="hero-cta">' +
-                '<a href="#projects" class="btn btn-primary">' + data.hero.cta1 + '</a>' +
+                '<a href="projects.html" class="btn btn-primary">' + data.hero.cta1 + '</a>' +
                 '<a href="about.html" class="btn btn-secondary">' + data.hero.cta2 + '</a>' +
               '</div>';
           } else {
@@ -290,7 +275,7 @@
               '<div class="typewriter"><span></span><span class="cursor"></span></div>' +
               '<p>برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.</p>' +
               '<div class="hero-cta">' +
-                '<a href="#projects" class="btn btn-primary">مشاهده پروژه‌ها</a>' +
+                '<a href="projects.html" class="btn btn-primary">مشاهده پروژه‌ها</a>' +
                 '<a href="about.html" class="btn btn-secondary">درباره من</a>' +
               '</div>';
           }
@@ -329,8 +314,6 @@
       document.addEventListener('site:rendered', function () { renderedOk = true; });
       document.addEventListener('site:render-failed', function (e) { applyFallback('render-failed event: ' + JSON.stringify(e.detail)); });
 
-      // last-resort timeout in case script.js 404s, is blocked, or
-      // never runs at all (no events fire in that case)
       setTimeout(function () { applyFallback('timeout'); }, 1500);
     })();
   </script>
