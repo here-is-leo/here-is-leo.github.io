@@ -10,12 +10,12 @@
   
   <!-- ====== TITLE & DESCRIPTION ====== -->
   <title>پروژه‌ها | ایلیا فراهانی (ایلیا عزیزآبادی)</title>
-  <meta name="description" content="پروژه‌های شاخص ایلیا فراهانی (ایلیا عزیزآبادی) — از ابزارهای امنیتی تا سیستم‌های مدیریتی و اتوماسیون." />
+  <meta name="description" content="پروژه‌های شاخص ایلیا فراهانی — از اسکنر آسیب‌پذیری وب و پلاگین‌های امنیتی وردپرس تا سیستم‌های کنترل IoT با آردوینو." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
   
   <!-- ====== KEYWORDS ====== -->
-  <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, پروژه‌های برنامه‌نویسی, امنیت وب, پایتون, سی‌شارپ" />
+  <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, پروژه‌های برنامه‌نویسی, امنیت وب, Python, FastAPI, Arduino, WordPress Security" />
   
   <!-- ====== CANONICAL ====== -->
   <link rel="canonical" href="https://www.here-is-leo.ir/projects.html" />
@@ -23,14 +23,14 @@
   <!-- ====== OPEN GRAPH ====== -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="پروژه‌های ایلیا فراهانی (ایلیا عزیزآبادی)" />
-  <meta property="og:description" content="پروژه‌های شاخص ایلیا فراهانی — از ابزارهای امنیتی تا سیستم‌های مدیریتی." />
+  <meta property="og:description" content="پروژه‌های شاخص ایلیا فراهانی — امنیت وب، IoT و برنامه‌نویسی." />
   <meta property="og:url" content="https://www.here-is-leo.ir/projects.html" />
   <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
   
   <!-- ====== TWITTER ====== -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="پروژه‌های ایلیا فراهانی" />
-  <meta name="twitter:description" content="پروژه‌های شاخص ایلیا فراهانی — امنیت، برنامه‌نویسی و اتوماسیون." />
+  <meta name="twitter:description" content="پروژه‌های شاخص ایلیا فراهانی — امنیت، برنامه‌نویسی و IoT." />
   
   <!-- Google Verification -->
   <meta name="google-site-verification" content="google32cfec778daf2edb" />
@@ -45,9 +45,11 @@
       background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
       border: 1px solid var(--border-default);
       border-radius: var(--radius);
-      padding: 30px;
+      padding: 28px 26px;
       backdrop-filter: blur(14px);
       transition: all .4s cubic-bezier(.22, 1, .36, 1);
+      display: flex;
+      flex-direction: column;
     }
     
     .project-detail-card:hover {
@@ -57,20 +59,35 @@
     }
     
     .project-detail-card .project-icon {
-      font-size: 2.5rem;
-      margin-bottom: 12px;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
     }
     
     .project-detail-card h3 {
-      font-size: 1.2rem;
-      margin: 0 0 6px;
+      font-size: 1.15rem;
+      margin: 0 0 4px;
+      font-weight: 700;
+    }
+    
+    .project-detail-card .project-date {
+      font-size: .72rem;
+      color: var(--foreground-muted);
+      margin-bottom: 10px;
+    }
+    
+    .project-detail-card .project-desc {
+      color: var(--foreground-muted);
+      font-size: .9rem;
+      line-height: 1.9;
+      margin: 0 0 12px;
+      flex: 1;
     }
     
     .project-detail-card .project-tech {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin: 12px 0;
+      margin: 0 0 14px;
     }
     
     .project-detail-card .project-tech span {
@@ -86,7 +103,11 @@
     .project-detail-card .project-link {
       color: #b8bfff;
       font-weight: 600;
+      font-size: .85rem;
       transition: color .3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
     
     .project-detail-card .project-link:hover {
@@ -105,13 +126,13 @@
     <nav class="nav">
       <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
       <ul class="nav-links">
-  <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
-  <li><a href="projects.html" data-nav-projects>پروژه‌ها</a></li>
-  <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
-  <li><a href="repos.html" data-nav-repos>ریپوها</a></li>
-  <li><a href="resume.html" data-nav-resume>رزومه</a></li>
-  <li><a href="about.html" data-nav-about>درباره من</a></li>
-</ul>
+        <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
+        <li><a href="projects.html" data-nav-projects class="active">پروژه‌ها</a></li>
+        <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
+        <li><a href="repos.html" data-nav-repos>ریپوها</a></li>
+        <li><a href="resume.html" data-nav-resume>رزومه</a></li>
+        <li><a href="about.html" data-nav-about>درباره من</a></li>
+      </ul>
       <div class="nav-actions">
         <button class="theme-toggle" data-theme-toggle aria-label="تغییر تم"><span class="theme-icon">☼</span></button>
         <button class="lang-toggle" data-lang-toggle>EN</button>
@@ -145,12 +166,13 @@
 
   <script>
     // ============================================================
-    // PROJECTS DATA
+    // PROJECTS DATA — بر اساس رزومه
     // ============================================================
     const featuredProjects = [
       {
         icon: "🛒",
         title: "pos-system",
+        date: "۱۴۰۵",
         description: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار.",
         tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"],
         url: "https://github.com/here-is-leo/pos-system"
@@ -158,62 +180,71 @@
       {
         icon: "🔍",
         title: "Paris",
-        description: "اسکنر آسیب‌پذیری وب (Web Vulnerability Scanner) — یک ابزار قدرتمند برای شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.",
-        tech: ["Python", "Web Security", "Penetration Testing"],
+        date: "۱۴۰۵",
+        description: "اسکنر خودکار و حرفه‌ای آسیب‌پذیری‌های وب، طراحی‌شده برای پژوهشگران امنیتی و تست‌کنندگان نفوذ. پیاده‌سازی بیش از ۱۲ نوع تست آسیب‌پذیری شامل SQL Injection، XSS، CSRF، SSRF، LFI/RFI، SSTI و XXE.",
+        tech: ["Python", "FastAPI", "WebSocket"],
         url: "https://github.com/here-is-leo/Paris"
       },
       {
         icon: "🔒",
         title: "Moscow",
-        description: "پلاگین پیشرفته تحقیقاتی امنیت وردپرس — یک ابزار آموزشی برای شناسایی نقاط ضعف امنیتی در وردپرس.",
+        date: "۱۴۰۵",
+        description: "پروژه تحقیقاتی و آموزشی در حوزه امنیت پلاگین‌های وردپرس. بررسی و تحلیل نقاط ضعف امنیتی رایج در پلاگین‌ها و مستندسازی یافته‌ها با رویکرد آموزشی و پژوهشی.",
         tech: ["PHP", "WordPress", "Security Research"],
         url: "https://github.com/here-is-leo/Moscow"
       },
       {
         icon: "🕸️",
         title: "overthewire-natas",
-        description: "راهنمای کامل و دوزبانه برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas — یکی از معروف‌ترین سری چالش‌های امنیتی OverTheWire.",
+        date: "۱۴۰۵",
+        description: "راهنمای کامل و دوزبانه (فارسی/انگلیسی) برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas — یکی از معروف‌ترین سری چالش‌های امنیتی OverTheWire.",
         tech: ["HTML", "CSS", "JavaScript", "Web Security"],
         url: "https://github.com/here-is-leo/overthewire-natas"
       },
       {
         icon: "🌐",
         title: "V-Tunnel",
-        description: "Telegram Mini App برای مدیریت ابزارهای شبکه — سرورهای DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.",
+        date: "مرداد ۱۴۰۵",
+        description: "Telegram Mini App برای مدیریت ابزارهای شبکه — سرورهای DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray. طراحی با سبک Glassmorphism و تم تیره.",
         tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"],
         url: "https://github.com/here-is-leo/V-Tunnel"
       },
       {
         icon: "📚",
         title: "kali-linux-complete-guide",
-        description: "راهنمای جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — یک دانشنامه فشرده برای تست‌نفوذگران.",
+        date: "مرداد ۱۴۰۵",
+        description: "راهنمای آموزشی جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — Nmap، Metasploit، Wireshark، John the Ripper. دارای فهرست مطالب تعاملی و پشتیبانی از حالت روشن/تاریک.",
         tech: ["HTML", "CSS", "JavaScript", "Kali Linux"],
         url: "https://github.com/here-is-leo/kali-linux-complete-guide"
       },
       {
         icon: "⚡",
-        title: "N3XUS",
-        description: "سیستم کنترل پیشرفته مبتنی بر آردوینو با رابط وب، مانیتورینگ سریال و یکپارچه‌سازی سخت‌افزار. مناسب برای پروژه‌های IoT و اتوماسیون.",
-        tech: ["HTML", "CSS", "JavaScript", "Arduino", "IoT"],
+        title: "N3XUS V7.1",
+        date: "۱۴۰۵",
+        description: "سامانه کنترل پیشرفته مبتنی بر آردوینو (نسخه V7.1) با رابط کاربری تحت وب. طراحی رابط وب برای پایش و کنترل بلادرنگ سخت‌افزار و پیاده‌سازی مانیتورینگ ارتباط سریال.",
+        tech: ["Arduino (C/C++)", "HTML"],
         url: "https://github.com/here-is-leo/N3XUS"
       },
       {
         icon: "🔧",
         title: "Marshall",
-        description: "سیستم کنترل مبتنی بر آردوینو با پیکربندی ماژولار، مستندسازی جامع و رابط کاربری آسان. مناسب برای سیستم‌های تعبیه‌شده و پروژه‌های اتوماسیون.",
-        tech: ["HTML", "CSS", "JavaScript", "Arduino", "Embedded Systems"],
+        date: "۱۴۰۵",
+        description: "سامانه کنترل ماژولار مبتنی بر آردوینو با پیکربندی قابل‌تنظیم. طراحی معماری ماژولار، مستندسازی جامع و رابط کاربری ساده برای پروژه‌های سیستم‌های نهفته و اتوماسیون.",
+        tech: ["Arduino (C/C++)", "HTML"],
         url: "https://github.com/here-is-leo/Marshall"
       },
       {
         icon: "🤖",
         title: "Bale-Bot",
-        description: "ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.",
+        date: "مرداد ۱۴۰۵",
+        description: "پروژه اولیه ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.",
         tech: ["Python", "Bale API"],
         url: "https://github.com/here-is-leo/Bale-Bot"
       },
       {
         icon: "📦",
         title: "inventory-bot",
+        date: "۱۴۰۵",
         description: "ربات مدیریت موجودی و انبار — یک ابزار کاربردی برای پیگیری و مدیریت کالاها با گزارش‌گیری خودکار.",
         tech: ["Python"],
         url: "https://github.com/here-is-leo/inventory-bot"
@@ -231,7 +262,8 @@
         <div class="project-detail-card reveal reveal-delay-${i % 4}">
           <div class="project-icon">${project.icon}</div>
           <h3>${project.title}</h3>
-          <p style="color: var(--foreground-muted); font-size: .9rem; line-height: 1.9; margin: 8px 0;">${project.description}</p>
+          <div class="project-date">${project.date}</div>
+          <p class="project-desc">${project.description}</p>
           <div class="project-tech">
             ${project.tech.map(t => `<span>${t}</span>`).join('')}
           </div>
