@@ -7,7 +7,15 @@ const SITE = {
       titleAbout: "درباره ایلیا فراهانی",
       descAbout: "بیوگرافی، تحصیلات، دوره‌ها و مهارت‌های ایلیا فراهانی — برنامه‌نویس Python و C#، متخصص لینوکس و Kali Linux."
     },
-    nav: { home: "خانه", skills: "مهارت‌ها", projects: "پروژه‌ها", contact: "تماس", about: "درباره من", blog: "نوشته‌ها" },
+   nav: { 
+  home: "خانه", 
+  skills: "مهارت‌ها", 
+  projects: "پروژه‌ها", 
+  contact: "تماس", 
+  about: "درباره من", 
+  blog: "وبلاگ",
+  repos: "ریپوها" 
+},
     
     hero: {
       eyebrow: "در دسترس برای یادگیری و همکاری",
@@ -288,7 +296,15 @@ const SITE = {
       titleAbout: "About Ilia Farahani",
       descAbout: "Biography, education, courses and skills of Ilia Farahani — Python & C# developer, Linux expert and Kali Linux specialist."
     },
-    nav: { home: "Home", skills: "Skills", projects: "Projects", contact: "Contact", about: "About", blog: "Blog" },
+    nav: { 
+  home: "Home", 
+  skills: "Skills", 
+  projects: "Projects", 
+  contact: "Contact", 
+  about: "About", 
+  blog: "Blog",
+  repos: "Repos" 
+},
     
     hero: {
       eyebrow: "Open to learning & collaboration",
