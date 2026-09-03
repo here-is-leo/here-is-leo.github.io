@@ -13,6 +13,15 @@ function isMobile() {
   return window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 }
 
+// ============================================================
+// PERFORMANCE OPTIMIZATION — Windows Detection
+// ============================================================
+function isLowPerformance() {
+  const isWindows = navigator.platform.toLowerCase().includes('win');
+  const isSlow = window.navigator.hardwareConcurrency <= 4;
+  return isWindows || isSlow;
+}
+
 function el(tag, cls, html) {
   const n = document.createElement(tag);
   if (cls) n.className = cls;
@@ -242,6 +251,7 @@ function initParallax() {
 function initCinematicMotion() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (isMobile()) return;
+  if (isLowPerformance()) return;
   
   document.querySelectorAll(".particle-field,.cursor-glow").forEach(function(node) { node.remove(); });
   
@@ -289,6 +299,15 @@ function initCinematicMotion() {
     });
     card.addEventListener("pointerleave", function() { card.style.transform = ""; });
   });
+}
+
+function initAmbientOptimization() {
+  if (isLowPerformance()) {
+    document.querySelectorAll('.orb').forEach(orb => {
+      orb.style.animationDuration = '30s';
+      orb.style.filter = 'blur(80px)';
+    });
+  }
 }
 
 // ============================================================
@@ -369,7 +388,6 @@ function renderHome(data) {
       skillsGrid.appendChild(card);
     });
     
-    // انیمیشن بارها بعد از لود
     setTimeout(function() {
       document.querySelectorAll('.skill-level .bar').forEach(function(bar) {
         bar.classList.add('animate');
@@ -558,6 +576,7 @@ function render(page) {
     initSpotlights();
     initParallax();
     initCinematicMotion();
+    initAmbientOptimization();
     var statsSec = document.getElementById("stats-section");
     if (statsSec && statsSec.getBoundingClientRect().top < window.innerHeight) {
       animateCounters();
