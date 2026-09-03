@@ -29,6 +29,9 @@ function el(tag, cls, html) {
   return n;
 }
 
+// ============================================================
+// ICON SYSTEM — بدون اموجی
+// ============================================================
 function iconSVG(value) {
   var key = String(value || "");
   var paths = {
@@ -314,13 +317,13 @@ function initAmbientOptimization() {
 }
 
 // ============================================================
-// RENDER ICON
+// RENDER ICON — بدون اموجی
 // ============================================================
-function renderIcon(emoji, className) {
+function renderIcon(key, className) {
   if (isMobile()) {
-    return `<span class="${className || 'icon'} icon-fallback">${getIconFallback(emoji)}</span>`;
+    return `<span class="${className || 'icon'} icon-fallback">${getIconFallback(key)}</span>`;
   }
-  return `<span class="${className || 'icon'}">${iconSVG(emoji)}</span>`;
+  return `<span class="${className || 'icon'}">${iconSVG(key)}</span>`;
 }
 
 // ============================================================
@@ -455,10 +458,10 @@ function renderHome(data) {
   if (donationSub) donationSub.innerHTML = data.donation.sub;
   var donateBtn = document.getElementById("donateBtn");
   if (donateBtn) {
-    donateBtn.innerHTML = `<span class="icon">${isMobile() ? '☕' : iconSVG("☕")}</span><span class="btn-text">${data.donation.btnText}</span>`;
+    donateBtn.innerHTML = `<span class="icon">${renderIcon("coffee", "icon")}</span><span class="btn-text">${data.donation.btnText}</span>`;
   }
   var donateMsg = document.getElementById("donate-message");
-  if (donateMsg) donateMsg.innerHTML = `<span class="emoji">${isMobile() ? '🎯' : iconSVG("🎯")}</span><span>${data.donation.msg}</span>`;
+  if (donateMsg) donateMsg.innerHTML = `<span class="emoji">${renderIcon("target", "icon")}</span><span>${data.donation.msg}</span>`;
 
   // About preview
   var apTitle = document.getElementById("about-preview-title");
@@ -564,6 +567,45 @@ function renderAbout(data) {
 }
 
 // ============================================================
+// CONTACT FORM
+// ============================================================
+function initContactForm() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('formName').value.trim();
+    const email = document.getElementById('formEmail').value.trim();
+    const message = document.getElementById('formMessage').value.trim();
+    const status = document.getElementById('formStatus');
+    
+    if (!name || !email || !message) {
+      status.style.display = 'block';
+      status.style.color = '#ff6b6b';
+      status.textContent = 'لطفاً همه فیلدها را پر کنید.';
+      return;
+    }
+    
+    const subject = encodeURIComponent(`پیام از ${name} (via سایت)`);
+    const body = encodeURIComponent(`نام: ${name}\nایمیل: ${email}\n\nپیام:\n${message}`);
+    const mailtoLink = `mailto:ilyafarahanii@gmail.com?subject=${subject}&body=${body}`;
+    
+    window.location.href = mailtoLink;
+    
+    status.style.display = 'block';
+    status.style.color = '#00FF41';
+    status.textContent = 'در حال باز کردن ایمیل...';
+    
+    setTimeout(() => {
+      form.reset();
+      status.textContent = 'پیام با موفقیت ارسال شد!';
+    }, 1000);
+  });
+}
+
+// ============================================================
 // RENDER
 // ============================================================
 function render(page) {
@@ -616,6 +658,7 @@ document.addEventListener("DOMContentLoaded", function() {
   render(page);
   initLangToggle(page);
   initNavToggle();
+  initContactForm();
   document.querySelectorAll("[data-theme-toggle]").forEach(function(btn) {
     btn.addEventListener("click", function() {
       setTheme(getTheme() === "dark" ? "light" : "dark");
