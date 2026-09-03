@@ -9,20 +9,18 @@
   <link rel="shortcut icon" href="logo.png" type="image/png" />
   
   <!-- ====== TITLE & DESCRIPTION ====== -->
-  <title>ریپوها | ایلیا فراهانی (ایلیا عزیزآبادی)</title>
-  <meta name="description" content="مخازن گیت‌هاب ایلیا فراهانی (ایلیا عزیزآبادی) — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
+  <title id="page-title">ریپوها | ایلیا فراهانی</title>
+  <meta name="description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
   <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, گیت‌هاب, پروژه‌های امنیتی, برنامه‌نویسی, لینوکس" />
   <link rel="canonical" href="https://www.here-is-leo.ir/repos.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="ریپوها | ایلیا فراهانی (ایلیا عزیزآبادی)" />
+  <meta property="og:title" content="ریپوها | ایلیا فراهانی" />
   <meta property="og:description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
   <meta property="og:url" content="https://www.here-is-leo.ir/repos.html" />
   <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ریپوها | ایلیا فراهانی" />
-  <meta name="twitter:description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی و برنامه‌نویسی." />
   <meta name="google-site-verification" content="google32cfec778daf2edb" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -78,8 +76,24 @@
   <script src="content.js"></script>
   <script src="script.js"></script>
   <script>
+    // ============================================================
+    // LANGUAGE COLORS
+    // ============================================================
+    const langColors = {
+      "TypeScript": "#3178C6",
+      "Python": "#3572A5",
+      "PHP": "#4F5D95",
+      "HTML": "#E34F26",
+      "CSS": "#563D7C",
+      "JavaScript": "#F1E05A",
+      "C#": "#239120",
+      "C++": "#F34B7D"
+    };
+
+    // ============================================================
     // REPOS DATA
-    const repos = [
+    // ============================================================
+    const reposData = [
       { name: "pos-system", description: "سیستم جامع فروش و مدیریت انبار (POS) با ۴ اپلیکیشن جداگانه — REST API، پنل ادمین، فروشنده و انباردار.", language: "TypeScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/pos-system" },
       { name: "Paris", description: "اسکنر آسیب‌پذیری وب — شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.", language: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Paris" },
       { name: "Moscow", description: "پلاگین تحقیقاتی امنیت وردپرس — چندین نقطه ورود، Self-Destruct و Deface page.", language: "PHP", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Moscow" },
@@ -92,16 +106,23 @@
       { name: "inventory-bot", description: "ربات مدیریت موجودی و انبار — پیگیری و مدیریت کالاها با گزارش‌گیری خودکار.", language: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/inventory-bot" }
     ];
 
-    const langColors = { "TypeScript": "#3178C6", "Python": "#3572A5", "PHP": "#4F5D95", "HTML": "#E34F26", "CSS": "#563D7C", "JavaScript": "#F1E05A" };
-
+    // ============================================================
+    // RENDER REPOS
+    // ============================================================
     function renderRepos() {
       const grid = document.getElementById('repos-grid');
       if (!grid) return;
-      grid.innerHTML = repos.map((repo, i) => `
+      
+      grid.innerHTML = reposData.map((repo, i) => `
         <div class="repo-card reveal reveal-delay-${i % 4}" style="background: linear-gradient(160deg, rgba(255,255,255,.035), rgba(255,255,255,.008)); border: 1px solid var(--border-default); border-radius: var(--radius); padding: 24px 26px; backdrop-filter: blur(14px); transition: all .45s var(--transition);">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px;">
-            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.015em;"><a href="${repo.url}" target="_blank" style="color: inherit; text-decoration: none; transition: color .3s;">${repo.name}</a></h3>
-            <div style="display: flex; align-items: center; gap: 12px; font-size: .75rem; color: var(--foreground-muted);"><span>⭐ ${repo.stars}</span><span>⑂ ${repo.forks}</span></div>
+            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 600; letter-spacing: -0.015em;">
+              <a href="${repo.url}" target="_blank" style="color: inherit; text-decoration: none; transition: color .3s;">${repo.name}</a>
+            </h3>
+            <div style="display: flex; align-items: center; gap: 12px; font-size: .75rem; color: var(--foreground-muted);">
+              <span>⭐ ${repo.stars}</span>
+              <span>⑂ ${repo.forks}</span>
+            </div>
           </div>
           <p style="color: var(--foreground-muted); font-size: .87rem; line-height: 1.8; margin: 0 0 14px 0;">${repo.description}</p>
           <div style="display: flex; align-items: center; gap: 8px;">
@@ -110,13 +131,16 @@
           </div>
         </div>
       `).join('');
-      setTimeout(() => { document.querySelectorAll('.repo-card').forEach((card, i) => { setTimeout(() => card.classList.add('visible'), 100 + i * 60); }); }, 200);
+      
+      setTimeout(() => {
+        document.querySelectorAll('.repo-card').forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), 100 + i * 60);
+        });
+      }, 200);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
       renderRepos();
-      const footer = document.getElementById('footer-text');
-      if (footer) footer.textContent = '© ' + new Date().getFullYear() + ' ایلیا فراهانی';
     });
   </script>
 </body>
