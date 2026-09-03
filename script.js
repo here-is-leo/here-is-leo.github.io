@@ -381,7 +381,7 @@ function renderHome(data) {
     hero.appendChild(el("p", null, data.hero.subtitle));
     var cta = el("div", "hero-cta");
     var c1 = el("a", "btn btn-primary", data.hero.cta1);
-    c1.href = "#projects";
+    c1.href = "projects.html";  // ← تغییر از "#projects" به "projects.html"
     var c2 = el("a", "btn btn-secondary", data.hero.cta2);
     c2.href = "about.html";
     cta.append(c1, c2);
@@ -469,10 +469,7 @@ function renderHome(data) {
   });
 
   // ====== PROJECTS ======
-  // NOTE: content.js project items use `url` (not `href`) and have
-  // NO `bullets` array — only `tech`. That mismatch was crashing
-  // renderHome() and silently blanking every section rendered after
-  // this one. Fixed to match the real data shape.
+  // ✅ اصلاح شده با bullets و لینک به projects.html
   safe("projects", function() {
     if (!data.projects) return;
     var projTag = document.getElementById("projects-tag");
@@ -484,23 +481,35 @@ function renderHome(data) {
     var projGrid = document.getElementById("projects-grid");
     if (projGrid) {
       projGrid.innerHTML = "";
-      data.projects.items.forEach(function(proj) {
-        var card = el("div", "project-card reveal reveal-delay-" + 0);
+      data.projects.items.forEach(function(proj, index) {
+        var card = el("div", "project-card reveal reveal-delay-" + (index % 3));
+        
+        // هدر پروژه با لینک به projects.html
         var head = el("div", "project-head");
-        var titleText = (proj.icon ? proj.icon + " " : "") + proj.title;
-        head.append(el("h3", null, titleText));
+        var titleLink = el("a", null, proj.icon + " " + proj.title);
+        titleLink.href = "projects.html";
+        titleLink.style.color = "inherit";
+        titleLink.style.textDecoration = "none";
+        head.appendChild(titleLink);
         if (proj.date) head.append(el("span", "project-date", proj.date));
+        
         var desc = el("p", null, proj.desc);
+        
+        // bullets (اگر وجود داشته باشه)
+        var ul = el("ul");
+        if (proj.bullets && proj.bullets.length) {
+          proj.bullets.forEach(function(b) { ul.appendChild(el("li", null, b)); });
+        }
+        
         var tags = el("div", "tech-tags");
         (proj.tech || []).forEach(function(t) { tags.appendChild(el("span", null, t)); });
-        card.append(head, desc, tags);
-        if (proj.url || proj.href) {
-          var link = el("a", "project-link", "GitHub ↗");
-          link.href = proj.url || proj.href;
-          link.target = "_blank";
-          link.rel = "noopener";
-          card.appendChild(link);
-        }
+        
+        var link = el("a", "project-link", "مشاهده در گیت‌هاب →");
+        link.href = proj.url || proj.href || "#";
+        link.target = "_blank";
+        link.rel = "noopener";
+        
+        card.append(head, desc, ul, tags, link);
         projGrid.appendChild(card);
       });
     }
