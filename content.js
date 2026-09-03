@@ -7,27 +7,27 @@ const SITE = {
       titleAbout: "درباره ایلیا فراهانی",
       descAbout: "بیوگرافی، تحصیلات، دوره‌ها و مهارت‌های ایلیا فراهانی — برنامه‌نویس Python و C#، متخصص لینوکس و Kali Linux."
     },
-   nav: { 
-  home: "خانه", 
-  skills: "مهارت‌ها", 
-  projects: "پروژه‌ها", 
-  contact: "تماس", 
-  about: "درباره من", 
-  blog: "وبلاگ",
-  repos: "ریپوها",
-  resume: "رزومه"
-},
+    nav: { 
+      home: "خانه", 
+      skills: "مهارت‌ها", 
+      projects: "پروژه‌ها", 
+      contact: "تماس", 
+      about: "درباره من", 
+      blog: "وبلاگ",
+      repos: "ریپوها",
+      resume: "رزومه"
+    },
     
-   hero: {
-  eyebrow: "در دسترس برای یادگیری و همکاری",
-  title1: "سلام، من",
-  name: "ایلیا فراهانی",
-  title2: "هستم",
-  typewriter: ["برنامه‌نویس Python و C#", "متخصص لینوکس", "تست‌نفوذگر Kali Linux"],
-  subtitle: "برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.",
-  cta1: "مشاهده پروژه‌ها",
-  cta2: "درباره من"
-},
+    hero: {
+      eyebrow: "در دسترس برای یادگیری و همکاری",
+      title1: "سلام، من",
+      name: "ایلیا فراهانی",
+      title2: "هستم",
+      typewriter: ["برنامه‌نویس Python و C#", "متخصص لینوکس", "تست‌نفوذگر Kali Linux"],
+      subtitle: "برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.",
+      cta1: "مشاهده پروژه‌ها",
+      cta2: "درباره من"
+    },
 
     stats: [
       { number: 35, suffix: "+", label: "چالش امنیتی حل شده" },
@@ -68,132 +68,92 @@ const SITE = {
     
     projects: {
       tag: "پروژه‌ها",
-      title: "نمونه‌کارها",
-      subtitle: "پروژه‌هایی که با یادگیری خودآموز ساخته‌ام.",
+      title: "پروژه‌های شاخص",
+      subtitle: "پروژه‌هایی که با یادگیری خودآموز و عشق به کدنویسی ساخته‌ام.",
       items: [
-        {
-          title: "pos-system",
-          date: "۱۴۰۵",
-          desc: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار.",
-          bullets: [
-            "دسترسی نقش‌محور (Role-based access) برای مدیریت کاربران",
-            "فاکتور‌گذاری با تخفیف و چاپ مستقیم",
-            "مدیریت موجودی با لاگ تغییرات و تاریخچه",
-            "تسویه‌حساب مشتریان و گزارش‌گیری Excel/PDF",
-            "بک‌آپ خودکار از پایگاه داده"
-          ],
-          tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"],
-          href: "https://github.com/here-is-leo/pos-system"
-        },
-        {
-          title: "Paris",
-          date: "۱۴۰۵",
-          desc: "اسکنر آسیب‌پذیری وب (Web Vulnerability Scanner) — یک ابزار قدرتمند برای شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.",
-          bullets: [
-            "اسکن خودکار آسیب‌پذیری‌های رایج (SQLi، XSS، LFI و...)",
-            "گزارش‌گیری دقیق از نتایج اسکن",
-            "طراحی سبک و کارآمد برای استفاده حرفه‌ای"
-          ],
-          tech: ["Python", "Web Security", "Penetration Testing"],
-          href: "https://github.com/here-is-leo/Paris"
-        },
-        {
-          title: "Moscow",
-          date: "۱۴۰۵",
-          desc: "پلاگین پیشرفته تحقیقاتی امنیت وردپرس — یک ابزار آموزشی برای شناسایی نقاط ضعف امنیتی در وردپرس.",
-          bullets: [
-            "سیستم چندین نقطه ورود (۱۰+ Entry Points)",
-            "قابلیت Self-Destruct پس از ۵۰ ساعت",
-            "صفحه Deface و سیستم Backdoor چندگانه",
-            "منحصراً برای اهداف آموزشی و تحقیقاتی"
-          ],
-          tech: ["PHP", "WordPress", "Security Research"],
-          href: "https://github.com/here-is-leo/Moscow"
-        },
-        {
-          title: "overthewire-natas",
-          date: "۱۴۰۵",
-          desc: "راهنمای کامل و دوزبانه برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas — یکی از معروف‌ترین سری چالش‌های امنیتی OverTheWire.",
-          bullets: [
-            "تحلیل مرحله‌به‌مرحله هر چالش با توضیح آسیب‌پذیری",
-            "ارائه کد اکسپلویت و راهکارهای مقابله",
-            "رابط کاربری نئونی با شبیه‌ساز ترمینال و Progress Tracker"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Web Security"],
-          href: "https://github.com/here-is-leo/overthewire-natas"
-        },
-        {
-          title: "V-Tunnel",
-          date: "مرداد ۱۴۰۵",
-          desc: "Telegram Mini App برای مدیریت ابزارهای شبکه — سرورهای DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.",
-          bullets: [
-            "مدیریت DNS عمومی (Google DNS، Cloudflare) و MTProto Proxies",
-            "مدیریت کانفیگ‌های V2Ray برای ارتباطات امن",
-            "طراحی با سبک Glassmorphism، تم تیره و پشتیبانی دوزبانه"
-          ],
-          tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"],
-          href: "https://github.com/here-is-leo/V-Tunnel"
-        },
-        {
-          title: "kali-linux-complete-guide",
-          date: "مرداد ۱۴۰۵",
-          desc: "راهنمای جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — یک دانشنامه فشرده برای تست‌نفوذگران.",
-          bullets: [
-            "پوشش ابزارهای کلیدی: Nmap، Metasploit، Wireshark، John the Ripper",
-            "فهرست مطالب تعاملی و پشتیبانی از حالت روشن/تاریک",
-            "محتوای دوزبانه فارسی/انگلیسی"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Kali Linux"],
-          href: "https://github.com/here-is-leo/kali-linux-complete-guide"
-        },
-        {
-          title: "N3XUS",
-          date: "۱۴۰۵",
-          desc: "سیستم کنترل پیشرفته مبتنی بر آردوینو با رابط وب، مانیتورینگ سریال و یکپارچه‌سازی سخت‌افزار. مناسب برای پروژه‌های IoT و اتوماسیون.",
-          bullets: [
-            "رابط وب برای کنترل و مانیتورینگ دستگاه",
-            "پشتیبانی از ارتباط سریال برای ارتباط با سخت‌افزار",
-            "پیکربندی ماژولار و مستندسازی کامل"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Arduino", "IoT"],
-          href: "https://github.com/here-is-leo/N3XUS"
-        },
-        {
-          title: "Marshall",
-          date: "۱۴۰۵",
-          desc: "سیستم کنترل مبتنی بر آردوینو با پیکربندی ماژولار، مستندسازی جامع و رابط کاربری آسان. مناسب برای سیستم‌های تعبیه‌شده و پروژه‌های اتوماسیون.",
-          bullets: [
-            "پیکربندی ماژولار برای پروژه‌های مختلف",
-            "مستندسازی کامل و رابط کاربری آسان",
-            "یکپارچه‌سازی با سخت‌افزارهای مختلف"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Arduino", "Embedded Systems"],
-          href: "https://github.com/here-is-leo/Marshall"
-        },
-        {
-          title: "Bale-Bot",
-          date: "مرداد ۱۴۰۵",
-          desc: "ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.",
-          bullets: [
-            "نسخه ابتدایی با قابلیت پاسخگویی خودکار",
-            "توسعه و اضافه کردن ماژول‌های جدید در حال انجام"
-          ],
-          tech: ["Python", "Bale API"],
-          href: "https://github.com/here-is-leo/Bale-Bot"
-        },
-        {
-          title: "inventory-bot",
-          date: "۱۴۰۵",
-          desc: "ربات مدیریت موجودی و انبار — یک ابزار کاربردی برای پیگیری و مدیریت کالاها.",
-          bullets: [
-            "مدیریت موجودی کالاها",
-            "پیگیری تغییرات و تاریخچه",
-            "گزارش‌گیری و هشدارهای خودکار"
-          ],
-          tech: ["Python"],
-          href: "https://github.com/here-is-leo/inventory-bot"
-        }
+        { icon: "🛒", title: "pos-system", date: "۱۴۰۵", desc: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار.", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: "https://github.com/here-is-leo/pos-system" },
+        { icon: "🔍", title: "Paris", date: "۱۴۰۵", desc: "اسکنر خودکار و حرفه‌ای آسیب‌پذیری‌های وب، طراحی‌شده برای پژوهشگران امنیتی و تست‌کنندگان نفوذ. پیاده‌سازی بیش از ۱۲ نوع تست آسیب‌پذیری.", tech: ["Python", "FastAPI", "WebSocket"], url: "https://github.com/here-is-leo/Paris" },
+        { icon: "🔒", title: "Moscow", date: "۱۴۰۵", desc: "پروژه تحقیقاتی و آموزشی در حوزه امنیت پلاگین‌های وردپرس. بررسی و تحلیل نقاط ضعف امنیتی رایج در پلاگین‌ها.", tech: ["PHP", "WordPress", "Security Research"], url: "https://github.com/here-is-leo/Moscow" },
+        { icon: "🕸️", title: "overthewire-natas", date: "۱۴۰۵", desc: "راهنمای کامل و دوزبانه (فارسی/انگلیسی) برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas.", tech: ["HTML", "CSS", "JavaScript", "Web Security"], url: "https://github.com/here-is-leo/overthewire-natas" },
+        { icon: "🌐", title: "V-Tunnel", date: "مرداد ۱۴۰۵", desc: "Telegram Mini App برای مدیریت ابزارهای شبکه — سرورهای DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.", tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"], url: "https://github.com/here-is-leo/V-Tunnel" },
+        { icon: "📚", title: "kali-linux-complete-guide", date: "مرداد ۱۴۰۵", desc: "راهنمای آموزشی جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — Nmap، Metasploit، Wireshark، John the Ripper.", tech: ["HTML", "CSS", "JavaScript", "Kali Linux"], url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
+        { icon: "⚡", title: "N3XUS V7.1", date: "۱۴۰۵", desc: "سامانه کنترل پیشرفته مبتنی بر آردوینو (نسخه V7.1) با رابط کاربری تحت وب. طراحی رابط وب برای پایش و کنترل بلادرنگ سخت‌افزار.", tech: ["Arduino (C/C++)", "HTML"], url: "https://github.com/here-is-leo/N3XUS" },
+        { icon: "🔧", title: "Marshall", date: "۱۴۰۵", desc: "سامانه کنترل ماژولار مبتنی بر آردوینو با پیکربندی قابل‌تنظیم. طراحی معماری ماژولار و مستندسازی جامع.", tech: ["Arduino (C/C++)", "HTML"], url: "https://github.com/here-is-leo/Marshall" },
+        { icon: "🤖", title: "Bale-Bot", date: "مرداد ۱۴۰۵", desc: "پروژه اولیه ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.", tech: ["Python", "Bale API"], url: "https://github.com/here-is-leo/Bale-Bot" },
+        { icon: "📦", title: "inventory-bot", date: "۱۴۰۵", desc: "ربات مدیریت موجودی و انبار — یک ابزار کاربردی برای پیگیری و مدیریت کالاها با گزارش‌گیری خودکار.", tech: ["Python"], url: "https://github.com/here-is-leo/inventory-bot" }
       ]
+    },
+
+    repos: {
+      tag: "مخازن",
+      title: "مخازن گیت‌هاب",
+      subtitle: "همه پروژه‌های من در گیت‌هاب — از ابزارهای امنیتی تا سیستم‌های کنترل و اتوماسیون.",
+      items: [
+        { name: "pos-system", desc: "سیستم جامع فروش و مدیریت انبار (POS) با ۴ اپلیکیشن جداگانه — REST API، پنل ادمین، فروشنده و انباردار.", lang: "TypeScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/pos-system" },
+        { name: "Paris", desc: "اسکنر آسیب‌پذیری وب — شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Paris" },
+        { name: "Moscow", desc: "پلاگین تحقیقاتی امنیت وردپرس — چندین نقطه ورود، Self-Destruct و Deface page.", lang: "PHP", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Moscow" },
+        { name: "overthewire-natas", desc: "راهنمای کامل دوزبانه ۳۵ مرحله چالش Natas — تحلیل آسیب‌پذیری و کد اکسپلویت.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/overthewire-natas" },
+        { name: "V-Tunnel", desc: "Telegram Mini App برای مدیریت DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/V-Tunnel" },
+        { name: "kali-linux-complete-guide", desc: "راهنمای جامع ۴۰+ صفحه‌ای ابزارهای Kali Linux — Nmap، Metasploit، Wireshark و...", lang: "HTML", stars: 1, forks: 0, url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
+        { name: "N3XUS", desc: "سیستم کنترل پیشرفته آردوینو با رابط وب، مانیتورینگ سریال و یکپارچه‌سازی سخت‌افزار.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/N3XUS" },
+        { name: "Marshall", desc: "سیستم کنترل آردوینو با پیکربندی ماژولار، مستندسازی جامع و رابط کاربری آسان.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Marshall" },
+        { name: "Bale-Bot", desc: "ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Bale-Bot" },
+        { name: "inventory-bot", desc: "ربات مدیریت موجودی و انبار — پیگیری و مدیریت کالاها با گزارش‌گیری خودکار.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/inventory-bot" }
+      ]
+    },
+
+    resume: {
+      tag: "رزومه",
+      title: "رزومه",
+      subtitle: "برنامه‌نویس Python و C# | متخصص لینوکس، امنیت وب و IoT",
+      personal: {
+        name: "ایلیا فراهانی (ایلیا عزیزآبادی)",
+        job: "برنامه‌نویس Python و C#",
+        location: "تهران، ایران",
+        email: "ilyafarahanii@gmail.com",
+        phone: "۰۹۰۳۰۸۳۹۷۹۰",
+        github: "github.com/here-is-leo"
+      },
+      about: "دانش‌آموز و علاقه‌مند به برنامه‌نویسی Python، توسعه با لینوکس و امنیت وب. با گذراندن کامل چالش‌های امنیتی Natas (سری OverTheWire) و ساخت چند پروژه عملی روی گیت‌هاب، دانش فنی خود را به‌صورت خودآموز و پروژه‌محور تقویت کرده‌ام.",
+      skills: [
+        { name: "Python", level: 95 },
+        { name: "C# (MVC)", level: 90 },
+        { name: "لینوکس", level: 95 },
+        { name: "Kali Linux", level: 90 },
+        { name: "HTML & CSS", level: 90 },
+        { name: "JavaScript", level: 65 },
+        { name: "Node.js / Next.js", level: 60 },
+        { name: "SQL Server / SQLite", level: 85 },
+        { name: "WordPress", level: 80 },
+        { name: "امنیت وب", level: 85 },
+        { name: "Arduino (C/C++)", level: 80 },
+        { name: "FastAPI", level: 75 }
+      ],
+      projects: [
+        { icon: "🔍", title: "Paris", desc: "اسکنر آسیب‌پذیری وب با Python + FastAPI + WebSocket" },
+        { icon: "🔒", title: "Moscow", desc: "پروژه تحقیقاتی امنیت پلاگین‌های وردپرس (PHP)" },
+        { icon: "⚡", title: "N3XUS V7.1", desc: "سیستم کنترل مبتنی بر آردوینو با رابط وب" },
+        { icon: "🔧", title: "Marshall", desc: "سیستم کنترل ماژولار آردوینو" },
+        { icon: "🕸️", title: "overthewire-natas", desc: "راهنمای ۳۵ مرحله چالش Natas" },
+        { icon: "🌐", title: "V-Tunnel", desc: "Telegram Mini App با Python" },
+        { icon: "📚", title: "kali-linux-complete-guide", desc: "راهنمای ۴۰+ صفحه‌ای Kali Linux" }
+      ],
+      education: [
+        { title: "دانش‌آموز", sub: "تهران" },
+        { title: "دوره فناوری‌های پیشرفته", sub: "آکادمی دانشگاه شریف و تکنو شریف" },
+        { title: "دوره PWK", sub: "Kali Linux — تست نفوذ" },
+        { title: "دوره امنیت شبکه", sub: "Network+" }
+      ],
+      languages: [
+        { name: "فارسی", level: "زبان مادری" },
+        { name: "انگلیسی", level: "B2+" }
+      ],
+      github: {
+        commits: "۲۳ در یک سال اخیر",
+        repos: "۱۳ مخزن",
+        focus: "مرداد ۱۴۰۵",
+        type: "امنیتی، آموزشی، IoT"
+      }
     },
     
     donation: {
@@ -298,14 +258,15 @@ const SITE = {
       descAbout: "Biography, education, courses and skills of Ilia Farahani — Python & C# developer, Linux expert and Kali Linux specialist."
     },
     nav: { 
-  home: "Home", 
-  skills: "Skills", 
-  projects: "Projects", 
-  contact: "Contact", 
-  about: "About", 
-  blog: "Blog",
-  repos: "Repos" 
-},
+      home: "Home", 
+      skills: "Skills", 
+      projects: "Projects", 
+      contact: "Contact", 
+      about: "About", 
+      blog: "Blog",
+      repos: "Repos",
+      resume: "Resume"
+    },
     
     hero: {
       eyebrow: "Open to learning & collaboration",
@@ -357,132 +318,92 @@ const SITE = {
     
     projects: {
       tag: "Projects",
-      title: "Portfolio",
-      subtitle: "Projects built through self-driven learning.",
+      title: "Featured Projects",
+      subtitle: "Projects built through self-driven learning and passion for coding.",
       items: [
-        {
-          title: "pos-system",
-          date: "2026",
-          desc: "Full-featured Point-of-Sale & inventory management system built as 4 separate apps — REST API backend, admin dashboard, cashier interface, and warehouse manager.",
-          bullets: [
-            "Role-based access control for user management",
-            "Invoicing with discounts and direct printing",
-            "Stock tracking with change logs and history",
-            "Customer settlements and Excel/PDF reporting",
-            "Automated database backups"
-          ],
-          tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"],
-          href: "https://github.com/here-is-leo/pos-system"
-        },
-        {
-          title: "Paris",
-          date: "2026",
-          desc: "Web Vulnerability Scanner — a powerful tool for identifying and analyzing security vulnerabilities in websites.",
-          bullets: [
-            "Automated scanning for common vulnerabilities (SQLi, XSS, LFI, etc.)",
-            "Detailed reporting of scan results",
-            "Lightweight and efficient design for professional use"
-          ],
-          tech: ["Python", "Web Security", "Penetration Testing"],
-          href: "https://github.com/here-is-leo/Paris"
-        },
-        {
-          title: "Moscow",
-          date: "2026",
-          desc: "Advanced WordPress Security Research Plugin — an educational tool for identifying security weaknesses in WordPress.",
-          bullets: [
-            "Multiple entry points system (10+ Entry Points)",
-            "Self-Destruct capability after 50 hours",
-            "Deface page and multi-backdoor system",
-            "Strictly for educational and research purposes"
-          ],
-          tech: ["PHP", "WordPress", "Security Research"],
-          href: "https://github.com/here-is-leo/Moscow"
-        },
-        {
-          title: "overthewire-natas",
-          date: "2026",
-          desc: "Complete bilingual (Persian/English) walkthrough for all 35 levels of OverTheWire Natas — web & server-side security concepts, vulnerabilities, exploitation code, and defense strategies.",
-          bullets: [
-            "Step-by-step analysis of each level with vulnerability explanations",
-            "Exploit code and mitigation strategies",
-            "Neon-styled UI with terminal simulator and Progress Tracker"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Web Security"],
-          href: "https://github.com/here-is-leo/overthewire-natas"
-        },
-        {
-          title: "V-Tunnel",
-          date: "Aug 2026",
-          desc: "Telegram Mini App for managing network tools — public DNS servers, MTProto proxies, and V2Ray configs.",
-          bullets: [
-            "Manage public DNS servers (Google DNS, Cloudflare) and MTProto proxies",
-            "Manage V2Ray configs for secure communication",
-            "Glassmorphism dark-themed UI with bilingual support"
-          ],
-          tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"],
-          href: "https://github.com/here-is-leo/V-Tunnel"
-        },
-        {
-          title: "kali-linux-complete-guide",
-          date: "Aug 2026",
-          desc: "A comprehensive guide (40+ pages) covering Kali Linux tools — a compact encyclopedia for penetration testers.",
-          bullets: [
-            "Covers key tools: Nmap, Metasploit, Wireshark, John the Ripper",
-            "Interactive table of contents and light/dark mode support",
-            "Bilingual Persian/English content"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Kali Linux"],
-          href: "https://github.com/here-is-leo/kali-linux-complete-guide"
-        },
-        {
-          title: "N3XUS",
-          date: "2026",
-          desc: "Advanced Arduino-based control system with web interface, serial monitoring, and hardware integration. Perfect for IoT and automation projects.",
-          bullets: [
-            "Web interface for device control and monitoring",
-            "Serial communication support for hardware integration",
-            "Modular configuration and complete documentation"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Arduino", "IoT"],
-          href: "https://github.com/here-is-leo/N3XUS"
-        },
-        {
-          title: "Marshall",
-          date: "2026",
-          desc: "Arduino-based control system with modular configuration, comprehensive documentation, and easy-to-use interface. Perfect for embedded systems and automation.",
-          bullets: [
-            "Modular configuration for different projects",
-            "Complete documentation and easy-to-use interface",
-            "Integration with various hardware"
-          ],
-          tech: ["HTML", "CSS", "JavaScript", "Arduino", "Embedded Systems"],
-          href: "https://github.com/here-is-leo/Marshall"
-        },
-        {
-          title: "Bale-Bot",
-          date: "Aug 2026",
-          desc: "An intelligent messaging bot for the Bale platform — in active development with new features.",
-          bullets: [
-            "Initial version with auto-reply capability",
-            "Adding new modules and features in progress"
-          ],
-          tech: ["Python", "Bale API"],
-          href: "https://github.com/here-is-leo/Bale-Bot"
-        },
-        {
-          title: "inventory-bot",
-          date: "2026",
-          desc: "Inventory and warehouse management bot — a practical tool for tracking and managing products.",
-          bullets: [
-            "Product inventory management",
-            "Change tracking and history",
-            "Reporting and automated alerts"
-          ],
-          tech: ["Python"],
-          href: "https://github.com/here-is-leo/inventory-bot"
-        }
+        { icon: "🛒", title: "pos-system", date: "2026", desc: "Full-featured Point-of-Sale & inventory management system built as 4 separate apps — REST API backend, admin dashboard, cashier interface, and warehouse manager.", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: "https://github.com/here-is-leo/pos-system" },
+        { icon: "🔍", title: "Paris", date: "2026", desc: "Web Vulnerability Scanner — a powerful tool for identifying and analyzing security vulnerabilities in websites.", tech: ["Python", "FastAPI", "WebSocket"], url: "https://github.com/here-is-leo/Paris" },
+        { icon: "🔒", title: "Moscow", date: "2026", desc: "Advanced WordPress Security Research Plugin — an educational tool for identifying security weaknesses in WordPress.", tech: ["PHP", "WordPress", "Security Research"], url: "https://github.com/here-is-leo/Moscow" },
+        { icon: "🕸️", title: "overthewire-natas", date: "2026", desc: "Complete bilingual (Persian/English) walkthrough for all 35 levels of OverTheWire Natas — web & server-side security concepts, vulnerabilities, exploitation code, and defense strategies.", tech: ["HTML", "CSS", "JavaScript", "Web Security"], url: "https://github.com/here-is-leo/overthewire-natas" },
+        { icon: "🌐", title: "V-Tunnel", date: "Aug 2026", desc: "Telegram Mini App for managing network tools — public DNS servers, MTProto proxies, and V2Ray configs.", tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"], url: "https://github.com/here-is-leo/V-Tunnel" },
+        { icon: "📚", title: "kali-linux-complete-guide", date: "Aug 2026", desc: "A comprehensive guide (40+ pages) covering Kali Linux tools — a compact encyclopedia for penetration testers.", tech: ["HTML", "CSS", "JavaScript", "Kali Linux"], url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
+        { icon: "⚡", title: "N3XUS V7.1", date: "2026", desc: "Advanced Arduino-based control system (V7.1) with web interface. Hardware monitoring and control through web UI.", tech: ["Arduino (C/C++)", "HTML"], url: "https://github.com/here-is-leo/N3XUS" },
+        { icon: "🔧", title: "Marshall", date: "2026", desc: "Modular Arduino-based control system with customizable configuration. Modular architecture design and comprehensive documentation.", tech: ["Arduino (C/C++)", "HTML"], url: "https://github.com/here-is-leo/Marshall" },
+        { icon: "🤖", title: "Bale-Bot", date: "Aug 2026", desc: "Early version of an intelligent messaging bot for the Bale platform — in active development with new features.", tech: ["Python", "Bale API"], url: "https://github.com/here-is-leo/Bale-Bot" },
+        { icon: "📦", title: "inventory-bot", date: "2026", desc: "Inventory and warehouse management bot — a practical tool for tracking and managing products with automated reporting.", tech: ["Python"], url: "https://github.com/here-is-leo/inventory-bot" }
       ]
+    },
+
+    repos: {
+      tag: "Repos",
+      title: "GitHub Repositories",
+      subtitle: "All my GitHub projects — from security tools to control systems and automation.",
+      items: [
+        { name: "pos-system", desc: "Full-featured Point-of-Sale & inventory management system with 4 separate apps — REST API, admin panel, cashier and warehouse manager.", lang: "TypeScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/pos-system" },
+        { name: "Paris", desc: "Web Vulnerability Scanner — identifying and analyzing security vulnerabilities in websites.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Paris" },
+        { name: "Moscow", desc: "WordPress security research plugin — multiple entry points, Self-Destruct and Deface page.", lang: "PHP", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Moscow" },
+        { name: "overthewire-natas", desc: "Complete bilingual walkthrough for 35 levels of Natas challenge — vulnerability analysis and exploit code.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/overthewire-natas" },
+        { name: "V-Tunnel", desc: "Telegram Mini App for managing public DNS, MTProto proxies and V2Ray configs.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/V-Tunnel" },
+        { name: "kali-linux-complete-guide", desc: "Comprehensive 40+ page guide to Kali Linux tools — Nmap, Metasploit, Wireshark and more.", lang: "HTML", stars: 1, forks: 0, url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
+        { name: "N3XUS", desc: "Advanced Arduino control system with web UI, serial monitoring and hardware integration.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/N3XUS" },
+        { name: "Marshall", desc: "Arduino control system with modular configuration, comprehensive documentation and easy-to-use UI.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Marshall" },
+        { name: "Bale-Bot", desc: "Intelligent messaging bot for Bale platform — in development with new features.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Bale-Bot" },
+        { name: "inventory-bot", desc: "Inventory management bot — product tracking and management with automated reporting.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/inventory-bot" }
+      ]
+    },
+
+    resume: {
+      tag: "Resume",
+      title: "Resume",
+      subtitle: "Python & C# Developer | Linux, Web Security & IoT Specialist",
+      personal: {
+        name: "Ilia Farahani (Ilia Azizabadi)",
+        job: "Python & C# Developer",
+        location: "Tehran, Iran",
+        email: "ilyafarahanii@gmail.com",
+        phone: "+98 903 083 9790",
+        github: "github.com/here-is-leo"
+      },
+      about: "Student passionate about Python programming, Linux development and web security. Having completed all Natas security challenges (OverTheWire series) and built several practical projects on GitHub, I have strengthened my technical knowledge through self-learning and project-based development.",
+      skills: [
+        { name: "Python", level: 95 },
+        { name: "C# (MVC)", level: 90 },
+        { name: "Linux", level: 95 },
+        { name: "Kali Linux", level: 90 },
+        { name: "HTML & CSS", level: 90 },
+        { name: "JavaScript", level: 65 },
+        { name: "Node.js / Next.js", level: 60 },
+        { name: "SQL Server / SQLite", level: 85 },
+        { name: "WordPress", level: 80 },
+        { name: "Web Security", level: 85 },
+        { name: "Arduino (C/C++)", level: 80 },
+        { name: "FastAPI", level: 75 }
+      ],
+      projects: [
+        { icon: "🔍", title: "Paris", desc: "Web Vulnerability Scanner with Python + FastAPI + WebSocket" },
+        { icon: "🔒", title: "Moscow", desc: "WordPress plugin security research project (PHP)" },
+        { icon: "⚡", title: "N3XUS V7.1", desc: "Arduino-based control system with web interface" },
+        { icon: "🔧", title: "Marshall", desc: "Modular Arduino control system" },
+        { icon: "🕸️", title: "overthewire-natas", desc: "35-level Natas challenge walkthrough" },
+        { icon: "🌐", title: "V-Tunnel", desc: "Telegram Mini App with Python" },
+        { icon: "📚", title: "kali-linux-complete-guide", desc: "40+ page Kali Linux guide" }
+      ],
+      education: [
+        { title: "High School Student", sub: "Tehran" },
+        { title: "Advanced Technologies Course", sub: "Sharif University Academy & Techno Sharif" },
+        { title: "PWK Course", sub: "Kali Linux — Penetration Testing" },
+        { title: "Network Security Course", sub: "Network+" }
+      ],
+      languages: [
+        { name: "Persian", level: "Native" },
+        { name: "English", level: "B2+" }
+      ],
+      github: {
+        commits: "23 in the past year",
+        repos: "13 repositories",
+        focus: "Aug 2026",
+        type: "Security, Educational, IoT"
+      }
     },
     
     donation: {
@@ -519,7 +440,7 @@ const SITE = {
       heroSubtitle: "Python & C# Developer | Linux & Kali Linux Expert",
       
       introTag: "Biography",
-intro: "من **ایلیا فراهانی** هستم، همچنین با نام‌های **ایلیا عزیزآبادی** و **here-is-leo** شناخته می‌شوم. از همان روزهای اول، لینوکس برایم فراتر از یک سیستم‌عامل بود. با گذراندن ۳۵ مرحله چالش Natas، به امنیت وب علاقه‌مند شدم.\n\nامروز با Python و C# ابزار می‌سازم، با لینوکس و Kali امنیت را آزمایش می‌کنم و هر روز چیزی جدید یاد می‌گیرم.",
+      intro: "I'm **Ilia Farahani**, also known as **Ilia Azizabadi** and **here-is-leo**. From the very beginning, Linux was more than just an operating system for me. After completing all 35 levels of the Natas challenge, I became passionate about web security.\n\nToday, I build tools with Python and C#, test security with Linux and Kali, and learn something new every day.",
       
       eduTag: "Education & Courses",
       eduTitle: "Learning Path",
@@ -527,7 +448,7 @@ intro: "من **ایلیا فراهانی** هستم، همچنین با نام�
         { 
           title: "Linux Mastery", 
           sub: "Server Administration", 
-          desc: "Working with Linux distributions, bash scripting, networking and security." 
+          desc: "Working with various Linux distributions, bash scripting, networking and security." 
         },
         { 
           title: "Kali Linux Pentesting", 
