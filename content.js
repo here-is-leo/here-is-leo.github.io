@@ -14,7 +14,8 @@ const SITE = {
   contact: "تماس", 
   about: "درباره من", 
   blog: "وبلاگ",
-  repos: "ریپوها" 
+  repos: "ریپوها",
+  resume: "رزومه"
 },
     
    hero: {
