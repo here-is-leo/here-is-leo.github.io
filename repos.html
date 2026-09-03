@@ -3,11 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ریپوها | ایلیا فراهانی</title>
-  <meta name="description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
+  
+  <!-- ====== FAVICON ====== -->
+  <link rel="icon" href="logo.png" type="image/png" />
+  <link rel="shortcut icon" href="logo.png" type="image/png" />
+  
+  <!-- ====== TITLE & DESCRIPTION ====== -->
+  <title>ریپوها | ایلیا فراهانی (ایلیا عزیزآبادی)</title>
+  <meta name="description" content="مخازن گیت‌هاب ایلیا فراهانی (ایلیا عزیزآبادی) — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://here-is-leo-blog.ilyafarahanii.workers.dev/repos.html" />
+  
+  <!-- ====== KEYWORDS ====== -->
+  <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, گیت‌هاب, پروژه‌های امنیتی, برنامه‌نویسی, لینوکس" />
+  
+  <!-- ====== CANONICAL ====== -->
+  <link rel="canonical" href="https://www.here-is-leo.ir/repos.html" />
+  
+  <!-- ====== OPEN GRAPH ====== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ریپوها | ایلیا فراهانی (ایلیا عزیزآبادی)" />
+  <meta property="og:description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
+  <meta property="og:url" content="https://www.here-is-leo.ir/repos.html" />
+  <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
+  
+  <!-- ====== TWITTER ====== -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="ریپوها | ایلیا فراهانی" />
+  <meta name="twitter:description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی و برنامه‌نویسی." />
+  
+  <!-- Google Verification -->
+  <meta name="google-site-verification" content="google32cfec778daf2edb" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -50,7 +77,7 @@
     <!-- REPOS -->
     <section style="border-top:0; padding-top:0;">
       <div class="container">
-        <div class="repos-grid" id="repos-grid">
+        <div class="repos-grid" id="repos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px;">
           <!-- ریپوها توسط جاوااسکریپت ساخته می‌شوند -->
         </div>
       </div>
@@ -195,12 +222,11 @@
     }
 
     // ============================================================
-    // NAV
+    // INIT
     // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
       renderRepos();
 
-      // Footer
       const footer = document.getElementById('footer-text');
       if (footer) footer.textContent = '© ' + new Date().getFullYear() + ' ایلیا فراهانی';
     });
