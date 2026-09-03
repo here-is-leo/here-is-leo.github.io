@@ -22,8 +22,8 @@ const SITE = {
     
     stats: [
       { number: 35, suffix: "+", label: "چالش امنیتی حل شده" },
-      { number: 87, suffix: "", label: "مشارکت در یک سال" },
-      { number: 8, suffix: "", label: "پروژه عملی" },
+      { number: 113, suffix: "", label: "مشارکت در یک سال" },
+      { number: 10, suffix: "", label: "پروژه عملی" },
       { number: 5, suffix: "", label: "زبان برنامه‌نویسی" }
     ],
     
@@ -75,6 +75,31 @@ const SITE = {
           ],
           tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"],
           href: "https://github.com/here-is-leo/pos-system"
+        },
+        {
+          title: "Paris",
+          date: "۱۴۰۵",
+          desc: "اسکنر آسیب‌پذیری وب (Web Vulnerability Scanner) — یک ابزار قدرتمند برای شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.",
+          bullets: [
+            "اسکن خودکار آسیب‌پذیری‌های رایج (SQLi، XSS، LFI و...)",
+            "گزارش‌گیری دقیق از نتایج اسکن",
+            "طراحی سبک و کارآمد برای استفاده حرفه‌ای"
+          ],
+          tech: ["Python", "Web Security", "Penetration Testing"],
+          href: "https://github.com/here-is-leo/Paris"
+        },
+        {
+          title: "Moscow",
+          date: "۱۴۰۵",
+          desc: "پلاگین پیشرفته تحقیقاتی امنیت وردپرس — یک ابزار آموزشی برای شناسایی نقاط ضعف امنیتی در وردپرس.",
+          bullets: [
+            "سیستم چندین نقطه ورود (۱۰+ Entry Points)",
+            "قابلیت Self-Destruct پس از ۵۰ ساعت",
+            "صفحه Deface و سیستم Backdoor چندگانه",
+            "منحصراً برای اهداف آموزشی و تحقیقاتی"
+          ],
+          tech: ["PHP", "WordPress", "Security Research"],
+          href: "https://github.com/here-is-leo/Moscow"
         },
         {
           title: "overthewire-natas",
@@ -163,12 +188,12 @@ const SITE = {
     },
     
     donation: {
-      badge: "🎉 حمایت",
+      badge: "☕ حمایت از من",
       title1: "اگر از محتوای من",
-      title2: "لذت می‌برید",
-      sub: "با <strong>یک قهوه ☕</strong> از من حمایت کنید.",
-      btnText: "قهوه بخر",
-      msg: "🎊 ممنون از حمایت شما"
+      title2: "خوشتان می‌آید",
+      sub: "با <strong>یک قهوه ☕</strong> از من حمایت کنید تا بتوانم محتوای باکیفیت‌تری تولید کنم.",
+      btnText: "خرید قهوه برای من",
+      msg: "🎉 هر قهوه = انرژی برای ساخت محتوای بهتر"
     },
     
     aboutPreview: {
@@ -246,7 +271,7 @@ const SITE = {
       ],
       
       githubTag: "گیت‌هاب",
-      githubText: "۸۷ مشارکت در یک سال اخیر، با تمرکز بر پروژه‌های امنیتی و آموزشی.",
+      githubText: "۱۱۳ مشارکت در یک سال اخیر، با تمرکز بر پروژه‌های امنیتی و آموزشی.",
       githubLinkText: "github.com/here-is-leo"
     }
   },
@@ -278,8 +303,8 @@ const SITE = {
     
     stats: [
       { number: 35, suffix: "+", label: "Security Challenges" },
-      { number: 87, suffix: "", label: "Commits" },
-      { number: 8, suffix: "", label: "Projects" },
+      { number: 113, suffix: "", label: "Commits" },
+      { number: 10, suffix: "", label: "Projects" },
       { number: 5, suffix: "", label: "Languages" }
     ],
     
@@ -331,6 +356,31 @@ const SITE = {
           ],
           tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"],
           href: "https://github.com/here-is-leo/pos-system"
+        },
+        {
+          title: "Paris",
+          date: "2026",
+          desc: "Web Vulnerability Scanner — a powerful tool for identifying and analyzing security vulnerabilities in websites.",
+          bullets: [
+            "Automated scanning for common vulnerabilities (SQLi, XSS, LFI, etc.)",
+            "Detailed reporting of scan results",
+            "Lightweight and efficient design for professional use"
+          ],
+          tech: ["Python", "Web Security", "Penetration Testing"],
+          href: "https://github.com/here-is-leo/Paris"
+        },
+        {
+          title: "Moscow",
+          date: "2026",
+          desc: "Advanced WordPress Security Research Plugin — an educational tool for identifying security weaknesses in WordPress.",
+          bullets: [
+            "Multiple entry points system (10+ Entry Points)",
+            "Self-Destruct capability after 50 hours",
+            "Deface page and multi-backdoor system",
+            "Strictly for educational and research purposes"
+          ],
+          tech: ["PHP", "WordPress", "Security Research"],
+          href: "https://github.com/here-is-leo/Moscow"
         },
         {
           title: "overthewire-natas",
@@ -419,12 +469,12 @@ const SITE = {
     },
     
     donation: {
-      badge: "🎉 Support",
+      badge: "☕ Support Me",
       title1: "If you enjoy",
       title2: "my content",
-      sub: "Support me with <strong>a coffee ☕</strong>.",
-      btnText: "Buy coffee",
-      msg: "🎊 Thank you for your support"
+      sub: "Support me with <strong>a coffee ☕</strong> so I can keep producing high-quality content.",
+      btnText: "Buy me a coffee",
+      msg: "🎉 Every coffee = energy for better content"
     },
     
     aboutPreview: {
@@ -502,7 +552,7 @@ const SITE = {
       ],
       
       githubTag: "GitHub",
-      githubText: "87 commits in the past year, focused on security and educational projects.",
+      githubText: "113 commits in the past year, focused on security and educational projects.",
       githubLinkText: "github.com/here-is-leo"
     }
   }
