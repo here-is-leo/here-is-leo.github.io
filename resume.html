@@ -10,12 +10,12 @@
   
   <!-- ====== TITLE & DESCRIPTION ====== -->
   <title>رزومه | ایلیا فراهانی (ایلیا عزیزآبادی)</title>
-  <meta name="description" content="رزومه آنلاین ایلیا فراهانی (ایلیا عزیزآبادی) — برنامه‌نویس Python و C#، متخصص لینوکس و امنیت وب." />
+  <meta name="description" content="رزومه آنلاین ایلیا فراهانی (ایلیا عزیزآبادی) — برنامه‌نویس Python و C#، متخصص لینوکس، امنیت وب و IoT." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
   
   <!-- ====== KEYWORDS ====== -->
-  <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, رزومه, برنامه‌نویس Python, متخصص امنیت وب, لینوکس" />
+  <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, رزومه, برنامه‌نویس Python, متخصص امنیت وب, لینوکس, Arduino, IoT" />
   
   <!-- ====== CANONICAL ====== -->
   <link rel="canonical" href="https://www.here-is-leo.ir/resume.html" />
@@ -23,7 +23,7 @@
   <!-- ====== OPEN GRAPH ====== -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="رزومه ایلیا فراهانی (ایلیا عزیزآبادی)" />
-  <meta property="og:description" content="رزومه آنلاین ایلیا فراهانی — برنامه‌نویس Python و C#، متخصص لینوکس و امنیت وب." />
+  <meta property="og:description" content="رزومه آنلاین ایلیا فراهانی — برنامه‌نویس Python و C#، متخصص لینوکس، امنیت وب و IoT." />
   <meta property="og:url" content="https://www.here-is-leo.ir/resume.html" />
   <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
   
@@ -77,6 +77,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
     }
     
     .resume-section ul li:last-child {
@@ -155,13 +157,13 @@
     <nav class="nav">
       <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
       <ul class="nav-links">
-  <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
-  <li><a href="projects.html" data-nav-projects>پروژه‌ها</a></li>
-  <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
-  <li><a href="repos.html" data-nav-repos>ریپوها</a></li>
-  <li><a href="resume.html" data-nav-resume>رزومه</a></li>
-  <li><a href="about.html" data-nav-about>درباره من</a></li>
-</ul>
+        <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
+        <li><a href="projects.html" data-nav-projects>پروژه‌ها</a></li>
+        <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
+        <li><a href="repos.html" data-nav-repos>ریپوها</a></li>
+        <li><a href="resume.html" data-nav-resume class="active">رزومه</a></li>
+        <li><a href="about.html" data-nav-about>درباره من</a></li>
+      </ul>
       <div class="nav-actions">
         <button class="theme-toggle" data-theme-toggle aria-label="تغییر تم"><span class="theme-icon">☼</span></button>
         <button class="lang-toggle" data-lang-toggle>EN</button>
@@ -175,7 +177,7 @@
     <section class="about-hero" style="padding: 60px 0 30px;">
       <div class="container">
         <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;">رزومه</h1>
-        <p style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;">برنامه‌نویس Python و C# | متخصص لینوکس و امنیت وب</p>
+        <p style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;">برنامه‌نویس Python و C# | متخصص لینوکس، امنیت وب و IoT</p>
       </div>
     </section>
 
@@ -197,6 +199,7 @@
             <li><span class="label">شغل</span><span class="value">برنامه‌نویس Python و C#</span></li>
             <li><span class="label">موقعیت</span><span class="value">تهران، ایران</span></li>
             <li><span class="label">ایمیل</span><span class="value">ilyafarahanii@gmail.com</span></li>
+            <li><span class="label">تلفن</span><span class="value">۰۹۰۳۰۸۳۹۷۹۰</span></li>
             <li><span class="label">گیت‌هاب</span><span class="value"><a href="https://github.com/here-is-leo" target="_blank" style="color: #b8bfff;">github.com/here-is-leo</a></span></li>
           </ul>
         </div>
@@ -204,7 +207,7 @@
         <!-- About -->
         <div class="resume-section">
           <h2>📖 درباره من</h2>
-          <p style="color: var(--foreground-muted); line-height: 2; margin: 0;">
+          <p style="color: var(--foreground-muted); line-height: 2.2; margin: 0;">
             دانش‌آموز و علاقه‌مند به برنامه‌نویسی Python، توسعه با لینوکس و امنیت وب. با گذراندن کامل چالش‌های امنیتی Natas (سری OverTheWire) و ساخت چند پروژه عملی روی گیت‌هاب، دانش فنی خود را به‌صورت خودآموز و پروژه‌محور تقویت کرده‌ام. به‌دنبال فرصت‌های یادگیری، همکاری در پروژه‌های متن‌باز و کارآموزی برای رشد در مسیر برنامه‌نویسی و امنیت سایبری هستم.
           </p>
         </div>
@@ -223,19 +226,22 @@
             <span class="skill-tag high">SQL Server / SQLite (۸۵%)</span>
             <span class="skill-tag high">WordPress (۸۰%)</span>
             <span class="skill-tag high">امنیت وب (۸۵%)</span>
+            <span class="skill-tag high">Arduino (C/C++) (۸۰%)</span>
+            <span class="skill-tag high">FastAPI (۷۵%)</span>
           </div>
         </div>
 
         <!-- Experience -->
         <div class="resume-section">
-          <h2>💼 تجربه پروژه‌ها</h2>
+          <h2>💼 پروژه‌های شاخص</h2>
           <ul>
-            <li><span class="label">pos-system</span><span class="value">سیستم فروشگاهی با Node.js و React</span></li>
-            <li><span class="label">Paris</span><span class="value">اسکنر آسیب‌پذیری وب با Python</span></li>
-            <li><span class="label">Moscow</span><span class="value">پلاگین امنیت وردپرس با PHP</span></li>
-            <li><span class="label">overthewire-natas</span><span class="value">راهنمای ۳۵ مرحله چالش Natas</span></li>
-            <li><span class="label">V-Tunnel</span><span class="value">Mini App تلگرام با Python</span></li>
-            <li><span class="label">kali-linux-complete-guide</span><span class="value">راهنمای ۴۰+ صفحه‌ای Kali Linux</span></li>
+            <li><span class="label">🔍 Paris</span><span class="value">اسکنر آسیب‌پذیری وب با Python + FastAPI + WebSocket</span></li>
+            <li><span class="label">🔒 Moscow</span><span class="value">پروژه تحقیقاتی امنیت پلاگین‌های وردپرس (PHP)</span></li>
+            <li><span class="label">⚡ N3XUS V7.1</span><span class="value">سیستم کنترل مبتنی بر آردوینو با رابط وب</span></li>
+            <li><span class="label">🔧 Marshall</span><span class="value">سیستم کنترل ماژولار آردوینو</span></li>
+            <li><span class="label">🕸️ overthewire-natas</span><span class="value">راهنمای ۳۵ مرحله چالش Natas</span></li>
+            <li><span class="label">🌐 V-Tunnel</span><span class="value">Telegram Mini App با Python</span></li>
+            <li><span class="label">📚 kali-linux-complete-guide</span><span class="value">راهنمای ۴۰+ صفحه‌ای Kali Linux</span></li>
           </ul>
         </div>
 
@@ -263,9 +269,10 @@
         <div class="resume-section">
           <h2>📊 فعالیت گیت‌هاب</h2>
           <ul>
-            <li><span class="label">مشارکت (Commit)</span><span class="value">۱۱۳ در یک سال اخیر</span></li>
-            <li><span class="label">پروژه‌ها</span><span class="value">۱۰ پروژه عمومی</span></li>
-            <li><span class="label">تمرکز</span><span class="value">پروژه‌های امنیتی و آموزشی</span></li>
+            <li><span class="label">مشارکت (Commit)</span><span class="value">۲۳ در یک سال اخیر</span></li>
+            <li><span class="label">مخازن عمومی</span><span class="value">۱۳ مخزن</span></li>
+            <li><span class="label">تمرکز فعالیت</span><span class="value">مرداد ۱۴۰۵</span></li>
+            <li><span class="label">نوع پروژه‌ها</span><span class="value">امنیتی، آموزشی، IoT</span></li>
           </ul>
         </div>
       </div>
