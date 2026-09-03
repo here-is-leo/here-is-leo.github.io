@@ -109,7 +109,9 @@ function renderNav(data, page) {
     "data-nav-skills": ["skills", page === "about" ? "index.html#skills" : "#skills"],
     "data-nav-projects": ["projects", page === "about" ? "index.html#projects" : "#projects"],
     "data-nav-contact": ["contact", page === "about" ? "index.html#contact" : "#contact"],
-    "data-nav-about": ["about", "about.html"]
+    "data-nav-about": ["about", "about.html"],
+    "data-nav-blog": ["blog", "blog.html"],
+    "data-nav-repos": ["repos", "repos.html"]
   };
   Object.entries(map).forEach(([attr, [key, href]]) => {
     document.querySelectorAll("[" + attr + "]").forEach(n => { n.textContent = data.nav[key]; n.href = href; });
