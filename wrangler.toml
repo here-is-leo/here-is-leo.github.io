@@ -1,13 +1,10 @@
-name = "ilia-website"
-main = "index.html" 
+name = "here-is-leo-blog"
+type = "javascript"
+main = "worker.js"
 
 [env.production]
 vars = { }
 
-# افزایش زمان timeout برای جلوگیری از خطای 522
+# افزایش timeout
 [env.production.durable_objects]
 timeout = 60000
-
-# تنظیمات دیپلوی
-[env.production.deploy]
-include = ["*.html", "*.css", "*.js", "*.png", "*.json", "*.xml", "*.txt"]
