@@ -3,30 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ایلیا فراهانی | برنامه‌نویس Python و علاقه‌مند به امنیت وب</title>
-  <meta name="description" content="صفحه شخصی ایلیا فراهانی؛ برنامه‌نویس Python، علاقه‌مند به امنیت وب و لینوکس. مشاهده پروژه‌ها، مهارت‌ها و راه‌های ارتباطی." />
+  <title>ایلیا فراهانی | برنامه‌نویس Python و C# | متخصص لینوکس و امنیت وب</title>
+  <meta name="description" content="صفحه شخصی ایلیا فراهانی؛ برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali. مشاهده پروژه‌ها، مهارت‌ها و راه‌های ارتباطی." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://here-is-leo.github.io/" />
+  <link rel="canonical" href="https://here-is-leo-blog.ilyafarahanii.workers.dev/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="ایلیا فراهانی | برنامه‌نویس Python و علاقه‌مند به امنیت وب" />
-  <meta property="og:description" content="صفحه شخصی ایلیا فراهانی؛ برنامه‌نویس Python، علاقه‌مند به امنیت وب و لینوکس." />
+  <meta property="og:title" content="ایلیا فراهانی | برنامه‌نویس Python و C# | متخصص لینوکس و امنیت وب" />
+  <meta property="og:description" content="صفحه شخصی ایلیا فراهانی؛ برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali." />
   <meta name="twitter:card" content="summary" />
+  
+  <!-- Google Verification -->
+  <meta name="google-site-verification" content="google32cfec778daf2edb" />
+  
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Ilia Farahani",
-    "alternateName": "ایلیا فراهانی",
-    "url": "https://here-is-leo.github.io/",
+    "alternateName": ["ایلیا فراهانی", "ایلیا عزیزابادی", "here-is-leo"],
+    "url": "https://here-is-leo-blog.ilyafarahanii.workers.dev/",
     "sameAs": ["https://github.com/here-is-leo"],
     "email": "mailto:ilyafarahanii@gmail.com",
-    "jobTitle": "Python Developer",
-    "knowsAbout": ["Python", "Linux", "Web Security", "Penetration Testing"],
+    "jobTitle": "Python & C# Developer",
+    "knowsAbout": ["Python", "C#", "Linux", "Web Security", "Penetration Testing", "Kali Linux"],
     "address": { "@type": "PostalAddress", "addressLocality": "Tehran", "addressCountry": "IR" }
   }
   </script>
@@ -122,7 +127,7 @@
               <p class="donation-sub" id="donation-sub"></p>
               <div class="donation-footer">
                 <a href="https://www.coffeebede.com/leo" target="_blank" class="donate-btn" id="donateBtn">
-                  <span class="icon">☕</span><span class="btn-text"></span>
+                  <span class="icon"></span><span class="btn-text"></span>
                 </a>
                 <div class="donate-message" id="donate-message"></div>
               </div>
@@ -154,6 +159,40 @@
           <p id="contact-subtitle"></p>
         </div>
         <div class="contact-grid" id="contact-grid"></div>
+      </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contact-form" style="border-top:0; padding-top:0;">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">✉️ ارسال پیام</span>
+          <h2>یک پیام برای من بفرستید</h2>
+          <p>برای همکاری، پیشنهاد یا هر سوالی، خوشحال می‌شوم از شما بشنوم.</p>
+        </div>
+        
+        <form id="contactForm" style="max-width: 600px; margin: 0 auto; background: rgba(255,255,255,0.03); border: 1px solid var(--border-default); border-radius: var(--radius); padding: 32px; backdrop-filter: blur(14px);">
+          <div style="margin-bottom: 16px;">
+            <label for="formName" style="display: block; margin-bottom: 6px; color: var(--foreground-muted); font-size: 0.9rem; font-weight: 500;">نام شما</label>
+            <input type="text" id="formName" placeholder="نام خود را وارد کنید..." required style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border-default); background: rgba(255,255,255,0.04); color: var(--foreground); font-size: 0.95rem; transition: border-color 0.3s; outline: none;">
+          </div>
+          
+          <div style="margin-bottom: 16px;">
+            <label for="formEmail" style="display: block; margin-bottom: 6px; color: var(--foreground-muted); font-size: 0.9rem; font-weight: 500;">ایمیل شما</label>
+            <input type="email" id="formEmail" placeholder="ایمیل خود را وارد کنید..." required style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border-default); background: rgba(255,255,255,0.04); color: var(--foreground); font-size: 0.95rem; transition: border-color 0.3s; outline: none;">
+          </div>
+          
+          <div style="margin-bottom: 20px;">
+            <label for="formMessage" style="display: block; margin-bottom: 6px; color: var(--foreground-muted); font-size: 0.9rem; font-weight: 500;">پیام شما</label>
+            <textarea id="formMessage" rows="5" placeholder="پیام خود را بنویسید..." required style="width: 100%; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border-default); background: rgba(255,255,255,0.04); color: var(--foreground); font-size: 0.95rem; transition: border-color 0.3s; outline: none; resize: vertical; font-family: inherit;"></textarea>
+          </div>
+          
+          <button type="submit" style="width: 100%; padding: 14px; border-radius: 10px; border: none; background: var(--accent); color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden;">
+            <span class="btn-text">ارسال پیام</span>
+          </button>
+          
+          <div id="formStatus" style="margin-top: 12px; text-align: center; font-size: 0.9rem; display: none;"></div>
+        </form>
       </div>
     </section>
   </main>
