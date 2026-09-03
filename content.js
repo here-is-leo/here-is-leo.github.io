@@ -17,17 +17,17 @@ const SITE = {
   repos: "ریپوها" 
 },
     
-    hero: {
-      eyebrow: "در دسترس برای یادگیری و همکاری",
-      title1: "سلام، من",
-      name: "ایلیا فراهانی",
-      title2: "هستم",
-      typewriter: ["برنامه‌نویس Python و C#", "متخصص لینوکس", "تست‌نفوذگر Kali Linux"],
-      subtitle: "برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.",
-      cta1: "مشاهده پروژه‌ها",
-      cta2: "درباره من"
-    },
-    
+   hero: {
+  eyebrow: "در دسترس برای یادگیری و همکاری",
+  title1: "سلام، من",
+  name: "ایلیا فراهانی (ایلیا عزیزآبادی | here-is-leo)",
+  title2: "هستم",
+  typewriter: ["برنامه‌نویس Python و C#", "متخصص لینوکس", "تست‌نفوذگر Kali Linux"],
+  subtitle: "برنامه‌نویسی و امنیت، دو روی یک سکه. با Python، C#، لینوکس و Kali، راه‌حل‌هایی می‌سازم که هم کارآمدند و هم امن.",
+  cta1: "مشاهده پروژه‌ها",
+  cta2: "درباره من"
+},
+
     stats: [
       { number: 35, suffix: "+", label: "چالش امنیتی حل شده" },
       { number: 113, suffix: "", label: "مشارکت در یک سال" },
@@ -518,7 +518,7 @@ const SITE = {
       heroSubtitle: "Python & C# Developer | Linux & Kali Linux Expert",
       
       introTag: "Biography",
-      intro: "I'm Ilia Farahani. From the early days, Linux was more than an OS to me. After completing 35 Natas challenges, I became passionate about web security.\n\nToday I build tools with Python and C#, test security with Linux and Kali, and learn something new every day.",
+intro: "من **ایلیا فراهانی** هستم، همچنین با نام‌های **ایلیا عزیزآبادی** و **here-is-leo** شناخته می‌شوم. از همان روزهای اول، لینوکس برایم فراتر از یک سیستم‌عامل بود. با گذراندن ۳۵ مرحله چالش Natas، به امنیت وب علاقه‌مند شدم.\n\nامروز با Python و C# ابزار می‌سازم، با لینوکس و Kali امنیت را آزمایش می‌کنم و هر روز چیزی جدید یاد می‌گیرم.",
       
       eduTag: "Education & Courses",
       eduTitle: "Learning Path",
