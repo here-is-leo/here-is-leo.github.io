@@ -273,15 +273,28 @@ button { font: inherit; cursor: pointer; }
   font-size: 1.2rem;
 }
 
+/* ====== THEME TOGGLE — FIXED ====== */
 .theme-toggle {
   width: 40px;
   height: 40px;
   display: grid;
   place-items: center;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
+  transition: all .4s var(--transition-bounce);
 }
 
-.theme-toggle:hover { transform: rotate(15deg) scale(1.04); }
+.theme-toggle:hover { 
+  transform: rotate(15deg) scale(1.04); 
+}
+
+.theme-toggle .theme-icon {
+  display: inline-block;
+  transition: transform .5s var(--transition-bounce);
+}
+
+html[data-theme="light"] .theme-toggle .theme-icon {
+  transform: rotate(360deg);
+}
 
 /* ============================================================
    SECTIONS — REFINED SPACING
@@ -1657,7 +1670,8 @@ html[data-theme="light"] .nav-links a::after {
 
 html[data-theme="light"] .brand .dot {
   box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 0 28px rgba(200, 150, 60, .20);
-}/* ============================================================
+}
+/* ============================================================
    MOBILE OPTIMIZATIONS — اضافه شده
    ============================================================ */
 
