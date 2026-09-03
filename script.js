@@ -30,7 +30,7 @@ function el(tag, cls, html) {
 }
 
 // ============================================================
-// ICON SYSTEM — بدون اموجی
+// ICON SYSTEM
 // ============================================================
 function iconSVG(value) {
   var key = String(value || "");
@@ -106,14 +106,14 @@ function renderNav(data, page) {
     n.href = homeHref;
   });
   const map = {
-  "data-nav-skills": ["skills", page === "about" ? "index.html#skills" : "#skills"],
-  "data-nav-projects": ["projects", page === "about" ? "index.html#projects" : "#projects"],
-  "data-nav-contact": ["contact", page === "about" ? "index.html#contact" : "#contact"],
-  "data-nav-about": ["about", "about.html"],
-  "data-nav-blog": ["blog", "blog.html"],
-  "data-nav-repos": ["repos", "repos.html"],
-  "data-nav-resume": ["resume", "resume.html"]
-};
+    "data-nav-skills": ["skills", page === "about" ? "index.html#skills" : "#skills"],
+    "data-nav-projects": ["projects", page === "about" ? "index.html#projects" : "#projects"],
+    "data-nav-contact": ["contact", page === "about" ? "index.html#contact" : "#contact"],
+    "data-nav-about": ["about", "about.html"],
+    "data-nav-blog": ["blog", "blog.html"],
+    "data-nav-repos": ["repos", "repos.html"],
+    "data-nav-resume": ["resume", "resume.html"]
+  };
   Object.entries(map).forEach(([attr, [key, href]]) => {
     document.querySelectorAll("[" + attr + "]").forEach(n => { n.textContent = data.nav[key]; n.href = href; });
   });
@@ -320,7 +320,7 @@ function initAmbientOptimization() {
 }
 
 // ============================================================
-// RENDER ICON — بدون اموجی
+// RENDER ICON
 // ============================================================
 function renderIcon(key, className) {
   if (isMobile()) {
@@ -330,13 +330,25 @@ function renderIcon(key, className) {
 }
 
 // ============================================================
-// RENDER HOME
+// RENDER HOME — SIMPLIFIED & FIXED
 // ============================================================
 function renderHome(data) {
-  // Hero
+  console.log('🏠 renderHome called');
+  console.log('📊 data:', data);
+  
+  if (!data) {
+    console.error('❌ data is undefined!');
+    return;
+  }
+  
+  // ====== HERO ======
   var hero = document.getElementById("hero-content");
   if (hero) {
     hero.innerHTML = "";
+    hero.style.display = "block";
+    hero.style.width = "100%";
+    hero.style.maxWidth = "100%";
+    
     hero.appendChild(el("span", "eyebrow", "<span class=\"pulse-dot\"></span> " + data.hero.eyebrow));
     var h1 = el("h1", null, data.hero.title1 + " <span class=\"accent-name\">" + data.hero.name + "</span> " + data.hero.title2);
     hero.appendChild(h1);
@@ -350,33 +362,45 @@ function renderHome(data) {
     c2.href = "about.html";
     cta.append(c1, c2);
     hero.appendChild(cta);
+    
+    console.log('✅ Hero rendered');
     setTimeout(function() { startTypewriter(data.hero.typewriter, tw); }, 600);
+  } else {
+    console.error('❌ hero-content not found!');
   }
-  
-  var avatar = document.getElementById("hero-avatar");
-  if (avatar) avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
-  if (avatar) avatar.querySelector("span").style.display = "none";
 
-  // Stats
+  // ====== AVATAR ======
+  var avatar = document.getElementById("hero-avatar");
+  if (avatar) {
+    avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
+    var span = avatar.querySelector("span");
+    if (span) span.style.display = "none";
+    console.log('✅ Avatar rendered');
+  }
+
+  // ====== STATS ======
   var statsGrid = document.getElementById("stats-grid");
-  if (statsGrid) {
+  if (statsGrid && data.stats) {
     statsGrid.innerHTML = "";
     data.stats.forEach(function(s, i) {
       var card = el("div", "stat-card reveal reveal-delay-" + i, "");
       card.innerHTML = "<div class=\"number\" data-count=\"" + s.number + "\" data-suffix=\"" + s.suffix + "\">0" + s.suffix + "</div><div class=\"label\">" + s.label + "</div>";
       statsGrid.appendChild(card);
     });
+    console.log('✅ Stats rendered');
+  } else {
+    console.error('❌ stats-grid not found or stats data missing!');
   }
 
-  // Skills
+  // ====== SKILLS ======
   var skillsTag = document.getElementById("skills-tag");
-  if (skillsTag) skillsTag.innerHTML = "<span class=\"dot\"></span> " + data.skills.tag;
+  if (skillsTag && data.skills) skillsTag.innerHTML = "<span class=\"dot\"></span> " + data.skills.tag;
   var skillsTitle = document.getElementById("skills-title");
-  if (skillsTitle) skillsTitle.textContent = data.skills.title;
+  if (skillsTitle && data.skills) skillsTitle.textContent = data.skills.title;
   var skillsSub = document.getElementById("skills-subtitle");
-  if (skillsSub) skillsSub.textContent = data.skills.subtitle;
+  if (skillsSub && data.skills) skillsSub.textContent = data.skills.subtitle;
   var skillsGrid = document.getElementById("skills-grid");
-  if (skillsGrid) {
+  if (skillsGrid && data.skills) {
     skillsGrid.innerHTML = "";
     data.skills.items.forEach(function(s, i) {
       var card = el("div", "skill-card reveal reveal-delay-" + (i % 4));
@@ -396,23 +420,18 @@ function renderHome(data) {
       `;
       skillsGrid.appendChild(card);
     });
-    
-    setTimeout(function() {
-      document.querySelectorAll('.skill-level .bar').forEach(function(bar) {
-        bar.classList.add('animate');
-      });
-    }, 500);
+    console.log('✅ Skills rendered');
   }
 
-  // Focus
+  // ====== FOCUS ======
   var focusTag = document.getElementById("focus-tag");
-  if (focusTag) focusTag.innerHTML = "<span class=\"dot\"></span> " + data.focus.tag;
+  if (focusTag && data.focus) focusTag.innerHTML = "<span class=\"dot\"></span> " + data.focus.tag;
   var focusTitle = document.getElementById("focus-title");
-  if (focusTitle) focusTitle.textContent = data.focus.title;
+  if (focusTitle && data.focus) focusTitle.textContent = data.focus.title;
   var focusSub = document.getElementById("focus-subtitle");
-  if (focusSub) focusSub.textContent = data.focus.subtitle;
+  if (focusSub && data.focus) focusSub.textContent = data.focus.subtitle;
   var focusGrid = document.getElementById("focus-grid");
-  if (focusGrid) {
+  if (focusGrid && data.focus) {
     focusGrid.innerHTML = "";
     data.focus.items.forEach(function(f, i) {
       var card = el("div", "focus-card reveal reveal-delay-" + (i % 4));
@@ -423,17 +442,18 @@ function renderHome(data) {
       `;
       focusGrid.appendChild(card);
     });
+    console.log('✅ Focus rendered');
   }
 
-  // Projects
+  // ====== PROJECTS ======
   var projTag = document.getElementById("projects-tag");
-  if (projTag) projTag.innerHTML = "<span class=\"dot\"></span> " + data.projects.tag;
+  if (projTag && data.projects) projTag.innerHTML = "<span class=\"dot\"></span> " + data.projects.tag;
   var projTitle = document.getElementById("projects-title");
-  if (projTitle) projTitle.textContent = data.projects.title;
+  if (projTitle && data.projects) projTitle.textContent = data.projects.title;
   var projSub = document.getElementById("projects-subtitle");
-  if (projSub) projSub.textContent = data.projects.subtitle;
+  if (projSub && data.projects) projSub.textContent = data.projects.subtitle;
   var projGrid = document.getElementById("projects-grid");
-  if (projGrid) {
+  if (projGrid && data.projects) {
     projGrid.innerHTML = "";
     data.projects.items.forEach(function(proj, i) {
       var card = el("div", "project-card reveal reveal-delay-" + (i % 3));
@@ -450,39 +470,40 @@ function renderHome(data) {
       card.append(head, desc, ul, tags, link);
       projGrid.appendChild(card);
     });
+    console.log('✅ Projects rendered');
   }
 
-  // Donation banner
+  // ====== DONATION ======
   var donationBadge = document.getElementById("donation-badge");
-  if (donationBadge) donationBadge.innerHTML = "<span class=\"badge-dot\"></span> " + data.donation.badge;
+  if (donationBadge && data.donation) donationBadge.innerHTML = "<span class=\"badge-dot\"></span> " + data.donation.badge;
   var donationTitle = document.getElementById("donation-title");
-  if (donationTitle) donationTitle.innerHTML = data.donation.title1 + "<br><span class=\"highlight\">" + data.donation.title2 + "</span>";
+  if (donationTitle && data.donation) donationTitle.innerHTML = data.donation.title1 + "<br><span class=\"highlight\">" + data.donation.title2 + "</span>";
   var donationSub = document.getElementById("donation-sub");
-  if (donationSub) donationSub.innerHTML = data.donation.sub;
+  if (donationSub && data.donation) donationSub.innerHTML = data.donation.sub;
   var donateBtn = document.getElementById("donateBtn");
-  if (donateBtn) {
+  if (donateBtn && data.donation) {
     donateBtn.innerHTML = `<span class="icon">${renderIcon("coffee", "icon")}</span><span class="btn-text">${data.donation.btnText}</span>`;
   }
   var donateMsg = document.getElementById("donate-message");
-  if (donateMsg) donateMsg.innerHTML = `<span class="emoji">${renderIcon("target", "icon")}</span><span>${data.donation.msg}</span>`;
+  if (donateMsg && data.donation) donateMsg.innerHTML = `<span class="emoji">${renderIcon("target", "icon")}</span><span>${data.donation.msg}</span>`;
 
-  // About preview
+  // ====== ABOUT PREVIEW ======
   var apTitle = document.getElementById("about-preview-title");
+  if (apTitle && data.aboutPreview) apTitle.textContent = data.aboutPreview.title;
   var apDesc = document.getElementById("about-preview-desc");
+  if (apDesc && data.aboutPreview) apDesc.textContent = data.aboutPreview.desc;
   var apCta = document.getElementById("about-preview-cta");
-  if (apTitle) apTitle.textContent = data.aboutPreview.title;
-  if (apDesc) apDesc.textContent = data.aboutPreview.desc;
-  if (apCta) apCta.textContent = data.aboutPreview.cta;
+  if (apCta && data.aboutPreview) apCta.textContent = data.aboutPreview.cta;
 
-  // Contact
+  // ====== CONTACT ======
   var contactTag = document.getElementById("contact-tag");
-  if (contactTag) contactTag.innerHTML = "<span class=\"dot\"></span> " + data.contact.tag;
+  if (contactTag && data.contact) contactTag.innerHTML = "<span class=\"dot\"></span> " + data.contact.tag;
   var contactTitle = document.getElementById("contact-title");
-  if (contactTitle) contactTitle.textContent = data.contact.title;
+  if (contactTitle && data.contact) contactTitle.textContent = data.contact.title;
   var contactSub = document.getElementById("contact-subtitle");
-  if (contactSub) contactSub.textContent = data.contact.subtitle;
+  if (contactSub && data.contact) contactSub.textContent = data.contact.subtitle;
   var contactGrid = document.getElementById("contact-grid");
-  if (contactGrid) {
+  if (contactGrid && data.contact) {
     contactGrid.innerHTML = "";
     data.contact.items.forEach(function(c, i) {
       var wrapper = el(c.href ? "a" : "div", "contact-card reveal reveal-delay-" + (i % 4));
@@ -498,10 +519,11 @@ function renderHome(data) {
       `;
       contactGrid.appendChild(wrapper);
     });
+    console.log('✅ Contact rendered');
   }
 
   var footer = document.getElementById("footer-text");
-  if (footer) footer.textContent = data.footer;
+  if (footer && data) footer.textContent = data.footer;
 }
 
 // ============================================================
@@ -570,7 +592,7 @@ function renderAbout(data) {
 }
 
 // ============================================================
-// CONTACT FORM — با Formspree
+// CONTACT FORM
 // ============================================================
 function initContactForm() {
   const form = document.getElementById('contactForm');
@@ -583,7 +605,6 @@ function initContactForm() {
     const submitBtn = form.querySelector('button[type="submit"]');
     const btnText = submitBtn.querySelector('.btn-text');
     
-    // نمایش وضعیت در حال ارسال
     status.style.display = 'block';
     status.style.color = '#b8bfff';
     status.textContent = '⏳ در حال ارسال پیام...';
@@ -628,13 +649,8 @@ function render(page) {
   var lang = getLang();
   var data = SITE[lang];
   
-  // ====== دیباگ ======
   console.log('📄 render called with page:', page);
   console.log('📄 data loaded:', data ? '✅' : '❌');
-  if (data) {
-    console.log('📄 hero data:', data.hero);
-    console.log('📄 stats data:', data.stats);
-  }
   
   if (!data) {
     console.error('❌ Data is undefined! Check content.js loading.');
