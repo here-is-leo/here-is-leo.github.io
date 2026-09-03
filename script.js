@@ -1,10 +1,21 @@
 // ============================================================
 // CORE
 // ============================================================
-function getLang() { return localStorage.getItem("site-lang") || "fa"; }
-function setLang(l) { localStorage.setItem("site-lang", l); }
-function getTheme() { return localStorage.getItem("site-theme") || "dark"; }
-function setTheme(t) { localStorage.setItem("site-theme", t); document.documentElement.dataset.theme = t; }
+function getLang() {
+  try { return localStorage.getItem("site-lang") || "fa"; }
+  catch (e) { return "fa"; }
+}
+function setLang(l) {
+  try { localStorage.setItem("site-lang", l); } catch (e) {}
+}
+function getTheme() {
+  try { return localStorage.getItem("site-theme") || "dark"; }
+  catch (e) { return "dark"; }
+}
+function setTheme(t) {
+  try { localStorage.setItem("site-theme", t); } catch (e) {}
+  document.documentElement.dataset.theme = t;
+}
 
 // ============================================================
 // DETECT MOBILE
@@ -27,6 +38,17 @@ function el(tag, cls, html) {
   if (cls) n.className = cls;
   if (html !== undefined) n.innerHTML = html;
   return n;
+}
+
+// small helper: run a render step in isolation so one broken
+// section can never take down the whole page (this was the
+// root cause of the empty-page bug — see renderHome projects loop)
+function safe(label, fn) {
+  try {
+    fn();
+  } catch (err) {
+    console.error("❌ render step failed: " + label, err);
+  }
 }
 
 // ============================================================
@@ -52,7 +74,9 @@ function iconSVG(value) {
     "email": "<rect x='3' y='5' width='18' height='14' rx='2'/><path d='m3 7 9 6 9-6'/>",
     "phone": "<rect x='7' y='2' width='10' height='20' rx='2'/><path d='M11 18h2'/>",
     "location": "<path d='M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z'/><circle cx='12' cy='10' r='2'/>",
-    "github": "<path d='M4 13a8 8 0 1 1 16 0v4c0 1-1 2-2 2s-2-1-2-2v-2m-4 4v-5m-4 3v-3m-4 3v-3'/>"
+    "github": "<path d='M4 13a8 8 0 1 1 16 0v4c0 1-1 2-2 2s-2-1-2-2v-2m-4 4v-5m-4 3v-3m-4 3v-3'/>",
+    "coffee": "<path d='M4 9h13a3 3 0 0 1 0 6h-1M4 9v7a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9M4 9V6h13v3'/>",
+    "target": "<circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5'/><circle cx='12' cy='12' r='1'/>"
   };
   var path = paths[key] || "<circle cx='12' cy='12' r='8'/><path d='M12 8v8M8 12h8'/>";
   return "<svg class='icon-svg' viewBox='0 0 24 24' aria-hidden='true' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>" + path + "</svg>";
@@ -60,24 +84,11 @@ function iconSVG(value) {
 
 function getIconFallback(key) {
   var map = {
-    "python": "Py",
-    "csharp": "C#",
-    "linux": "Ln",
-    "kali": "Kl",
-    "html": "Ht",
-    "js": "JS",
-    "node": "Nd",
-    "sql": "SQ",
-    "wordpress": "WP",
-    "security": "Sc",
-    "book": "Bk",
-    "tools": "Tl",
-    "opensource": "OS",
-    "internship": "In",
-    "email": "Em",
-    "phone": "Ph",
-    "location": "Lc",
-    "github": "Gh"
+    "python": "Py", "csharp": "C#", "linux": "Ln", "kali": "Kl", "html": "Ht",
+    "js": "JS", "node": "Nd", "sql": "SQ", "wordpress": "WP", "security": "Sc",
+    "book": "Bk", "tools": "Tl", "opensource": "OS", "internship": "In",
+    "email": "Em", "phone": "Ph", "location": "Lc", "github": "Gh",
+    "coffee": "☕", "target": "🎯"
   };
   return map[key] || "•";
 }
@@ -123,7 +134,8 @@ function renderNav(data, page) {
   document.querySelectorAll("[data-theme-toggle]").forEach(function(b) {
     var light = getTheme() === "light";
     b.setAttribute("aria-label", light ? "فعال‌سازی تم تاریک" : "فعال‌سازی تم روشن");
-    b.querySelector(".theme-icon").textContent = light ? "☾" : "☼";
+    var icon = b.querySelector(".theme-icon");
+    if (icon) icon.textContent = light ? "☾" : "☼";
   });
 }
 
@@ -133,8 +145,16 @@ function renderNav(data, page) {
 var twInterval = null;
 
 function startTypewriter(words, container) {
-  if (twInterval) clearInterval(twInterval);
-  var wordIdx = 0, charIdx = 0, deleting = false;
+  if (!container || !words || !words.length) return;
+  if (twInterval) clearTimeout(twInterval);
+
+  // make sure there's a text node + cursor span, regardless of
+  // what markup was already in the container
+  var textNode = container.childNodes[0];
+  if (!textNode || textNode.nodeType !== Node.TEXT_NODE) {
+    textNode = document.createTextNode("");
+    container.insertBefore(textNode, container.firstChild);
+  }
   var cursor = container.querySelector(".cursor");
   if (!cursor) {
     cursor = document.createElement("span");
@@ -142,25 +162,27 @@ function startTypewriter(words, container) {
     container.appendChild(cursor);
   }
 
+  var wordIdx = 0, charIdx = 0, deleting = false;
+
   function tick() {
     var word = words[wordIdx] || "";
     if (!deleting) {
       charIdx++;
-      container.childNodes[0].textContent = word.substring(0, charIdx);
+      textNode.textContent = word.substring(0, charIdx);
       if (charIdx >= word.length) {
         deleting = true;
-        setTimeout(tick, 1800);
+        twInterval = setTimeout(tick, 1800);
         return;
       }
       twInterval = setTimeout(tick, 60 + Math.random() * 60);
     } else {
       charIdx--;
-      container.childNodes[0].textContent = word.substring(0, charIdx);
+      textNode.textContent = word.substring(0, charIdx);
       if (charIdx <= 0) {
         deleting = false;
         wordIdx = (wordIdx + 1) % words.length;
         charIdx = 0;
-        setTimeout(tick, 300);
+        twInterval = setTimeout(tick, 300);
         return;
       }
       twInterval = setTimeout(tick, 30 + Math.random() * 30);
@@ -173,15 +195,15 @@ function startTypewriter(words, container) {
 // COUNTER ANIMATION
 // ============================================================
 function animateCounters() {
-  document.querySelectorAll("[data-count]").forEach(function(el) {
-    var target = parseInt(el.dataset.count);
-    var suffix = el.dataset.suffix || "";
+  document.querySelectorAll("[data-count]").forEach(function(node) {
+    var target = parseInt(node.dataset.count, 10) || 0;
+    var suffix = node.dataset.suffix || "";
     var duration = 1500;
     var start = performance.now();
     function frame(now) {
       var p = Math.min((now - start) / duration, 1);
       var eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.floor(eased * target) + suffix;
+      node.textContent = Math.floor(eased * target) + suffix;
       if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -192,6 +214,12 @@ function animateCounters() {
 // SCROLL REVEAL
 // ============================================================
 function initReveal() {
+  if (!("IntersectionObserver" in window)) {
+    // very old mobile browsers: just show everything
+    document.querySelectorAll(".reveal").forEach(function(node) { node.classList.add("visible"); });
+    animateCounters();
+    return;
+  }
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) {
@@ -204,7 +232,7 @@ function initReveal() {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll(".reveal").forEach(function(el) { observer.observe(el); });
+  document.querySelectorAll(".reveal").forEach(function(node) { observer.observe(node); });
 }
 
 // ============================================================
@@ -217,8 +245,8 @@ function initRipple() {
       ripple.className = "ripple";
       var rect = this.getBoundingClientRect();
       var size = Math.max(rect.width, rect.height);
-      var x = e.clientX - rect.left - size / 2;
-      var y = e.clientY - rect.top - size / 2;
+      var x = (e.clientX || rect.left) - rect.left - size / 2;
+      var y = (e.clientY || rect.top) - rect.top - size / 2;
       ripple.style.width = ripple.style.height = size + "px";
       ripple.style.left = x + "px";
       ripple.style.top = y + "px";
@@ -230,7 +258,6 @@ function initRipple() {
 
 function initSpotlights() {
   if (isMobile()) return;
-  
   var cards = document.querySelectorAll(".skill-card,.focus-card,.project-card,.contact-card,.stat-card");
   cards.forEach(function(card) {
     card.addEventListener("pointermove", function(e) {
@@ -261,9 +288,9 @@ function initCinematicMotion() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (isMobile()) return;
   if (isLowPerformance()) return;
-  
+
   document.querySelectorAll(".particle-field,.cursor-glow").forEach(function(node) { node.remove(); });
-  
+
   var field = document.createElement("div");
   field.className = "particle-field";
   for (var i = 0; i < 28; i++) {
@@ -293,12 +320,12 @@ function initCinematicMotion() {
     requestAnimationFrame(follow);
   }
   follow();
-  
-  document.querySelectorAll("a,button,.project-card,.skill-card,.focus-card").forEach(function(el) {
-    el.addEventListener("pointerenter", function() { glow.classList.add("is-hover"); });
-    el.addEventListener("pointerleave", function() { glow.classList.remove("is-hover"); });
+
+  document.querySelectorAll("a,button,.project-card,.skill-card,.focus-card").forEach(function(node) {
+    node.addEventListener("pointerenter", function() { glow.classList.add("is-hover"); });
+    node.addEventListener("pointerleave", function() { glow.classList.remove("is-hover"); });
   });
-  
+
   document.querySelectorAll(".project-card,.skill-card,.focus-card,.contact-card").forEach(function(card) {
     card.addEventListener("pointermove", function(e) {
       var r = card.getBoundingClientRect();
@@ -330,28 +357,25 @@ function renderIcon(key, className) {
 }
 
 // ============================================================
-// RENDER HOME — SIMPLIFIED & FIXED
+// RENDER HOME
 // ============================================================
 function renderHome(data) {
-  console.log('🏠 renderHome called');
-  console.log('📊 data:', data);
-  
   if (!data) {
-    console.error('❌ data is undefined!');
+    console.error('❌ renderHome: data is undefined!');
     return;
   }
-  
+
   // ====== HERO ======
-  var hero = document.getElementById("hero-content");
-  if (hero) {
+  safe("hero", function() {
+    var hero = document.getElementById("hero-content");
+    if (!hero) return;
     hero.innerHTML = "";
     hero.style.display = "block";
     hero.style.width = "100%";
     hero.style.maxWidth = "100%";
-    
+
     hero.appendChild(el("span", "eyebrow", "<span class=\"pulse-dot\"></span> " + data.hero.eyebrow));
-    var h1 = el("h1", null, data.hero.title1 + " <span class=\"accent-name\">" + data.hero.name + "</span> " + data.hero.title2);
-    hero.appendChild(h1);
+    hero.appendChild(el("h1", null, data.hero.title1 + " <span class=\"accent-name\">" + data.hero.name + "</span> " + data.hero.title2));
     var tw = el("div", "typewriter", "<span></span>");
     hero.appendChild(tw);
     hero.appendChild(el("p", null, data.hero.subtitle));
@@ -362,233 +386,270 @@ function renderHome(data) {
     c2.href = "about.html";
     cta.append(c1, c2);
     hero.appendChild(cta);
-    
-    console.log('✅ Hero rendered');
+
     setTimeout(function() { startTypewriter(data.hero.typewriter, tw); }, 600);
-  } else {
-    console.error('❌ hero-content not found!');
-  }
+  });
 
   // ====== AVATAR ======
-  var avatar = document.getElementById("hero-avatar");
-  if (avatar) {
+  safe("avatar", function() {
+    var avatar = document.getElementById("hero-avatar");
+    if (!avatar) return;
     avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
     var span = avatar.querySelector("span");
     if (span) span.style.display = "none";
-    console.log('✅ Avatar rendered');
-  }
+  });
 
   // ====== STATS ======
-  var statsGrid = document.getElementById("stats-grid");
-  if (statsGrid && data.stats) {
+  safe("stats", function() {
+    var statsGrid = document.getElementById("stats-grid");
+    if (!statsGrid || !data.stats) return;
     statsGrid.innerHTML = "";
     data.stats.forEach(function(s, i) {
       var card = el("div", "stat-card reveal reveal-delay-" + i, "");
       card.innerHTML = "<div class=\"number\" data-count=\"" + s.number + "\" data-suffix=\"" + s.suffix + "\">0" + s.suffix + "</div><div class=\"label\">" + s.label + "</div>";
       statsGrid.appendChild(card);
     });
-    console.log('✅ Stats rendered');
-  } else {
-    console.error('❌ stats-grid not found or stats data missing!');
-  }
+  });
 
   // ====== SKILLS ======
-  var skillsTag = document.getElementById("skills-tag");
-  if (skillsTag && data.skills) skillsTag.innerHTML = "<span class=\"dot\"></span> " + data.skills.tag;
-  var skillsTitle = document.getElementById("skills-title");
-  if (skillsTitle && data.skills) skillsTitle.textContent = data.skills.title;
-  var skillsSub = document.getElementById("skills-subtitle");
-  if (skillsSub && data.skills) skillsSub.textContent = data.skills.subtitle;
-  var skillsGrid = document.getElementById("skills-grid");
-  if (skillsGrid && data.skills) {
-    skillsGrid.innerHTML = "";
-    data.skills.items.forEach(function(s, i) {
-      var card = el("div", "skill-card reveal reveal-delay-" + (i % 4));
-      var level = s.level || 0;
-      card.innerHTML = `
-        ${renderIcon(s.icon, "icon")}
-        <h3>${s.title}</h3>
-        <p>${s.desc}</p>
-        <div class="skill-level">
-          <div class="bar" style="--level: ${level}%;" data-level="${level}"></div>
-        </div>
-        <div class="level-label">
-          <span>مبتدی</span>
-          <span>${level}%</span>
-          <span>حرفه‌ای</span>
-        </div>
-      `;
-      skillsGrid.appendChild(card);
-    });
-    console.log('✅ Skills rendered');
-  }
+  safe("skills", function() {
+    if (!data.skills) return;
+    var skillsTag = document.getElementById("skills-tag");
+    if (skillsTag) skillsTag.innerHTML = "<span class=\"dot\"></span> " + data.skills.tag;
+    var skillsTitle = document.getElementById("skills-title");
+    if (skillsTitle) skillsTitle.textContent = data.skills.title;
+    var skillsSub = document.getElementById("skills-subtitle");
+    if (skillsSub) skillsSub.textContent = data.skills.subtitle;
+    var skillsGrid = document.getElementById("skills-grid");
+    if (skillsGrid) {
+      skillsGrid.innerHTML = "";
+      data.skills.items.forEach(function(s, i) {
+        var card = el("div", "skill-card reveal reveal-delay-" + (i % 4));
+        var level = s.level || 0;
+        card.innerHTML = `
+          ${renderIcon(s.icon, "icon")}
+          <h3>${s.title}</h3>
+          <p>${s.desc}</p>
+          <div class="skill-level">
+            <div class="bar" style="--level: ${level}%;" data-level="${level}"></div>
+          </div>
+          <div class="level-label">
+            <span>مبتدی</span>
+            <span>${level}%</span>
+            <span>حرفه‌ای</span>
+          </div>
+        `;
+        skillsGrid.appendChild(card);
+      });
+    }
+  });
 
   // ====== FOCUS ======
-  var focusTag = document.getElementById("focus-tag");
-  if (focusTag && data.focus) focusTag.innerHTML = "<span class=\"dot\"></span> " + data.focus.tag;
-  var focusTitle = document.getElementById("focus-title");
-  if (focusTitle && data.focus) focusTitle.textContent = data.focus.title;
-  var focusSub = document.getElementById("focus-subtitle");
-  if (focusSub && data.focus) focusSub.textContent = data.focus.subtitle;
-  var focusGrid = document.getElementById("focus-grid");
-  if (focusGrid && data.focus) {
-    focusGrid.innerHTML = "";
-    data.focus.items.forEach(function(f, i) {
-      var card = el("div", "focus-card reveal reveal-delay-" + (i % 4));
-      card.innerHTML = `
-        ${renderIcon(f.icon, "icon")}
-        <h3>${f.title}</h3>
-        <p>${f.desc}</p>
-      `;
-      focusGrid.appendChild(card);
-    });
-    console.log('✅ Focus rendered');
-  }
+  safe("focus", function() {
+    if (!data.focus) return;
+    var focusTag = document.getElementById("focus-tag");
+    if (focusTag) focusTag.innerHTML = "<span class=\"dot\"></span> " + data.focus.tag;
+    var focusTitle = document.getElementById("focus-title");
+    if (focusTitle) focusTitle.textContent = data.focus.title;
+    var focusSub = document.getElementById("focus-subtitle");
+    if (focusSub) focusSub.textContent = data.focus.subtitle;
+    var focusGrid = document.getElementById("focus-grid");
+    if (focusGrid) {
+      focusGrid.innerHTML = "";
+      data.focus.items.forEach(function(f, i) {
+        var card = el("div", "focus-card reveal reveal-delay-" + (i % 4));
+        card.innerHTML = `
+          ${renderIcon(f.icon, "icon")}
+          <h3>${f.title}</h3>
+          <p>${f.desc}</p>
+        `;
+        focusGrid.appendChild(card);
+      });
+    }
+  });
 
   // ====== PROJECTS ======
-  var projTag = document.getElementById("projects-tag");
-  if (projTag && data.projects) projTag.innerHTML = "<span class=\"dot\"></span> " + data.projects.tag;
-  var projTitle = document.getElementById("projects-title");
-  if (projTitle && data.projects) projTitle.textContent = data.projects.title;
-  var projSub = document.getElementById("projects-subtitle");
-  if (projSub && data.projects) projSub.textContent = data.projects.subtitle;
-  var projGrid = document.getElementById("projects-grid");
-  if (projGrid && data.projects) {
-    projGrid.innerHTML = "";
-    data.projects.items.forEach(function(proj, i) {
-      var card = el("div", "project-card reveal reveal-delay-" + (i % 3));
-      var head = el("div", "project-head");
-      head.append(el("h3", null, proj.title));
-      if (proj.date) head.append(el("span", "project-date", proj.date));
-      var desc = el("p", null, proj.desc);
-      var ul = el("ul");
-      proj.bullets.forEach(function(b) { ul.appendChild(el("li", null, b)); });
-      var tags = el("div", "tech-tags");
-      proj.tech.forEach(function(t) { tags.appendChild(el("span", null, t)); });
-      var link = el("a", "project-link", "GitHub ↗");
-      link.href = proj.href; link.target = "_blank"; link.rel = "noopener";
-      card.append(head, desc, ul, tags, link);
-      projGrid.appendChild(card);
-    });
-    console.log('✅ Projects rendered');
-  }
+  // NOTE: content.js project items use `url` (not `href`) and have
+  // NO `bullets` array — only `tech`. That mismatch was crashing
+  // renderHome() and silently blanking every section rendered after
+  // this one. Fixed to match the real data shape.
+  safe("projects", function() {
+    if (!data.projects) return;
+    var projTag = document.getElementById("projects-tag");
+    if (projTag) projTag.innerHTML = "<span class=\"dot\"></span> " + data.projects.tag;
+    var projTitle = document.getElementById("projects-title");
+    if (projTitle) projTitle.textContent = data.projects.title;
+    var projSub = document.getElementById("projects-subtitle");
+    if (projSub) projSub.textContent = data.projects.subtitle;
+    var projGrid = document.getElementById("projects-grid");
+    if (projGrid) {
+      projGrid.innerHTML = "";
+      data.projects.items.forEach(function(proj) {
+        var card = el("div", "project-card reveal reveal-delay-" + 0);
+        var head = el("div", "project-head");
+        var titleText = (proj.icon ? proj.icon + " " : "") + proj.title;
+        head.append(el("h3", null, titleText));
+        if (proj.date) head.append(el("span", "project-date", proj.date));
+        var desc = el("p", null, proj.desc);
+        var tags = el("div", "tech-tags");
+        (proj.tech || []).forEach(function(t) { tags.appendChild(el("span", null, t)); });
+        card.append(head, desc, tags);
+        if (proj.url || proj.href) {
+          var link = el("a", "project-link", "GitHub ↗");
+          link.href = proj.url || proj.href;
+          link.target = "_blank";
+          link.rel = "noopener";
+          card.appendChild(link);
+        }
+        projGrid.appendChild(card);
+      });
+    }
+  });
 
   // ====== DONATION ======
-  var donationBadge = document.getElementById("donation-badge");
-  if (donationBadge && data.donation) donationBadge.innerHTML = "<span class=\"badge-dot\"></span> " + data.donation.badge;
-  var donationTitle = document.getElementById("donation-title");
-  if (donationTitle && data.donation) donationTitle.innerHTML = data.donation.title1 + "<br><span class=\"highlight\">" + data.donation.title2 + "</span>";
-  var donationSub = document.getElementById("donation-sub");
-  if (donationSub && data.donation) donationSub.innerHTML = data.donation.sub;
-  var donateBtn = document.getElementById("donateBtn");
-  if (donateBtn && data.donation) {
-    donateBtn.innerHTML = `<span class="icon">${renderIcon("coffee", "icon")}</span><span class="btn-text">${data.donation.btnText}</span>`;
-  }
-  var donateMsg = document.getElementById("donate-message");
-  if (donateMsg && data.donation) donateMsg.innerHTML = `<span class="emoji">${renderIcon("target", "icon")}</span><span>${data.donation.msg}</span>`;
+  safe("donation", function() {
+    if (!data.donation) return;
+    var donationBadge = document.getElementById("donation-badge");
+    if (donationBadge) donationBadge.innerHTML = "<span class=\"badge-dot\"></span> " + data.donation.badge;
+    var donationTitle = document.getElementById("donation-title");
+    if (donationTitle) donationTitle.innerHTML = data.donation.title1 + "<br><span class=\"highlight\">" + data.donation.title2 + "</span>";
+    var donationSub = document.getElementById("donation-sub");
+    if (donationSub) donationSub.innerHTML = data.donation.sub;
+    var donateBtn = document.getElementById("donateBtn");
+    if (donateBtn) donateBtn.innerHTML = `<span class="icon">${renderIcon("coffee", "icon")}</span><span class="btn-text">${data.donation.btnText}</span>`;
+    var donateMsg = document.getElementById("donate-message");
+    if (donateMsg) donateMsg.innerHTML = `<span class="emoji">${renderIcon("target", "icon")}</span><span>${data.donation.msg}</span>`;
+  });
 
   // ====== ABOUT PREVIEW ======
-  var apTitle = document.getElementById("about-preview-title");
-  if (apTitle && data.aboutPreview) apTitle.textContent = data.aboutPreview.title;
-  var apDesc = document.getElementById("about-preview-desc");
-  if (apDesc && data.aboutPreview) apDesc.textContent = data.aboutPreview.desc;
-  var apCta = document.getElementById("about-preview-cta");
-  if (apCta && data.aboutPreview) apCta.textContent = data.aboutPreview.cta;
+  safe("aboutPreview", function() {
+    if (!data.aboutPreview) return;
+    var apTitle = document.getElementById("about-preview-title");
+    if (apTitle) apTitle.textContent = data.aboutPreview.title;
+    var apDesc = document.getElementById("about-preview-desc");
+    if (apDesc) apDesc.textContent = data.aboutPreview.desc;
+    var apCta = document.getElementById("about-preview-cta");
+    if (apCta) apCta.textContent = data.aboutPreview.cta;
+  });
 
   // ====== CONTACT ======
-  var contactTag = document.getElementById("contact-tag");
-  if (contactTag && data.contact) contactTag.innerHTML = "<span class=\"dot\"></span> " + data.contact.tag;
-  var contactTitle = document.getElementById("contact-title");
-  if (contactTitle && data.contact) contactTitle.textContent = data.contact.title;
-  var contactSub = document.getElementById("contact-subtitle");
-  if (contactSub && data.contact) contactSub.textContent = data.contact.subtitle;
-  var contactGrid = document.getElementById("contact-grid");
-  if (contactGrid && data.contact) {
-    contactGrid.innerHTML = "";
-    data.contact.items.forEach(function(c, i) {
-      var wrapper = el(c.href ? "a" : "div", "contact-card reveal reveal-delay-" + (i % 4));
-      if (c.href) {
-        wrapper.href = c.href;
-        if (c.href.startsWith("http")) { wrapper.target = "_blank"; wrapper.rel = "noopener"; }
-      }
-      var text = el("div");
-      text.append(el("div", "label", c.label), el("div", "value", c.value));
-      wrapper.innerHTML = `
-        ${renderIcon(c.icon, "icon")}
-        ${text.outerHTML}
-      `;
-      contactGrid.appendChild(wrapper);
-    });
-    console.log('✅ Contact rendered');
-  }
+  safe("contact", function() {
+    if (!data.contact) return;
+    var contactTag = document.getElementById("contact-tag");
+    if (contactTag) contactTag.innerHTML = "<span class=\"dot\"></span> " + data.contact.tag;
+    var contactTitle = document.getElementById("contact-title");
+    if (contactTitle) contactTitle.textContent = data.contact.title;
+    var contactSub = document.getElementById("contact-subtitle");
+    if (contactSub) contactSub.textContent = data.contact.subtitle;
+    var contactGrid = document.getElementById("contact-grid");
+    if (contactGrid) {
+      contactGrid.innerHTML = "";
+      data.contact.items.forEach(function(c, i) {
+        var wrapper = el(c.href ? "a" : "div", "contact-card reveal reveal-delay-" + (i % 4));
+        if (c.href) {
+          wrapper.href = c.href;
+          if (c.href.startsWith("http")) { wrapper.target = "_blank"; wrapper.rel = "noopener"; }
+        }
+        wrapper.innerHTML = `
+          ${renderIcon(c.icon, "icon")}
+          <div>
+            <div class="label">${c.label}</div>
+            <div class="value">${c.value}</div>
+          </div>
+        `;
+        contactGrid.appendChild(wrapper);
+      });
+    }
+  });
 
-  var footer = document.getElementById("footer-text");
-  if (footer && data) footer.textContent = data.footer;
+  safe("footer", function() {
+    var footer = document.getElementById("footer-text");
+    if (footer && data.footer) footer.textContent = data.footer;
+  });
 }
 
 // ============================================================
 // RENDER ABOUT
 // ============================================================
 function renderAbout(data) {
-  var heroTitle = document.getElementById("about-hero-title");
-  var heroSub = document.getElementById("about-hero-subtitle");
-  var avatar = document.getElementById("hero-avatar");
-  if (heroTitle) heroTitle.textContent = data.about.heroTitle;
-  if (heroSub) heroSub.textContent = data.about.heroSubtitle;
-  if (avatar) avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
-  if (avatar) avatar.querySelector("span").style.display = "none";
+  if (!data) return;
 
-  var introTag = document.getElementById("intro-tag");
-  var introText = document.getElementById("intro-text");
-  if (introTag) introTag.innerHTML = "<span class=\"dot\"></span> " + data.about.introTag;
-  if (introText) introText.textContent = data.about.intro;
+  safe("about-hero", function() {
+    var heroTitle = document.getElementById("about-hero-title");
+    var heroSub = document.getElementById("about-hero-subtitle");
+    var avatar = document.getElementById("hero-avatar");
+    if (heroTitle) heroTitle.textContent = data.about.heroTitle;
+    if (heroSub) heroSub.textContent = data.about.heroSubtitle;
+    if (avatar) {
+      avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
+      var span = avatar.querySelector("span");
+      if (span) span.style.display = "none";
+    }
+  });
 
-  var eduTag = document.getElementById("edu-tag");
-  var eduTitle = document.getElementById("edu-title");
-  if (eduTag) eduTag.innerHTML = "<span class=\"dot\"></span> " + data.about.eduTag;
-  if (eduTitle) eduTitle.textContent = data.about.eduTitle;
-  var timeline = document.getElementById("timeline");
-  if (timeline) {
-    timeline.innerHTML = "";
-    data.about.timeline.forEach(function(t, i) {
-      var item = el("div", "timeline-item reveal reveal-delay-" + (i % 3));
-      item.append(el("h3", null, t.title), el("span", "sub", t.sub), el("p", null, t.desc));
-      timeline.appendChild(item);
-    });
-  }
+  safe("about-intro", function() {
+    var introTag = document.getElementById("intro-tag");
+    var introText = document.getElementById("intro-text");
+    if (introTag) introTag.innerHTML = "<span class=\"dot\"></span> " + data.about.introTag;
+    if (introText) introText.textContent = data.about.intro;
+  });
 
-  var skillsTag = document.getElementById("about-skills-tag");
-  var skillsTitle = document.getElementById("about-skills-title");
-  if (skillsTag) skillsTag.innerHTML = "<span class=\"dot\"></span> " + data.about.skillsTag;
-  if (skillsTitle) skillsTitle.textContent = data.about.skillsTitle;
-  var skillsTags = document.getElementById("about-skills-tags");
-  if (skillsTags) {
-    skillsTags.innerHTML = "";
-    data.about.skillsList.forEach(function(s) { skillsTags.appendChild(el("span", null, s)); });
-  }
+  safe("about-timeline", function() {
+    var eduTag = document.getElementById("edu-tag");
+    var eduTitle = document.getElementById("edu-title");
+    if (eduTag) eduTag.innerHTML = "<span class=\"dot\"></span> " + data.about.eduTag;
+    if (eduTitle) eduTitle.textContent = data.about.eduTitle;
+    var timeline = document.getElementById("timeline");
+    if (timeline) {
+      timeline.innerHTML = "";
+      data.about.timeline.forEach(function(t, i) {
+        var item = el("div", "timeline-item reveal reveal-delay-" + (i % 3));
+        item.append(el("h3", null, t.title), el("span", "sub", t.sub), el("p", null, t.desc));
+        timeline.appendChild(item);
+      });
+    }
+  });
 
-  var langTag = document.getElementById("lang-tag");
-  var langTitle = document.getElementById("lang-title");
-  if (langTag) langTag.innerHTML = "<span class=\"dot\"></span> " + data.about.langTag;
-  if (langTitle) langTitle.textContent = data.about.langTitle;
-  var langTags = document.getElementById("lang-tags");
-  if (langTags) {
-    langTags.innerHTML = "";
-    data.about.langList.forEach(function(s) { langTags.appendChild(el("span", null, s)); });
-  }
+  safe("about-skills", function() {
+    var skillsTag = document.getElementById("about-skills-tag");
+    var skillsTitle = document.getElementById("about-skills-title");
+    if (skillsTag) skillsTag.innerHTML = "<span class=\"dot\"></span> " + data.about.skillsTag;
+    if (skillsTitle) skillsTitle.textContent = data.about.skillsTitle;
+    var skillsTags = document.getElementById("about-skills-tags");
+    if (skillsTags) {
+      skillsTags.innerHTML = "";
+      data.about.skillsList.forEach(function(s) { skillsTags.appendChild(el("span", null, s)); });
+    }
+  });
 
-  var githubTag = document.getElementById("github-tag");
-  var githubText = document.getElementById("github-text");
-  var githubLink = document.getElementById("github-link");
-  if (githubTag) githubTag.innerHTML = "<span class=\"dot\"></span> " + data.about.githubTag;
-  if (githubText) githubText.textContent = data.about.githubText;
-  if (githubLink) {
-    githubLink.textContent = data.about.githubLinkText;
-    githubLink.href = "https://" + data.about.githubLinkText;
-  }
+  safe("about-lang", function() {
+    var langTag = document.getElementById("lang-tag");
+    var langTitle = document.getElementById("lang-title");
+    if (langTag) langTag.innerHTML = "<span class=\"dot\"></span> " + data.about.langTag;
+    if (langTitle) langTitle.textContent = data.about.langTitle;
+    var langTags = document.getElementById("lang-tags");
+    if (langTags) {
+      langTags.innerHTML = "";
+      data.about.langList.forEach(function(s) { langTags.appendChild(el("span", null, s)); });
+    }
+  });
 
-  var footer = document.getElementById("footer-text");
-  if (footer) footer.textContent = data.footer;
+  safe("about-github", function() {
+    var githubTag = document.getElementById("github-tag");
+    var githubText = document.getElementById("github-text");
+    var githubLink = document.getElementById("github-link");
+    if (githubTag) githubTag.innerHTML = "<span class=\"dot\"></span> " + data.about.githubTag;
+    if (githubText) githubText.textContent = data.about.githubText;
+    if (githubLink) {
+      githubLink.textContent = data.about.githubLinkText;
+      githubLink.href = "https://" + data.about.githubLinkText;
+    }
+  });
+
+  safe("about-footer", function() {
+    var footer = document.getElementById("footer-text");
+    if (footer) footer.textContent = data.footer;
+  });
 }
 
 // ============================================================
@@ -597,39 +658,34 @@ function renderAbout(data) {
 function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
-  
+
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    
+
     const status = document.getElementById('formStatus');
     const submitBtn = form.querySelector('button[type="submit"]');
     const btnText = submitBtn.querySelector('.btn-text');
-    
+
     status.style.display = 'block';
     status.style.color = '#b8bfff';
     status.textContent = '⏳ در حال ارسال پیام...';
     submitBtn.disabled = true;
     btnText.textContent = 'در حال ارسال...';
-    
+
     try {
       const response = await fetch(form.action, {
         method: 'POST',
         body: new FormData(form),
-        headers: {
-          'Accept': 'application/json'
-        }
+        headers: { 'Accept': 'application/json' }
       });
-      
+
       if (response.ok) {
         status.style.color = '#00FF41';
         status.textContent = '✅ پیام شما با موفقیت ارسال شد!';
         form.reset();
         btnText.textContent = 'ارسال پیام';
         submitBtn.disabled = false;
-        
-        setTimeout(() => {
-          status.style.display = 'none';
-        }, 5000);
+        setTimeout(() => { status.style.display = 'none'; }, 5000);
       } else {
         throw new Error('خطا در ارسال پیام');
       }
@@ -647,33 +703,39 @@ function initContactForm() {
 // ============================================================
 function render(page) {
   var lang = getLang();
-  var data = SITE[lang];
-  
-  console.log('📄 render called with page:', page);
-  console.log('📄 data loaded:', data ? '✅' : '❌');
-  
+  var data = (typeof SITE !== "undefined") ? SITE[lang] : null;
+
   if (!data) {
-    console.error('❌ Data is undefined! Check content.js loading.');
+    console.error('❌ SITE data not available for lang=' + lang + '. content.js may have failed to load.');
+    document.dispatchEvent(new CustomEvent("site:render-failed", { detail: { page: page, lang: lang } }));
     return;
   }
-  
-  applyMeta(data, page);
-  renderNav(data, page);
-  if (page === "about") renderAbout(data);
-  else renderHome(data);
-  
+
+  safe("applyMeta", function() { applyMeta(data, page); });
+  safe("renderNav", function() { renderNav(data, page); });
+
+  if (page === "about") {
+    renderAbout(data);
+  } else {
+    renderHome(data);
+  }
+
   setTimeout(function() {
-    initReveal();
-    initRipple();
-    initSpotlights();
-    initParallax();
-    initCinematicMotion();
-    initAmbientOptimization();
-    var statsSec = document.getElementById("stats-section");
-    if (statsSec && statsSec.getBoundingClientRect().top < window.innerHeight) {
-      animateCounters();
-    }
+    safe("initReveal", initReveal);
+    safe("initRipple", initRipple);
+    safe("initSpotlights", initSpotlights);
+    safe("initParallax", initParallax);
+    safe("initCinematicMotion", initCinematicMotion);
+    safe("initAmbientOptimization", initAmbientOptimization);
+    safe("initialCounters", function() {
+      var statsSec = document.getElementById("stats-section");
+      if (statsSec && statsSec.getBoundingClientRect().top < window.innerHeight) {
+        animateCounters();
+      }
+    });
   }, 100);
+
+  document.dispatchEvent(new CustomEvent("site:rendered", { detail: { page: page, lang: lang } }));
 }
 
 // ============================================================
@@ -699,22 +761,25 @@ function initNavToggle() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  console.log('🚀 DOM fully loaded');
-  
+function boot() {
   var page = document.body.dataset.page || "home";
-  console.log('📄 Page:', page);
-  
   setTheme(getTheme());
   render(page);
   initLangToggle(page);
   initNavToggle();
   initContactForm();
-  
+
   document.querySelectorAll("[data-theme-toggle]").forEach(function(btn) {
     btn.addEventListener("click", function() {
       setTheme(getTheme() === "dark" ? "light" : "dark");
       render(page);
     });
   });
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  // DOM already parsed (can happen if script.js is deferred/loaded late on mobile) — boot immediately
+  boot();
+}
