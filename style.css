@@ -2034,3 +2034,76 @@ html[data-theme="light"] .skill-level .bar {
     backdrop-filter: blur(8px) !important;
   }
 }
+/* ============================================================
+   BLOG STYLES
+   ============================================================ */
+.blog-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.blog-card .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-card .reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filter-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--foreground) !important;
+}
+
+.filter-btn.active {
+  background: rgba(94, 106, 210, 0.15) !important;
+  color: #b8bfff !important;
+  border-color: var(--border-accent) !important;
+}
+
+.page-btn:hover {
+  border-color: var(--border-hover) !important;
+  color: var(--foreground) !important;
+}
+
+/* Post Overlay */
+#post-overlay {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+#post-overlay > div {
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Light mode */
+html[data-theme="light"] .blog-card {
+  background: var(--background-elevated) !important;
+  border-color: rgba(163, 177, 198, 0.15) !important;
+}
+
+html[data-theme="light"] .blog-card:hover {
+  box-shadow: var(--shadow-card-hover) !important;
+  border-color: rgba(82, 70, 196, 0.2) !important;
+}
+
+html[data-theme="light"] #post-overlay {
+  background: rgba(215, 221, 232, 0.92) !important;
+}
+
+html[data-theme="light"] #post-overlay > div {
+  background: var(--background-elevated) !important;
+}
