@@ -32,16 +32,16 @@ const SITE = {
       title: "چیزهایی که باهاش کار می‌کنم",
       subtitle: "ترکیبی از برنامه‌نویسی، سیستم‌عامل و امنیت.",
       items: [
-        { icon: "🐍", title: "Python", desc: "تسلط کامل — اسکریپت‌نویسی، ابزارسازی، بک‌اند و پروژه‌های امنیتی.", level: 95 },
-        { icon: "#️⃣", title: "C# (MVC)", desc: "تسلط کامل — توسعه وب با معماری MVC، Entity Framework و RESTful API.", level: 90 },
-        { icon: "🐧", title: "لینوکس", desc: "تسلط کامل — مدیریت سرور، bash scripting، شبکه‌سازی و امنیت.", level: 95 },
-        { icon: "🛡️", title: "Kali Linux", desc: "تسلط کامل — تست نفوذ با Nmap، Metasploit، Burp Suite و Wireshark.", level: 90 },
-        { icon: "🌐", title: "HTML & CSS", desc: "تسلط کامل — طراحی رابط کاربری، ریسپانسیو و انیمیشن.", level: 90 },
-        { icon: "📜", title: "JavaScript", desc: "تسلط متوسط — DOM manipulation، رویدادها و کار با API.", level: 65 },
-        { icon: "⚛️", title: "Node.js / Next.js", desc: "تسلط متوسط — توسعه بک‌اند با Node.js و اپلیکیشن‌های React با Next.js.", level: 60 },
-        { icon: "🗄️", title: "SQL Server / SQLite", desc: "تسلط کامل — طراحی دیتابیس، مدیریت داده و بهینه‌سازی کوئری.", level: 85 },
-        { icon: "📱", title: "WordPress", desc: "تسلط کامل — توسعه، شخصی‌سازی و مدیریت وب‌سایت.", level: 80 },
-        { icon: "🔒", title: "امنیت وب", desc: "تسلط کامل — تحلیل آسیب‌پذیری، چالش‌های Natas و آشنایی با PWK.", level: 85 }
+        { icon: "python", title: "Python", desc: "تسلط کامل — اسکریپت‌نویسی، ابزارسازی، بک‌اند و پروژه‌های امنیتی.", level: 95 },
+        { icon: "csharp", title: "C# (MVC)", desc: "تسلط کامل — توسعه وب با معماری MVC، Entity Framework و RESTful API.", level: 90 },
+        { icon: "linux", title: "لینوکس", desc: "تسلط کامل — مدیریت سرور، bash scripting، شبکه‌سازی و امنیت.", level: 95 },
+        { icon: "kali", title: "Kali Linux", desc: "تسلط کامل — تست نفوذ با Nmap، Metasploit، Burp Suite و Wireshark.", level: 90 },
+        { icon: "html", title: "HTML & CSS", desc: "تسلط کامل — طراحی رابط کاربری، ریسپانسیو و انیمیشن.", level: 90 },
+        { icon: "js", title: "JavaScript", desc: "تسلط متوسط — DOM manipulation، رویدادها و کار با API.", level: 65 },
+        { icon: "node", title: "Node.js / Next.js", desc: "تسلط متوسط — توسعه بک‌اند با Node.js و اپلیکیشن‌های React با Next.js.", level: 60 },
+        { icon: "sql", title: "SQL Server / SQLite", desc: "تسلط کامل — طراحی دیتابیس، مدیریت داده و بهینه‌سازی کوئری.", level: 85 },
+        { icon: "wordpress", title: "WordPress", desc: "تسلط کامل — توسعه، شخصی‌سازی و مدیریت وب‌سایت.", level: 80 },
+        { icon: "security", title: "امنیت وب", desc: "تسلط کامل — تحلیل آسیب‌پذیری، چالش‌های Natas و آشنایی با PWK.", level: 85 }
       ]
     },
     
@@ -50,10 +50,10 @@ const SITE = {
       title: "روی چه چیزی کار می‌کنم؟",
       subtitle: "هر روز یک قدم به جلو.",
       items: [
-        { icon: "📘", title: "امنیت وب پیشرفته", desc: "مطالعه آسیب‌پذیری‌های جدید و شرکت در چالش‌های CTF." },
-        { icon: "🔧", title: "ابزارهای امنیتی", desc: "توسعه ابزارهای خط فرمان با Python." },
-        { icon: "🌱", title: "متن‌باز", desc: "مشارکت در پروژه‌های امنیتی." },
-        { icon: "🎯", title: "کارآموزی", desc: "به دنبال فرصت‌های یادگیری و همکاری." }
+        { icon: "book", title: "امنیت وب پیشرفته", desc: "مطالعه آسیب‌پذیری‌های جدید و شرکت در چالش‌های CTF." },
+        { icon: "tools", title: "ابزارهای امنیتی", desc: "توسعه ابزارهای خط فرمان با Python." },
+        { icon: "opensource", title: "متن‌باز", desc: "مشارکت در پروژه‌های امنیتی." },
+        { icon: "internship", title: "کارآموزی", desc: "به دنبال فرصت‌های یادگیری و همکاری." }
       ]
     },
     
@@ -188,12 +188,12 @@ const SITE = {
     },
     
     donation: {
-      badge: "☕ حمایت از من",
+      badge: "حمایت از من",
       title1: "اگر از محتوای من",
       title2: "خوشتان می‌آید",
-      sub: "با <strong>یک قهوه ☕</strong> از من حمایت کنید تا بتوانم محتوای باکیفیت‌تری تولید کنم.",
+      sub: "با <strong>یک قهوه</strong> از من حمایت کنید تا بتوانم محتوای باکیفیت‌تری تولید کنم.",
       btnText: "خرید قهوه برای من",
-      msg: "🎉 هر قهوه = انرژی برای ساخت محتوای بهتر"
+      msg: "هر قهوه = انرژی برای ساخت محتوای بهتر"
     },
     
     aboutPreview: {
@@ -207,10 +207,10 @@ const SITE = {
       title: "در ارتباط باشیم",
       subtitle: "برای همکاری، یادگیری یا هر سوالی خوشحال می‌شوم پاسخگو باشم.",
       items: [
-        { icon: "✉️", label: "ایمیل", value: "ilyafarahanii@gmail.com", href: "mailto:ilyafarahanii@gmail.com" },
-        { icon: "📱", label: "تماس", value: "۰۹۰۳۰۸۳۹۷۹۰", href: "tel:+989030839790" },
-        { icon: "📍", label: "موقعیت", value: "تهران، ایران", href: null },
-        { icon: "🐙", label: "گیت‌هاب", value: "github.com/here-is-leo", href: "https://github.com/here-is-leo" }
+        { icon: "email", label: "ایمیل", value: "ilyafarahanii@gmail.com", href: "mailto:ilyafarahanii@gmail.com" },
+        { icon: "phone", label: "تماس", value: "۰۹۰۳۰۸۳۹۷۹۰", href: "tel:+989030839790" },
+        { icon: "location", label: "موقعیت", value: "تهران، ایران", href: null },
+        { icon: "github", label: "گیت‌هاب", value: "github.com/here-is-leo", href: "https://github.com/here-is-leo" }
       ]
     },
     
@@ -313,16 +313,16 @@ const SITE = {
       title: "What I work with",
       subtitle: "A mix of programming, systems and security.",
       items: [
-        { icon: "🐍", title: "Python", desc: "Complete mastery — Scripting, tooling, backend and security projects.", level: 95 },
-        { icon: "#️⃣", title: "C# (MVC)", desc: "Complete mastery — Web development with MVC, Entity Framework and RESTful API.", level: 90 },
-        { icon: "🐧", title: "Linux", desc: "Complete mastery — Server administration, bash scripting, networking and security.", level: 95 },
-        { icon: "🛡️", title: "Kali Linux", desc: "Complete mastery — Pentesting with Nmap, Metasploit, Burp Suite and Wireshark.", level: 90 },
-        { icon: "🌐", title: "HTML & CSS", desc: "Complete mastery — UI design, responsive and animations.", level: 90 },
-        { icon: "📜", title: "JavaScript", desc: "Intermediate — DOM manipulation, events and API integration.", level: 65 },
-        { icon: "⚛️", title: "Node.js / Next.js", desc: "Intermediate — Backend development with Node.js and React apps with Next.js.", level: 60 },
-        { icon: "🗄️", title: "SQL Server / SQLite", desc: "Complete mastery — Database design, data management and query optimization.", level: 85 },
-        { icon: "📱", title: "WordPress", desc: "Complete mastery — Development, customization and website management.", level: 80 },
-        { icon: "🔒", title: "Web Security", desc: "Complete mastery — Vulnerability analysis, Natas challenges and PWK.", level: 85 }
+        { icon: "python", title: "Python", desc: "Complete mastery — Scripting, tooling, backend and security projects.", level: 95 },
+        { icon: "csharp", title: "C# (MVC)", desc: "Complete mastery — Web development with MVC, Entity Framework and RESTful API.", level: 90 },
+        { icon: "linux", title: "Linux", desc: "Complete mastery — Server administration, bash scripting, networking and security.", level: 95 },
+        { icon: "kali", title: "Kali Linux", desc: "Complete mastery — Pentesting with Nmap, Metasploit, Burp Suite and Wireshark.", level: 90 },
+        { icon: "html", title: "HTML & CSS", desc: "Complete mastery — UI design, responsive and animations.", level: 90 },
+        { icon: "js", title: "JavaScript", desc: "Intermediate — DOM manipulation, events and API integration.", level: 65 },
+        { icon: "node", title: "Node.js / Next.js", desc: "Intermediate — Backend development with Node.js and React apps with Next.js.", level: 60 },
+        { icon: "sql", title: "SQL Server / SQLite", desc: "Complete mastery — Database design, data management and query optimization.", level: 85 },
+        { icon: "wordpress", title: "WordPress", desc: "Complete mastery — Development, customization and website management.", level: 80 },
+        { icon: "security", title: "Web Security", desc: "Complete mastery — Vulnerability analysis, Natas challenges and PWK.", level: 85 }
       ]
     },
     
@@ -331,10 +331,10 @@ const SITE = {
       title: "What I'm working on",
       subtitle: "One step forward every day.",
       items: [
-        { icon: "📘", title: "Web Security", desc: "Studying vulnerabilities and CTF challenges." },
-        { icon: "🔧", title: "Security Tools", desc: "Building Python CLI tools." },
-        { icon: "🌱", title: "Open Source", desc: "Contributing to security projects." },
-        { icon: "🎯", title: "Internship", desc: "Looking for learning opportunities." }
+        { icon: "book", title: "Web Security", desc: "Studying vulnerabilities and CTF challenges." },
+        { icon: "tools", title: "Security Tools", desc: "Building Python CLI tools." },
+        { icon: "opensource", title: "Open Source", desc: "Contributing to security projects." },
+        { icon: "internship", title: "Internship", desc: "Looking for learning opportunities." }
       ]
     },
     
@@ -469,12 +469,12 @@ const SITE = {
     },
     
     donation: {
-      badge: "☕ Support Me",
+      badge: "Support Me",
       title1: "If you enjoy",
       title2: "my content",
-      sub: "Support me with <strong>a coffee ☕</strong> so I can keep producing high-quality content.",
+      sub: "Support me with <strong>a coffee</strong> so I can keep producing high-quality content.",
       btnText: "Buy me a coffee",
-      msg: "🎉 Every coffee = energy for better content"
+      msg: "Every coffee = energy for better content"
     },
     
     aboutPreview: {
@@ -488,10 +488,10 @@ const SITE = {
       title: "Let's connect",
       subtitle: "Happy to connect for collaboration, learning or any questions.",
       items: [
-        { icon: "✉️", label: "Email", value: "ilyafarahanii@gmail.com", href: "mailto:ilyafarahanii@gmail.com" },
-        { icon: "📱", label: "Phone", value: "+98 903 083 9790", href: "tel:+989030839790" },
-        { icon: "📍", label: "Location", value: "Tehran, Iran", href: null },
-        { icon: "🐙", label: "GitHub", value: "github.com/here-is-leo", href: "https://github.com/here-is-leo" }
+        { icon: "email", label: "Email", value: "ilyafarahanii@gmail.com", href: "mailto:ilyafarahanii@gmail.com" },
+        { icon: "phone", label: "Phone", value: "+98 903 083 9790", href: "tel:+989030839790" },
+        { icon: "location", label: "Location", value: "Tehran, Iran", href: null },
+        { icon: "github", label: "GitHub", value: "github.com/here-is-leo", href: "https://github.com/here-is-leo" }
       ]
     },
     
