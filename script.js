@@ -32,48 +32,51 @@ function el(tag, cls, html) {
 function iconSVG(value) {
   var key = String(value || "");
   var paths = {
-    "🐍":"<path d='M12 3c-3 0-3 2-3 3v2h4v1H7c-3 0-3 2-3 4s1 3 3 3h2v-2H7c-1 0-1-2 0-2h5c2 0 3-1 3-3V6c0-2-1-3-3-3Z'/><path d='M15 21c3 0 3-2 3-3v-2h-4v-1h6c3 0 3-2 3-4s-1-3-3-3h-2v2h2c1 0 1 2 0 2h-5c-2 0-3 1-3 3v4c0 2 1 3 3 3Z'/>",
-    "🖥️":"<rect x='3' y='4' width='18' height='13' rx='2'/><path d='M8 21h8M12 17v4'/>",
-    "🛡️":"<path d='M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z'/><path d='m8 12 2.5 2.5L16 9'/>",
-    "🗄️":"<rect x='3' y='4' width='18' height='6' rx='1'/><rect x='3' y='14' width='18' height='6' rx='1'/><path d='M7 7h.01M7 17h.01'/>",
-    "#️⃣":"<path d='M9 3 7 21M17 3l-2 18M4 9h16M3 15h16'/>",
-    "🌐":"<circle cx='12' cy='12' r='9'/><path d='M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18'/>",
-    "📘":"<path d='M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z'/><path d='M5 18a2 2 0 0 1 2-2h12M9 8h6M9 12h6'/>",
-    "🔧":"<path d='m14 6 4 4M13 7a4 4 0 0 0-5 5l-5 5a2 2 0 1 0 3 3l5-5a4 4 0 0 0 5-5l-3 3-3-3 3-3Z'/>",
-    "🌱":"<path d='M12 21V10M12 15c-5 0-7-3-7-7 4 0 7 2 7 7ZM12 12c0-5 3-7 7-7 0 4-2 7-7 7Z'/>",
-    "🎯":"<circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5'/><circle cx='12' cy='12' r='1'/>",
-    "✉️":"<rect x='3' y='5' width='18' height='14' rx='2'/><path d='m3 7 9 6 9-6'/>",
-    "📱":"<rect x='7' y='2' width='10' height='20' rx='2'/><path d='M11 18h2'/>",
-    "📍":"<path d='M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z'/><circle cx='12' cy='10' r='2'/>",
-    "🐙":"<path d='M4 13a8 8 0 1 1 16 0v4c0 1-1 2-2 2s-2-1-2-2v-2m-4 4v-5m-4 3v-3m-4 3v-3'/>",
-    "☕":"<path d='M5 8h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8Z'/><path d='M16 10h2a2 2 0 0 1 0 4h-2M8 4c-1 1 1 2 0 3M12 4c-1 1 1 2 0 3'/>"
+    "python": "<path d='M12 3c-3 0-3 2-3 3v2h4v1H7c-3 0-3 2-3 4s1 3 3 3h2v-2H7c-1 0-1-2 0-2h5c2 0 3-1 3-3V6c0-2-1-3-3-3Z'/><path d='M15 21c3 0 3-2 3-3v-2h-4v-1h6c3 0 3-2 3-4s-1-3-3-3h-2v2h2c1 0 1 2 0 2h-5c-2 0-3 1-3 3v4c0 2 1 3 3 3Z'/>",
+    "csharp": "<path d='M9 3 7 21M17 3l-2 18M4 9h16M3 15h16'/>",
+    "linux": "<rect x='3' y='4' width='18' height='13' rx='2'/><path d='M8 21h8M12 17v4'/>",
+    "kali": "<path d='M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z'/><path d='m8 12 2.5 2.5L16 9'/>",
+    "html": "<circle cx='12' cy='12' r='9'/><path d='M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18'/>",
+    "js": "<path d='M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z'/><path d='M5 18a2 2 0 0 1 2-2h12M9 8h6M9 12h6'/>",
+    "node": "<path d='m14 6 4 4M13 7a4 4 0 0 0-5 5l-5 5a2 2 0 1 0 3 3l5-5a4 4 0 0 0 5-5l-3 3-3-3 3-3Z'/>",
+    "sql": "<rect x='3' y='4' width='18' height='6' rx='1'/><rect x='3' y='14' width='18' height='6' rx='1'/><path d='M7 7h.01M7 17h.01'/>",
+    "wordpress": "<circle cx='12' cy='12' r='9'/><path d='M12 3v18M3 12h18'/>",
+    "security": "<path d='M12 3 20 6v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-3Z'/><path d='m8 12 2.5 2.5L16 9'/>",
+    "book": "<path d='M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z'/><path d='M5 18a2 2 0 0 1 2-2h12'/>",
+    "tools": "<path d='m14 6 4 4M13 7a4 4 0 0 0-5 5l-5 5a2 2 0 1 0 3 3l5-5a4 4 0 0 0 5-5l-3 3-3-3 3-3Z'/>",
+    "opensource": "<path d='M12 21V10M12 15c-5 0-7-3-7-7 4 0 7 2 7 7ZM12 12c0-5 3-7 7-7 0 4-2 7-7 7Z'/>",
+    "internship": "<circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5'/><circle cx='12' cy='12' r='1'/>",
+    "email": "<rect x='3' y='5' width='18' height='14' rx='2'/><path d='m3 7 9 6 9-6'/>",
+    "phone": "<rect x='7' y='2' width='10' height='20' rx='2'/><path d='M11 18h2'/>",
+    "location": "<path d='M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z'/><circle cx='12' cy='10' r='2'/>",
+    "github": "<path d='M4 13a8 8 0 1 1 16 0v4c0 1-1 2-2 2s-2-1-2-2v-2m-4 4v-5m-4 3v-3m-4 3v-3'/>"
   };
   var path = paths[key] || "<circle cx='12' cy='12' r='8'/><path d='M12 8v8M8 12h8'/>";
   return "<svg class='icon-svg' viewBox='0 0 24 24' aria-hidden='true' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'>" + path + "</svg>";
 }
 
-function getIconFallback(emoji) {
+function getIconFallback(key) {
   var map = {
-    "🐍": "Py",
-    "🖥️": "Ln",
-    "🛡️": "Sec",
-    "🗄️": "DB",
-    "#️⃣": "C#",
-    "🌐": "WP",
-    "📘": "Lrn",
-    "🔧": "Tl",
-    "🌱": "OSS",
-    "🎯": "Goal",
-    "✉️": "Mail",
-    "📱": "Ph",
-    "📍": "Loc",
-    "🐙": "Git",
-    "☕": "Cof",
-    "📜": "JS",
-    "⚛️": "NN",
-    "🔒": "Sec"
+    "python": "Py",
+    "csharp": "C#",
+    "linux": "Ln",
+    "kali": "Kl",
+    "html": "Ht",
+    "js": "JS",
+    "node": "Nd",
+    "sql": "SQ",
+    "wordpress": "WP",
+    "security": "Sc",
+    "book": "Bk",
+    "tools": "Tl",
+    "opensource": "OS",
+    "internship": "In",
+    "email": "Em",
+    "phone": "Ph",
+    "location": "Lc",
+    "github": "Gh"
   };
-  return map[emoji] || "•";
+  return map[key] || "•";
 }
 
 // ============================================================
