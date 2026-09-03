@@ -118,7 +118,7 @@ function renderNav(data, page) {
   });
   const map = {
     "data-nav-skills": ["skills", page === "about" ? "index.html#skills" : "#skills"],
-    "data-nav-projects": ["projects", page === "about" ? "index.html#projects" : "#projects"],
+    "data-nav-projects": ["projects", "projects.html"], // FIX: همیشه به projects.html
     "data-nav-contact": ["contact", page === "about" ? "index.html#contact" : "#contact"],
     "data-nav-about": ["about", "about.html"],
     "data-nav-blog": ["blog", "blog.html"],
@@ -381,7 +381,7 @@ function renderHome(data) {
     hero.appendChild(el("p", null, data.hero.subtitle));
     var cta = el("div", "hero-cta");
     var c1 = el("a", "btn btn-primary", data.hero.cta1);
-    c1.href = "projects.html";  // ← تغییر از "#projects" به "projects.html"
+    c1.href = "projects.html"; // FIX: به projects.html
     var c2 = el("a", "btn btn-secondary", data.hero.cta2);
     c2.href = "about.html";
     cta.append(c1, c2);
@@ -426,12 +426,13 @@ function renderHome(data) {
       data.skills.items.forEach(function(s, i) {
         var card = el("div", "skill-card reveal reveal-delay-" + (i % 4));
         var level = s.level || 0;
+        // FIX: استفاده از width به جای --level
         card.innerHTML = `
           ${renderIcon(s.icon, "icon")}
           <h3>${s.title}</h3>
           <p>${s.desc}</p>
           <div class="skill-level">
-            <div class="bar" style="--level: ${level}%;" data-level="${level}"></div>
+            <div class="bar" style="width: ${level}%;" data-level="${level}"></div>
           </div>
           <div class="level-label">
             <span>مبتدی</span>
@@ -469,7 +470,6 @@ function renderHome(data) {
   });
 
   // ====== PROJECTS ======
-  // ✅ اصلاح شده با bullets و لینک به projects.html
   safe("projects", function() {
     if (!data.projects) return;
     var projTag = document.getElementById("projects-tag");
@@ -481,35 +481,41 @@ function renderHome(data) {
     var projGrid = document.getElementById("projects-grid");
     if (projGrid) {
       projGrid.innerHTML = "";
-      data.projects.items.forEach(function(proj, index) {
-        var card = el("div", "project-card reveal reveal-delay-" + (index % 3));
-        
-        // هدر پروژه با لینک به projects.html
+      data.projects.items.forEach(function(proj) {
+        var card = el("div", "project-card reveal reveal-delay-" + 0);
         var head = el("div", "project-head");
-        var titleLink = el("a", null, proj.icon + " " + proj.title);
-        titleLink.href = "projects.html";
-        titleLink.style.color = "inherit";
-        titleLink.style.textDecoration = "none";
-        head.appendChild(titleLink);
-        if (proj.date) head.append(el("span", "project-date", proj.date));
         
+        // FIX: عنوان به‌صورت لینک به projects.html
+        var titleLink = el("a", "project-title-link", (proj.icon ? proj.icon + " " : "") + proj.title);
+        titleLink.href = "projects.html";
+        titleLink.style.textDecoration = "none";
+        titleLink.style.color = "inherit";
+        head.appendChild(titleLink);
+        
+        if (proj.date) head.append(el("span", "project-date", proj.date));
         var desc = el("p", null, proj.desc);
         
-        // bullets (اگر وجود داشته باشه)
-        var ul = el("ul");
-        if (proj.bullets && proj.bullets.length) {
-          proj.bullets.forEach(function(b) { ul.appendChild(el("li", null, b)); });
+        // FIX: افزودن bullets
+        if (proj.bullets && proj.bullets.length > 0) {
+          var bulletList = el("ul", "project-bullets");
+          proj.bullets.forEach(function(bullet) {
+            var li = el("li", null, bullet);
+            bulletList.appendChild(li);
+          });
+          card.appendChild(bulletList);
         }
         
         var tags = el("div", "tech-tags");
         (proj.tech || []).forEach(function(t) { tags.appendChild(el("span", null, t)); });
+        card.append(head, desc, tags);
         
-        var link = el("a", "project-link", "مشاهده در گیت‌هاب →");
-        link.href = proj.url || proj.href || "#";
-        link.target = "_blank";
-        link.rel = "noopener";
-        
-        card.append(head, desc, ul, tags, link);
+        if (proj.url || proj.href) {
+          var link = el("a", "project-link", "GitHub ↗");
+          link.href = proj.url || proj.href;
+          link.target = "_blank";
+          link.rel = "noopener";
+          card.appendChild(link);
+        }
         projGrid.appendChild(card);
       });
     }
@@ -662,6 +668,55 @@ function renderAbout(data) {
 }
 
 // ============================================================
+// RENDER PROJECTS (برای صفحه projects.html)
+// ============================================================
+function renderProjects(data) {
+  if (!data) return;
+
+  safe("projects-page", function() {
+    var grid = document.getElementById("projects-grid-page");
+    if (!grid) return;
+
+    grid.innerHTML = "";
+    (data.projects.items || []).forEach(function(proj) {
+      var card = el("div", "project-card reveal");
+      var head = el("div", "project-head");
+      
+      var titleLink = el("a", "project-title-link", (proj.icon ? proj.icon + " " : "") + proj.title);
+      titleLink.href = proj.url || proj.href || "#";
+      if (titleLink.href !== "#") {
+        titleLink.target = "_blank";
+        titleLink.rel = "noopener";
+      }
+      head.appendChild(titleLink);
+      
+      if (proj.date) head.appendChild(el("span", "project-date", proj.date));
+      var desc = el("p", null, proj.desc);
+      
+      // bullets
+      if (proj.bullets && proj.bullets.length) {
+        var bulletList = el("ul", "project-bullets");
+        proj.bullets.forEach(function(bullet) {
+          bulletList.appendChild(el("li", null, bullet));
+        });
+        card.appendChild(bulletList);
+      }
+      
+      var tags = el("div", "tech-tags");
+      (proj.tech || []).forEach(function(t) { tags.appendChild(el("span", null, t)); });
+      card.append(head, desc, tags);
+      
+      grid.appendChild(card);
+    });
+  });
+
+  safe("projects-footer", function() {
+    var footer = document.getElementById("footer-text");
+    if (footer && data.footer) footer.textContent = data.footer;
+  });
+}
+
+// ============================================================
 // CONTACT FORM
 // ============================================================
 function initContactForm() {
@@ -725,6 +780,8 @@ function render(page) {
 
   if (page === "about") {
     renderAbout(data);
+  } else if (page === "projects") {
+    renderProjects(data);
   } else {
     renderHome(data);
   }
@@ -789,6 +846,5 @@ function boot() {
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", boot);
 } else {
-  // DOM already parsed (can happen if script.js is deferred/loaded late on mobile) — boot immediately
   boot();
 }
