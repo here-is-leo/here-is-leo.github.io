@@ -2121,3 +2121,77 @@ html[data-theme="light"] #post-overlay {
 html[data-theme="light"] #post-overlay > div {
   background: var(--background-elevated) !important;
 }
+/* ============================================================
+   FIX: MOBILE TEXT VISIBILITY
+   ============================================================ */
+
+@media (max-width: 768px) {
+  /* اطمینان از نمایش هیرو در موبایل */
+  .hero-text {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 10px !important;
+  }
+  
+  .hero-text h1 {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #EDEDEF !important;
+  }
+  
+  .hero-text p {
+    font-size: 0.95rem !important;
+    line-height: 1.8 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #8A8F98 !important;
+    max-width: 100% !important;
+    margin: 10px auto !important;
+  }
+  
+  .hero-text .typewriter {
+    font-size: 1rem !important;
+    color: #b8bfff !important;
+    display: block !important;
+    min-height: 2em !important;
+  }
+  
+  .hero-text .eyebrow {
+    display: inline-flex !important;
+    font-size: 0.65rem !important;
+    padding: 4px 12px !important;
+  }
+  
+  .hero-cta {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    margin-top: 20px !important;
+  }
+  
+  .hero-cta .btn {
+    font-size: 0.8rem !important;
+    padding: 10px 20px !important;
+  }
+  
+  /* آواتار در موبایل */
+  .hero-avatar {
+    width: 140px !important;
+    height: 140px !important;
+    margin: 0 auto 20px !important;
+    display: grid !important;
+  }
+  
+  /* ریورس کردن ترتیب در موبایل */
+  .hero-inner {
+    flex-direction: column-reverse !important;
+    text-align: center !important;
+    gap: 10px !important;
+  }
+}
