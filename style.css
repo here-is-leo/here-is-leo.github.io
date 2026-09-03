@@ -2122,76 +2122,442 @@ html[data-theme="light"] #post-overlay > div {
   background: var(--background-elevated) !important;
 }
 /* ============================================================
-   FIX: MOBILE TEXT VISIBILITY
+   MOBILE COMPLETE FIX — ULTIMATE
    ============================================================ */
 
 @media (max-width: 768px) {
-  /* اطمینان از نمایش هیرو در موبایل */
+  
+  /* ----- RESET HERO ----- */
+  .hero {
+    min-height: auto !important;
+    padding: 40px 0 30px !important;
+  }
+  
+  .hero-inner {
+    flex-direction: column-reverse !important;
+    gap: 12px !important;
+    text-align: center !important;
+  }
+  
   .hero-text {
-    display: block !important;
-    width: 100% !important;
+    flex: none !important;
     max-width: 100% !important;
-    padding: 0 10px !important;
+    width: 100% !important;
+    padding: 0 8px !important;
+    display: block !important;
   }
   
   .hero-text h1 {
-    font-size: 2rem !important;
-    line-height: 1.2 !important;
+    font-size: 1.6rem !important;
+    line-height: 1.15 !important;
     display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    color: #EDEDEF !important;
   }
   
-  .hero-text p {
-    font-size: 0.95rem !important;
-    line-height: 1.8 !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    color: #8A8F98 !important;
-    max-width: 100% !important;
-    margin: 10px auto !important;
-  }
-  
-  .hero-text .typewriter {
-    font-size: 1rem !important;
-    color: #b8bfff !important;
-    display: block !important;
-    min-height: 2em !important;
+  .hero-text .accent-name {
+    font-size: 1.6rem !important;
+    display: inline-block !important;
   }
   
   .hero-text .eyebrow {
+    font-size: 0.55rem !important;
+    padding: 3px 10px !important;
     display: inline-flex !important;
-    font-size: 0.65rem !important;
-    padding: 4px 12px !important;
+    margin-bottom: 6px !important;
+  }
+  
+  .hero-text .typewriter {
+    font-size: 0.9rem !important;
+    min-height: 1.5em !important;
+    display: block !important;
+  }
+  
+  .hero-text .typewriter span {
+    font-size: 0.9rem !important;
+  }
+  
+  .hero-text p {
+    font-size: 0.82rem !important;
+    line-height: 1.7 !important;
+    max-width: 100% !important;
+    margin: 6px auto !important;
+    display: block !important;
+    padding: 0 4px !important;
   }
   
   .hero-cta {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
-    gap: 10px !important;
-    margin-top: 20px !important;
+    gap: 8px !important;
+    margin-top: 12px !important;
   }
   
   .hero-cta .btn {
-    font-size: 0.8rem !important;
-    padding: 10px 20px !important;
+    font-size: 0.7rem !important;
+    padding: 8px 14px !important;
   }
   
-  /* آواتار در موبایل */
   .hero-avatar {
-    width: 140px !important;
-    height: 140px !important;
-    margin: 0 auto 20px !important;
+    width: 100px !important;
+    height: 100px !important;
+    margin: 0 auto !important;
     display: grid !important;
+    flex: none !important;
   }
   
-  /* ریورس کردن ترتیب در موبایل */
-  .hero-inner {
-    flex-direction: column-reverse !important;
+  /* ----- STATS ----- */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .stat-card {
+    padding: 12px 8px !important;
+  }
+  
+  .stat-card .number {
+    font-size: 1.5rem !important;
+  }
+  
+  .stat-card .label {
+    font-size: 0.6rem !important;
+  }
+  
+  /* ----- SKILLS ----- */
+  .skills-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .skill-card {
+    padding: 12px 10px !important;
     text-align: center !important;
+  }
+  
+  .skill-card .icon {
+    width: 32px !important;
+    height: 32px !important;
+    font-size: 0.7rem !important;
+    margin: 0 auto 6px !important;
+  }
+  
+  .skill-card h3 {
+    font-size: 0.75rem !important;
+    margin-bottom: 3px !important;
+  }
+  
+  .skill-card p {
+    font-size: 0.65rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  .skill-level {
+    height: 3px !important;
+    margin-top: 4px !important;
+  }
+  
+  .level-label {
+    font-size: 0.5rem !important;
+  }
+  
+  /* ----- FOCUS ----- */
+  .focus-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .focus-card {
+    padding: 12px 10px !important;
+    text-align: center !important;
+  }
+  
+  .focus-card .icon {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.6rem !important;
+    margin: 0 auto 4px !important;
+  }
+  
+  .focus-card h3 {
+    font-size: 0.7rem !important;
+  }
+  
+  .focus-card p {
+    font-size: 0.6rem !important;
+    line-height: 1.5 !important;
+  }
+  
+  /* ----- PROJECTS ----- */
+  .projects-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
     gap: 10px !important;
+  }
+  
+  .project-card {
+    padding: 14px !important;
+    grid-column: span 1 !important;
+  }
+  
+  .project-card:nth-child(n) {
+    grid-column: span 1 !important;
+  }
+  
+  .project-card h3 {
+    font-size: 0.85rem !important;
+  }
+  
+  .project-card p {
+    font-size: 0.72rem !important;
+  }
+  
+  .project-card ul {
+    font-size: 0.68rem !important;
+    padding-inline-start: 14px !important;
+  }
+  
+  .tech-tags span {
+    font-size: 0.55rem !important;
+    padding: 2px 6px !important;
+  }
+  
+  .project-date {
+    font-size: 0.55rem !important;
+    padding: 1px 8px !important;
+  }
+  
+  /* ----- CONTACT ----- */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+  
+  .contact-card {
+    padding: 10px 14px !important;
+  }
+  
+  .contact-card .icon {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .contact-card .label {
+    font-size: 0.55rem !important;
+  }
+  
+  .contact-card .value {
+    font-size: 0.75rem !important;
+  }
+  
+  /* ----- SECTION HEADERS ----- */
+  .section-head h2 {
+    font-size: 1.3rem !important;
+  }
+  
+  .section-head p {
+    font-size: 0.75rem !important;
+  }
+  
+  .section-tag {
+    font-size: 0.55rem !important;
+    padding: 3px 10px !important;
+  }
+  
+  section {
+    padding: 40px 0 !important;
+  }
+  
+  .container {
+    padding: 0 12px !important;
+  }
+  
+  footer {
+    padding: 16px 0 !important;
+    font-size: 0.6rem !important;
+  }
+  
+  /* ----- ABOUT PREVIEW ----- */
+  .about-preview {
+    flex-direction: column !important;
+    text-align: center !important;
+    padding: 16px !important;
+  }
+  
+  .about-preview h3 {
+    font-size: 0.9rem !important;
+  }
+  
+  .about-preview p {
+    font-size: 0.72rem !important;
+  }
+  
+  /* ----- DONATION ----- */
+  .donation-banner {
+    padding: 16px 14px !important;
+  }
+  
+  .donation-badge {
+    font-size: 0.55rem !important;
+  }
+  
+  .donation-title {
+    font-size: 1rem !important;
+  }
+  
+  .donation-sub {
+    font-size: 0.72rem !important;
+  }
+  
+  .donate-btn {
+    font-size: 0.7rem !important;
+    padding: 8px 14px !important;
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  
+  /* ----- TIMELINE ----- */
+  .timeline-item {
+    padding: 12px 14px !important;
+  }
+  
+  .timeline-item h3 {
+    font-size: 0.8rem !important;
+  }
+  
+  .timeline-item .sub {
+    font-size: 0.65rem !important;
+  }
+  
+  .timeline-item p {
+    font-size: 0.68rem !important;
+  }
+  
+  /* ----- BLOG ----- */
+  .blog-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  
+  .blog-card,
+  .blog-post-card {
+    padding: 14px !important;
+  }
+  
+  .blog-card h3,
+  .blog-post-card h3 {
+    font-size: 0.85rem !important;
+  }
+  
+  .blog-card p,
+  .blog-post-card p {
+    font-size: 0.72rem !important;
+  }
+  
+  .blog-card .post-tags span,
+  .blog-post-card .post-tags span {
+    font-size: 0.55rem !important;
+    padding: 2px 8px !important;
+  }
+  
+  .blog-card .post-image,
+  .blog-post-card .post-image {
+    height: 120px !important;
+    font-size: 2.5rem !important;
+  }
+  
+  /* ----- REPOS ----- */
+  .repos-grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+  
+  .repo-card {
+    padding: 14px !important;
+  }
+  
+  .repo-card h3 {
+    font-size: 0.8rem !important;
+  }
+  
+  .repo-card p {
+    font-size: 0.7rem !important;
+  }
+  
+  /* ----- RESUME ----- */
+  .resume-section {
+    padding: 14px !important;
+  }
+  
+  .resume-section h2 {
+    font-size: 1rem !important;
+  }
+  
+  .resume-section ul li {
+    font-size: 0.72rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px !important;
+  }
+  
+  .resume-section .skill-tag {
+    font-size: 0.6rem !important;
+    padding: 2px 8px !important;
+  }
+  
+  /* ----- FILTERS & PAGINATION ----- */
+  .filter-btn {
+    font-size: 0.6rem !important;
+    padding: 4px 12px !important;
+  }
+  
+  .page-btn {
+    font-size: 0.65rem !important;
+    padding: 4px 10px !important;
+  }
+  
+  /* ----- ABOUT HERO ----- */
+  .about-hero {
+    padding: 40px 0 20px !important;
+  }
+  
+  .about-hero h1 {
+    font-size: 1.6rem !important;
+  }
+  
+  .about-hero p {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* ----- EXTRA SMALL ----- */
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .focus-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  
+  .hero-text h1 {
+    font-size: 1.3rem !important;
+  }
+  
+  .hero-text .accent-name {
+    font-size: 1.3rem !important;
+  }
+  
+  .hero-avatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+  
+  .project-card {
+    padding: 10px !important;
   }
 }
