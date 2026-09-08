@@ -1384,6 +1384,8 @@ footer {
   .timeline-item { padding: 16px 18px; }
   .donation-banner { padding: 22px 16px; }
   .about-preview { padding: 22px 18px; }
+  .hero-text h1,
+  .hero-text .accent-name { font-size: 1.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1460,7 +1462,7 @@ html[data-theme="light"] .site-header.scrolled {
   background: rgba(215, 221, 232, .90);
 }
 
-/* Final light-mode polish (kept at EOF so it wins over legacy selectors). */
+/* Final light-mode polish */
 html[data-theme="light"] body { color: #172033; }
 html[data-theme="light"] body h1,
 html[data-theme="light"] body h2,
@@ -1489,8 +1491,7 @@ html[data-theme="light"] .download-btn,
 html[data-theme="light"] .btn-primary,
 html[data-theme="light"] .donate-btn { color: #171b38 !important; -webkit-text-fill-color: #171b38 !important; }
 
-/* High-energy light theme: vivid like dark mode, but with disciplined
-   contrast and readable dark typography. */
+/* High-energy light theme */
 html[data-theme="light"] {
   --background-deep: #dce7f5;
   --background-base: #eef3fb;
@@ -1541,7 +1542,7 @@ html[data-theme="light"] .skill-card .icon { color: #5144c7; background: linear-
 html[data-theme="light"] .stat-card .number { color: #5144c7 !important; }
 html[data-theme="light"] .mobile-subnav { background: rgba(245,248,255,.88); border-color: rgba(81,68,199,.26); box-shadow: 0 16px 36px rgba(67,82,132,.22), inset 0 1px rgba(255,255,255,.9); }
 
-/* Keep the final light header treatment above legacy light-mode rules. */
+/* Keep the final light header treatment */
 html[data-theme="light"] .site-header { background: linear-gradient(105deg, rgba(248,250,255,.94), rgba(232,237,255,.92) 48%, rgba(226,247,250,.90)); border-color: rgba(81,68,199,.30); box-shadow: 0 18px 42px rgba(67,82,132,.20), 0 0 0 1px rgba(255,255,255,.65), inset 0 1px rgba(255,255,255,.95); }
 html[data-theme="light"] .site-header.scrolled { background: rgba(237,242,255,.98); box-shadow: 0 20px 48px rgba(67,82,132,.24), 0 0 34px rgba(81,68,199,.14); }
 
@@ -1612,8 +1613,7 @@ html[data-theme="light"] .about-hero h1 {
   background-clip: text;
 }
 
-/* Refined light-mode palette: dark typography, colorful surfaces, no white
-   text, while preserving the site's glow and depth. */
+/* Refined light-mode palette */
 html[data-theme="light"] body { color: #172033; }
 html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3,
 html[data-theme="light"] h4, html[data-theme="light"] .label { color: #182333 !important; }
@@ -1879,11 +1879,10 @@ html[data-theme="light"] .nav-links a::after {
 html[data-theme="light"] .brand .dot {
   box-shadow: 0 0 0 1px rgba(255,255,255,.18), 0 0 28px rgba(200, 150, 60, .20);
 }
-/* ============================================================
-   MOBILE OPTIMIZATIONS — اضافه شده
-   ============================================================ */
 
-/* آیکون‌های فالبک برای موبایل */
+/* ============================================================
+   MOBILE OPTIMIZATIONS
+   ============================================================ */
 .icon-fallback {
   display: grid;
   place-items: center;
@@ -1898,7 +1897,6 @@ html[data-theme="light"] .brand .dot {
   border: 1px solid rgba(174, 181, 255, 0.08);
 }
 
-/* در موبایل، اموجی‌ها رو مخفی کن و فالبک رو نشون بده */
 @media (max-width: 768px) {
   .skill-card .icon-svg,
   .focus-card .icon-svg,
@@ -1914,7 +1912,6 @@ html[data-theme="light"] .brand .dot {
     display: grid !important;
   }
   
-  /* غیرفعال کردن افکت‌های سنگین */
   .cursor-glow,
   body::after,
   .particle-field {
@@ -1950,14 +1947,12 @@ html[data-theme="light"] .brand .dot {
   }
 }
 
-/* در دسکتاپ، فالبک رو مخفی کن */
 @media (min-width: 769px) {
   .icon-fallback {
     display: none !important;
   }
 }
 
-/* بهبود تاچ targets در موبایل */
 @media (max-width: 480px) {
   .btn,
   .donate-btn,
@@ -1990,10 +1985,10 @@ html[data-theme="light"] .brand .dot {
     font-size: 0.9rem !important;
   }
 }
+
 /* ============================================================
    SKILL LEVEL BARS
    ============================================================ */
-
 .skill-level {
   margin-top: 8px;
   width: 100%;
@@ -2029,7 +2024,6 @@ html[data-theme="light"] .brand .dot {
   margin-top: 4px;
 }
 
-/* Light mode */
 html[data-theme="light"] .skill-level {
   background: rgba(0, 0, 0, 0.08);
 }
@@ -2037,6 +2031,7 @@ html[data-theme="light"] .skill-level {
 html[data-theme="light"] .skill-level .bar {
   background: linear-gradient(90deg, var(--accent), var(--accent-bright));
 }
+
 /* ============================================================
    DONATION BANNER — SPECIAL
    ============================================================ */
@@ -2187,15 +2182,12 @@ html[data-theme="light"] .skill-level .bar {
 /* ============================================================
    PERFORMANCE FIXES — WINDOWS OPTIMIZATION
    ============================================================ */
-
-/* کاهش مصرف پردازنده در پس‌زمینه */
 .bg-ambient .orb {
   will-change: auto !important;
   filter: blur(120px) !important;
   animation-duration: 20s !important;
 }
 
-/* غیرفعال کردن افکت‌های سنگین در ویندوز */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
   .stat-card,
   .skill-card,
@@ -2219,7 +2211,6 @@ html[data-theme="light"] .skill-level .bar {
   }
 }
 
-/* محدود کردن انیمیشن‌ها در سیستم‌های ضعیف */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -2246,7 +2237,6 @@ html[data-theme="light"] .skill-level .bar {
   }
 }
 
-/* بهینه‌سازی فیلترها برای ویندوز */
 @supports (backdrop-filter: blur(1px)) {
   .stat-card,
   .skill-card,
@@ -2256,6 +2246,7 @@ html[data-theme="light"] .skill-level .bar {
     backdrop-filter: blur(8px) !important;
   }
 }
+
 /* ============================================================
    BLOG STYLES
    ============================================================ */
@@ -2292,7 +2283,6 @@ html[data-theme="light"] .skill-level .bar {
   color: var(--foreground) !important;
 }
 
-/* Post Overlay */
 #post-overlay {
   animation: fadeIn 0.4s ease;
 }
@@ -2311,7 +2301,6 @@ html[data-theme="light"] .skill-level .bar {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Light mode */
 html[data-theme="light"] .blog-card {
   background: var(--background-elevated) !important;
   border-color: rgba(163, 177, 198, 0.15) !important;
@@ -2329,10 +2318,10 @@ html[data-theme="light"] #post-overlay {
 html[data-theme="light"] #post-overlay > div {
   background: var(--background-elevated) !important;
 }
-/* ============================================================
-   MOBILE FIXES — merged, no !important, no duplicate breakpoints
-   ============================================================ */
 
+/* ============================================================
+   MOBILE FIXES — merged
+   ============================================================ */
 @media (max-width: 768px) {
   .hero-text .eyebrow {
     font-size: .68rem;
@@ -2365,171 +2354,4 @@ html[data-theme="light"] #post-overlay > div {
     align-items: flex-start;
     gap: 2px;
   }
-}
-
-@media (max-width: 480px) {
-  .hero-text h1,
-  .hero-text .accent-name { font-size: 1.5rem; }
-}
-
-/* ============================================================
-   DARK MODE — CINEMATIC NEON POLISH
-   ============================================================ */
-html[data-theme="dark"] {
-  --background-deep: #03040a;
-  --background-base: #070914;
-  --background-elevated: #0d1222;
-  --surface: rgba(17,23,42,.72);
-  --surface-hover: rgba(25,33,60,.90);
-  --foreground: #f2f5ff;
-  --foreground-muted: #9ba8c5;
-  --accent: #7c6cff;
-  --accent-bright: #a194ff;
-  --accent-subtle: rgba(124,108,255,.12);
-  --accent-glow: rgba(124,108,255,.22);
-  --border-default: rgba(155,169,220,.14);
-  --border-hover: rgba(147,133,255,.44);
-  --border-accent: rgba(124,108,255,.38);
-  --shadow-card: 0 14px 36px rgba(0,0,0,.34), 0 0 0 1px rgba(124,108,255,.04), inset 0 1px rgba(255,255,255,.045);
-  --shadow-card-hover: 0 22px 52px rgba(0,0,0,.48), 0 0 34px rgba(124,108,255,.14), 0 0 0 1px rgba(147,133,255,.20), inset 0 1px rgba(255,255,255,.08);
-}
-html[data-theme="dark"] body {
-  background:
-    radial-gradient(700px circle at 8% -12%, rgba(90,74,220,.22), transparent 68%),
-    radial-gradient(620px circle at 100% 8%, rgba(0,196,220,.12), transparent 66%),
-    radial-gradient(800px circle at 50% 112%, rgba(136,47,150,.12), transparent 70%),
-    var(--background-base);
-}
-html[data-theme="dark"] body::before { opacity: .07; background-size: 76px 76px; }
-html[data-theme="dark"] .bg-ambient .orb { opacity: .85; }
-html[data-theme="dark"] .bg-ambient .orb:nth-child(1) { background: rgba(92,75,232,.22); }
-html[data-theme="dark"] .bg-ambient .orb:nth-child(2) { background: rgba(0,177,210,.12); }
-html[data-theme="dark"] .bg-ambient .orb:nth-child(3) { background: rgba(165,54,178,.11); }
-html[data-theme="dark"] .site-header {
-  background: linear-gradient(105deg, rgba(10,14,29,.86), rgba(19,21,53,.82) 48%, rgba(8,31,43,.80));
-  border-color: rgba(147,133,255,.34);
-  box-shadow: 0 18px 46px rgba(0,0,0,.42), 0 0 0 1px rgba(124,108,255,.10), 0 0 32px rgba(124,108,255,.10), inset 0 1px rgba(255,255,255,.10);
-}
-html[data-theme="dark"] .site-header.scrolled { background: rgba(9,13,27,.96); border-color: rgba(147,133,255,.52); box-shadow: 0 20px 52px rgba(0,0,0,.52), 0 0 42px rgba(124,108,255,.20), inset 0 1px rgba(255,255,255,.12); }
-html[data-theme="dark"] .site-header::before { opacity: 1; background: linear-gradient(105deg, rgba(111,91,255,.26), transparent 32%, rgba(0,213,232,.18), transparent 67%, rgba(237,95,177,.16)); }
-html[data-theme="dark"] .nav-links a { color: #aeb9d6; }
-html[data-theme="dark"] .nav-links a:hover, html[data-theme="dark"] .nav-links a.active { color: #e8eaff !important; text-shadow: 0 0 18px rgba(147,133,255,.45); }
-html[data-theme="dark"] .nav-actions button { background: rgba(20,26,50,.74); color: #dce2ff !important; border-color: rgba(147,133,255,.32); box-shadow: 0 6px 18px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.08); }
-html[data-theme="dark"] .hero::before { opacity: 1; background: radial-gradient(ellipse at center, rgba(95,78,230,.18), transparent 66%); }
-html[data-theme="dark"] .hero h1 .accent-name { color: #a99dff; text-shadow: 0 0 30px rgba(124,108,255,.28); }
-html[data-theme="dark"] .section-tag { color: #aaa2ff !important; background: rgba(124,108,255,.12); border-color: rgba(147,133,255,.34); }
-html[data-theme="dark"] .section-tag::after { background: linear-gradient(90deg, #7c6cff, #00d5e8); }
-html[data-theme="dark"] .stat-card,
-html[data-theme="dark"] .skill-card,
-html[data-theme="dark"] .focus-card,
-html[data-theme="dark"] .contact-card,
-html[data-theme="dark"] .project-card,
-html[data-theme="dark"] .about-preview,
-html[data-theme="dark"] .timeline-item,
-html[data-theme="dark"] .resume-section,
-html[data-theme="dark"] .repo-card,
-html[data-theme="dark"] .blog-post-card { background: linear-gradient(145deg, rgba(18,25,48,.82), rgba(9,14,29,.78)); border-color: rgba(147,160,211,.16); box-shadow: var(--shadow-card); }
-html[data-theme="dark"] .stat-card:hover,
-html[data-theme="dark"] .skill-card:hover,
-html[data-theme="dark"] .focus-card:hover,
-html[data-theme="dark"] .contact-card:hover,
-html[data-theme="dark"] .project-card:hover,
-html[data-theme="dark"] .about-preview:hover,
-html[data-theme="dark"] .timeline-item:hover,
-html[data-theme="dark"] .resume-section:hover,
-html[data-theme="dark"] .repo-card:hover,
-html[data-theme="dark"] .blog-post-card:hover { border-color: rgba(147,133,255,.46); box-shadow: var(--shadow-card-hover); }
-html[data-theme="dark"] .focus-card .icon,
-html[data-theme="dark"] .contact-card .icon,
-html[data-theme="dark"] .skill-card .icon { color: #a79cff; background: linear-gradient(145deg, rgba(124,108,255,.19), rgba(0,213,232,.10)); border-color: rgba(147,133,255,.30); box-shadow: 0 0 24px rgba(124,108,255,.16); }
-html[data-theme="dark"] .stat-card .number { color: #a99dff !important; text-shadow: 0 0 26px rgba(124,108,255,.26); }
-html[data-theme="dark"] .mobile-subnav { background: rgba(12,18,38,.88); border-color: rgba(147,133,255,.38); box-shadow: 0 18px 42px rgba(0,0,0,.42), 0 0 28px rgba(124,108,255,.12), inset 0 1px rgba(255,255,255,.10); }
-
-/* Balanced visual layer: preserve the original calm layout while adding
-   tasteful depth and motion without a heavy cyberpunk look. */
-html[data-theme="dark"] {
-  --accent: #6872d9;
-  --accent-bright: #7d86e8;
-  --accent-subtle: rgba(104,114,217,.10);
-  --accent-glow: rgba(104,114,217,.15);
-  --border-default: rgba(255,255,255,.075);
-  --border-hover: rgba(140,148,235,.28);
-  --border-accent: rgba(104,114,217,.24);
-  --shadow-card: 0 8px 26px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.025), inset 0 1px rgba(255,255,255,.04);
-  --shadow-card-hover: 0 14px 34px rgba(0,0,0,.38), 0 0 0 1px rgba(140,148,235,.16), 0 0 26px rgba(104,114,217,.08);
-}
-html[data-theme="dark"] body { background: radial-gradient(ellipse at 30% 0%, #111426 0%, #080a13 48%, #03040a 100%); }
-html[data-theme="dark"] .bg-ambient .orb { opacity: .55; filter: blur(165px); }
-html[data-theme="dark"] .bg-ambient .orb:nth-child(1) { background: rgba(94,106,210,.14); }
-html[data-theme="dark"] .bg-ambient .orb:nth-child(2) { background: rgba(120,82,180,.065); }
-html[data-theme="dark"] .bg-ambient .orb:nth-child(3) { background: rgba(66,90,190,.06); }
-html[data-theme="dark"] .site-header { background: rgba(9,11,20,.78); border-color: rgba(255,255,255,.12); box-shadow: 0 12px 34px rgba(0,0,0,.28), 0 0 0 1px rgba(104,114,217,.06), inset 0 1px rgba(255,255,255,.07); }
-html[data-theme="dark"] .site-header.scrolled { background: rgba(9,11,20,.90); border-color: rgba(140,148,235,.28); box-shadow: 0 15px 38px rgba(0,0,0,.34), 0 0 24px rgba(104,114,217,.08), inset 0 1px rgba(255,255,255,.08); }
-html[data-theme="dark"] .site-header::before { opacity: .45; background: linear-gradient(105deg, rgba(104,114,217,.12), transparent 38%, rgba(112,185,201,.06), transparent 72%); animation-duration: 16s; }
-html[data-theme="dark"] .nav-links a:hover, html[data-theme="dark"] .nav-links a.active { text-shadow: 0 0 12px rgba(140,148,235,.24); }
-html[data-theme="dark"] .stat-card,
-html[data-theme="dark"] .skill-card,
-html[data-theme="dark"] .focus-card,
-html[data-theme="dark"] .contact-card,
-html[data-theme="dark"] .project-card,
-html[data-theme="dark"] .about-preview,
-html[data-theme="dark"] .timeline-item,
-html[data-theme="dark"] .resume-section,
-html[data-theme="dark"] .repo-card,
-html[data-theme="dark"] .blog-post-card { background: linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.015)); border-color: var(--border-default); box-shadow: var(--shadow-card); }
-html[data-theme="dark"] .stat-card:hover,
-html[data-theme="dark"] .skill-card:hover,
-html[data-theme="dark"] .focus-card:hover,
-html[data-theme="dark"] .contact-card:hover,
-html[data-theme="dark"] .project-card:hover,
-html[data-theme="dark"] .about-preview:hover,
-html[data-theme="dark"] .timeline-item:hover,
-html[data-theme="dark"] .resume-section:hover,
-html[data-theme="dark"] .repo-card:hover,
-html[data-theme="dark"] .blog-post-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-3px); }
-html[data-theme="dark"] .stat-card .number { color: #9da4ee !important; text-shadow: 0 0 18px rgba(104,114,217,.16); }
-
-html[data-theme="light"] {
-  --accent: #5e55b8;
-  --accent-bright: #7168ca;
-  --accent-subtle: rgba(94,85,184,.08);
-  --accent-glow: rgba(94,85,184,.12);
-  --border-default: rgba(79,91,128,.16);
-  --border-hover: rgba(94,85,184,.30);
-  --border-accent: rgba(94,85,184,.24);
-  --shadow-card: 0 8px 24px rgba(71,88,125,.12), 0 1px 4px rgba(71,88,125,.06), inset 0 1px rgba(255,255,255,.88);
-  --shadow-card-hover: 0 14px 32px rgba(71,88,125,.16), 0 0 0 1px rgba(94,85,184,.12), 0 0 20px rgba(94,85,184,.06);
-}
-html[data-theme="light"] body { background: radial-gradient(ellipse at 30% 0%, #f7f8ff 0%, #edf2fa 52%, #e3ebf5 100%); }
-html[data-theme="light"] .bg-ambient .orb { opacity: .28; filter: blur(170px); }
-html[data-theme="light"] .bg-ambient .orb:nth-child(1) { background: rgba(111,101,207,.14); }
-html[data-theme="light"] .bg-ambient .orb:nth-child(2) { background: rgba(62,164,178,.09); }
-html[data-theme="light"] .bg-ambient .orb:nth-child(3) { background: rgba(210,124,166,.07); }
-html[data-theme="light"] .site-header { background: rgba(246,248,255,.84); border-color: rgba(79,91,128,.18); box-shadow: 0 12px 32px rgba(71,88,125,.15), inset 0 1px rgba(255,255,255,.9); }
-html[data-theme="light"] .site-header.scrolled { background: rgba(241,245,253,.94); border-color: rgba(94,85,184,.24); box-shadow: 0 15px 38px rgba(71,88,125,.18), 0 0 20px rgba(94,85,184,.06); }
-html[data-theme="light"] .site-header::before { opacity: .40; animation-duration: 16s; }
-html[data-theme="light"] .stat-card,
-html[data-theme="light"] .skill-card,
-html[data-theme="light"] .focus-card,
-html[data-theme="light"] .contact-card,
-html[data-theme="light"] .project-card,
-html[data-theme="light"] .about-preview,
-html[data-theme="light"] .timeline-item,
-html[data-theme="light"] .resume-section,
-html[data-theme="light"] .repo-card,
-html[data-theme="light"] .blog-post-card { background: linear-gradient(160deg, rgba(255,255,255,.84), rgba(242,246,252,.78)); border-color: var(--border-default); box-shadow: var(--shadow-card); }
-html[data-theme="light"] .stat-card:hover,
-html[data-theme="light"] .skill-card:hover,
-html[data-theme="light"] .focus-card:hover,
-html[data-theme="light"] .contact-card:hover,
-html[data-theme="light"] .project-card:hover,
-html[data-theme="light"] .about-preview:hover,
-html[data-theme="light"] .timeline-item:hover,
-html[data-theme="light"] .resume-section:hover,
-html[data-theme="light"] .repo-card:hover,
-html[data-theme="light"] .blog-post-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-3px); }
-
-@media (prefers-reduced-motion: reduce) {
-  html[data-theme="dark"] .site-header::before,
-  html[data-theme="light"] .site-header::before { animation: none; }
 }
