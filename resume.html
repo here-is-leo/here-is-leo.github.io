@@ -61,7 +61,6 @@
     <nav class="nav">
       <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
       <ul class="nav-links">
-        <li><a href="index.html#skills" data-nav-skills>مهارت‌ها</a></li>
         <li><a href="projects.html" data-nav-projects>پروژه‌ها</a></li>
         <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
         <li><a href="repos.html" data-nav-repos>ریپوها</a></li>
@@ -79,89 +78,18 @@
   <main>
     <section class="about-hero" style="padding: 60px 0 30px;">
       <div class="container">
-        <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;">رزومه</h1>
-        <p style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;">برنامه‌نویس Python و C# | متخصص لینوکس، امنیت وب و IoT</p>
+        <h1 id="resume-title" style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;"></h1>
+        <p id="resume-subtitle" style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;"></p>
       </div>
     </section>
 
     <section style="border-top:0; padding-top:0;">
       <div class="container">
         <div style="text-align: center; margin-bottom: 30px;">
-          <button class="download-btn" onclick="window.print()"><span>📄</span> دانلود رزومه (PDF)</button>
+          <button class="download-btn" onclick="window.print()"><span>📄</span> <span id="resume-download"></span></button>
         </div>
 
-        <div class="resume-section">
-          <h2>👤 اطلاعات شخصی</h2>
-          <ul>
-            <li><span class="label">نام</span><span class="value">ایلیا فراهانی (ایلیا عزیزآبادی)</span></li>
-            <li><span class="label">شغل</span><span class="value">برنامه‌نویس Python و C#</span></li>
-            <li><span class="label">موقعیت</span><span class="value">تهران، ایران</span></li>
-            <li><span class="label">ایمیل</span><span class="value">ilyafarahanii@gmail.com</span></li>
-            <li><span class="label">تلفن</span><span class="value">۰۹۰۳۰۸۳۹۷۹۰</span></li>
-            <li><span class="label">گیت‌هاب</span><span class="value"><a href="https://github.com/here-is-leo" target="_blank" style="color: #b8bfff;">github.com/here-is-leo</a></span></li>
-          </ul>
-        </div>
-
-        <div class="resume-section">
-          <h2>📖 درباره من</h2>
-          <p style="color: var(--foreground-muted); line-height: 2.2; margin: 0;">دانش‌آموز و علاقه‌مند به برنامه‌نویسی Python، توسعه با لینوکس و امنیت وب. با گذراندن کامل چالش‌های امنیتی Natas و ساخت چند پروژه عملی روی گیت‌هاب، دانش فنی خود را به‌صورت خودآموز و پروژه‌محور تقویت کرده‌ام.</p>
-        </div>
-
-        <div class="resume-section">
-          <h2>🛠️ مهارت‌های فنی</h2>
-          <div>
-            <span class="skill-tag high">Python (۹۵%)</span>
-            <span class="skill-tag high">C# (MVC) (۹۰%)</span>
-            <span class="skill-tag high">لینوکس (۹۵%)</span>
-            <span class="skill-tag high">Kali Linux (۹۰%)</span>
-            <span class="skill-tag high">HTML & CSS (۹۰%)</span>
-            <span class="skill-tag medium">JavaScript (۶۵%)</span>
-            <span class="skill-tag medium">Node.js / Next.js (۶۰%)</span>
-            <span class="skill-tag high">SQL Server / SQLite (۸۵%)</span>
-            <span class="skill-tag high">WordPress (۸۰%)</span>
-            <span class="skill-tag high">امنیت وب (۸۵%)</span>
-            <span class="skill-tag high">Arduino (C/C++) (۸۰%)</span>
-            <span class="skill-tag high">FastAPI (۷۵%)</span>
-          </div>
-        </div>
-
-        <div class="resume-section">
-          <h2>💼 پروژه‌های شاخص</h2>
-          <ul>
-            <li><span class="label">🔍 Paris</span><span class="value">اسکنر آسیب‌پذیری وب با Python + FastAPI + WebSocket</span></li>
-            <li><span class="label">🔒 Moscow</span><span class="value">پروژه تحقیقاتی امنیت پلاگین‌های وردپرس (PHP)</span></li>
-            <li><span class="label">⚡ N3XUS V7.1</span><span class="value">سیستم کنترل مبتنی بر آردوینو با رابط وب</span></li>
-            <li><span class="label">🔧 Marshall</span><span class="value">سیستم کنترل ماژولار آردوینو</span></li>
-            <li><span class="label">🕸️ overthewire-natas</span><span class="value">راهنمای ۳۵ مرحله چالش Natas</span></li>
-          </ul>
-        </div>
-
-        <div class="resume-section">
-          <h2>🎓 تحصیلات و دوره‌ها</h2>
-          <ul>
-            <li><span class="label">دانش‌آموز</span><span class="value">تهران</span></li>
-            <li><span class="label">دوره فناوری‌های پیشرفته</span><span class="value">آکادمی دانشگاه شریف و تکنو شریف</span></li>
-            <li><span class="label">دوره PWK</span><span class="value">Kali Linux — تست نفوذ</span></li>
-            <li><span class="label">دوره امنیت شبکه</span><span class="value">Network+</span></li>
-          </ul>
-        </div>
-
-        <div class="resume-section">
-          <h2>🌍 زبان‌ها</h2>
-          <ul>
-            <li><span class="label">فارسی</span><span class="value">زبان مادری</span></li>
-            <li><span class="label">انگلیسی</span><span class="value">B2+</span></li>
-          </ul>
-        </div>
-
-        <div class="resume-section">
-          <h2>📊 فعالیت گیت‌هاب</h2>
-          <ul>
-            <li><span class="label">مشارکت (Commit)</span><span class="value">۲۳ در یک سال اخیر</span></li>
-            <li><span class="label">مخازن عمومی</span><span class="value">۱۳ مخزن</span></li>
-            <li><span class="label">تمرکز فعالیت</span><span class="value">مرداد ۱۴۰۵</span></li>
-          </ul>
-        </div>
+        <div id="resume-content"></div>
       </div>
     </section>
   </main>

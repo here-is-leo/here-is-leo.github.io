@@ -58,7 +58,7 @@ here-is-leo.github.io/
 ├── script.js           # منطق رندر، تم، زبان، انیمیشن‌ها و فرم تماس
 ├── style.css           # تمام استایل‌ها (متغیرهای CSS برای تم/رنگ)
 ├── sitemap.xml / robots.txt
-└── logo.png / avatar.png
+└── logo.png / avatar.jpg
 ```
 
 > صفحه‌ی `admin.html` به یک سرویس بک‌اند مجزا (خارج از این ریپو) وصل می‌شود و صرفاً برای مدیریت داخلی سایت است.

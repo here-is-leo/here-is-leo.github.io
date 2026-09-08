@@ -100,8 +100,9 @@ function applyMeta(data, page) {
   document.documentElement.lang = data.lang;
   document.documentElement.dir = data.dir;
   document.body.dir = data.dir;
-  const t = page === "about" ? data.meta.titleAbout : data.meta.titleHome;
-  const d = page === "about" ? data.meta.descAbout : data.meta.descHome;
+  const section = data[page];
+  const t = page === "about" ? data.meta.titleAbout : (section && section.title ? section.title + " | " + data.hero.name : data.meta.titleHome);
+  const d = page === "about" ? data.meta.descAbout : (section && section.subtitle ? section.subtitle : data.meta.descHome);
   document.title = t;
   const md = document.querySelector('meta[name="description"]');
   if (md) md.setAttribute("content", d);
@@ -394,7 +395,7 @@ function renderHome(data) {
   safe("avatar", function() {
     var avatar = document.getElementById("hero-avatar");
     if (!avatar) return;
-    avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
+    avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani profile logo\" decoding=\"async\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
     var span = avatar.querySelector("span");
     if (span) span.style.display = "none";
   });
@@ -596,7 +597,7 @@ function renderAbout(data) {
     if (heroTitle) heroTitle.textContent = data.about.heroTitle;
     if (heroSub) heroSub.textContent = data.about.heroSubtitle;
     if (avatar) {
-      avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani logo\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
+      avatar.innerHTML = "<img src=\"logo.png\" alt=\"Ilia Farahani profile logo\" decoding=\"async\"><span>" + data.hero.name.trim().charAt(0) + "</span>";
       var span = avatar.querySelector("span");
       if (span) span.style.display = "none";
     }
@@ -716,6 +717,28 @@ function renderProjects(data) {
   });
 }
 
+function renderRepos(data) {
+  var page = data && data.repos;
+  var title = document.getElementById("repos-title"), subtitle = document.getElementById("repos-subtitle"), grid = document.getElementById("repos-grid");
+  if (!page || !grid) return;
+  if (title) title.textContent = page.title;
+  if (subtitle) subtitle.textContent = page.subtitle;
+  var colors = {TypeScript:"#3178C6",Python:"#3572A5",PHP:"#4F5D95",HTML:"#E34F26",CSS:"#563D7C",JavaScript:"#F1E05A",C:"#555"};
+  grid.innerHTML = (page.items || []).map(function(repo, i) {
+    return `<div class="repo-card reveal reveal-delay-${i % 4}" style="background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.008));border:1px solid var(--border-default);border-radius:var(--radius);padding:24px 26px;backdrop-filter:blur(14px);transition:all .45s var(--transition)"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px"><h3 style="margin:0;font-size:1.05rem;font-weight:600"><a href="${repo.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${repo.name}</a></h3><div style="font-size:.75rem;color:var(--foreground-muted)">⭐ ${repo.stars} &nbsp;⑂ ${repo.forks}</div></div><p style="color:var(--foreground-muted);font-size:.87rem;line-height:1.8;margin:0 0 14px">${repo.desc}</p><div style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;border-radius:50%;background:${colors[repo.lang] || '#888'};display:inline-block"></span><span style="font-size:.78rem;color:var(--foreground-muted)">${repo.lang}</span></div></div>`;
+  }).join("");
+}
+
+function renderResume(data) {
+  var page = data && data.resume, root = document.getElementById("resume-content");
+  if (!page || !root) return;
+  var set = function(id, value) { var n = document.getElementById(id); if (n) n.textContent = value; };
+  set("resume-title", page.title); set("resume-subtitle", page.subtitle); set("resume-download", data.lang === "fa" ? "دانلود رزومه (PDF)" : "Download Resume (PDF)");
+  var p = page.personal;
+  var row = function(label, value) { return `<li><span class="label">${label}</span><span class="value">${value}</span></li>`; };
+  root.innerHTML = `<div class="resume-section"><h2>👤 ${data.lang === "fa" ? "اطلاعات شخصی" : "Personal Information"}</h2><ul>${row(data.lang === "fa" ? "نام" : "Name", p.name)}${row(data.lang === "fa" ? "شغل" : "Role", p.job)}${row(data.lang === "fa" ? "موقعیت" : "Location", p.location)}${row(data.lang === "fa" ? "ایمیل" : "Email", p.email)}${row(data.lang === "fa" ? "تلفن" : "Phone", p.phone)}${row(data.lang === "fa" ? "گیت‌هاب" : "GitHub", `<a href="https://github.com/here-is-leo" target="_blank" rel="noopener" style="color:#b8bfff">${p.github}</a>`)}</ul></div><div class="resume-section"><h2>📖 ${data.lang === "fa" ? "درباره من" : "About Me"}</h2><p style="color:var(--foreground-muted);line-height:2.2;margin:0">${page.about}</p></div><div class="resume-section"><h2>🛠️ ${data.lang === "fa" ? "مهارت‌های فنی" : "Technical Skills"}</h2><div>${page.skills.map(function(s){return `<span class="skill-tag ${s.level >= 80 ? "high" : "medium"}">${s.name} (${s.level}%)</span>`}).join("")}</div></div><div class="resume-section"><h2>💼 ${data.lang === "fa" ? "پروژه‌های شاخص" : "Selected Projects"}</h2><ul>${page.projects.map(function(x){return row(x.icon + " " + x.title, x.desc)}).join("")}</ul></div><div class="resume-section"><h2>🎓 ${data.lang === "fa" ? "تحصیلات و دوره‌ها" : "Education & Courses"}</h2><ul>${page.education.map(function(x){return row(x.title,x.sub)}).join("")}</ul></div><div class="resume-section"><h2>🌍 ${data.lang === "fa" ? "زبان‌ها" : "Languages"}</h2><ul>${page.languages.map(function(x){return row(x.name,x.level)}).join("")}</ul></div><div class="resume-section"><h2>📊 ${data.lang === "fa" ? "فعالیت گیت‌هاب" : "GitHub Activity"}</h2><ul>${row(data.lang === "fa" ? "مشارکت (Commit)" : "Commits",page.github.commits)}${row(data.lang === "fa" ? "مخازن عمومی" : "Public repositories",page.github.repos)}${row(data.lang === "fa" ? "تمرکز فعالیت" : "Focus",page.github.focus)}</ul></div>`;
+}
+
 // ============================================================
 // CONTACT FORM
 // ============================================================
@@ -782,6 +805,10 @@ function render(page) {
     renderAbout(data);
   } else if (page === "projects") {
     renderProjects(data);
+  } else if (page === "resume") {
+    renderResume(data);
+  } else if (page === "repos") {
+    renderRepos(data);
   } else {
     renderHome(data);
   }
@@ -834,6 +861,16 @@ function boot() {
   initLangToggle(page);
   initNavToggle();
   initContactForm();
+  var header = document.querySelector(".site-header");
+  if (header) {
+    var syncHeader = function() { header.classList.toggle("scrolled", window.scrollY > 18); };
+    syncHeader(); window.addEventListener("scroll", syncHeader, { passive: true });
+  }
+  if (!document.querySelector('.mobile-subnav')) {
+    var sub = document.createElement('div'); sub.className = 'mobile-subnav';
+    sub.innerHTML = '<a href="index.html" aria-label="Home">⌂</a><a href="projects.html" aria-label="Projects">✦</a><a href="blog.html" aria-label="Blog">▤</a><a href="resume.html" aria-label="Resume">◌</a>';
+    document.body.appendChild(sub);
+  }
 
   document.querySelectorAll("[data-theme-toggle]").forEach(function(btn) {
     btn.addEventListener("click", function() {
