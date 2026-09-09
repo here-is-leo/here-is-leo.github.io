@@ -2557,26 +2557,6 @@ html[data-theme="light"] .bottom-nav-item::before {
   }
 }
 
-/* ============================================================
-   DARK THEME (default)
-   ============================================================ */
-:root {
-  --header-glass: rgba(8, 9, 16, .62);
-  --header-edge-1: rgba(94,106,210,.55);
-  --header-edge-2: rgba(154,140,255,.42);
-  --header-edge-3: rgba(120,95,220,.40);
-  --header-shadow: 0 14px 38px rgba(0,0,0,.30), 0 0 26px rgba(94,106,210,.10);
-  --header-shadow-scrolled: 0 18px 46px rgba(0,0,0,.42), 0 0 40px rgba(94,106,210,.18);
-  --header-sheen-opacity: .50;
-  --header-sheen-spot: rgba(255,255,255,.08);
-  --header-sheen-a: rgba(94,106,210,.20);
-  --header-sheen-b: rgba(154,140,255,.13);
-  --brand-glow: 0 0 0 1px rgba(255,255,255,.08), 0 0 26px rgba(94,106,210,.22);
-  --brand-glow-hover: 0 0 0 1px rgba(255,255,255,.14), 0 0 34px rgba(94,106,210,.34);
-  --nav-pill-bg: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
-  --nav-pill-border: rgba(255,255,255,.08);
-  --nav-active-glow: 0 0 18px rgba(145,160,255,.28);
-}
 
 /* ============================================================
    LIGHT THEME
@@ -2798,4 +2778,416 @@ html[data-theme="light"] .donation-banner-wrapper {
 html[data-theme="light"] .btn-primary,
 html[data-theme="light"] .donate-btn {
   color: #fff !important;
+}
+
+/* ============================================================
+   DARK THEME — بک‌گراند با عمق
+   ============================================================ */
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(94,106,210,.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 15%, rgba(120,82,220,.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(66,90,210,.10) 0%, transparent 55%),
+    radial-gradient(ellipse at 30% 30%, var(--background-deep) 0%, var(--background-base) 50%, var(--background-deep) 100%);
+  background-blend-mode: normal, normal, normal, normal;
+}
+
+/* ============================================================
+   DARK THEME — اورب‌های غنی‌تر برای عمق
+   ============================================================ */
+html[data-theme="dark"] .bg-ambient .orb {
+  opacity: 0.8;
+  filter: blur(180px);
+  animation: orbFloat 18s ease-in-out infinite;
+}
+
+html[data-theme="dark"] .bg-ambient .orb:nth-child(1) {
+  width: 850px;
+  height: 850px;
+  top: -35%;
+  left: 5%;
+  background: radial-gradient(circle, rgba(94,106,210,.25), rgba(94,106,210,.05));
+  filter: blur(200px);
+  animation-delay: -2s;
+}
+
+html[data-theme="dark"] .bg-ambient .orb:nth-child(2) {
+  width: 650px;
+  height: 650px;
+  top: 40%;
+  left: -20%;
+  background: radial-gradient(circle, rgba(140,100,220,.18), rgba(140,100,220,.02));
+  filter: blur(160px);
+  animation-delay: -6s;
+}
+
+html[data-theme="dark"] .bg-ambient .orb:nth-child(3) {
+  width: 750px;
+  height: 750px;
+  right: -15%;
+  bottom: 0%;
+  background: radial-gradient(circle, rgba(80,120,230,.15), rgba(80,120,230,.02));
+  filter: blur(180px);
+  animation-delay: -10s;
+}
+
+/* ============================================================
+   DARK THEME — اورب چهارم برای عمق بیشتر
+   ============================================================ */
+html[data-theme="dark"] .bg-ambient .orb:nth-child(4) {
+  width: 500px;
+  height: 500px;
+  top: 60%;
+  right: 25%;
+  background: radial-gradient(circle, rgba(200,140,255,.08), transparent 70%);
+  filter: blur(140px);
+  animation-delay: -4s;
+  animation-duration: 22s;
+}
+
+/* ============================================================
+   DARK THEME — افکت نویز ملایم
+   ============================================================ */
+html[data-theme="dark"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .025;
+  background-image: 
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  z-index: -2;
+}
+
+/* ============================================================
+   DARK THEME — افکت گرادیانت متحرک روی پس‌زمینه
+   ============================================================ */
+html[data-theme="dark"] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: 
+    radial-gradient(600px circle at 10% 20%, rgba(94,106,210,.08), transparent 60%),
+    radial-gradient(500px circle at 90% 30%, rgba(120,82,220,.06), transparent 55%),
+    radial-gradient(700px circle at 50% 80%, rgba(66,90,210,.05), transparent 60%);
+  animation: darkBgPulse 12s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+@keyframes darkBgPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+/* ============================================================
+   DARK THEME — کارت‌ها با عمق بیشتر
+   ============================================================ */
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .skill-card,
+html[data-theme="dark"] .focus-card,
+html[data-theme="dark"] .contact-card,
+html[data-theme="dark"] .project-card,
+html[data-theme="dark"] .about-preview,
+html[data-theme="dark"] .timeline-item {
+  background: linear-gradient(
+    160deg,
+    rgba(255,255,255,.04),
+    rgba(255,255,255,.008) 40%,
+    rgba(94,106,210,.02) 80%,
+    rgba(255,255,255,.002)
+  );
+  border-color: var(--border-default);
+  box-shadow: 
+    0 0 0 1px rgba(255,255,255,.02),
+    0 8px 32px rgba(0,0,0,.50),
+    0 0 60px rgba(94,106,210,.04);
+}
+
+html[data-theme="dark"] .stat-card:hover,
+html[data-theme="dark"] .skill-card:hover,
+html[data-theme="dark"] .focus-card:hover,
+html[data-theme="dark"] .contact-card:hover,
+html[data-theme="dark"] .project-card:hover,
+html[data-theme="dark"] .about-preview:hover,
+html[data-theme="dark"] .timeline-item:hover {
+  transform: translateY(-6px);
+  border-color: rgba(94,106,210,.25);
+  box-shadow: 
+    0 0 0 1px rgba(255,255,255,.05),
+    0 20px 52px rgba(0,0,0,.60),
+    0 0 80px rgba(94,106,210,.08);
+}
+
+/* ============================================================
+   DARK THEME — شفافیت و عمق هدر
+   ============================================================ */
+html[data-theme="dark"] .site-header {
+  box-shadow: 
+    0 14px 38px rgba(0,0,0,.35),
+    0 0 26px rgba(94,106,210,.12),
+    0 0 60px rgba(94,106,210,.04);
+}
+
+/* ============================================================
+   DARK THEME — بهبود شفافیت متن و عمق
+   ============================================================ */
+html[data-theme="dark"] .hero h1 {
+  background: linear-gradient(
+    170deg, 
+    #ffffff 20%, 
+    rgba(255,255,255,.70) 50%, 
+    rgba(255,255,255,.40) 80%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 80px rgba(94,106,210,.05);
+}
+
+html[data-theme="dark"] .section-head h2 {
+  background: linear-gradient(
+    170deg, 
+    #ffffff 20%, 
+    rgba(255,255,255,.65) 50%, 
+    rgba(255,255,255,.35) 80%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+html[data-theme="dark"] .stat-card .number {
+  color: #b8bfff;
+  text-shadow: 0 0 60px rgba(174,181,255,.12), 0 4px 20px rgba(94,106,210,.06);
+}
+
+/* ============================================================
+   DARK THEME — افکت هاله‌ای دور کارت‌ها
+   ============================================================ */
+html[data-theme="dark"] .stat-card::after,
+html[data-theme="dark"] .skill-card::after,
+html[data-theme="dark"] .focus-card::after,
+html[data-theme="dark"] .project-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius);
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(94,106,210,.10),
+    transparent 30%,
+    rgba(94,106,210,.02) 60%,
+    transparent 80%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s var(--transition);
+}
+
+html[data-theme="dark"] .stat-card:hover::after,
+html[data-theme="dark"] .skill-card:hover::after,
+html[data-theme="dark"] .focus-card:hover::after,
+html[data-theme="dark"] .project-card:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+   DARK THEME — اورب هدر
+   ============================================================ */
+html[data-theme="dark"] .hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 65% 25%, rgba(94,106,210,.06), transparent 60%),
+    radial-gradient(ellipse at 20% 70%, rgba(120,82,220,.04), transparent 50%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   DARK THEME — بهبود نمایش آیکون‌ها
+   ============================================================ */
+html[data-theme="dark"] .icon {
+  color: #c8cdff;
+  background: linear-gradient(
+    145deg, 
+    rgba(94,106,210,.18), 
+    rgba(94,106,210,.03) 60%,
+    rgba(94,106,210,.01)
+  );
+  border-color: rgba(174,181,255,.10);
+  box-shadow: 
+    inset 0 1px rgba(255,255,255,.06), 
+    0 8px 24px rgba(94,106,210,.08);
+}
+
+html[data-theme="dark"] .skill-card:hover .icon,
+html[data-theme="dark"] .focus-card:hover .icon,
+html[data-theme="dark"] .contact-card:hover .icon {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 
+    0 0 0 1px rgba(255,255,255,.10), 
+    0 12px 32px rgba(94,106,210,.20),
+    0 0 60px rgba(94,106,210,.06);
+}
+
+/* ============================================================
+   DARK THEME — دکمه‌ها با عمق
+   ============================================================ */
+html[data-theme="dark"] .btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+  box-shadow: 
+    0 0 0 1px rgba(94,106,210,.35),
+    0 8px 28px rgba(94,106,210,.22),
+    inset 0 1px rgba(255,255,255,.10);
+}
+
+html[data-theme="dark"] .btn-primary:hover {
+  box-shadow: 
+    0 0 0 1px rgba(94,106,210,.50),
+    0 14px 40px rgba(94,106,210,.30),
+    0 0 80px rgba(94,106,210,.08);
+  transform: translateY(-4px);
+}
+
+html[data-theme="dark"] .btn-secondary {
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.06);
+  box-shadow: inset 0 1px rgba(255,255,255,.03);
+}
+
+html[data-theme="dark"] .btn-secondary:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 8px 28px rgba(0,0,0,.25);
+}
+
+/* ============================================================
+   DARK THEME — بنر کمک مالی با عمق
+   ============================================================ */
+html[data-theme="dark"] .donation-banner-wrapper {
+  background: linear-gradient(
+    135deg, 
+    rgba(94,106,210,.35), 
+    transparent 40%, 
+    rgba(150,120,220,.20) 70%, 
+    transparent
+  );
+  box-shadow: 0 0 100px rgba(94,106,210,.06);
+}
+
+html[data-theme="dark"] .donation-banner {
+  background: rgba(8, 9, 16, .88);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+html[data-theme="dark"] .donation-banner::before {
+  width: 600px;
+  height: 600px;
+  right: -150px;
+  top: -200px;
+  background: radial-gradient(circle, rgba(94,106,210,.15), transparent 65%);
+  animation: donationGlowDark 10s ease-in-out infinite;
+}
+
+@keyframes donationGlowDark {
+  0%, 100% { 
+    transform: scale(1) translate(0, 0); 
+    opacity: .4; 
+  }
+  50% { 
+    transform: scale(1.3) translate(20px, -20px); 
+    opacity: .8; 
+  }
+}
+
+html[data-theme="dark"] .donation-banner::after {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 40px var(--accent);
+  opacity: .30;
+}
+
+/* ============================================================
+   DARK THEME — فرم تماس با عمق
+   ============================================================ */
+html[data-theme="dark"] .contact-form {
+  background: rgba(255,255,255,.025);
+  border-color: rgba(255,255,255,.05);
+  box-shadow: 
+    0 0 0 1px rgba(255,255,255,.01),
+    0 12px 40px rgba(0,0,0,.40),
+    0 0 60px rgba(94,106,210,.03);
+}
+
+html[data-theme="dark"] .contact-form::before {
+  background: radial-gradient(circle, rgba(94,106,210,.08), transparent 70%);
+  opacity: .6;
+}
+
+html[data-theme="dark"] .contact-form:focus-within {
+  border-color: rgba(94,106,210,.25);
+  box-shadow: 
+    0 0 0 1px rgba(255,255,255,.03),
+    0 20px 52px rgba(0,0,0,.50),
+    0 0 80px rgba(94,106,210,.06);
+}
+
+html[data-theme="dark"] .form-field input,
+html[data-theme="dark"] .form-field textarea {
+  border-bottom-color: rgba(255,255,255,.06);
+}
+
+html[data-theme="dark"] .form-field input:focus,
+html[data-theme="dark"] .form-field textarea:focus {
+  border-bottom-color: var(--accent);
+}
+
+html[data-theme="dark"] .form-field input:focus + label,
+html[data-theme="dark"] .form-field textarea:focus + label {
+  color: var(--accent-bright);
+}
+
+/* ============================================================
+   DARK THEME — ناوبری موبایل
+   ============================================================ */
+html[data-theme="dark"] .mobile-bottom-nav {
+  background: rgba(8, 9, 16, .75);
+  border-color: rgba(255,255,255,.06);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,.50),
+    0 0 0 1px rgba(255,255,255,.02) inset,
+    0 0 60px rgba(94,106,210,.06);
+}
+
+html[data-theme="dark"] .bottom-nav-item::before {
+  background: rgba(8, 9, 16, .92);
+  border-color: rgba(255,255,255,.06);
+}
+
+html[data-theme="dark"] .bottom-nav-center {
+  border-color: var(--background-base);
+  box-shadow: 
+    0 4px 24px rgba(94,106,210,.40),
+    0 0 80px rgba(94,106,210,.10);
 }
