@@ -1003,7 +1003,113 @@ function boot() {
     });
   });
 }
+// ============================================================
+// MOBILE DETECTION & OPTIMIZATION (اضافه شده به script.js)
+// ============================================================
 
+// تشخیص موبایل با دقت بالا
+function isMobileDevice() {
+  return window.innerWidth < 768 || 
+         /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+}
+
+// تشخیص تاچ دیوایس
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+// بهینه‌سازی عملکرد در موبایل
+function optimizeForMobile() {
+  if (isMobileDevice()) {
+    // غیرفعال کردن انیمیشن‌های سنگین
+    document.querySelectorAll('.orb').forEach(function(orb) {
+      orb.style.animation = 'none';
+      orb.style.filter = 'blur(40px)';
+    });
+    
+    // کاهش opacity پس‌زمینه
+    document.querySelector('.bg-ambient')?.style.setProperty('opacity', '0.3');
+    
+    // غیرفعال کردن افکت‌های نشانگر
+    document.querySelectorAll('.cursor-glow, .custom-cursor, body::after').forEach(function(el) {
+      if (el) el.style.display = 'none';
+    });
+  }
+}
+
+// مدیریت ناوبری موبایل
+function initMobileNav() {
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (!toggle || !navLinks) return;
+  
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    navLinks.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+  });
+  
+  // بستن منو با کلیک بیرون
+  document.addEventListener('click', function(e) {
+    if (navLinks.classList.contains('open') && 
+        !navLinks.contains(e.target) && 
+        !toggle.contains(e.target)) {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+  
+  // بستن منو با کلیک روی لینک‌ها
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  
+  // بستن منو با کلید ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+  });
+}
+
+// مدیریت ساف‌اری موبایل (fix 100vh)
+function fixMobileViewport() {
+  if (isMobileDevice()) {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+    
+    // تنظیم height برای hero
+    document.querySelectorAll('.hero').forEach(function(el) {
+      el.style.minHeight = 'calc(var(--vh, 1vh) * 85)';
+    });
+  }
+}
+
+// ============================================================
+// اجرای بهینه‌سازی‌ها در زمان لود
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+  optimizeForMobile();
+  initMobileNav();
+  fixMobileViewport();
+});
+
+// به‌روزرسانی در زمان تغییر اندازه
+let resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() {
+    if (isMobileDevice()) {
+      fixMobileViewport();
+    }
+  }, 250);
+});
 // ============================================================
 // START
 // ============================================================
