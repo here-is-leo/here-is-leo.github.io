@@ -2780,17 +2780,17 @@ html[data-theme="light"] .donate-btn {
   color: #fff !important;
 }
 /* ============================================================
-   DARK THEME — خطوط شبکه پس‌زمینه (مثل لایت‌مود)
+   DARK THEME — خطوط شبکه پس‌زمینه (پررنگ‌تر)
    ============================================================ */
 html[data-theme="dark"] body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
-  opacity: .035;
+  opacity: .08;
   background-image: 
-    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
   background-size: 72px 72px;
   z-index: -2;
 }
