@@ -119,7 +119,7 @@ function renderNav(data, page) {
   });
   const map = {
     "data-nav-skills": ["skills", page === "about" ? "index.html#skills" : "#skills"],
-    "data-nav-projects": ["projects", "projects.html"], // FIX: همیشه به projects.html
+    "data-nav-projects": ["projects", "projects.html"],
     "data-nav-contact": ["contact", page === "about" ? "index.html#contact" : "#contact"],
     "data-nav-about": ["about", "about.html"],
     "data-nav-blog": ["blog", "blog.html"],
@@ -149,8 +149,6 @@ function startTypewriter(words, container) {
   if (!container || !words || !words.length) return;
   if (twInterval) clearTimeout(twInterval);
 
-  // make sure there's a text node + cursor span, regardless of
-  // what markup was already in the container
   var textNode = container.childNodes[0];
   if (!textNode || textNode.nodeType !== Node.TEXT_NODE) {
     textNode = document.createTextNode("");
@@ -216,7 +214,6 @@ function animateCounters() {
 // ============================================================
 function initReveal() {
   if (!("IntersectionObserver" in window)) {
-    // very old mobile browsers: just show everything
     document.querySelectorAll(".reveal").forEach(function(node) { node.classList.add("visible"); });
     animateCounters();
     return;
@@ -285,13 +282,18 @@ function initParallax() {
   }, { passive: true });
 }
 
+// ============================================================
+// CINEMATIC MOTION — Premium Cursor & Interactive Effects
+// ============================================================
 function initCinematicMotion() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (isMobile()) return;
   if (isLowPerformance()) return;
 
-  document.querySelectorAll(".particle-field,.cursor-glow").forEach(function(node) { node.remove(); });
+  // Remove existing elements
+  document.querySelectorAll(".particle-field,.cursor-glow,.custom-cursor").forEach(function(node) { node.remove(); });
 
+  // ---- PARTICLES ----
   var field = document.createElement("div");
   field.className = "particle-field";
   for (var i = 0; i < 28; i++) {
@@ -306,41 +308,131 @@ function initCinematicMotion() {
   }
   document.body.appendChild(field);
 
+  // ---- CUSTOM CURSOR ----
+  var cursor = document.createElement("div");
+  cursor.className = "custom-cursor";
+  cursor.innerHTML = '<span class="custom-cursor-ring"></span><span class="custom-cursor-dot"></span>';
+  document.body.appendChild(cursor);
+  var ring = cursor.querySelector(".custom-cursor-ring");
+  var dot = cursor.querySelector(".custom-cursor-dot");
+
+  // ---- GLOW ----
   var glow = document.createElement("div");
   glow.className = "cursor-glow";
   document.body.appendChild(glow);
-  var x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y;
+
+  var px = window.innerWidth / 2, py = window.innerHeight / 2;
+  var rx = px, ry = py;
+  var gx = px, gy = py;
+  var visible = false;
+
+  // ---- POINTER MOVE ----
   document.addEventListener("pointermove", function(e) {
-    tx = e.clientX; ty = e.clientY;
-    document.documentElement.style.setProperty("--cursor-x", tx + "px");
-    document.documentElement.style.setProperty("--cursor-y", ty + "px");
+    px = e.clientX;
+    py = e.clientY;
+    document.documentElement.style.setProperty("--cursor-x", px + "px");
+    document.documentElement.style.setProperty("--cursor-y", py + "px");
+
+    if (!visible) {
+      visible = true;
+      cursor.classList.add("is-visible");
+      glow.classList.add("is-visible");
+    }
+
+    // Dot tracks 1:1 (no lag)
+    dot.style.transform = "translate3d(" + px + "px," + py + "px,0) translate(-50%,-50%)";
   });
+
+  document.addEventListener("pointerleave", function() {
+    visible = false;
+    cursor.classList.remove("is-visible");
+    glow.classList.remove("is-visible");
+  });
+
+  // ---- FOLLOW LOOP ----
   function follow() {
-    x += (tx - x) * .16; y += (ty - y) * .16;
-    glow.style.left = x + "px"; glow.style.top = y + "px";
+    rx += (px - rx) * 0.10;
+    ry += (py - ry) * 0.10;
+    gx += (px - gx) * 0.045;
+    gy += (py - gy) * 0.045;
+
+    ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0) translate(-50%,-50%)";
+    glow.style.left = gx + "px";
+    glow.style.top = gy + "px";
+
     requestAnimationFrame(follow);
   }
   follow();
 
-  document.querySelectorAll("a,button,.project-card,.skill-card,.focus-card").forEach(function(node) {
-    node.addEventListener("pointerenter", function() { glow.classList.add("is-hover"); });
-    node.addEventListener("pointerleave", function() { glow.classList.remove("is-hover"); });
+  // ---- HOVER DETECTION ----
+  var interactiveSelectors = [
+    "a", "button", ".btn", ".project-card", ".skill-card", ".focus-card",
+    ".contact-card", "input", "textarea", ".repo-card", ".blog-post-card",
+    ".timeline-item", ".nav-links a", ".brand", ".donate-btn", ".project-link"
+  ].join(",");
+
+  document.querySelectorAll(interactiveSelectors).forEach(function(node) {
+    node.addEventListener("pointerenter", function() {
+      glow.classList.add("is-hover");
+      cursor.classList.add("is-hover");
+    });
+    node.addEventListener("pointerleave", function() {
+      glow.classList.remove("is-hover");
+      cursor.classList.remove("is-hover");
+    });
   });
 
-  document.querySelectorAll(".project-card,.skill-card,.focus-card,.contact-card").forEach(function(card) {
+  // ---- ACTIVE STATE ----
+  document.querySelectorAll("a, button, .btn, .donate-btn").forEach(function(node) {
+    node.addEventListener("pointerdown", function() {
+      cursor.classList.add("is-active");
+    });
+    node.addEventListener("pointerup", function() {
+      cursor.classList.remove("is-active");
+    });
+  });
+
+  // ---- 3D TILT ON CARDS ----
+  var tiltableCards = document.querySelectorAll(".project-card,.skill-card,.focus-card,.contact-card");
+  tiltableCards.forEach(function(card) {
+    var cx = 0, cy = 0;
+    var curX = 0, curY = 0;
+    var raf = null;
+
+    function tick() {
+      curX += (cx - curX) * 0.12;
+      curY += (cy - curY) * 0.12;
+
+      card.style.transform = "perspective(800px) rotateX(" + curY + "deg) rotateY(" + curX + "deg) translateY(-5px)";
+
+      if (Math.abs(cx - curX) > 0.01 || Math.abs(cy - curY) > 0.01) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        raf = null;
+      }
+    }
+
     card.addEventListener("pointermove", function(e) {
       var r = card.getBoundingClientRect();
-      var ry = ((e.clientX - r.left) / r.width - .5) * 5;
-      var rx = ((e.clientY - r.top) / r.height - .5) * -5;
-      card.style.transform = "perspective(700px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-5px)";
+      cx = ((e.clientX - r.left) / r.width - 0.5) * 4;
+      cy = ((e.clientY - r.top) / r.height - 0.5) * -4;
+      if (!raf) raf = requestAnimationFrame(tick);
     });
-    card.addEventListener("pointerleave", function() { card.style.transform = ""; });
+
+    card.addEventListener("pointerleave", function() {
+      cx = 0;
+      cy = 0;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
   });
 }
 
+// ============================================================
+// AMBIENT OPTIMIZATION
+// ============================================================
 function initAmbientOptimization() {
   if (isLowPerformance()) {
-    document.querySelectorAll('.orb').forEach(orb => {
+    document.querySelectorAll('.orb').forEach(function(orb) {
       orb.style.animationDuration = '30s';
       orb.style.filter = 'blur(80px)';
     });
@@ -382,7 +474,7 @@ function renderHome(data) {
     hero.appendChild(el("p", null, data.hero.subtitle));
     var cta = el("div", "hero-cta");
     var c1 = el("a", "btn btn-primary", data.hero.cta1);
-    c1.href = "projects.html"; // FIX: به projects.html
+    c1.href = "projects.html";
     var c2 = el("a", "btn btn-secondary", data.hero.cta2);
     c2.href = "about.html";
     cta.append(c1, c2);
@@ -427,7 +519,6 @@ function renderHome(data) {
       data.skills.items.forEach(function(s, i) {
         var card = el("div", "skill-card reveal reveal-delay-" + (i % 4));
         var level = s.level || 0;
-        // FIX: استفاده از width به جای --level
         card.innerHTML = `
           ${renderIcon(s.icon, "icon")}
           <h3>${s.title}</h3>
@@ -436,9 +527,9 @@ function renderHome(data) {
             <div class="bar" style="width: ${level}%;" data-level="${level}"></div>
           </div>
           <div class="level-label">
-            <span>مبتدی</span>
+            <span>${data.lang === "fa" ? "مبتدی" : "Beginner"}</span>
             <span>${level}%</span>
-            <span>حرفه‌ای</span>
+            <span>${data.lang === "fa" ? "حرفه‌ای" : "Advanced"}</span>
           </div>
         `;
         skillsGrid.appendChild(card);
@@ -486,7 +577,6 @@ function renderHome(data) {
         var card = el("div", "project-card reveal reveal-delay-" + 0);
         var head = el("div", "project-head");
         
-        // FIX: عنوان به‌صورت لینک به projects.html
         var titleLink = el("a", "project-title-link", (proj.icon ? proj.icon + " " : "") + proj.title);
         titleLink.href = "projects.html";
         titleLink.style.textDecoration = "none";
@@ -496,7 +586,6 @@ function renderHome(data) {
         if (proj.date) head.append(el("span", "project-date", proj.date));
         var desc = el("p", null, proj.desc);
         
-        // FIX: افزودن bullets
         if (proj.bullets && proj.bullets.length > 0) {
           var bulletList = el("ul", "project-bullets");
           proj.bullets.forEach(function(bullet) {
@@ -669,7 +758,7 @@ function renderAbout(data) {
 }
 
 // ============================================================
-// RENDER PROJECTS (برای صفحه projects.html)
+// RENDER PROJECTS
 // ============================================================
 function renderProjects(data) {
   if (!data) return;
@@ -694,7 +783,6 @@ function renderProjects(data) {
       if (proj.date) head.appendChild(el("span", "project-date", proj.date));
       var desc = el("p", null, proj.desc);
       
-      // bullets
       if (proj.bullets && proj.bullets.length) {
         var bulletList = el("ul", "project-bullets");
         proj.bullets.forEach(function(bullet) {
@@ -717,6 +805,9 @@ function renderProjects(data) {
   });
 }
 
+// ============================================================
+// RENDER REPOS
+// ============================================================
 function renderRepos(data) {
   var page = data && data.repos;
   var title = document.getElementById("repos-title"), subtitle = document.getElementById("repos-subtitle"), grid = document.getElementById("repos-grid");
@@ -729,6 +820,9 @@ function renderRepos(data) {
   }).join("");
 }
 
+// ============================================================
+// RENDER RESUME
+// ============================================================
 function renderResume(data) {
   var page = data && data.resume, root = document.getElementById("resume-content");
   if (!page || !root) return;
@@ -753,8 +847,7 @@ function initContactForm() {
     const submitBtn = form.querySelector('button[type="submit"]');
     const btnText = submitBtn.querySelector('.btn-text');
 
-    status.style.display = 'block';
-    status.style.color = '#b8bfff';
+    status.className = 'form-status is-visible is-pending';
     status.textContent = '⏳ در حال ارسال پیام...';
     submitBtn.disabled = true;
     btnText.textContent = 'در حال ارسال...';
@@ -767,17 +860,17 @@ function initContactForm() {
       });
 
       if (response.ok) {
-        status.style.color = '#00FF41';
+        status.className = 'form-status is-visible is-success';
         status.textContent = '✅ پیام شما با موفقیت ارسال شد!';
         form.reset();
         btnText.textContent = 'ارسال پیام';
         submitBtn.disabled = false;
-        setTimeout(() => { status.style.display = 'none'; }, 5000);
+        setTimeout(() => { status.className = 'form-status'; }, 5000);
       } else {
         throw new Error('خطا در ارسال پیام');
       }
     } catch (error) {
-      status.style.color = '#ff6b6b';
+      status.className = 'form-status is-visible is-error';
       status.textContent = '❌ خطا در ارسال پیام. لطفاً دوباره تلاش کنید.';
       btnText.textContent = 'ارسال پیام';
       submitBtn.disabled = false;
@@ -854,6 +947,9 @@ function initNavToggle() {
   });
 }
 
+// ============================================================
+// BOOT
+// ============================================================
 function boot() {
   var page = document.body.dataset.page || "home";
   setTheme(getTheme());
@@ -861,13 +957,41 @@ function boot() {
   initLangToggle(page);
   initNavToggle();
   initContactForm();
+
   var header = document.querySelector(".site-header");
   if (header) {
     var syncHeader = function() { header.classList.toggle("scrolled", window.scrollY > 18); };
-    syncHeader(); window.addEventListener("scroll", syncHeader, { passive: true });
+    syncHeader();
+    window.addEventListener("scroll", syncHeader, { passive: true });
+
+    var hTargetX = 50, hTargetY = 50, hCurX = 50, hCurY = 50, hRaf = null;
+    function headerTick() {
+      hCurX += (hTargetX - hCurX) * 0.08;
+      hCurY += (hTargetY - hCurY) * 0.08;
+      header.style.setProperty("--header-x", hCurX.toFixed(1) + "%");
+      header.style.setProperty("--header-y", hCurY.toFixed(1) + "%");
+      if (Math.abs(hTargetX - hCurX) > 0.05 || Math.abs(hTargetY - hCurY) > 0.05) {
+        hRaf = requestAnimationFrame(headerTick);
+      } else {
+        hRaf = null;
+      }
+    }
+    header.addEventListener("pointermove", function(e) {
+      var r = header.getBoundingClientRect();
+      hTargetX = (e.clientX - r.left) / r.width * 100;
+      hTargetY = (e.clientY - r.top) / r.height * 100;
+      if (!hRaf) hRaf = requestAnimationFrame(headerTick);
+    }, { passive: true });
+    header.addEventListener("pointerleave", function() {
+      hTargetX = 50;
+      hTargetY = 50;
+      if (!hRaf) hRaf = requestAnimationFrame(headerTick);
+    });
   }
+
   if (!document.querySelector('.mobile-subnav')) {
-    var sub = document.createElement('div'); sub.className = 'mobile-subnav';
+    var sub = document.createElement('div');
+    sub.className = 'mobile-subnav';
     sub.innerHTML = '<a href="index.html" aria-label="Home">⌂</a><a href="projects.html" aria-label="Projects">✦</a><a href="blog.html" aria-label="Blog">▤</a><a href="resume.html" aria-label="Resume">◌</a>';
     document.body.appendChild(sub);
   }
@@ -880,6 +1004,9 @@ function boot() {
   });
 }
 
+// ============================================================
+// START
+// ============================================================
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", boot);
 } else {

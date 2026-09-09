@@ -31,8 +31,8 @@ const SITE = {
 
     stats: [
       { number: 35, suffix: "+", label: "چالش امنیتی حل شده" },
-      { number: 113, suffix: "", label: "مشارکت در یک سال" },
-      { number: 10, suffix: "", label: "پروژه عملی" },
+      { number: 231, suffix: "", label: "مشارکت در یک سال" },
+      { number: 16, suffix: "", label: "پروژه عملی" },
       { number: 5, suffix: "", label: "زبان برنامه‌نویسی" }
     ],
     
@@ -240,7 +240,7 @@ const SITE = {
       ],
       
       githubTag: "گیت‌هاب",
-      githubText: "۱۱۳ مشارکت در یک سال اخیر، با تمرکز بر پروژه‌های امنیتی و آموزشی.",
+      githubText: "231 مشارکت در یک سال اخیر، با تمرکز بر پروژه‌های امنیتی و آموزشی.",
       githubLinkText: "github.com/here-is-leo"
     }
   },
@@ -281,8 +281,8 @@ const SITE = {
     
     stats: [
       { number: 35, suffix: "+", label: "Security Challenges" },
-      { number: 113, suffix: "", label: "Commits" },
-      { number: 10, suffix: "", label: "Projects" },
+      { number: 231, suffix: "", label: "Commits" },
+      { number: 16, suffix: "", label: "Projects" },
       { number: 5, suffix: "", label: "Languages" }
     ],
     
@@ -490,7 +490,7 @@ const SITE = {
       ],
       
       githubTag: "GitHub",
-      githubText: "113 commits in the past year, focused on security and educational projects.",
+      githubText: "231 commits in the past year, focused on security and educational projects.",
       githubLinkText: "github.com/here-is-leo"
     }
   }
