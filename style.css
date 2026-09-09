@@ -1572,7 +1572,7 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     border-radius: 8px;
   }
 
-  /* ---- Nav Toggle (همبرگر) ---- */
+  /* ---- Nav Toggle ---- */
   .nav-toggle {
     display: flex !important;
     align-items: center;
@@ -1633,14 +1633,56 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     left: 10px;
   }
 
-  /* ---- MOBILE BOTTOM NAV (جایگزین mobile-subnav) ---- */
-  .mobile-bottom-nav {
+  /* ---- Mobile Subnav (bottom dock) ---- */
+  .mobile-subnav {
     display: flex !important;
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    left: 50%;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    width: min(320px, calc(100vw - 32px));
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: var(--header-glass);
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    border: 1px solid var(--border-default);
+    box-shadow: 0 8px 30px rgba(0,0,0,.25);
+    z-index: 60;
+    animation: subnavRise .8s .15s var(--transition-bounce) both;
   }
-  
+  .mobile-subnav a {
+    width: 44px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    color: var(--foreground-muted);
+    font-size: 1.1rem;
+    transition: all .25s var(--transition-bounce);
+    text-decoration: none;
+  }
+  .mobile-subnav a:hover,
+  .mobile-subnav a:focus {
+    color: var(--foreground);
+    background: var(--accent-subtle);
+    transform: translateY(-3px);
+  }
+  .mobile-subnav a.active {
+    color: var(--accent-bright);
+    background: var(--accent-subtle);
+  }
+
+  @keyframes subnavRise {
+    from { transform: translate(-50%, 140%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+  }
+
   main {
     padding-top: 72px;
-    padding-bottom: 86px;
+    padding-bottom: 80px;
   }
 
   /* ---- Hero Section ---- */
@@ -2071,6 +2113,10 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     min-height: 44px;
     min-width: 44px;
   }
+  .mobile-subnav a {
+    min-height: 38px;
+    min-width: 44px;
+  }
 
   /* ---- Theme & Lang buttons in header ---- */
   .lang-toggle {
@@ -2164,6 +2210,16 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     padding: 18px 14px;
   }
 
+  .mobile-subnav {
+    width: calc(100vw - 24px);
+    padding: 4px 6px;
+  }
+  .mobile-subnav a {
+    width: 38px;
+    height: 34px;
+    font-size: .95rem;
+  }
+
   .site-header .nav {
     padding: 6px 10px;
   }
@@ -2202,310 +2258,8 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     padding: 8px 12px;
     font-size: .8rem;
   }
-
- /* ============================================================
-   BOTTOM NAV — نسخه پریمیوم (فقط یک بار تعریف شده)
-   ============================================================ */
-
-.mobile-bottom-nav {
-  display: none; /* پیش‌فرض مخفی */
-  position: fixed;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(420px, calc(100vw - 24px));
-  padding: 6px 8px;
-  background: var(--header-glass);
-  backdrop-filter: blur(28px) saturate(1.7);
-  -webkit-backdrop-filter: blur(28px) saturate(1.7);
-  border: 1px solid var(--border-default);
-  border-radius: 28px;
-  box-shadow: 
-    0 8px 32px rgba(0,0,0,.35),
-    0 0 0 1px rgba(255,255,255,.04) inset,
-    0 0 40px rgba(94,106,210,.06);
-  z-index: 60;
-  align-items: center;
-  justify-content: space-around;
-  gap: 2px;
-  animation: bottomNavRise .6s .2s var(--transition-bounce) both;
 }
 
-/* ============================================================
-   RESPONSIVE — فقط در موبایل نمایش داده بشه
-   ============================================================ */
-@media (max-width: 768px) {
-  .mobile-bottom-nav {
-    display: flex !important; /* مهم: با !important */
-  }
-  main {
-    padding-bottom: 86px;
-  }
-}
-
-@keyframes bottomNavRise {
-  from { 
-    transform: translate(-50%, 120%) scale(.9);
-    opacity: 0;
-  }
-  to { 
-    transform: translate(-50%, 0) scale(1);
-    opacity: 1;
-  }
-}
-
-/* هر آیتم ناوبری */
-.bottom-nav-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
-  padding: 6px 12px;
-  min-height: 48px;
-  min-width: 48px;
-  border-radius: 18px;
-  color: var(--foreground-muted);
-  text-decoration: none;
-  transition: all .35s var(--transition-bounce);
-  flex: 1;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.bottom-nav-item .nav-icon-svg {
-  width: 22px;
-  height: 22px;
-  transition: all .4s var(--transition-bounce);
-  stroke: currentColor;
-}
-
-.bottom-nav-item .nav-label {
-  font-size: .55rem;
-  font-weight: 600;
-  letter-spacing: .03em;
-  opacity: 0;
-  transform: translateY(4px) scale(.8);
-  transition: all .3s var(--transition-bounce);
-  color: var(--foreground-muted);
-}
-
-.bottom-nav-item .nav-indicator {
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  transform: translateX(-50%) scaleX(0);
-  width: 16px;
-  height: 2.5px;
-  border-radius: 4px;
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--accent-glow);
-  transition: all .4s var(--transition-bounce);
-}
-
-.bottom-nav-item:hover {
-  color: var(--foreground);
-  background: var(--surface-hover);
-  transform: translateY(-2px);
-}
-
-.bottom-nav-item:hover .nav-label {
-  opacity: 0.7;
-  transform: translateY(0) scale(1);
-}
-
-.bottom-nav-item.active {
-  color: var(--accent-bright);
-}
-
-.bottom-nav-item.active .nav-indicator {
-  transform: translateX(-50%) scaleX(1);
-}
-
-.bottom-nav-item.active .nav-label {
-  opacity: 0.8;
-  transform: translateY(0) scale(1);
-}
-
-.bottom-nav-item.active .nav-icon-svg {
-  stroke: var(--accent-bright);
-  filter: drop-shadow(0 0 8px var(--accent-glow));
-}
-
-/* ===== آیتم مرکزی ===== */
-.bottom-nav-center {
-  position: relative;
-  margin-top: -14px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-  color: #fff !important;
-  border: 2px solid var(--background-base);
-  box-shadow: 
-    0 4px 20px rgba(94,106,210,.35),
-    0 0 60px rgba(94,106,210,.08);
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  padding: 0;
-  flex: none;
-}
-
-.bottom-nav-center .nav-icon-svg {
-  width: 26px;
-  height: 26px;
-  stroke: #fff;
-  filter: drop-shadow(0 0 12px rgba(255,255,255,.2));
-}
-
-.bottom-nav-center .nav-label {
-  display: none;
-}
-
-.bottom-nav-center .nav-indicator {
-  display: none;
-}
-
-.bottom-nav-center:hover {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 
-    0 8px 32px rgba(94,106,210,.45),
-    0 0 80px rgba(94,106,210,.15);
-}
-
-.bottom-nav-center:active {
-  transform: scale(.94);
-}
-
-.center-glow {
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent,
-    var(--accent),
-    transparent 40%,
-    var(--accent-bright),
-    transparent 70%,
-    var(--accent),
-    transparent
-  );
-  opacity: .3;
-  animation: centerGlowSpin 4s linear infinite;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@keyframes centerGlowSpin {
-  to { transform: rotate(360deg); }
-}
-
-/* ===== تولتیپ ===== */
-.bottom-nav-item::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) scale(.8);
-  padding: 4px 12px;
-  border-radius: 8px;
-  background: var(--background-elevated);
-  color: var(--foreground);
-  font-size: .65rem;
-  font-weight: 600;
-  white-space: nowrap;
-  border: 1px solid var(--border-default);
-  box-shadow: var(--shadow-soft);
-  opacity: 0;
-  pointer-events: none;
-  transition: all .3s var(--transition-bounce);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.bottom-nav-item:hover::before {
-  opacity: 1;
-  transform: translateX(-50%) scale(1);
-}
-
-/* ============================================================
-   موبایل کوچک: 480px
-   ============================================================ */
-@media (max-width: 480px) {
-  .mobile-bottom-nav {
-    width: calc(100vw - 16px);
-    padding: 4px 6px;
-    border-radius: 22px;
-    bottom: 8px;
-  }
-  .bottom-nav-item {
-    min-height: 40px;
-    min-width: 36px;
-    padding: 4px 6px;
-  }
-  .bottom-nav-item .nav-icon-svg {
-    width: 18px;
-    height: 18px;
-  }
-  .bottom-nav-item .nav-label {
-    font-size: .45rem;
-  }
-  .bottom-nav-center {
-    width: 48px;
-    height: 48px;
-    margin-top: -10px;
-  }
-  .bottom-nav-center .nav-icon-svg {
-    width: 22px;
-    height: 22px;
-  }
-  .bottom-nav-item .nav-indicator {
-    width: 12px;
-    height: 2px;
-  }
-}
-
-/* ============================================================
-   LIGHT THEME
-   ============================================================ */
-html[data-theme="light"] .mobile-bottom-nav {
-  background: rgba(255, 255, 255, .82);
-  border-color: rgba(46,42,90,.12);
-  box-shadow: 
-    0 8px 32px rgba(40,44,74,.12),
-    0 0 0 1px rgba(255,255,255,.7) inset;
-}
-
-html[data-theme="light"] .bottom-nav-center {
-  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-  border-color: #fff;
-}
-
-html[data-theme="light"] .bottom-nav-item.active {
-  color: var(--accent);
-}
-
-html[data-theme="light"] .bottom-nav-item::before {
-  background: #fff;
-  border-color: rgba(46,42,90,.12);
-  color: var(--foreground);
-}
-
-/* ============================================================
-   REDUCED MOTION
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-  .mobile-bottom-nav {
-    animation: none !important;
-  }
-  .center-glow {
-    animation: none !important;
-  }
-  .bottom-nav-item {
-    transition: none !important;
-  }
-}
 /* ============================================================
    REDUCED MOTION
    ============================================================ */
@@ -2545,15 +2299,6 @@ html[data-theme="light"] .bottom-nav-item::before {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
-  }
-  .mobile-bottom-nav {
-    animation: none !important;
-  }
-  .center-glow {
-    animation: none !important;
-  }
-  .bottom-nav-item {
-    transition: none !important;
   }
 }
 
@@ -2798,4 +2543,22 @@ html[data-theme="light"] .donation-banner-wrapper {
 html[data-theme="light"] .btn-primary,
 html[data-theme="light"] .donate-btn {
   color: #fff !important;
+}
+html[data-theme="light"] .btn-secondary {
+  color: var(--foreground) !important;
+  background: var(--background-elevated);
+  box-shadow: 3px 3px 10px rgba(81,68,199,.10), -3px -3px 10px rgba(255,255,255,.7);
+  border-color: rgba(81,68,199,.14);
+}
+html[data-theme="light"] .btn-secondary:hover {
+  background: var(--background-base);
+}
+
+/* Mobile light theme overrides */
+@media (max-width: 768px) {
+  html[data-theme="light"] .icon-fallback {
+    background: rgba(81,68,199,.14);
+    color: #5144c7;
+    border-color: rgba(81,68,199,.15);
+  }
 }
