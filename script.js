@@ -24,9 +24,10 @@ function isMobile() {
   return window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 }
 
-// ============================================================
-// PERFORMANCE OPTIMIZATION — Windows Detection
-// ============================================================
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
 function isLowPerformance() {
   const isWindows = navigator.platform.toLowerCase().includes('win');
   const isSlow = window.navigator.hardwareConcurrency <= 4;
@@ -40,13 +41,8 @@ function el(tag, cls, html) {
   return n;
 }
 
-// small helper: run a render step in isolation so one broken
-// section can never take down the whole page (this was the
-// root cause of the empty-page bug — see renderHome projects loop)
 function safe(label, fn) {
-  try {
-    fn();
-  } catch (err) {
+  try { fn(); } catch (err) {
     console.error("❌ render step failed: " + label, err);
   }
 }
@@ -283,17 +279,15 @@ function initParallax() {
 }
 
 // ============================================================
-// CINEMATIC MOTION — Premium Cursor & Interactive Effects
+// CINEMATIC MOTION
 // ============================================================
 function initCinematicMotion() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (isMobile()) return;
   if (isLowPerformance()) return;
 
-  // Remove existing elements
   document.querySelectorAll(".particle-field,.cursor-glow,.custom-cursor").forEach(function(node) { node.remove(); });
 
-  // ---- PARTICLES ----
   var field = document.createElement("div");
   field.className = "particle-field";
   for (var i = 0; i < 28; i++) {
@@ -308,7 +302,6 @@ function initCinematicMotion() {
   }
   document.body.appendChild(field);
 
-  // ---- CUSTOM CURSOR ----
   var cursor = document.createElement("div");
   cursor.className = "custom-cursor";
   cursor.innerHTML = '<span class="custom-cursor-ring"></span><span class="custom-cursor-dot"></span>';
@@ -316,7 +309,6 @@ function initCinematicMotion() {
   var ring = cursor.querySelector(".custom-cursor-ring");
   var dot = cursor.querySelector(".custom-cursor-dot");
 
-  // ---- GLOW ----
   var glow = document.createElement("div");
   glow.className = "cursor-glow";
   document.body.appendChild(glow);
@@ -326,7 +318,6 @@ function initCinematicMotion() {
   var gx = px, gy = py;
   var visible = false;
 
-  // ---- POINTER MOVE ----
   document.addEventListener("pointermove", function(e) {
     px = e.clientX;
     py = e.clientY;
@@ -339,7 +330,6 @@ function initCinematicMotion() {
       glow.classList.add("is-visible");
     }
 
-    // Dot tracks 1:1 (no lag)
     dot.style.transform = "translate3d(" + px + "px," + py + "px,0) translate(-50%,-50%)";
   });
 
@@ -349,7 +339,6 @@ function initCinematicMotion() {
     glow.classList.remove("is-visible");
   });
 
-  // ---- FOLLOW LOOP ----
   function follow() {
     rx += (px - rx) * 0.10;
     ry += (py - ry) * 0.10;
@@ -364,7 +353,6 @@ function initCinematicMotion() {
   }
   follow();
 
-  // ---- HOVER DETECTION ----
   var interactiveSelectors = [
     "a", "button", ".btn", ".project-card", ".skill-card", ".focus-card",
     ".contact-card", "input", "textarea", ".repo-card", ".blog-post-card",
@@ -382,7 +370,6 @@ function initCinematicMotion() {
     });
   });
 
-  // ---- ACTIVE STATE ----
   document.querySelectorAll("a, button, .btn, .donate-btn").forEach(function(node) {
     node.addEventListener("pointerdown", function() {
       cursor.classList.add("is-active");
@@ -392,7 +379,6 @@ function initCinematicMotion() {
     });
   });
 
-  // ---- 3D TILT ON CARDS ----
   var tiltableCards = document.querySelectorAll(".project-card,.skill-card,.focus-card,.contact-card");
   tiltableCards.forEach(function(card) {
     var cx = 0, cy = 0;
@@ -402,9 +388,7 @@ function initCinematicMotion() {
     function tick() {
       curX += (cx - curX) * 0.12;
       curY += (cy - curY) * 0.12;
-
       card.style.transform = "perspective(800px) rotateX(" + curY + "deg) rotateY(" + curX + "deg) translateY(-5px)";
-
       if (Math.abs(cx - curX) > 0.01 || Math.abs(cy - curY) > 0.01) {
         raf = requestAnimationFrame(tick);
       } else {
@@ -458,7 +442,6 @@ function renderHome(data) {
     return;
   }
 
-  // ====== HERO ======
   safe("hero", function() {
     var hero = document.getElementById("hero-content");
     if (!hero) return;
@@ -483,7 +466,6 @@ function renderHome(data) {
     setTimeout(function() { startTypewriter(data.hero.typewriter, tw); }, 600);
   });
 
-  // ====== AVATAR ======
   safe("avatar", function() {
     var avatar = document.getElementById("hero-avatar");
     if (!avatar) return;
@@ -492,7 +474,6 @@ function renderHome(data) {
     if (span) span.style.display = "none";
   });
 
-  // ====== STATS ======
   safe("stats", function() {
     var statsGrid = document.getElementById("stats-grid");
     if (!statsGrid || !data.stats) return;
@@ -504,7 +485,6 @@ function renderHome(data) {
     });
   });
 
-  // ====== SKILLS ======
   safe("skills", function() {
     if (!data.skills) return;
     var skillsTag = document.getElementById("skills-tag");
@@ -537,7 +517,6 @@ function renderHome(data) {
     }
   });
 
-  // ====== FOCUS ======
   safe("focus", function() {
     if (!data.focus) return;
     var focusTag = document.getElementById("focus-tag");
@@ -561,7 +540,6 @@ function renderHome(data) {
     }
   });
 
-  // ====== PROJECTS ======
   safe("projects", function() {
     if (!data.projects) return;
     var projTag = document.getElementById("projects-tag");
@@ -611,7 +589,6 @@ function renderHome(data) {
     }
   });
 
-  // ====== DONATION ======
   safe("donation", function() {
     if (!data.donation) return;
     var donationBadge = document.getElementById("donation-badge");
@@ -626,7 +603,6 @@ function renderHome(data) {
     if (donateMsg) donateMsg.innerHTML = `<span class="emoji">${renderIcon("target", "icon")}</span><span>${data.donation.msg}</span>`;
   });
 
-  // ====== ABOUT PREVIEW ======
   safe("aboutPreview", function() {
     if (!data.aboutPreview) return;
     var apTitle = document.getElementById("about-preview-title");
@@ -637,7 +613,6 @@ function renderHome(data) {
     if (apCta) apCta.textContent = data.aboutPreview.cta;
   });
 
-  // ====== CONTACT ======
   safe("contact", function() {
     if (!data.contact) return;
     var contactTag = document.getElementById("contact-tag");
@@ -886,7 +861,7 @@ function render(page) {
   var data = (typeof SITE !== "undefined") ? SITE[lang] : null;
 
   if (!data) {
-    console.error('❌ SITE data not available for lang=' + lang + '. content.js may have failed to load.');
+    console.error('❌ SITE data not available for lang=' + lang);
     document.dispatchEvent(new CustomEvent("site:render-failed", { detail: { page: page, lang: lang } }));
     return;
   }
@@ -925,6 +900,89 @@ function render(page) {
 }
 
 // ============================================================
+// ⭐ MOBILE OPTIMIZATIONS
+// ============================================================
+
+function optimizeForMobile() {
+  if (isMobile()) {
+    document.querySelectorAll('.orb').forEach(function(orb) {
+      orb.style.animation = 'none';
+      orb.style.filter = 'blur(40px)';
+    });
+    document.querySelector('.bg-ambient')?.style.setProperty('opacity', '0.3');
+    document.querySelectorAll('.cursor-glow, .custom-cursor, body::after').forEach(function(el) {
+      if (el) el.style.display = 'none';
+    });
+  }
+}
+
+function initMobileNav() {
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (!toggle || !navLinks) return;
+
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isOpen = navLinks.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+    toggle.classList.toggle('is-open', isOpen);
+  });
+
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.classList.remove('is-open');
+    });
+  });
+
+  document.addEventListener('click', function(e) {
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !toggle.contains(e.target)) {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.classList.remove('is-open');
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.classList.remove('is-open');
+      toggle.focus();
+    }
+  });
+}
+
+function initBottomNav() {
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  const navItems = document.querySelectorAll('.bottom-nav-item');
+
+  navItems.forEach(function(item) {
+    const href = item.getAttribute('href');
+    if (href === currentPath || (currentPath === 'index.html' && href === 'index.html') || (currentPath === '' && href === 'index.html')) {
+      item.classList.add('active');
+    }
+    item.addEventListener('touchstart', function() {
+      this.style.transform = 'scale(.92)';
+    }, { passive: true });
+    item.addEventListener('touchend', function() {
+      this.style.transform = '';
+    }, { passive: true });
+  });
+}
+
+function fixMobileViewport() {
+  if (isMobile()) {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+    document.querySelectorAll('.hero').forEach(function(el) {
+      el.style.minHeight = 'calc(var(--vh, 1vh) * 85)';
+    });
+  }
+}
+
+// ============================================================
 // INIT
 // ============================================================
 function initLangToggle(page) {
@@ -937,16 +995,6 @@ function initLangToggle(page) {
   });
 }
 
-function initNavToggle() {
-  var toggle = document.querySelector(".nav-toggle");
-  var links = document.querySelector(".nav-links");
-  if (!toggle || !links) return;
-  toggle.addEventListener("click", function() { links.classList.toggle("open"); });
-  links.querySelectorAll("a").forEach(function(a) {
-    a.addEventListener("click", function() { links.classList.remove("open"); });
-  });
-}
-
 // ============================================================
 // BOOT
 // ============================================================
@@ -955,8 +1003,11 @@ function boot() {
   setTheme(getTheme());
   render(page);
   initLangToggle(page);
-  initNavToggle();
+  initMobileNav();
+  initBottomNav();
   initContactForm();
+  optimizeForMobile();
+  fixMobileViewport();
 
   var header = document.querySelector(".site-header");
   if (header) {
@@ -989,7 +1040,7 @@ function boot() {
     });
   }
 
-  if (!document.querySelector('.mobile-subnav')) {
+  if (!document.querySelector('.mobile-subnav') && isMobile()) {
     var sub = document.createElement('div');
     sub.className = 'mobile-subnav';
     sub.innerHTML = '<a href="index.html" aria-label="Home">⌂</a><a href="projects.html" aria-label="Projects">✦</a><a href="blog.html" aria-label="Blog">▤</a><a href="resume.html" aria-label="Resume">◌</a>';
@@ -1003,113 +1054,7 @@ function boot() {
     });
   });
 }
-// ============================================================
-// MOBILE DETECTION & OPTIMIZATION (اضافه شده به script.js)
-// ============================================================
 
-// تشخیص موبایل با دقت بالا
-function isMobileDevice() {
-  return window.innerWidth < 768 || 
-         /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
-}
-
-// تشخیص تاچ دیوایس
-function isTouchDevice() {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-}
-
-// بهینه‌سازی عملکرد در موبایل
-function optimizeForMobile() {
-  if (isMobileDevice()) {
-    // غیرفعال کردن انیمیشن‌های سنگین
-    document.querySelectorAll('.orb').forEach(function(orb) {
-      orb.style.animation = 'none';
-      orb.style.filter = 'blur(40px)';
-    });
-    
-    // کاهش opacity پس‌زمینه
-    document.querySelector('.bg-ambient')?.style.setProperty('opacity', '0.3');
-    
-    // غیرفعال کردن افکت‌های نشانگر
-    document.querySelectorAll('.cursor-glow, .custom-cursor, body::after').forEach(function(el) {
-      if (el) el.style.display = 'none';
-    });
-  }
-}
-
-// مدیریت ناوبری موبایل
-function initMobileNav() {
-  const toggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  
-  if (!toggle || !navLinks) return;
-  
-  toggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    navLinks.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
-  });
-  
-  // بستن منو با کلیک بیرون
-  document.addEventListener('click', function(e) {
-    if (navLinks.classList.contains('open') && 
-        !navLinks.contains(e.target) && 
-        !toggle.contains(e.target)) {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-  
-  // بستن منو با کلیک روی لینک‌ها
-  navLinks.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-  
-  // بستن منو با کلید ESC
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.focus();
-    }
-  });
-}
-
-// مدیریت ساف‌اری موبایل (fix 100vh)
-function fixMobileViewport() {
-  if (isMobileDevice()) {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', vh + 'px');
-    
-    // تنظیم height برای hero
-    document.querySelectorAll('.hero').forEach(function(el) {
-      el.style.minHeight = 'calc(var(--vh, 1vh) * 85)';
-    });
-  }
-}
-
-// ============================================================
-// اجرای بهینه‌سازی‌ها در زمان لود
-// ============================================================
-document.addEventListener('DOMContentLoaded', function() {
-  optimizeForMobile();
-  initMobileNav();
-  fixMobileViewport();
-});
-
-// به‌روزرسانی در زمان تغییر اندازه
-let resizeTimer;
-window.addEventListener('resize', function() {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(function() {
-    if (isMobileDevice()) {
-      fixMobileViewport();
-    }
-  }, 250);
-});
 // ============================================================
 // START
 // ============================================================
@@ -1118,3 +1063,13 @@ if (document.readyState === "loading") {
 } else {
   boot();
 }
+
+let resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() {
+    if (isMobile()) {
+      fixMobileViewport();
+    }
+  }, 250);
+});
