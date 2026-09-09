@@ -2953,3 +2953,30 @@ html[data-theme="light"] .hero-cta .btn-primary {
 html[data-theme="light"] .hero-cta .btn-primary:hover {
   color: #ffffff !important;
 }
+/* ============================================================
+   ABOUT PREVIEW BUTTON — GOLD STYLE
+   ============================================================ */
+.about-preview .btn-view-gold {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #1a1a1a;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  transition: all 0.4s var(--transition);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
+}
+
+.about-preview .btn-view-gold:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
+}
+
+/* لایت‌مود */
+html[data-theme="light"] .about-preview .btn-view-gold {
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.25);
+}
+
+html[data-theme="light"] .about-preview .btn-view-gold:hover {
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.35);
+}
