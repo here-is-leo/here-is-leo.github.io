@@ -2779,7 +2779,21 @@ html[data-theme="light"] .btn-primary,
 html[data-theme="light"] .donate-btn {
   color: #fff !important;
 }
-
+/* ============================================================
+   DARK THEME — خطوط شبکه پس‌زمینه (مثل لایت‌مود)
+   ============================================================ */
+html[data-theme="dark"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .035;
+  background-image: 
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  z-index: -2;
+}
 /* ============================================================
    DARK THEME — بک‌گراند با عمق
    ============================================================ */
@@ -2845,21 +2859,6 @@ html[data-theme="dark"] .bg-ambient .orb:nth-child(4) {
   animation-duration: 22s;
 }
 
-/* ============================================================
-   DARK THEME — افکت نویز ملایم
-   ============================================================ */
-html[data-theme="dark"] body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: .025;
-  background-image: 
-    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
-  background-size: 72px 72px;
-  z-index: -2;
-}
 
 /* ============================================================
    DARK THEME — افکت گرادیانت متحرک روی پس‌زمینه
