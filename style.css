@@ -2972,11 +2972,14 @@ html[data-theme="light"] .hero-cta .btn-primary:hover {
   box-shadow: 0 8px 30px rgba(255, 215, 0, 0.3);
 }
 
-/* لایت‌مود */
+/* ======== لایت‌مود ======== */
 html[data-theme="light"] .about-preview .btn-view-gold {
-  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.25);
+  background: linear-gradient(135deg, #FFD700, #F59E0B);
+  color: #1a1a1a;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
 }
 
 html[data-theme="light"] .about-preview .btn-view-gold:hover {
-  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.35);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.4);
 }
