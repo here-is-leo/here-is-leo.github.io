@@ -1572,7 +1572,7 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     border-radius: 8px;
   }
 
-  /* ---- Nav Toggle ---- */
+  /* ---- Nav Toggle (همبرگر) ---- */
   .nav-toggle {
     display: flex !important;
     align-items: center;
@@ -1633,56 +1633,14 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     left: 10px;
   }
 
-  /* ---- Mobile Subnav (bottom dock) ---- */
-  .mobile-subnav {
+  /* ---- MOBILE BOTTOM NAV (جایگزین mobile-subnav) ---- */
+  .mobile-bottom-nav {
     display: flex !important;
-    align-items: center;
-    justify-content: space-around;
-    position: fixed;
-    left: 50%;
-    bottom: max(12px, env(safe-area-inset-bottom));
-    transform: translateX(-50%);
-    width: min(320px, calc(100vw - 32px));
-    padding: 6px 10px;
-    border-radius: 20px;
-    background: var(--header-glass);
-    backdrop-filter: blur(24px) saturate(1.5);
-    -webkit-backdrop-filter: blur(24px) saturate(1.5);
-    border: 1px solid var(--border-default);
-    box-shadow: 0 8px 30px rgba(0,0,0,.25);
-    z-index: 60;
-    animation: subnavRise .8s .15s var(--transition-bounce) both;
   }
-  .mobile-subnav a {
-    width: 44px;
-    height: 38px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    color: var(--foreground-muted);
-    font-size: 1.1rem;
-    transition: all .25s var(--transition-bounce);
-    text-decoration: none;
-  }
-  .mobile-subnav a:hover,
-  .mobile-subnav a:focus {
-    color: var(--foreground);
-    background: var(--accent-subtle);
-    transform: translateY(-3px);
-  }
-  .mobile-subnav a.active {
-    color: var(--accent-bright);
-    background: var(--accent-subtle);
-  }
-
-  @keyframes subnavRise {
-    from { transform: translate(-50%, 140%); opacity: 0; }
-    to { transform: translate(-50%, 0); opacity: 1; }
-  }
-
+  
   main {
     padding-top: 72px;
-    padding-bottom: 80px;
+    padding-bottom: 86px;
   }
 
   /* ---- Hero Section ---- */
@@ -2113,10 +2071,6 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     min-height: 44px;
     min-width: 44px;
   }
-  .mobile-subnav a {
-    min-height: 38px;
-    min-width: 44px;
-  }
 
   /* ---- Theme & Lang buttons in header ---- */
   .lang-toggle {
@@ -2210,16 +2164,6 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     padding: 18px 14px;
   }
 
-  .mobile-subnav {
-    width: calc(100vw - 24px);
-    padding: 4px 6px;
-  }
-  .mobile-subnav a {
-    width: 38px;
-    height: 34px;
-    font-size: .95rem;
-  }
-
   .site-header .nav {
     padding: 6px 10px;
   }
@@ -2257,6 +2201,39 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
   .nav-links a {
     padding: 8px 12px;
     font-size: .8rem;
+  }
+
+  /* Mobile Bottom Nav - کوچک‌تر */
+  .mobile-bottom-nav {
+    width: calc(100vw - 16px);
+    padding: 4px 6px;
+    border-radius: 22px;
+    bottom: 8px;
+  }
+  .bottom-nav-item {
+    min-height: 40px;
+    min-width: 36px;
+    padding: 4px 6px;
+  }
+  .bottom-nav-item .nav-icon-svg {
+    width: 18px;
+    height: 18px;
+  }
+  .bottom-nav-item .nav-label {
+    font-size: .45rem;
+  }
+  .bottom-nav-center {
+    width: 48px;
+    height: 48px;
+    margin-top: -10px;
+  }
+  .bottom-nav-center .nav-icon-svg {
+    width: 22px;
+    height: 22px;
+  }
+  .bottom-nav-item .nav-indicator {
+    width: 12px;
+    height: 2px;
   }
 }
 
@@ -2299,6 +2276,15 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .mobile-bottom-nav {
+    animation: none !important;
+  }
+  .center-glow {
+    animation: none !important;
+  }
+  .bottom-nav-item {
+    transition: none !important;
   }
 }
 
@@ -2561,12 +2547,31 @@ html[data-theme="light"] .btn-secondary:hover {
     color: #5144c7;
     border-color: rgba(81,68,199,.15);
   }
+  html[data-theme="light"] .mobile-bottom-nav {
+    background: rgba(255, 255, 255, .82);
+    border-color: rgba(46,42,90,.12);
+    box-shadow: 
+      0 8px 32px rgba(40,44,74,.12),
+      0 0 0 1px rgba(255,255,255,.7) inset;
+  }
+  html[data-theme="light"] .bottom-nav-center {
+    background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+    border-color: #fff;
+  }
+  html[data-theme="light"] .bottom-nav-item.active {
+    color: var(--accent);
+  }
+  html[data-theme="light"] .bottom-nav-item::before {
+    background: #fff;
+    border-color: rgba(46,42,90,.12);
+    color: var(--foreground);
+  }
 }
+
 /* ============================================================
    HEADER — دکمه همبرگری با انیمیشن
    ============================================================ */
 
-/* دکمه همبرگری با سه خط */
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -2589,7 +2594,6 @@ html[data-theme="light"] .btn-secondary:hover {
   transform-origin: center;
 }
 
-/* انیمیشن تبدیل به X */
 .nav-toggle[aria-expanded="true"] .hamburger-line:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
@@ -2602,11 +2606,11 @@ html[data-theme="light"] .btn-secondary:hover {
 }
 
 /* ============================================================
-   BOTTOM NAV — نسخه پریمیوم
+   BOTTOM NAV — نسخه پریمیوم (فقط یک بار)
    ============================================================ */
 
 .mobile-bottom-nav {
-  display: none; /* فقط در موبایل نمایش داده می‌شه */
+  display: none;
   position: fixed;
   bottom: 12px;
   left: 50%;
@@ -2623,7 +2627,6 @@ html[data-theme="light"] .btn-secondary:hover {
     0 0 0 1px rgba(255,255,255,.04) inset,
     0 0 40px rgba(94,106,210,.06);
   z-index: 60;
-  display: flex;
   align-items: center;
   justify-content: space-around;
   gap: 2px;
@@ -2641,7 +2644,6 @@ html[data-theme="light"] .btn-secondary:hover {
   }
 }
 
-/* هر آیتم ناوبری */
 .bottom-nav-item {
   position: relative;
   display: flex;
@@ -2662,7 +2664,6 @@ html[data-theme="light"] .btn-secondary:hover {
   cursor: pointer;
 }
 
-/* آیکون SVG */
 .bottom-nav-item .nav-icon-svg {
   width: 22px;
   height: 22px;
@@ -2670,7 +2671,6 @@ html[data-theme="light"] .btn-secondary:hover {
   stroke: currentColor;
 }
 
-/* لیبل زیر آیکون */
 .bottom-nav-item .nav-label {
   font-size: .55rem;
   font-weight: 600;
@@ -2681,7 +2681,6 @@ html[data-theme="light"] .btn-secondary:hover {
   color: var(--foreground-muted);
 }
 
-/* نشانگر فعال */
 .bottom-nav-item .nav-indicator {
   position: absolute;
   bottom: 2px;
@@ -2695,7 +2694,6 @@ html[data-theme="light"] .btn-secondary:hover {
   transition: all .4s var(--transition-bounce);
 }
 
-/* حالت hover */
 .bottom-nav-item:hover {
   color: var(--foreground);
   background: var(--surface-hover);
@@ -2707,7 +2705,6 @@ html[data-theme="light"] .btn-secondary:hover {
   transform: translateY(0) scale(1);
 }
 
-/* حالت active */
 .bottom-nav-item.active {
   color: var(--accent-bright);
 }
@@ -2726,7 +2723,6 @@ html[data-theme="light"] .btn-secondary:hover {
   filter: drop-shadow(0 0 8px var(--accent-glow));
 }
 
-/* ===== آیتم مرکزی (دکمه ویژه) ===== */
 .bottom-nav-center {
   position: relative;
   margin-top: -14px;
@@ -2769,7 +2765,6 @@ html[data-theme="light"] .btn-secondary:hover {
   transform: scale(.94);
 }
 
-/* حلقه نورانی دور دکمه مرکزی */
 .center-glow {
   position: absolute;
   inset: -4px;
@@ -2794,7 +2789,6 @@ html[data-theme="light"] .btn-secondary:hover {
   to { transform: rotate(360deg); }
 }
 
-/* ===== تولتیپ برای آیتم‌ها ===== */
 .bottom-nav-item::before {
   content: attr(data-tooltip);
   position: absolute;
@@ -2820,63 +2814,4 @@ html[data-theme="light"] .btn-secondary:hover {
 .bottom-nav-item:hover::before {
   opacity: 1;
   transform: translateX(-50%) scale(1);
-}
-
-/* ============================================================
-   RESPONSIVE — فقط در موبایل نمایش داده بشه
-   ============================================================ */
-@media (max-width: 768px) {
-  .mobile-bottom-nav {
-    display: flex !important;
-  }
-  
-  /* فضای خالی پایین برای ناوبری */
-  main {
-    padding-bottom: 86px;
-  }
-}
-
-/* ============================================================
-   DARK THEME — تنظیمات اضافی
-   ============================================================ */
-:root {
-  --bottom-nav-bg: rgba(8, 9, 16, .72);
-}
-
-html[data-theme="light"] .mobile-bottom-nav {
-  background: rgba(255, 255, 255, .82);
-  border-color: rgba(46,42,90,.12);
-  box-shadow: 
-    0 8px 32px rgba(40,44,74,.12),
-    0 0 0 1px rgba(255,255,255,.7) inset;
-}
-
-html[data-theme="light"] .bottom-nav-center {
-  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
-  border-color: #fff;
-}
-
-html[data-theme="light"] .bottom-nav-item.active {
-  color: var(--accent);
-}
-
-html[data-theme="light"] .bottom-nav-item::before {
-  background: #fff;
-  border-color: rgba(46,42,90,.12);
-  color: var(--foreground);
-}
-
-/* ============================================================
-   REDUCED MOTION
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
-  .mobile-bottom-nav {
-    animation: none !important;
-  }
-  .center-glow {
-    animation: none !important;
-  }
-  .bottom-nav-item {
-    transition: none !important;
-  }
 }
