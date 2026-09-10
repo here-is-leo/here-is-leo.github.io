@@ -24,10 +24,9 @@ function isMobile() {
   return window.innerWidth < 768 || /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 }
 
-function isTouchDevice() {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-}
-
+// ============================================================
+// PERFORMANCE OPTIMIZATION — Windows Detection
+// ============================================================
 function isLowPerformance() {
   const isWindows = navigator.platform.toLowerCase().includes('win');
   const isSlow = window.navigator.hardwareConcurrency <= 4;
@@ -41,8 +40,13 @@ function el(tag, cls, html) {
   return n;
 }
 
+// small helper: run a render step in isolation so one broken
+// section can never take down the whole page (this was the
+// root cause of the empty-page bug — see renderHome projects loop)
 function safe(label, fn) {
-  try { fn(); } catch (err) {
+  try {
+    fn();
+  } catch (err) {
     console.error("❌ render step failed: " + label, err);
   }
 }
@@ -206,6 +210,37 @@ function animateCounters() {
 }
 
 // ============================================================
+// SPLIT-TEXT TITLES — words fly in on scroll
+// ============================================================
+function initSplitTitles() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var heads = document.querySelectorAll(".section-head h2, .about-hero h1");
+  heads.forEach(function(h) {
+    if (h.dataset.split === "done" || !h.textContent.trim()) return;
+    h.dataset.split = "done";
+    var words = h.textContent.split(/\s+/).filter(Boolean);
+    h.innerHTML = words.map(function(w, i) {
+      return '<span class="split-word" style="transition-delay:' + (i * 0.045) + 's">' + w + '</span>';
+    }).join(' ');
+    h.classList.add("split-ready");
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    document.querySelectorAll(".split-ready").forEach(function(h) { h.classList.add("split-in"); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("split-in");
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll(".split-ready:not(.split-in)").forEach(function(h) { obs.observe(h); });
+}
+
+// ============================================================
 // SCROLL REVEAL
 // ============================================================
 function initReveal() {
@@ -279,15 +314,17 @@ function initParallax() {
 }
 
 // ============================================================
-// CINEMATIC MOTION
+// CINEMATIC MOTION — Premium Cursor & Interactive Effects
 // ============================================================
 function initCinematicMotion() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (isMobile()) return;
   if (isLowPerformance()) return;
 
-  document.querySelectorAll(".particle-field,.cursor-glow,.custom-cursor").forEach(function(node) { node.remove(); });
+  // Remove existing elements
+  document.querySelectorAll(".particle-field,.cursor-glow,.custom-cursor,.cursor-trail").forEach(function(node) { node.remove(); });
 
+  // ---- PARTICLES ----
   var field = document.createElement("div");
   field.className = "particle-field";
   for (var i = 0; i < 28; i++) {
@@ -302,6 +339,8 @@ function initCinematicMotion() {
   }
   document.body.appendChild(field);
 
+  // ---- CUSTOM CURSOR ----
+  document.body.classList.add("has-custom-cursor");
   var cursor = document.createElement("div");
   cursor.className = "custom-cursor";
   cursor.innerHTML = '<span class="custom-cursor-ring"></span><span class="custom-cursor-dot"></span>';
@@ -309,15 +348,31 @@ function initCinematicMotion() {
   var ring = cursor.querySelector(".custom-cursor-ring");
   var dot = cursor.querySelector(".custom-cursor-dot");
 
+  // ---- GLOW ----
   var glow = document.createElement("div");
   glow.className = "cursor-glow";
   document.body.appendChild(glow);
+
+  // ---- TRAIL ----
+  var TRAIL_COUNT = 6;
+  var trailEls = [];
+  var trailContainer = document.createElement("div");
+  trailContainer.className = "cursor-trail";
+  for (var t = 0; t < TRAIL_COUNT; t++) {
+    var tEl = document.createElement("span");
+    tEl.className = "cursor-trail-dot";
+    tEl.style.setProperty("--i", t);
+    trailContainer.appendChild(tEl);
+    trailEls.push({ el: tEl, x: window.innerWidth / 2, y: window.innerHeight / 2 });
+  }
+  document.body.appendChild(trailContainer);
 
   var px = window.innerWidth / 2, py = window.innerHeight / 2;
   var rx = px, ry = py;
   var gx = px, gy = py;
   var visible = false;
 
+  // ---- POINTER MOVE ----
   document.addEventListener("pointermove", function(e) {
     px = e.clientX;
     py = e.clientY;
@@ -328,8 +383,10 @@ function initCinematicMotion() {
       visible = true;
       cursor.classList.add("is-visible");
       glow.classList.add("is-visible");
+      trailContainer.classList.add("is-visible");
     }
 
+    // Dot tracks 1:1 (no lag)
     dot.style.transform = "translate3d(" + px + "px," + py + "px,0) translate(-50%,-50%)";
   });
 
@@ -337,8 +394,10 @@ function initCinematicMotion() {
     visible = false;
     cursor.classList.remove("is-visible");
     glow.classList.remove("is-visible");
+    trailContainer.classList.remove("is-visible");
   });
 
+  // ---- FOLLOW LOOP ----
   function follow() {
     rx += (px - rx) * 0.10;
     ry += (py - ry) * 0.10;
@@ -349,10 +408,22 @@ function initCinematicMotion() {
     glow.style.left = gx + "px";
     glow.style.top = gy + "px";
 
+    // Each trail dot chases the one before it, staggered
+    var leadX = px, leadY = py;
+    for (var i = 0; i < trailEls.length; i++) {
+      var node = trailEls[i];
+      node.x += (leadX - node.x) * 0.30;
+      node.y += (leadY - node.y) * 0.30;
+      node.el.style.transform = "translate3d(" + node.x + "px," + node.y + "px,0) translate(-50%,-50%)";
+      leadX = node.x;
+      leadY = node.y;
+    }
+
     requestAnimationFrame(follow);
   }
   follow();
 
+  // ---- HOVER DETECTION ----
   var interactiveSelectors = [
     "a", "button", ".btn", ".project-card", ".skill-card", ".focus-card",
     ".contact-card", "input", "textarea", ".repo-card", ".blog-post-card",
@@ -370,6 +441,18 @@ function initCinematicMotion() {
     });
   });
 
+  // ---- TEXT HOVER DETECTION (reading cursor) ----
+  var textSelectors = "p, h1, h2, h3, li, .form-field input, .form-field textarea";
+  document.querySelectorAll(textSelectors).forEach(function(node) {
+    node.addEventListener("pointerenter", function() {
+      cursor.classList.add("is-text");
+    });
+    node.addEventListener("pointerleave", function() {
+      cursor.classList.remove("is-text");
+    });
+  });
+
+  // ---- ACTIVE STATE ----
   document.querySelectorAll("a, button, .btn, .donate-btn").forEach(function(node) {
     node.addEventListener("pointerdown", function() {
       cursor.classList.add("is-active");
@@ -379,17 +462,38 @@ function initCinematicMotion() {
     });
   });
 
+  // ---- MAGNETIC BUTTONS ----
+  document.querySelectorAll(".btn, .donate-btn").forEach(function(node) {
+    node.classList.add("is-magnetic");
+    node.addEventListener("pointermove", function(e) {
+      var r = node.getBoundingClientRect();
+      var mx = (e.clientX - r.left - r.width / 2) * 0.25;
+      var my = (e.clientY - r.top - r.height / 2) * 0.35;
+      node.style.transform = "translate3d(" + mx + "px," + my + "px,0)";
+    });
+    node.addEventListener("pointerleave", function() {
+      node.style.transform = "translate3d(0,0,0)";
+    });
+  });
+
+  // ---- 3D TILT ON CARDS (+ subtle magnetic drift) ----
   var tiltableCards = document.querySelectorAll(".project-card,.skill-card,.focus-card,.contact-card");
   tiltableCards.forEach(function(card) {
     var cx = 0, cy = 0;
     var curX = 0, curY = 0;
+    var mx = 0, my = 0;
+    var curMx = 0, curMy = 0;
     var raf = null;
 
     function tick() {
       curX += (cx - curX) * 0.12;
       curY += (cy - curY) * 0.12;
-      card.style.transform = "perspective(800px) rotateX(" + curY + "deg) rotateY(" + curX + "deg) translateY(-5px)";
-      if (Math.abs(cx - curX) > 0.01 || Math.abs(cy - curY) > 0.01) {
+      curMx += (mx - curMx) * 0.12;
+      curMy += (my - curMy) * 0.12;
+
+      card.style.transform = "perspective(800px) rotateX(" + curY + "deg) rotateY(" + curX + "deg) translate3d(" + curMx + "px," + (curMy - 5) + "px,0)";
+
+      if (Math.abs(cx - curX) > 0.01 || Math.abs(cy - curY) > 0.01 || Math.abs(mx - curMx) > 0.05 || Math.abs(my - curMy) > 0.05) {
         raf = requestAnimationFrame(tick);
       } else {
         raf = null;
@@ -400,12 +504,16 @@ function initCinematicMotion() {
       var r = card.getBoundingClientRect();
       cx = ((e.clientX - r.left) / r.width - 0.5) * 4;
       cy = ((e.clientY - r.top) / r.height - 0.5) * -4;
+      mx = ((e.clientX - r.left) / r.width - 0.5) * 10;
+      my = ((e.clientY - r.top) / r.height - 0.5) * 10;
       if (!raf) raf = requestAnimationFrame(tick);
     });
 
     card.addEventListener("pointerleave", function() {
       cx = 0;
       cy = 0;
+      mx = 0;
+      my = 0;
       if (!raf) raf = requestAnimationFrame(tick);
     });
   });
@@ -442,6 +550,7 @@ function renderHome(data) {
     return;
   }
 
+  // ====== HERO ======
   safe("hero", function() {
     var hero = document.getElementById("hero-content");
     if (!hero) return;
@@ -466,6 +575,7 @@ function renderHome(data) {
     setTimeout(function() { startTypewriter(data.hero.typewriter, tw); }, 600);
   });
 
+  // ====== AVATAR ======
   safe("avatar", function() {
     var avatar = document.getElementById("hero-avatar");
     if (!avatar) return;
@@ -474,6 +584,7 @@ function renderHome(data) {
     if (span) span.style.display = "none";
   });
 
+  // ====== STATS ======
   safe("stats", function() {
     var statsGrid = document.getElementById("stats-grid");
     if (!statsGrid || !data.stats) return;
@@ -485,6 +596,7 @@ function renderHome(data) {
     });
   });
 
+  // ====== SKILLS ======
   safe("skills", function() {
     if (!data.skills) return;
     var skillsTag = document.getElementById("skills-tag");
@@ -517,6 +629,7 @@ function renderHome(data) {
     }
   });
 
+  // ====== FOCUS ======
   safe("focus", function() {
     if (!data.focus) return;
     var focusTag = document.getElementById("focus-tag");
@@ -540,6 +653,7 @@ function renderHome(data) {
     }
   });
 
+  // ====== PROJECTS ======
   safe("projects", function() {
     if (!data.projects) return;
     var projTag = document.getElementById("projects-tag");
@@ -589,6 +703,7 @@ function renderHome(data) {
     }
   });
 
+  // ====== DONATION ======
   safe("donation", function() {
     if (!data.donation) return;
     var donationBadge = document.getElementById("donation-badge");
@@ -603,6 +718,7 @@ function renderHome(data) {
     if (donateMsg) donateMsg.innerHTML = `<span class="emoji">${renderIcon("target", "icon")}</span><span>${data.donation.msg}</span>`;
   });
 
+  // ====== ABOUT PREVIEW ======
   safe("aboutPreview", function() {
     if (!data.aboutPreview) return;
     var apTitle = document.getElementById("about-preview-title");
@@ -613,6 +729,7 @@ function renderHome(data) {
     if (apCta) apCta.textContent = data.aboutPreview.cta;
   });
 
+  // ====== CONTACT ======
   safe("contact", function() {
     if (!data.contact) return;
     var contactTag = document.getElementById("contact-tag");
@@ -814,6 +931,7 @@ function renderResume(data) {
 function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
+  const isFa = () => getLang() === 'fa';
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -823,9 +941,9 @@ function initContactForm() {
     const btnText = submitBtn.querySelector('.btn-text');
 
     status.className = 'form-status is-visible is-pending';
-    status.textContent = '⏳ در حال ارسال پیام...';
+    status.textContent = isFa() ? '⏳ در حال ارسال پیام...' : '⏳ Sending your message...';
     submitBtn.disabled = true;
-    btnText.textContent = 'در حال ارسال...';
+    btnText.textContent = isFa() ? 'در حال ارسال...' : 'Sending...';
 
     try {
       const response = await fetch(form.action, {
@@ -836,9 +954,9 @@ function initContactForm() {
 
       if (response.ok) {
         status.className = 'form-status is-visible is-success';
-        status.textContent = '✅ پیام شما با موفقیت ارسال شد!';
+        status.textContent = isFa() ? '✅ پیام شما با موفقیت ارسال شد!' : '✅ Your message was sent successfully!';
         form.reset();
-        btnText.textContent = 'ارسال پیام';
+        btnText.textContent = isFa() ? 'ارسال پیام' : 'Send message';
         submitBtn.disabled = false;
         setTimeout(() => { status.className = 'form-status'; }, 5000);
       } else {
@@ -846,8 +964,8 @@ function initContactForm() {
       }
     } catch (error) {
       status.className = 'form-status is-visible is-error';
-      status.textContent = '❌ خطا در ارسال پیام. لطفاً دوباره تلاش کنید.';
-      btnText.textContent = 'ارسال پیام';
+      status.textContent = isFa() ? '❌ خطا در ارسال پیام. لطفاً دوباره تلاش کنید.' : '❌ Something went wrong. Please try again.';
+      btnText.textContent = isFa() ? 'ارسال پیام' : 'Send message';
       submitBtn.disabled = false;
     }
   });
@@ -861,13 +979,32 @@ function render(page) {
   var data = (typeof SITE !== "undefined") ? SITE[lang] : null;
 
   if (!data) {
-    console.error('❌ SITE data not available for lang=' + lang);
+    console.error('❌ SITE data not available for lang=' + lang + '. content.js may have failed to load.');
     document.dispatchEvent(new CustomEvent("site:render-failed", { detail: { page: page, lang: lang } }));
     return;
   }
 
   safe("applyMeta", function() { applyMeta(data, page); });
   safe("renderNav", function() { renderNav(data, page); });
+  safe("renderContactForm", function() {
+    var fa = data.lang === "fa";
+    var copy = fa ? {
+      tag: "✉️ ارسال پیام", title: "یک پیام برای من بفرستید",
+      subtitle: "برای همکاری، پیشنهاد یا هر سوالی، خوشحال می‌شوم از شما بشنوم.",
+      name: "نام شما", email: "ایمیل شما", message: "پیام شما", submit: "ارسال پیام"
+    } : {
+      tag: "✉️ Send a message", title: "Send me a message",
+      subtitle: "For collaboration, suggestions, or any questions, I would be happy to hear from you.",
+      name: "Your name", email: "Your email", message: "Your message", submit: "Send message"
+    };
+    var nodes = {
+      tag: document.querySelector("[data-contact-form-tag]"), title: document.querySelector("[data-contact-form-title]"),
+      subtitle: document.querySelector("[data-contact-form-subtitle]"), name: document.querySelector("[data-contact-form-name]"),
+      email: document.querySelector("[data-contact-form-email]"), message: document.querySelector("[data-contact-form-message]"),
+      submit: document.querySelector("[data-contact-form-submit]")
+    };
+    Object.keys(nodes).forEach(function(key) { if (nodes[key]) nodes[key].textContent = copy[key]; });
+  });
 
   if (page === "about") {
     renderAbout(data);
@@ -883,6 +1020,7 @@ function render(page) {
 
   setTimeout(function() {
     safe("initReveal", initReveal);
+    safe("initSplitTitles", initSplitTitles);
     safe("initRipple", initRipple);
     safe("initSpotlights", initSpotlights);
     safe("initParallax", initParallax);
@@ -900,89 +1038,6 @@ function render(page) {
 }
 
 // ============================================================
-// ⭐ MOBILE OPTIMIZATIONS
-// ============================================================
-
-function optimizeForMobile() {
-  if (isMobile()) {
-    document.querySelectorAll('.orb').forEach(function(orb) {
-      orb.style.animation = 'none';
-      orb.style.filter = 'blur(40px)';
-    });
-    document.querySelector('.bg-ambient')?.style.setProperty('opacity', '0.3');
-    document.querySelectorAll('.cursor-glow, .custom-cursor, body::after').forEach(function(el) {
-      if (el) el.style.display = 'none';
-    });
-  }
-}
-
-function initMobileNav() {
-  const toggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  if (!toggle || !navLinks) return;
-
-  toggle.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const isOpen = navLinks.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', isOpen);
-    toggle.classList.toggle('is-open', isOpen);
-  });
-
-  navLinks.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.classList.remove('is-open');
-    });
-  });
-
-  document.addEventListener('click', function(e) {
-    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !toggle.contains(e.target)) {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.classList.remove('is-open');
-    }
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.classList.remove('is-open');
-      toggle.focus();
-    }
-  });
-}
-
-function initBottomNav() {
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-  const navItems = document.querySelectorAll('.bottom-nav-item');
-
-  navItems.forEach(function(item) {
-    const href = item.getAttribute('href');
-    if (href === currentPath || (currentPath === 'index.html' && href === 'index.html') || (currentPath === '' && href === 'index.html')) {
-      item.classList.add('active');
-    }
-    item.addEventListener('touchstart', function() {
-      this.style.transform = 'scale(.92)';
-    }, { passive: true });
-    item.addEventListener('touchend', function() {
-      this.style.transform = '';
-    }, { passive: true });
-  });
-}
-
-function fixMobileViewport() {
-  if (isMobile()) {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', vh + 'px');
-    document.querySelectorAll('.hero').forEach(function(el) {
-      el.style.minHeight = 'calc(var(--vh, 1vh) * 85)';
-    });
-  }
-}
-
-// ============================================================
 // INIT
 // ============================================================
 function initLangToggle(page) {
@@ -995,6 +1050,16 @@ function initLangToggle(page) {
   });
 }
 
+function initNavToggle() {
+  var toggle = document.querySelector(".nav-toggle");
+  var links = document.querySelector(".nav-links");
+  if (!toggle || !links) return;
+  toggle.addEventListener("click", function() { links.classList.toggle("open"); });
+  links.querySelectorAll("a").forEach(function(a) {
+    a.addEventListener("click", function() { links.classList.remove("open"); });
+  });
+}
+
 // ============================================================
 // BOOT
 // ============================================================
@@ -1003,11 +1068,8 @@ function boot() {
   setTheme(getTheme());
   render(page);
   initLangToggle(page);
-  initMobileNav();
-  initBottomNav();
+  initNavToggle();
   initContactForm();
-  optimizeForMobile();
-  fixMobileViewport();
 
   var header = document.querySelector(".site-header");
   if (header) {
@@ -1040,7 +1102,7 @@ function boot() {
     });
   }
 
-  if (!document.querySelector('.mobile-subnav') && isMobile()) {
+  if (!document.querySelector('.mobile-subnav')) {
     var sub = document.createElement('div');
     sub.className = 'mobile-subnav';
     sub.innerHTML = '<a href="index.html" aria-label="Home">⌂</a><a href="projects.html" aria-label="Projects">✦</a><a href="blog.html" aria-label="Blog">▤</a><a href="resume.html" aria-label="Resume">◌</a>';
@@ -1054,7 +1116,146 @@ function boot() {
     });
   });
 }
+// ============================================================
+// MOBILE DETECTION & OPTIMIZATION (اضافه شده به script.js)
+// ============================================================
 
+// تشخیص موبایل با دقت بالا
+function isMobileDevice() {
+  return window.innerWidth < 768 || 
+         /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+}
+
+// تشخیص تاچ دیوایس
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+// بهینه‌سازی عملکرد در موبایل
+function optimizeForMobile() {
+  if (isMobileDevice()) {
+    // غیرفعال کردن انیمیشن‌های سنگین
+    document.querySelectorAll('.orb').forEach(function(orb) {
+      orb.style.animation = 'none';
+      orb.style.filter = 'blur(40px)';
+    });
+    
+    // کاهش opacity پس‌زمینه
+    document.querySelector('.bg-ambient')?.style.setProperty('opacity', '0.3');
+    
+    // غیرفعال کردن افکت‌های نشانگر
+    document.body.classList.remove('has-custom-cursor');
+    document.querySelectorAll('.cursor-glow, .custom-cursor, .cursor-trail').forEach(function(el) {
+      if (el) el.style.display = 'none';
+    });
+  }
+}
+
+// مدیریت ناوبری موبایل
+function initMobileNav() {
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (!toggle || !navLinks) return;
+  
+  toggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    navLinks.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+  });
+  
+  // بستن منو با کلیک بیرون
+  document.addEventListener('click', function(e) {
+    if (navLinks.classList.contains('open') && 
+        !navLinks.contains(e.target) && 
+        !toggle.contains(e.target)) {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+  
+  // بستن منو با کلیک روی لینک‌ها
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+  
+  // بستن منو با کلید ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+  });
+}
+
+// مدیریت ساف‌اری موبایل (fix 100vh)
+function fixMobileViewport() {
+  if (isMobileDevice()) {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', vh + 'px');
+    
+    // تنظیم height برای hero
+    document.querySelectorAll('.hero').forEach(function(el) {
+      el.style.minHeight = 'calc(var(--vh, 1vh) * 85)';
+    });
+  }
+}
+
+// ============================================================
+// اجرای بهینه‌سازی‌ها در زمان لود
+// ============================================================
+// ============================================================
+// PRELOADER — logo intro splash
+// ============================================================
+(function initPreloader() {
+  if (document.readyState !== "loading" && document.readyState !== "interactive") {
+    // Too late to show a splash usefully
+  }
+  var pre = document.createElement("div");
+  pre.className = "site-preloader";
+  pre.innerHTML = '<div class="preloader-mark"><img src="logo.png" alt="" /><span class="preloader-ring"></span></div>';
+  document.documentElement.appendChild(pre);
+  document.body.classList.add("preload-lock");
+
+  var removed = false;
+  function finish() {
+    if (removed) return;
+    removed = true;
+    pre.classList.add("is-leaving");
+    document.body.classList.remove("preload-lock");
+    setTimeout(function() { pre.remove(); }, 700);
+  }
+
+  // Reveal as soon as content is rendered, with a small minimum dwell so it doesn't just flash
+  var minDwell = new Promise(function(res) { setTimeout(res, 500); });
+  var rendered = new Promise(function(res) {
+    document.addEventListener("site:rendered", res, { once: true });
+    document.addEventListener("site:render-failed", res, { once: true });
+    setTimeout(res, 2200); // hard safety cap
+  });
+  Promise.all([minDwell, rendered]).then(finish);
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  optimizeForMobile();
+  initMobileNav();
+  fixMobileViewport();
+});
+
+// به‌روزرسانی در زمان تغییر اندازه
+let resizeTimer;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() {
+    if (isMobileDevice()) {
+      fixMobileViewport();
+    }
+  }, 250);
+});
 // ============================================================
 // START
 // ============================================================
@@ -1063,13 +1264,3 @@ if (document.readyState === "loading") {
 } else {
   boot();
 }
-
-let resizeTimer;
-window.addEventListener('resize', function() {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(function() {
-    if (isMobile()) {
-      fixMobileViewport();
-    }
-  }, 250);
-});
