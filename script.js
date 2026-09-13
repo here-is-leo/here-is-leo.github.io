@@ -1050,16 +1050,6 @@ function initLangToggle(page) {
   });
 }
 
-function initNavToggle() {
-  var toggle = document.querySelector(".nav-toggle");
-  var links = document.querySelector(".nav-links");
-  if (!toggle || !links) return;
-  toggle.addEventListener("click", function() { links.classList.toggle("open"); });
-  links.querySelectorAll("a").forEach(function(a) {
-    a.addEventListener("click", function() { links.classList.remove("open"); });
-  });
-}
-
 // ============================================================
 // BOOT
 // ============================================================
@@ -1172,7 +1162,9 @@ function initMobileNav() {
   toggle.dataset.navBound = 'true';
   
   toggle.addEventListener('click', function(e) {
+    e.preventDefault();
     e.stopPropagation();
+    e.stopImmediatePropagation();
     navLinks.classList.toggle('open');
     toggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
   });
