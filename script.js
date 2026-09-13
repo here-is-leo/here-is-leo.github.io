@@ -1166,6 +1166,10 @@ function initMobileNav() {
   const navLinks = document.querySelector('.nav-links');
   
   if (!toggle || !navLinks) return;
+  // boot can run more than once after a language/content render. Keep this
+  // initializer idempotent so one tap can never trigger two toggles.
+  if (toggle.dataset.navBound === 'true') return;
+  toggle.dataset.navBound = 'true';
   
   toggle.addEventListener('click', function(e) {
     e.stopPropagation();
