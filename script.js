@@ -1068,7 +1068,8 @@ function boot() {
   setTheme(getTheme());
   render(page);
   initLangToggle(page);
-  initNavToggle();
+  // A single owner for the mobile drawer prevents double-toggle bugs.
+  initMobileNav();
   initContactForm();
 
   var header = document.querySelector(".site-header");
@@ -1105,9 +1106,17 @@ function boot() {
   if (!document.querySelector('.mobile-subnav')) {
     var sub = document.createElement('div');
     sub.className = 'mobile-subnav';
-    sub.innerHTML = '<a href="index.html" aria-label="Home">⌂</a><a href="projects.html" aria-label="Projects">✦</a><a href="blog.html" aria-label="Blog">▤</a><a href="resume.html" aria-label="Resume">◌</a>';
+    sub.innerHTML = '<a href="index.html" data-mobile-page="home" aria-label="خانه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.8 12 3l9 7.8v9.2a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>خانه</span></a>'
+      + '<a href="projects.html" data-mobile-page="projects" aria-label="پروژه‌ها"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/></svg><span>پروژه‌ها</span></a>'
+      + '<a href="blog.html" data-mobile-page="blog" aria-label="وبلاگ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a1 1 0 0 1 1 1v14H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4h9M7 12h9M7 16h6"/></svg><span>وبلاگ</span></a>'
+      + '<a href="resume.html" data-mobile-page="resume" aria-label="رزومه"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10a2 2 0 0 1 2 2v14H5V6a2 2 0 0 1 2-2zm3-2h4v4h-4zM8 11h8M8 15h6"/></svg><span>رزومه</span></a>';
     document.body.appendChild(sub);
   }
+  var currentPage = document.body.dataset.page || 'home';
+  document.querySelectorAll('.mobile-subnav [data-mobile-page]').forEach(function (link) {
+    link.classList.toggle('active', link.dataset.mobilePage === currentPage);
+    link.setAttribute('aria-current', link.dataset.mobilePage === currentPage ? 'page' : 'false');
+  });
 
   document.querySelectorAll("[data-theme-toggle]").forEach(function(btn) {
     btn.addEventListener("click", function() {
@@ -1242,10 +1251,6 @@ function fixMobileViewport() {
 
 document.addEventListener('DOMContentLoaded', function() {
   optimizeForMobile();
-  // NOTE: initMobileNav() removed on purpose — it duplicated initNavToggle()
-  // (called from boot()) and both attached a click listener to the same
-  // .nav-toggle button. On tap, the two listeners toggled the "open" class
-  // twice in the same event, so the menu opened then instantly closed again.
   fixMobileViewport();
 });
 
