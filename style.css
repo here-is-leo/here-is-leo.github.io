@@ -1959,16 +1959,31 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
     animation: subnavRise .8s .15s var(--transition-bounce) both;
   }
   .mobile-subnav a {
-    width: 44px;
-    height: 38px;
-    display: grid;
-    place-items: center;
+    min-width: 62px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
     border-radius: 12px;
     color: var(--foreground-muted);
-    font-size: 1.1rem;
+    font-size: .68rem;
+    font-weight: 700;
+    line-height: 1;
     transition: all .25s var(--transition-bounce);
     text-decoration: none;
   }
+  .mobile-subnav a svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .mobile-subnav a span { white-space: nowrap; }
   .mobile-subnav a:hover,
   .mobile-subnav a:focus {
     color: var(--foreground);
@@ -1978,6 +1993,7 @@ html[data-theme="light"] .theme-toggle .theme-icon { transform: rotate(360deg); 
   .mobile-subnav a.active {
     color: var(--accent-bright);
     background: var(--accent-subtle);
+    box-shadow: 0 0 0 1px var(--border-accent) inset, 0 4px 14px rgba(94,106,210,.18);
   }
 
   @keyframes subnavRise {
