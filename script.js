@@ -1242,7 +1242,10 @@ function fixMobileViewport() {
 
 document.addEventListener('DOMContentLoaded', function() {
   optimizeForMobile();
-  initMobileNav();
+  // NOTE: initMobileNav() removed on purpose — it duplicated initNavToggle()
+  // (called from boot()) and both attached a click listener to the same
+  // .nav-toggle button. On tap, the two listeners toggled the "open" class
+  // twice in the same event, so the menu opened then instantly closed again.
   fixMobileViewport();
 });
 
