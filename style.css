@@ -2988,3 +2988,42 @@ html[data-theme="light"] .skill-card .icon {
 html[data-theme="light"] .skill-card:hover .icon {
   background: color-mix(in srgb, var(--card-accent) 20%, #ffffff) !important;
 }
+/* ============================================================
+   LIGHT THEME — MOBILE MENU FIX
+   ============================================================ */
+@media (max-width: 768px) {
+  html[data-theme="light"] .mobile-menu-backdrop {
+    background: rgba(255, 255, 255, .75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  html[data-theme="light"] .mobile-menu-sheet {
+    background: linear-gradient(160deg, #ffffff, #f2f1fa);
+    border-left: 1px solid rgba(81, 68, 199, .18);
+    box-shadow: -18px 0 50px rgba(40, 44, 74, .15);
+  }
+  
+  html[data-theme="light"] .mobile-menu-title {
+    color: #5144c7 !important; /* بنفش تیره برای عنوان */
+  }
+  
+  html[data-theme="light"] .mobile-menu-items a {
+    background: rgba(81, 68, 199, .06);
+    border-color: rgba(81, 68, 199, .15);
+    color: #1c2036 !important; /* متن تیره خوانا */
+  }
+  
+  html[data-theme="light"] .mobile-menu-items a:hover,
+  html[data-theme="light"] .mobile-menu-items a:focus {
+    background: rgba(81, 68, 199, .12);
+    border-color: rgba(81, 68, 199, .35);
+    color: #5144c7 !important;
+  }
+  
+  html[data-theme="light"] .mobile-menu-close {
+    background: #ffffff;
+    border-color: rgba(81, 68, 199, .2);
+    color: #1c2036;
+  }
+}
