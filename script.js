@@ -1152,22 +1152,29 @@ function optimizeForMobile() {
 
 // مدیریت ناوبری موبایل
 function initMobileNav() {
-  const toggle = document.querySelector('.nav-toggle');
+  let toggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
   
   if (!toggle || !navLinks) return;
   // boot can run more than once after a language/content render. Keep this
   // initializer idempotent so one tap can never trigger two toggles.
+  // Replace the control once to purge stale listeners left by older cached
+  // script versions or repeated boot cycles.
+  if (toggle.dataset.navBound !== 'true') {
+    const cleanToggle = toggle.cloneNode(true);
+    toggle.replaceWith(cleanToggle);
+    toggle = cleanToggle;
+  }
   if (toggle.dataset.navBound === 'true') return;
   toggle.dataset.navBound = 'true';
   
-  toggle.addEventListener('click', function(e) {
+  toggle.onclick = function(e) {
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
     navLinks.classList.toggle('open');
     toggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
-  });
+  };
   
   // بستن منو با کلیک بیرون
   document.addEventListener('click', function(e) {
