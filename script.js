@@ -1156,6 +1156,23 @@ function initMobileNav() {
   const navLinks = document.querySelector('.nav-links');
   
   if (!toggle || !navLinks) return;
+  if (document.querySelector('.mobile-menu-panel')) return;
+  var panel = document.createElement('aside');
+  panel.className = 'mobile-menu-panel';
+  panel.setAttribute('aria-hidden', 'true');
+  panel.innerHTML = '<div class="mobile-menu-backdrop"></div><div class="mobile-menu-sheet" role="dialog" aria-modal="true" aria-label="منوی سایت"><button class="mobile-menu-close" type="button" aria-label="بستن منو">×</button><div class="mobile-menu-title">منوی سایت</div><div class="mobile-menu-items"></div></div>';
+  var items = panel.querySelector('.mobile-menu-items');
+  navLinks.querySelectorAll('a').forEach(function (a) { items.appendChild(a.cloneNode(true)); });
+  document.body.appendChild(panel);
+  var closePanel = function () { panel.classList.remove('is-open'); panel.setAttribute('aria-hidden','true'); toggle.setAttribute('aria-expanded','false'); };
+  var openPanel = function (e) { if (e) { e.preventDefault(); e.stopPropagation(); } panel.classList.add('is-open'); panel.setAttribute('aria-hidden','false'); toggle.setAttribute('aria-expanded','true'); };
+  toggle.onclick = openPanel;
+  panel.querySelector('.mobile-menu-close').onclick = closePanel;
+  panel.querySelector('.mobile-menu-backdrop').onclick = closePanel;
+  panel.querySelectorAll('a').forEach(function (a) { a.onclick = closePanel; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
+  navLinks.setAttribute('aria-hidden','true');
+  return;
   // boot can run more than once after a language/content render. Keep this
   // initializer idempotent so one tap can never trigger two toggles.
   // Replace the control once to purge stale listeners left by older cached
