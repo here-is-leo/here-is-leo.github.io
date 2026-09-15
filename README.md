@@ -1,28 +1,177 @@
-<div align="center"> <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=1,11,21,31&height=220&section=header&text=HERE-IS-LEO.IR&fontSize=52&fontAlignY=38&animation=twinkling&fontColor=ffffff&desc=%E2%9A%A1%20Zero-Framework%20%C2%B7%20Lightweight%20%C2%B7%20Bilingual%20Portfolio&descAlignY=62&descSize=18" width="100%" alt="HERE-IS-LEO Header"/> <a href="https://here-is-leo.ir"> <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&pause=1000&color=00F0FF&center=true&vCenter=true&random=false&width=700&height=50&lines=Ilia+Farahani+%7C+Backend+%26+Security+Researcher;Python+Developer+%7C+Cybersecurity+Enthusiast;Zero-Framework+Architecture+%7C+100%25+Vanilla+JS;Ultra-Fast+%C2%B7+Lightweight+%C2%B7+Bilingual+%28RTL%2FLTR%29;Production-Ready+Source+Code+at+here-is-leo.ir" alt="Typing Animation"/> </a> <br/> <p align="center"> <a href="https://here-is-leo.ir"> <img src="https://img.shields.io/badge/LIVE%20DEMO-here--is--leo.ir-00f0ff?style=for-the-badge&logo=googlechrome&logoColor=black"/> </a> <img src="https://img.shields.io/badge/BUILD-NO%20BUNDLER-22c55e?style=for-the-badge&logo=javascript&logoColor=white"/> <img src="https://img.shields.io/badge/ARCH-VANILLA%20ES6%2B-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/> <img src="https://img.shields.io/badge/FOCUS-BACKEND%20%26%20SECURITY-a855f7?style=for-the-badge&logo=linux&logoColor=white"/> <img src="https://img.shields.io/badge/LICENSE-MIT-6366f1?style=for-the-badge&logo=opensourceinitiative&logoColor=white"/> </p> <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="Animated Divider"/> </div> # ⚡ HERE-IS-LEO.IR > **Personal portfolio, engineering playground, and digital identity of Ilia Farahani.** A lightweight, bilingual and performance-focused personal website built around a **zero-framework architecture**. Focused on: ```text Backend Development Cybersecurity Python Web Engineering Linux Automation Performance Clean Architecture 🌐 English 👨‍💻 About 
+<div align="center"> <!-- ═══════════════════════════════════════════════════════════════════════ --> <!-- HERO --> <!-- ═══════════════════════════════════════════════════════════════════════ --> <img src="https://capsule-render.vercel.app/api?type=waving&color=0:050816,50:111827,100:00f0ff&height=250&section=header&text=HERE-IS-LEO&fontSize=64&fontColor=ffffff&fontAlignY=38&animation=twinkling&desc=CODE%20%E2%80%A2%20SECURITY%20%E2%80%A2%20ENGINEERING&descAlignY=62&descSize=18" width="100%" /> <br> <a href="https://here-is-leo.ir"> <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=24&duration=3000&pause=900&color=00F0FF&center=true&vCenter=true&multiline=false&width=800&height=55&lines=Ilia+Farahani+%7C+Developer+%26+Security+Enthusiast;I+build+systems%2C+not+just+code.;Python+%E2%80%A2+Backend+%E2%80%A2+Cybersecurity+%E2%80%A2+Linux;Turning+ideas+into+real+software.;Welcome+to+my+digital+workspace." alt="Typing Animation" /> </a> <br><br> <a href="https://here-is-leo.ir"> <img src="https://img.shields.io/badge/%E2%9A%A1%20LIVE%20WEBSITE-here--is--leo.ir-00f0ff?style=for-the-badge&labelColor=050816" /> </a> <a href="https://github.com/here-is-leo"> <img src="https://img.shields.io/badge/%F0%9F%92%BB%20GITHUB-here--is--leo-ffffff?style=for-the-badge&labelColor=050816&logo=github&logoColor=white" /> </a> <img src="https://img.shields.io/badge/%F0%9F%9B%A1%EF%B8%8F%20FOCUS-CYBERSECURITY-a855f7?style=for-the-badge&labelColor=050816" /> <img src="https://img.shields.io/badge/%E2%9A%99%EF%B8%8F%20STACK-PYTHON%20%7C%20JS%20%7C%20LINUX-22c55e?style=for-the-badge&labelColor=050816" /> <br><br> <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="90%" /> </div> <br> # `> whoami` ```text Ilia Farahani ──────────────────────────────────────────────────────── Role → Developer Focus → Backend • Cybersecurity • Linux Languages → Python • JavaScript • SQL • C# Mindset → Build • Break • Learn • Improve Website → here-is-leo.ir GitHub → github.com/here-is-leo 
 
-I'm Ilia Farahani, a programmer interested in backend development, cybersecurity, Linux and modern web technologies.
+I don't just want code that works.
 
-I enjoy building practical systems, experimenting with infrastructure and turning ideas into real projects.
+I want to understand why it works, how it breaks, and how to make it better.
 
-Developer │ ├── Python ├── Backend ├── APIs ├── SQL ├── Linux ├── Cybersecurity └── Web Engineering 🚀 Core Architecture ⚡ Performance 🚀 Zero-Framework 📦 Zero-Build ⚡ Lightweight architecture 🌐 Bilingual RTL/LTR system 🌗 Persistent theme engine 📱 Fully responsive UI 🛡️ Security & UX 🛡️ Honeypot protection 🔐 Secure API architecture ✨ Dynamic UI components 📉 Low-performance fallback 🎨 Interactive glassmorphism design ⚙️ Modular JavaScript architecture 🛠️ Technology Stack 
+⚡ The Developer Behind The Code 
+
+BUILD → BREAK → UNDERSTAND → REBUILD 
+
+I'm Ilia Farahani, a developer interested in the intersection of software engineering, backend systems, cybersecurity and Linux.
+
+I like taking an idea that exists only in my head and turning it into something that can actually run.
+
+My learning philosophy is simple:
+
+Don't memorize the technology. Understand the system behind it. 
+
+That means exploring:
+
+🐍 Python & Backend Engineering 🌐 Web Development 🗄️ SQL & Databases 🐧 Linux & System Administration 🛡️ Cybersecurity 🔌 APIs & Automation 🧠 Software Architecture ⚙️ Hardware & Embedded Experiments 🧠 How I Think 
+
+🔍 Understand 
+
+How does it work?
+
+💻 Build 
+
+Can I create it?
+
+🧨 Break 
+
+How does it fail?
+
+🚀 Improve 
+
+How can it become better?
+
+
+┌─────────────────────┐ │ IDEA │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ RESEARCH │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ BUILD │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ TEST │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ BREAK │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ IMPROVE │ └──────────┬──────────┘ │ └───────────────► 🔁 🛠️ My Arsenal 
 
 
 
-📂 Project Structure here-is-leo.github.io/ │ ├── 🌐 index.html │ └── Main landing page │ ├── 👤 about.html │ └── About & engineering methodology │ ├── 💼 projects.html │ └── Project portfolio │ ├── 📦 repos.html │ └── GitHub repository integration │ ├── 📝 blog.html │ └── Blog & pagination system │ ├── 📄 resume.html │ └── Printable / PDF resume │ ├── 🔐 admin.html │ └── Administrative interface │ ├── ⚡ content.js │ └── Bilingual content source │ ├── 📚 blog-data.js │ └── Blog database │ ├── ⚙️ script.js │ └── Rendering & application logic │ ├── 🎨 style.css │ └── Design system & responsive styles │ └── 📜 LICENSE 🧩 System Architecture ┌─────────────────────┐ │ HERE-IS-LEO.IR │ │ PORTFOLIO │ └──────────┬──────────┘ │ ┌──────────────────────┼──────────────────────┐ │ │ │ ▼ ▼ ▼ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │ FRONTEND │ │ DATA │ │ BACKEND │ │ │ │ │ │ │ │ HTML │ │ content.js │ │ APIs │ │ CSS │ │ blog-data │ │ Services │ │ Vanilla JS │ │ Projects │ │ Security │ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘ │ │ │ └──────────────────────┼──────────────────────┘ │ ▼ ┌─────────────────────┐ │ Cloudflare / CDN │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ GitHub Pages │ └─────────────────────┘ 📊 GitHub Activity 
+🐍 BACKEND 
 
-📈 Development Philosophy ┌──────────────┐ │ PERFORMANCE │ └──────┬───────┘ ↓ ┌──────────────┐ │ SIMPLICITY │ └──────┬───────┘ ↓ ┌──────────────┐ │ SECURITY │ └──────┬───────┘ ↓ ┌──────────────┐ │ MAINTAINABLE │ └──────┬───────┘ ↓ ┌──────────────┐ │ PRODUCTION │ └──────────────┘ 
+Python
+APIs
+Automation
+SQL
+Databases
 
-The objective isn't to use the biggest stack possible.
+🛡️ SECURITY 
 
-The objective is to use exactly what the project needs.
+Linux
+Kali Linux
+Networking
+Web Security
+Security Research
 
-💻 Local Development 
+🌐 WEB 
+
+HTML
+CSS
+JavaScript
+Responsive UI
+Performance
+
+⚙️ TOOLS 
+
+Git
+GitHub
+VS Code
+Cloudflare
+Linux CLI
+
+🔥 What I Build 
+
+🐍 Backend Systems 
+
+I enjoy building software where the interesting part happens behind the interface.
+
+APIs Databases Authentication Automation Data Processing Service Architecture 🛡️ Security Projects 
+
+Security is more interesting when you actually understand the system you're defending.
+
+Linux Networking Web Security Security Tools Traffic Analysis Security Research 🌐 Web Experiences 
+
+Not every website needs a 400 MB JavaScript ecosystem.
+
+Sometimes:
+
+HTML + CSS + JavaScript = Fast Software 🔌 Experimental Projects 
+
+I also like going below the browser.
+
+ESP32 Electronics Wireless Embedded Systems Hardware Experiments 
+
+🚀 Featured Projects 
+
+🔭 Marshall 
+
+Experimental hardware / electronics project
+
+A hands-on project focused on experimenting with hardware, electronics and embedded concepts.
+
+
+🌐 V-Tunnel 
+
+DNS • Proxy • VPN Management
+
+A Telegram Mini App ecosystem for managing networking utilities and configurations.
+
+Python Telegram Bot Mini App DNS Proxy V2Ray 
+🧠 N3XUS 
+
+Experimental Security Hardware
+
+A multi-component hardware project combining embedded systems, wireless modules and display interfaces.
+
+ESP32 NRF24 CC1101 TFT OLED SD 
+
+📊 GitHub 
+
+
+
+
+
+📂 Portfolio Architecture here-is-leo.github.io/ │ ├── 🌐 index.html │ └── Main experience │ ├── 👤 about.html │ └── About & engineering philosophy │ ├── 💼 projects.html │ └── Project showcase │ ├── 📦 repos.html │ └── GitHub repository explorer │ ├── 📝 blog.html │ └── Technical blog │ ├── 📄 resume.html │ └── Resume / printable profile │ ├── 🔐 admin.html │ └── Administration interface │ ├── ⚡ content.js │ └── Bilingual content source │ ├── 📚 blog-data.js │ └── Blog content │ ├── ⚙️ script.js │ └── Application logic │ └── 🎨 style.css └── Design system ⚡ Why Zero Framework? 
+
+Because more technology doesn't automatically mean better engineering.
+
+This website intentionally avoids unnecessary frontend complexity.
+
+React ❌ Vue ❌ Angular ❌ Webpack ❌ Vite ❌ Babel ❌ HTML ✅ CSS ✅ JavaScript ✅ 
+
+The result:
+
+LESS │ ┌────────▼────────┐ │ DEPENDENCIES │ └────────┬────────┘ │ ▼ LESS COMPLEXITY │ ▼ FASTER START │ ▼ EASIER DEBUG │ ▼ BETTER CONTROL 🌍 Bilingual By Design 
+
+The portfolio isn't simply translated.
+
+It is designed to understand two writing directions:
+
+🇬🇧 English ↓ LTR 🇮🇷 فارسی ↓ RTL 
+
+Language switching happens without forcing a full page reload.
+
+🎨 Design Philosophy 
+
+The interface combines:
+
+┌───────────────────────────────────────────┐ │ │ │ Glassmorphism │ │ Neon Accents │ │ Dark UI │ │ Micro Animations │ │ Responsive Layout │ │ Dynamic Components │ │ Minimal Dependencies │ │ │ └───────────────────────────────────────────┘ 
+
+The goal isn't to make everything move.
+
+The goal is to make movement mean something.
+
+🔐 Security Mindset 
+
+I approach security from both sides:
+
+┌─────────────────┐ │ SYSTEM │ └────────┬────────┘ │ ┌──────────┴──────────┐ ▼ ▼ 🛡️ DEFEND 🧨 BREAK │ │ └──────────┬──────────┘ ▼ UNDERSTAND │ ▼ IMPROVE 
+
+Security isn't just about running tools.
+
+It's about understanding:
+
+How the system works ↓ Where assumptions exist ↓ Where failures happen ↓ How they can be prevented 🧪 Local Development 
 
 Clone the repository:
 
 git clone https://github.com/here-is-leo/here-is-leo.github.io.git cd here-is-leo.github.io 
 
-Run a local server:
+Run locally:
 
 python3 -m http.server 8000 
 
@@ -30,89 +179,62 @@ Or:
 
 npx serve . 
 
-Open:
+Then:
 
-http://localhost:8000 ⚙️ Configuration 🌐 Bilingual Content 
+http://localhost:8000 ⚙️ Configuration Content 
 
-Website content is centralized inside:
+Main bilingual content:
 
 content.js 
 
-Main sections:
+Structure:
 
 hero about skills projects contact 
 
 Languages:
 
-fa → Persian en → English 💼 Adding a Project 
+fa → RTL en → LTR ➕ Add A Project { icon: "fas fa-code", title: "Project Name", date: "2026", desc: "Short technical description.", tech: [ "Python", "FastAPI", "Linux" ], url: "https://github.com/here-is-leo/PROJECT" } 🧠 My Rule 
 
-Add a new project object:
+Don't chase technologies. Understand systems. 
+Learn the fundamentals. Build real things. Break your own assumptions. Keep improving. 
 
-{ icon: "fas fa-code", title: "Project Name", date: "2026", desc: "Short technical project description.", tech: [ "Python", "FastAPI", "Linux" ], url: "https://github.com/here-is-leo/PROJECT" } 📝 Adding a Blog Post 
+🇮🇷 نسخه فارسی 👋 من کی هستم؟ 
 
-Add a new object to:
+من ایلیا فراهانی هستم، برنامه‌نویسی که بیشتر به Backend، Python، لینوکس، امنیت سایبری و ساخت پروژه‌های واقعی علاقه دارد.
 
-blog-data.js 
+برای من برنامه‌نویسی فقط نوشتن کد نیست.
 
-The frontend handles:
+ایده ↓ تحقیق ↓ ساخت ↓ تست ↓ خراب کردن ↓ فهمیدن ↓ بهبود 
 
-• Categories • Tags • Pagination • Rendering • Language switching 🔐 Security 
+هدف این است که فقط مصرف‌کننده‌ی تکنولوژی نباشم.
 
-Security principles include:
+می‌خواهم بفهمم پشت تکنولوژی چه اتفاقی می‌افتد.
 
-Input validation Honeypot protection Secure external requests Minimal client-side attack surface Backend isolation No secrets committed to GitHub Environment variables for sensitive configuration 
+🛡️ تمرکز اصلی 🐍 Python ⚙️ Backend 🗄️ SQL & Databases 🐧 Linux 🛡️ Cybersecurity 🌐 Web Development 🔌 APIs 🧠 Software Engineering 🚀 پروژه‌ها 🔭 Marshall 
 
-Never commit:
+پروژه‌ی آزمایشی سخت‌افزاری و الکترونیکی برای تجربه‌ی عملی با قطعات و سیستم‌های Embedded.
 
-.env API KEYS TOKENS PASSWORDS PRIVATE CREDENTIALS 
+🌐 V-Tunnel 
 
-Recommended .gitignore:
+یک سیستم مبتنی بر Telegram Mini App برای مدیریت ابزارها و کانفیگ‌های شبکه شامل DNS، Proxy و V2Ray.
 
-.env .env.* node_modules/ __pycache__/ *.log .DS_Store 🇮🇷 فارسی 👨‍💻 درباره من 
+🧠 N3XUS 
 
-من ایلیا فراهانی هستم و در زمینه‌های زیر فعالیت و یادگیری دارم:
+پروژه‌ی سخت‌افزاری آزمایشی با تمرکز روی ESP32، ارتباطات بی‌سیم و تجهیزات جانبی مختلف.
 
-برنامه‌نویسی Backend Development Python Cybersecurity Linux Web Development SQL Automation 
+⚡ فلسفه‌ی من 
 
-تمرکز اصلی من ساخت پروژه‌های واقعی، یادگیری عمیق‌تر مهندسی نرم‌افزار و تجربه با سیستم‌های مختلف است.
+فریم‌ورک بیشتر، الزاماً مهندسی بهتر نیست.
 
-⚡ معماری پروژه 
+گاهی بهترین راه این است که مسئله را با ساده‌ترین ابزار مناسب حل کنیم.
 
-این وب‌سایت با رویکرد Zero-Framework ساخته شده است.
-
-یعنی برای بخش اصلی فرانت‌اند وابستگی سنگینی به فریم‌ورک‌هایی مانند:
-
-React Vue Angular Webpack Vite Babel 
-
-وجود ندارد.
-
-ساختار اصلی بر پایه‌ی:
-
-HTML + CSS + Modern JavaScript 
-
-است.
-
-نتیجه:
-
-⚡ سرعت بالا 📦 حجم کمتر 🧠 معماری ساده‌تر 🔧 نگهداری آسان‌تر 🌐 اجرای مستقیم 🌐 سیستم دوزبانه 
-
-وب‌سایت از دو زبان پشتیبانی می‌کند:
-
-🇮🇷 فارسی → RTL 🇬🇧 English → LTR 
-
-تغییر زبان بدون Reload کامل صفحه انجام می‌شود و محتوای زبان‌ها در یک منبع داده مدیریت می‌شود.
-
-🎨 رابط کاربری 
-
-طراحی سایت روی چند اصل ساخته شده:
-
-Glassmorphism Neon UI Dark Theme Responsive Design Micro Animations Dynamic Components Performance Optimization 
-
-هدف این است که ظاهر سایت جذاب باشد، بدون اینکه تبدیل به یک جشنواره‌ی بی‌دلیل از انیمیشن شود. چون کاربر آمده سایت ببیند، نه اینکه GPU لپ‌تاپش را قربانی کند.
-
-🧠 اصول مهندسی سادگی ↓ عملکرد ↓ امنیت ↓ قابلیت نگهداری ↓ تجربه کاربری ↓ Production 📬 ارتباط 
+سادگی ↓ درک بهتر ↓ کنترل بیشتر ↓ Debug آسان‌تر ↓ سیستم بهتر 🌐 ارتباط با من 
 
 
-© 2026 Ilia Farahani · Built with Vanilla JavaScript · Licensed under MIT
+BUILD SOMETHING WORTH REMEMBERING. 
+
+
+
+© 2026 Ilia Farahani · Built with curiosity · Powered by code
 
 ``` 
