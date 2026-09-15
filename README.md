@@ -1,216 +1,118 @@
-🚀 here-is-leo.ir — نسخه‌ی خفن
+<div align="center"> <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=1,11,21,31&height=220&section=header&text=HERE-IS-LEO.IR&fontSize=52&fontAlignY=38&animation=twinkling&fontColor=ffffff&desc=%E2%9A%A1%20Zero-Framework%20%C2%B7%20Lightweight%20%C2%B7%20Bilingual%20Portfolio&descAlignY=62&descSize=18" width="100%" alt="HERE-IS-LEO Header"/> <a href="https://here-is-leo.ir"> <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&pause=1000&color=00F0FF&center=true&vCenter=true&random=false&width=700&height=50&lines=Ilia+Farahani+%7C+Backend+%26+Security+Researcher;Python+Developer+%7C+Cybersecurity+Enthusiast;Zero-Framework+Architecture+%7C+100%25+Vanilla+JS;Ultra-Fast+%C2%B7+Lightweight+%C2%B7+Bilingual+%28RTL%2FLTR%29;Production-Ready+Source+Code+at+here-is-leo.ir" alt="Typing Animation"/> </a> <br/> <p align="center"> <a href="https://here-is-leo.ir"> <img src="https://img.shields.io/badge/LIVE%20DEMO-here--is--leo.ir-00f0ff?style=for-the-badge&logo=googlechrome&logoColor=black"/> </a> <img src="https://img.shields.io/badge/BUILD-NO%20BUNDLER-22c55e?style=for-the-badge&logo=javascript&logoColor=white"/> <img src="https://img.shields.io/badge/ARCH-VANILLA%20ES6%2B-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/> <img src="https://img.shields.io/badge/FOCUS-BACKEND%20%26%20SECURITY-a855f7?style=for-the-badge&logo=linux&logoColor=white"/> <img src="https://img.shields.io/badge/LICENSE-MIT-6366f1?style=for-the-badge&logo=opensourceinitiative&logoColor=white"/> </p> <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" alt="Animated Divider"/> </div> # ⚡ HERE-IS-LEO.IR > **Personal portfolio, engineering playground, and digital identity of Ilia Farahani.** A lightweight, bilingual and performance-focused personal website built around a **zero-framework architecture**. Focused on: ```text Backend Development Cybersecurity Python Web Engineering Linux Automation Performance Clean Architecture 🌐 English 👨‍💻 About 
 
-<div align="center">
+I'm Ilia Farahani, a programmer interested in backend development, cybersecurity, Linux and modern web technologies.
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&pause=800&color=00FFC6&center=true&vCenter=true&width=800&lines=%F0%9F%91%8B+Welcome+to+here-is-leo.ir;%F0%9F%90%8D+Python+%7C+C%23+%7C+Linux+%7C+Web+Security;%F0%9F%94%A5+Built+with+pure+HTML%2FCSS%2FJS;%E2%9A%A1+No+Framework.+No+Build.+Just+Speed." alt="Typing SVG" />
+I enjoy building practical systems, experimenting with infrastructure and turning ideas into real projects.
 
-https://img.shields.io/badge/🌐_Live-here--is--leo.ir-00FFC6?style=for-the-badge&labelColor=0d1117
-https://img.shields.io/badge/GitHub-here--is--leo-181717?style=for-the-badge&logo=github&logoColor=white
-https://img.shields.io/badge/License-MIT-blue?style=for-the-badge&labelColor=0d1117
-https://img.shields.io/badge/Made_with-HTML_·_CSS_·_JS-f7df1e?style=for-the-badge&labelColor=0d1117
+Developer │ ├── Python ├── Backend ├── APIs ├── SQL ├── Linux ├── Cybersecurity └── Web Engineering 🚀 Core Architecture ⚡ Performance 🚀 Zero-Framework 📦 Zero-Build ⚡ Lightweight architecture 🌐 Bilingual RTL/LTR system 🌗 Persistent theme engine 📱 Fully responsive UI 🛡️ Security & UX 🛡️ Honeypot protection 🔐 Secure API architecture ✨ Dynamic UI components 📉 Low-performance fallback 🎨 Interactive glassmorphism design ⚙️ Modular JavaScript architecture 🛠️ Technology Stack 
 
-<br>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:00FFC6,100:7C3AED&height=120&section=header&text=Here%20is%20Leo&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" />
 
-</div>
+📂 Project Structure here-is-leo.github.io/ │ ├── 🌐 index.html │ └── Main landing page │ ├── 👤 about.html │ └── About & engineering methodology │ ├── 💼 projects.html │ └── Project portfolio │ ├── 📦 repos.html │ └── GitHub repository integration │ ├── 📝 blog.html │ └── Blog & pagination system │ ├── 📄 resume.html │ └── Printable / PDF resume │ ├── 🔐 admin.html │ └── Administrative interface │ ├── ⚡ content.js │ └── Bilingual content source │ ├── 📚 blog-data.js │ └── Blog database │ ├── ⚙️ script.js │ └── Rendering & application logic │ ├── 🎨 style.css │ └── Design system & responsive styles │ └── 📜 LICENSE 🧩 System Architecture ┌─────────────────────┐ │ HERE-IS-LEO.IR │ │ PORTFOLIO │ └──────────┬──────────┘ │ ┌──────────────────────┼──────────────────────┐ │ │ │ ▼ ▼ ▼ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │ FRONTEND │ │ DATA │ │ BACKEND │ │ │ │ │ │ │ │ HTML │ │ content.js │ │ APIs │ │ CSS │ │ blog-data │ │ Services │ │ Vanilla JS │ │ Projects │ │ Security │ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘ │ │ │ └──────────────────────┼──────────────────────┘ │ ▼ ┌─────────────────────┐ │ Cloudflare / CDN │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ GitHub Pages │ └─────────────────────┘ 📊 GitHub Activity 
 
----
+📈 Development Philosophy ┌──────────────┐ │ PERFORMANCE │ └──────┬───────┘ ↓ ┌──────────────┐ │ SIMPLICITY │ └──────┬───────┘ ↓ ┌──────────────┐ │ SECURITY │ └──────┬───────┘ ↓ ┌──────────────┐ │ MAINTAINABLE │ └──────┬───────┘ ↓ ┌──────────────┐ │ PRODUCTION │ └──────────────┘ 
 
-🧠 یه نگاه سریع
+The objective isn't to use the biggest stack possible.
 
-ایلیا فراهانی — برنامه‌نویس Python و C# · متخصص لینوکس و امنیت وب · Kali Linux Pentester
+The objective is to use exactly what the project needs.
 
-سایت شخصی من روی دامنه‌ی here-is-leo.ir میزبانی می‌شه، با HTML، CSS و JavaScript خالص ساخته شده — بدون فریمورک، بدون باندلر، بدون مرحله‌ی build. فقط کد، سرعت، و کنترل کامل.
+💻 Local Development 
 
-<div align="center">
+Clone the repository:
 
-🎯 دکمه‌های سریع
+git clone https://github.com/here-is-leo/here-is-leo.github.io.git cd here-is-leo.github.io 
 
-https://img.shields.io/badge/🌐_مشاهده_سایت-00FFC6?style=for-the-badge&labelColor=0d1117
-https://img.shields.io/badge/🐛_گزارش_باگ-FF6B6B?style=for-the-badge&labelColor=0d1117
-https://img.shields.io/badge/💡_پیشنهاد-7C3AED?style=for-the-badge&labelColor=0d1117
+Run a local server:
 
-</div>
+python3 -m http.server 8000 
 
----
+Or:
 
-⚡ چرا این پروژه خفنه؟
+npx serve . 
 
-<table>
-<tr>
-<td width="50%" valign="top">
+Open:
 
-🪶 سبک و بی‌وابستگی
+http://localhost:8000 ⚙️ Configuration 🌐 Bilingual Content 
 
-· صفر فریمورک، صفر npm install
-· صفر مرحله‌ی build
-· مستقیم روی GitHub Pages سرو می‌شه
-· لود فوری، بدون باندل سنگین
+Website content is centralized inside:
 
-🌍 دوزبانه‌ی واقعی
+content.js 
 
-· کامل فارسی/انگلیسی
-· تعریف ساختاریافته در content.js
-· سوییچ real-time بدون رفرش
-· تغییر خودکار RTL ↔ LTR
-· فونت‌ها: Vazirmatn / Inter
+Main sections:
 
-🌗 تم تاریک/روشن
+hero about skills projects contact 
 
-· ذخیره‌ی ترجیح کاربر در localStorage
-· سوییچ آنی، بدون پرش رنگ
+Languages:
 
-</td>
-<td width="50%" valign="top">
+fa → Persian en → English 💼 Adding a Project 
 
-✨ جلوه‌های بصری
+Add a new project object:
 
-· ⌨️ افکت Typewriter روی هیرو
-· 🔢 شمارنده‌ی انیمیشنی آمار
-· 👁️ Reveal-on-scroll با IntersectionObserver
-· 🎯 Spotlight و پارالاکس روی کارت‌ها
-· 📱 تشخیص خودکار دستگاه کم‌توان (isLowPerformance)
+{ icon: "fas fa-code", title: "Project Name", date: "2026", desc: "Short technical project description.", tech: [ "Python", "FastAPI", "Linux" ], url: "https://github.com/here-is-leo/PROJECT" } 📝 Adding a Blog Post 
 
-🛡️ امنیت و کیفیت
+Add a new object to:
 
-· فرم تماس با Formspree + honeypot ضد اسپم
-· سئوی حرفه‌ای: Open Graph، Twitter Card، JSON-LD
-· sitemap.xml و robots.txt
+blog-data.js 
 
-</td>
-</tr>
-</table>
+The frontend handles:
 
----
+• Categories • Tags • Pagination • Rendering • Language switching 🔐 Security 
 
-🗂 ساختار پروژه
+Security principles include:
 
-```bash
-here-is-leo.github.io/
-├── 🏠 index.html          # صفحه اصلی (هیرو، آمار، مهارت‌ها، پروژه‌ها، تماس)
-├── 👤 about.html          # درباره من (بیوگرافی، تحصیلات، دوره‌ها)
-├── 💼 projects.html       # لیست کامل پروژه‌ها
-├── 📦 repos.html          # لیست ریپوهای گیت‌هاب
-├── ✍️ blog.html           # وبلاگ (لیست مقالات + صفحه‌بندی)
-├── 📰 blog-data.js        # داده و متن کامل مقالات
-├── 📄 resume.html         # رزومه قابل چاپ (PDF)
-├── 🛠️ admin.html          # داشبورد مدیریتی (متصل به بک‌اند جدا)
-├── 🌐 content.js          # منبع واحد محتوا (fa/en)
-├── ⚙️ script.js           # منطق رندر، تم، زبان، انیمیشن، فرم تماس
-├── 🎨 style.css           # تمام استایل‌ها (CSS Variables)
-├── 🗺️ sitemap.xml
-├── 🤖 robots.txt
-└── 🖼️ logo.png · avatar.jpg
-```
+Input validation Honeypot protection Secure external requests Minimal client-side attack surface Backend isolation No secrets committed to GitHub Environment variables for sensitive configuration 
 
-💡 admin.html به یک سرویس بک‌اند مجزا (خارج از این ریپو) وصل می‌شه و فقط برای مدیریت داخلیه.
+Never commit:
 
----
+.env API KEYS TOKENS PASSWORDS PRIVATE CREDENTIALS 
 
-🛠 پشته‌ی فناوری
+Recommended .gitignore:
 
-<div align="center">
+.env .env.* node_modules/ __pycache__/ *.log .DS_Store 🇮🇷 فارسی 👨‍💻 درباره من 
 
-بخش فناوری
-🏗️ ساختار و استایل HTML5 · CSS3 (Custom Properties)
-🧠 منطق JavaScript خالص (Vanilla, ES5+)
-🔤 فونت‌ها Vazirmatn · Inter (Google Fonts)
-📬 فرم تماس Formspree
-☁️ میزبانی GitHub Pages
+من ایلیا فراهانی هستم و در زمینه‌های زیر فعالیت و یادگیری دارم:
 
-</div>
+برنامه‌نویسی Backend Development Python Cybersecurity Linux Web Development SQL Automation 
 
----
+تمرکز اصلی من ساخت پروژه‌های واقعی، یادگیری عمیق‌تر مهندسی نرم‌افزار و تجربه با سیستم‌های مختلف است.
 
-🚀 اجرای محلی
+⚡ معماری پروژه 
 
-بدون هیچ مرحله‌ی build — فقط کلون کن و با یه سرور استاتیک باز کن:
+این وب‌سایت با رویکرد Zero-Framework ساخته شده است.
 
-```bash
-# ۱. کلون
-git clone https://github.com/here-is-leo/here-is-leo.github.io.git
-cd here-is-leo.github.io
+یعنی برای بخش اصلی فرانت‌اند وابستگی سنگینی به فریم‌ورک‌هایی مانند:
 
-# ۲. با پایتون
-python3 -m http.server 8000
+React Vue Angular Webpack Vite Babel 
 
-# یا با Node.js
-npx serve .
-```
+وجود ندارد.
 
-سپس در مرورگر باز کن: 👉 http://localhost:8000
+ساختار اصلی بر پایه‌ی:
 
-⚠️ باز کردن مستقیم index.html با پروتکل file:// ممکنه به‌خاطر محدودیت‌های امنیتی مرورگر در بارگذاری اسکریپت‌ها مشکل بخوره. استفاده از سرور محلی اکیداً توصیه می‌شه.
+HTML + CSS + Modern JavaScript 
 
----
+است.
 
-✏️ شخصی‌سازی و افزودن محتوا
+نتیجه:
 
-<details>
-<summary><b>🌐 ویرایش متن‌های سایت (فارسی/انگلیسی)</b></summary>
+⚡ سرعت بالا 📦 حجم کمتر 🧠 معماری ساده‌تر 🔧 نگهداری آسان‌تر 🌐 اجرای مستقیم 🌐 سیستم دوزبانه 
 
-در content.js، هر بخش (hero، skills، projects، focus، contact و...) هم برای fa و هم en تعریف شده.
+وب‌سایت از دو زبان پشتیبانی می‌کند:
 
-</details>
+🇮🇷 فارسی → RTL 🇬🇧 English → LTR 
 
-<details>
-<summary><b>💼 افزودن پروژه‌ی جدید</b></summary>
+تغییر زبان بدون Reload کامل صفحه انجام می‌شود و محتوای زبان‌ها در یک منبع داده مدیریت می‌شود.
 
-یه آبجکت به آرایه‌ی projects.items در content.js اضافه کن (برای هر دو زبان):
+🎨 رابط کاربری 
 
-```js
-{ icon, title, date, desc, tech, url }
-```
+طراحی سایت روی چند اصل ساخته شده:
 
-</details>
+Glassmorphism Neon UI Dark Theme Responsive Design Micro Animations Dynamic Components Performance Optimization 
 
-<details>
-<summary><b>✍️ افزودن پست وبلاگ</b></summary>
+هدف این است که ظاهر سایت جذاب باشد، بدون اینکه تبدیل به یک جشنواره‌ی بی‌دلیل از انیمیشن شود. چون کاربر آمده سایت ببیند، نه اینکه GPU لپ‌تاپش را قربانی کند.
 
-یه آبجکت به آرایه‌ی blogPosts در blog-data.js اضافه کن.
+🧠 اصول مهندسی سادگی ↓ عملکرد ↓ امنیت ↓ قابلیت نگهداری ↓ تجربه کاربری ↓ Production 📬 ارتباط 
 
-</details>
 
-<details>
-<summary><b>🎨 تغییر رنگ‌بندی/تم</b></summary>
+© 2026 Ilia Farahani · Built with Vanilla JavaScript · Licensed under MIT
 
-متغیرهای CSS در ابتدای style.css.
-
-</details>
-
----
-
-📬 راه‌های ارتباطی
-
-<div align="center">
-
-https://img.shields.io/badge/🌐_Website-here--is--leo.ir-00FFC6?style=for-the-badge&labelColor=0d1117
-https://img.shields.io/badge/🐙_GitHub-@here--is--leo-181717?style=for-the-badge&logo=github
-https://img.shields.io/badge/✉️_Email-ilyafarahanii@gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white
-
-</div>
-
----
-
-📄 لایسنس
-
-این پروژه تحت مجوز MIT منتشر شده — استفاده، کپی و تغییر با ذکر منبع آزاده. 📜
-
----
-
-🇬🇧 English Summary
-
-here-is-leo.ir is the source code of my personal website, built with plain HTML/CSS/JavaScript (no framework, no build step) and hosted on GitHub Pages. It's fully bilingual (Persian/English, RTL/LTR aware), theme-switchable (dark/light), and includes a home page, about, projects, blog, résumé, and a GitHub repos listing. All copy lives in content.js, blog posts in blog-data.js, and the contact form is powered by Formspree. Clone it and serve it with any static file server — see above for details.
-
----
-
-<div align="center">
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:7C3AED,100:00FFC6&height=100&section=footer&animation=fadeIn" width="100%" />
-
-⭐ اگه این پروژه به‌نظرت خفن اومد، یه ستاره بده!
-
-Made with 🖤 by Ilia Farahani
-
-</div>
+``` 
