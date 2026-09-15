@@ -1172,8 +1172,14 @@ function initMobileNav() {
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
-    navLinks.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+    var opening = !navLinks.classList.contains('open');
+    navLinks.classList.toggle('open', opening);
+    // Inline state keeps the drawer visible even if a stale document handler
+    // from a cached script removes the class a moment later.
+    navLinks.style.visibility = opening ? 'visible' : 'hidden';
+    navLinks.style.opacity = opening ? '1' : '0';
+    navLinks.style.transform = opening ? 'translateY(0) scale(1)' : '';
+    toggle.setAttribute('aria-expanded', opening ? 'true' : 'false');
   };
   
   // بستن منو با کلیک بیرون
