@@ -1,120 +1,337 @@
-<div align="center">
 
-<img src="logo.png" alt="here-is-leo logo" width="96" />
+here-is-leo.ir Personal Developer Portfolio 
 
-# here-is-leo.ir
+Python • C# • Linux • Cybersecurity • Web Security
 
-**صفحه شخصی ایلیا فراهانی (Ilia Farahani)**
-برنامه‌نویس Python و C# · متخصص لینوکس و امنیت وب · Kali Linux Pentester
 
-[![Website](https://img.shields.io/badge/website-here--is--leo.ir-5e6ad2?style=flat-square)](https://www.here-is-leo.ir/)
-![Vanilla JS](https://img.shields.io/badge/stack-vanilla%20HTML%2FCSS%2FJS-f7df1e?style=flat-square&logo=javascript&logoColor=black)
-![Bilingual](https://img.shields.io/badge/i18n-fa%20%2F%20en-blue?style=flat-square)
-![No build step](https://img.shields.io/badge/build-none%20required-success?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square)
 
-[مشاهده سایت](https://www.here-is-leo.ir/) · [گزارش باگ](../../issues) · [پیشنهاد](../../issues)
 
-</div>
 
----
 
-## درباره پروژه
+01 · About 
 
-این ریپازیتوری کد منبع سایت شخصی من است؛ روی دامنه **[here-is-leo.ir](https://www.here-is-leo.ir/)** میزبانی شده و از طریق **GitHub Pages** سرو می‌شود. سایت به‌صورت کامل با **HTML, CSS و JavaScript خالص** ساخته شده — بدون فریمورک، بدون باندلر، بدون مرحله‌ی build. هدف این بود که یک سایت شخصی سریع، سبک و کاملاً قابل کنترل بسازم که همزمان تجربه‌ی کاربری مدرنی هم ارائه بدهد.
+here-is-leo.ir is my personal developer portfolio, technical playground and project showcase.
 
-سایت دوزبانه است (فارسی/انگلیسی، با پشتیبانی کامل RTL/LTR) و شامل صفحاتی برای معرفی، مهارت‌ها، پروژه‌ها، رزومه، وبلاگ و لیست ریپوهای گیت‌هاب است.
+The website was designed and developed from scratch using Vanilla HTML, CSS and JavaScript.
 
-## ✨ ویژگی‌ها
+No framework.
+No build pipeline.
+No unnecessary dependency tree.
 
-- **بدون وابستگی به فریمورک** — HTML/CSS/JS خالص، بدون npm build، مستقیماً روی GitHub Pages سرو می‌شود.
-- **دوزبانه (فارسی/انگلیسی)** — تمام محتوا در [`content.js`](content.js) به‌صورت ساختاریافته برای هر دو زبان تعریف شده و سوییچ زبان real-time و بدون رفرش انجام می‌شود؛ جهت صفحه (RTL/LTR) و فونت (Vazirmatn / Inter) هم به‌طور خودکار تغییر می‌کند.
-- **حالت تیره/روشن (Dark/Light Mode)** — با ذخیره‌ی ترجیح کاربر در `localStorage`.
-- **رندر داینامیک محتوا** — بخش‌های Hero، آمار، مهارت‌ها، فوکوس فعلی، پروژه‌ها و تماس همگی از `content.js` توسط `script.js` رندر می‌شوند؛ یک مکانیزم **Fallback** هم داخل `index.html` تعبیه شده تا اگر رندر اصلی fail شد، نسخه‌ی ساده‌تری از محتوا نمایش داده شود.
-- **جلوه‌های بصری سبک و بهینه**:
-  - افکت تایپ‌رایتر (Typewriter) برای عنوان‌های هیرو
-  - شمارنده‌ی انیمیشنی برای آمار (Animated Counters)
-  - Reveal-on-scroll با `IntersectionObserver`
-  - افکت Spotlight و پارالاکس روی کارت‌ها
-  - تشخیص خودکار موبایل/دستگاه کم‌توان برای غیرفعال‌سازی افکت‌های سنگین (`isLowPerformance`)
-- **فرم تماس واقعی** — با [Formspree](https://formspree.io/) به‌صورت بدون بک‌اند اختصاصی، همراه با honeypot ضدِ اسپم.
-- **وبلاگ کامل** — مقالات با محتوای کامل در [`blog-data.js`](blog-data.js)، دسته‌بندی، تگ و صفحه‌بندی (Pagination).
-- **سئو حرفه‌ای** — متادیتای Open Graph و Twitter Card، `schema.org` JSON-LD برای Person، `sitemap.xml` و `robots.txt`.
-- **رزومه قابل چاپ** — صفحه‌ی [`resume.html`](resume.html) که با یک کلیک به PDF قابل چاپ/ذخیره است.
+Just a lightweight frontend engineered to be fast, customizable and completely under control.
 
-## 🗂 ساختار پروژه
+The philosophy: understand the fundamentals before hiding them behind abstractions.
 
-```
-here-is-leo.github.io/
-├── index.html        # صفحه اصلی (هیرو، آمار، مهارت‌ها، پروژه‌ها، تماس)
-├── about.html         # درباره من (بیوگرافی، تحصیلات، دوره‌ها)
-├── projects.html      # لیست کامل پروژه‌ها
-├── repos.html         # لیست ریپوهای گیت‌هاب
-├── blog.html          # وبلاگ (لیست مقالات + صفحه‌بندی)
-├── blog-data.js        # داده و متن کامل مقالات وبلاگ
-├── resume.html        # رزومه قابل چاپ
-├── admin.html          # داشبورد مدیریتی (متصل به سرویس بک‌اند جداگانه)
-├── content.js          # منبع واحد محتوای دوزبانه (fa/en) کل سایت
-├── script.js           # منطق رندر، تم، زبان، انیمیشن‌ها و فرم تماس
-├── style.css           # تمام استایل‌ها (متغیرهای CSS برای تم/رنگ)
-├── sitemap.xml / robots.txt
-└── logo.png / avatar.jpg
-```
+02 · What You'll Find Here ┌───────────────────────────────────────────────┐ │ HERE-IS-LEO │ ├───────────────────────────────────────────────┤ │ │ │ 👤 About Me │ │ 🧠 Skills & Technical Focus │ │ 💻 Projects │ │ 🐙 GitHub Repository Explorer │ │ 📝 Technical Blog │ │ 📄 Résumé │ │ 📬 Contact │ │ │ └───────────────────────────────────────────────┘ 
 
-> صفحه‌ی `admin.html` به یک سرویس بک‌اند مجزا (خارج از این ریپو) وصل می‌شود و صرفاً برای مدیریت داخلی سایت است.
+The site is available in:
 
-## 🛠 تکنولوژی‌ها
+🇮🇷 Persian · 🇬🇧 English
 
-| بخش | فناوری |
-|---|---|
-| ساختار و استایل | HTML5، CSS3 (Custom Properties برای تم) |
-| منطق | JavaScript خالص (Vanilla, ES5+) — بدون فریمورک |
-| فونت‌ها | [Vazirmatn](https://fonts.google.com/specimen/Vazirmatn) (فارسی) و [Inter](https://fonts.google.com/specimen/Inter) (انگلیسی) از Google Fonts |
-| فرم تماس | [Formspree](https://formspree.io/) |
-| میزبانی | GitHub Pages |
+with complete:
 
-## 🚀 اجرای محلی
+RTL ↔ LTR
 
-چون هیچ مرحله‌ی build ای وجود ندارد، کافیست ریپو را کلون کنید و با یک سرور استاتیک ساده باز کنید:
+support.
 
-```bash
-git clone https://github.com/here-is-leo/here-is-leo.github.io.git
-cd here-is-leo.github.io
+03 · Features 🌍 Bilingual 
 
-# با پایتون
-python3 -m http.server 8000
+Complete Persian / English localization.
 
-# یا با Node.js
-npx serve .
-```
+Runtime language switching RTL / LTR support Persian typography English typography Centralized content 🎨 Modern UI 
 
-سپس آدرس `http://localhost:8000` را در مرورگر باز کنید.
+Custom interface with:
 
-> باز کردن مستقیم فایل `index.html` با پروتکل `file://` ممکن است به‌دلیل محدودیت‌های امنیتی مرورگر در بارگذاری اسکریپت‌ها با مشکل مواجه شود؛ استفاده از یک سرور محلی توصیه می‌شود.
+Typewriter animations Scroll reveal Spotlight effects Parallax interactions Animated counters Smooth transitions 🌙 Theme Engine 
 
-## ✏️ شخصی‌سازی و افزودن محتوا
+Built-in:
 
-- **ویرایش متن‌های سایت (فارسی/انگلیسی)** → در [`content.js`](content.js)، هر بخش (hero، skills، projects، focus، contact و...) هم برای `fa` و هم `en` تعریف شده است.
-- **افزودن پروژه جدید** → آبجکتی به آرایه‌ی `projects.items` در `content.js` (برای هر دو زبان) اضافه کنید: `icon`، `title`، `date`، `desc`، `tech` و `url`.
-- **افزودن پست وبلاگ** → آبجکتی به آرایه‌ی `blogPosts` در [`blog-data.js`](blog-data.js) اضافه کنید.
-- **تغییر رنگ‌بندی/تم** → متغیرهای CSS در ابتدای [`style.css`](style.css).
+DARK MODE
 
-## 📬 راه‌های ارتباطی
+LIGHT MODE
 
-- وب‌سایت: [www.here-is-leo.ir](https://www.here-is-leo.ir/)
-- گیت‌هاب: [@here-is-leo](https://github.com/here-is-leo)
-- ایمیل: ilyafarahanii@gmail.com
+User preferences are persisted using:
 
-## 📄 لایسنس
+localStorage ⚡ Performance 
 
-این پروژه تحت مجوز [MIT](LICENSE) منتشر شده است — استفاده، کپی و تغییر آن با ذکر منبع آزاد است.
+The project avoids unnecessary dependencies.
 
----
+0 Frameworks 0 Build Steps 0 Bundlers 0 npm dependency tree 
 
-<div align="center">
+Native browser APIs do the heavy lifting.
 
-<sub>English summary</sub>
+📝 Technical Blog 
 
-**here-is-leo.ir** is the source code of my personal website, built with plain HTML/CSS/JavaScript (no framework, no build step) and hosted on GitHub Pages. It's fully bilingual (Persian/English, RTL/LTR aware), theme-switchable (dark/light), and includes a home page, about, projects, blog, résumé, and a GitHub repos listing. All copy lives in `content.js`, blog posts in `blog-data.js`, and the contact form is powered by Formspree. Clone it and serve it with any static file server — see above for details.
+Built-in blog system featuring:
 
-</div>
+Full articles Categories Tags Pagination Bilingual content 🔎 SEO Ready 
+
+Includes:
+
+Open Graph Twitter Cards JSON-LD sitemap.xml robots.txt Semantic HTML 04 · Architecture flowchart TD A[🌐 Browser] --> B[index.html] B --> C[script.js] B --> D[style.css] C --> E[content.js] C --> F[blog-data.js] E --> G[🇬🇧 English] E --> H[🇮🇷 Persian] C --> I[Theme Engine] C --> J[Animation Engine] C --> K[Language Engine] K --> L[RTL / LTR] I --> M[Dark / Light] Architecture Principles Centralized Content ↓ Separation of Concerns ↓ Native Browser APIs ↓ Minimal Dependencies ↓ Simple Deployment 05 · Animation System 
+
+The interface uses lightweight browser-native techniques instead of relying on animation frameworks.
+
+Typewriter Dynamic text ↓ Character animation ↓ Hero interaction Scroll Reveal IntersectionObserver ↓ Viewport detection ↓ Element reveal Interactive Cards Mouse movement ↓ Spotlight calculation ↓ Dynamic visual response Performance Mode 
+
+Lower-powered devices can disable heavier visual effects through:
+
+isLowPerformance 
+
+Because making a portfolio consume 40% CPU to animate a card would be a slightly embarrassing engineering decision.
+
+06 · Project Structure here-is-leo.github.io/ │ ├── index.html ├── about.html ├── projects.html ├── repos.html ├── blog.html ├── resume.html ├── admin.html │ ├── content.js ├── blog-data.js ├── script.js ├── style.css │ ├── sitemap.xml ├── robots.txt │ ├── logo.png ├── avatar.jpg │ └── LICENSE File Purpose index.html Main landing page about.html Personal information projects.html Project portfolio repos.html GitHub repositories blog.html Technical blog resume.html Printable résumé admin.html Internal dashboard content.js Bilingual content blog-data.js Blog database script.js Application logic style.css Complete visual system 07 · Tech Stack 
+
+Layer Technology Structure HTML5 Styling CSS3 Logic Vanilla JavaScript Typography Vazirmatn + Inter Animation CSS + Web APIs Storage LocalStorage Contact Formspree Hosting GitHub Pages 
+
+08 · Security 
+
+Security is considered throughout the project architecture.
+
+Frontend Minimal third-party dependencies Static deployment Semantic structure Honeypot anti-spam mechanism No sensitive credentials in client-side code Administration 
+
+The administrative dashboard communicates with a separate backend service.
+
+PUBLIC WEBSITE │ │ ▼ GitHub Pages │ │ └───────────────┐ │ ▼ Separate Backend │ ▼ Admin System 
+
+Public JavaScript is never a place to hide secrets. If it reaches the browser, assume the browser can read it.
+
+09 · SEO 
+
+The website includes a complete SEO foundation:
+
+Open Graph Twitter Cards Schema.org JSON-LD sitemap.xml robots.txt Semantic HTML Bilingual Metadata 
+
+Structured data is used to help search engines understand the website and its author.
+
+10 · Local Development git clone https://github.com/here-is-leo/here-is-leo.github.io.git cd here-is-leo.github.io Python python3 -m http.server 8000 Node.js npx serve . 
+
+Then:
+
+http://localhost:8000 
+
+Using a local HTTP server is recommended instead of opening index.html directly with file://.
+
+11 · Customization Content 
+
+Edit:
+
+content.js 
+
+All primary content is centralized there.
+
+content.js │ ├── fa │ ├── hero │ ├── skills │ ├── projects │ ├── focus │ └── contact │ └── en ├── hero ├── skills ├── projects ├── focus └── contact Projects 
+
+Add a project object to:
+
+projects.items Blog 
+
+Add articles to:
+
+blogPosts 
+
+inside:
+
+blog-data.js Design 
+
+Modify CSS variables inside:
+
+style.css 12 · Roadmap [x] Personal portfolio [x] Responsive interface [x] Dark / Light mode [x] Persian / English [x] RTL / LTR [x] Project showcase [x] GitHub repositories [x] Technical blog [x] Printable résumé [x] SEO foundation [x] Contact system [x] Performance-aware animations [ ] Advanced project filtering [ ] More technical articles [ ] More GitHub integrations [ ] Additional performance improvements [ ] Expanded documentation 13 · Design Philosophy 
+
+The project follows one principle:
+
+Use technology because it solves a problem, not because everyone else is using it.
+
+That is why this website deliberately avoids a framework.
+
+Sometimes the best abstraction is:
+
+HTML CSS JavaScript 
+
+And yes, apparently three files are still legal in 2026.
+
+14 · Contact 
+
+🌐 Website 
+
+https://www.here-is-leo.ir/
+
+🐙 GitHub 
+
+@here-is-leo
+
+📧 Email 
+
+ilyafarahanii@gmail.com
+
+15 · License 
+
+Released under the MIT License.
+
+See LICENSE for the complete license.
+
+BUILD • BREAK • LEARN • SECURE 
+
+© 2026 Ilia Farahani
+
+
+
+🇮🇷 نسخه فارسی 
+
+here-is-leo.ir وب‌سایت شخصی و پورتفولیوی ایلیا فراهانی 
+
+برنامه‌نویسی • امنیت سایبری • لینوکس • امنیت وب
+
+
+🌐 مشاهده وب‌سایت
+
+۰۱ · درباره پروژه 
+
+here-is-leo.ir وب‌سایت شخصی، پورتفولیو و فضای آزمایش فنی من است.
+
+این وب‌سایت کاملاً از صفر با استفاده از:
+
+HTML CSS Vanilla JavaScript 
+
+ساخته شده است.
+
+بدون فریم‌ورک، بدون سیستم Build و بدون وابستگی‌های غیرضروری.
+
+هدف اصلی پروژه ساخت یک وب‌سایت:
+
+سریع، سبک، مدرن، قابل توسعه و کاملاً قابل کنترل
+
+بوده است.
+
+۰۲ · بخش‌های سایت 👤 معرفی 🧠 مهارت‌ها 💻 پروژه‌ها 🐙 ریپازیتوری‌های GitHub 📝 وبلاگ فنی 📄 رزومه 📬 تماس 
+
+سایت کاملاً دوزبانه است:
+
+🇮🇷 فارسی ↔ 🇬🇧 English
+
+و از:
+
+RTL ↔ LTR
+
+پشتیبانی می‌کند.
+
+۰۳ · قابلیت‌ها 🌐 سیستم دوزبانه فارسی و انگلیسی تغییر زبان بدون Reload پشتیبانی کامل RTL/LTR فونت مناسب هر زبان محتوای متمرکز در content.js 🎨 رابط کاربری Typewriter Animation Scroll Reveal Spotlight Parallax Animated Counters Transitionهای نرم طراحی Responsive 🌙 حالت تاریک و روشن 
+
+سایت دارای Dark Mode و Light Mode است و انتخاب کاربر در:
+
+localStorage 
+
+ذخیره می‌شود.
+
+⚡ عملکرد 
+
+این پروژه عمداً از وابستگی‌های سنگین دوری می‌کند:
+
+❌ React ❌ Vue ❌ Angular ❌ Webpack ❌ Vite 
+
+و از قابلیت‌های Native مرورگر استفاده می‌کند.
+
+۰۴ · معماری index.html │ ├── script.js │ │ │ ├── content.js │ ├── blog-data.js │ ├── Language Engine │ ├── Theme Engine │ └── Animation Engine │ └── style.css 
+
+محتوا از منطق سایت جدا شده و محتوای فارسی و انگلیسی در یک ساختار مرکزی مدیریت می‌شود.
+
+۰۵ · سیستم انیمیشن 
+
+انیمیشن‌های سایت با استفاده از CSS و Web APIهای مرورگر ساخته شده‌اند.
+
+Typewriter 
+
+عنوان‌های Hero به‌صورت داینامیک نمایش داده می‌شوند.
+
+Scroll Reveal 
+
+با استفاده از:
+
+IntersectionObserver 
+
+المان‌ها هنگام ورود به Viewport انیمیشن می‌گیرند.
+
+Interactive Cards 
+
+کارت‌ها دارای افکت‌های:
+
+Spotlight Parallax Hover 
+
+هستند.
+
+Performance Mode 
+
+برای دستگاه‌های ضعیف‌تر، افکت‌های سنگین می‌توانند توسط:
+
+isLowPerformance 
+
+غیرفعال شوند.
+
+۰۶ · ساختار پروژه here-is-leo.github.io/ │ ├── index.html ├── about.html ├── projects.html ├── repos.html ├── blog.html ├── resume.html ├── admin.html │ ├── content.js ├── blog-data.js ├── script.js ├── style.css │ ├── sitemap.xml ├── robots.txt │ ├── logo.png ├── avatar.jpg │ └── LICENSE ۰۷ · تکنولوژی‌ها بخش تکنولوژی ساختار HTML5 استایل CSS3 منطق Vanilla JavaScript فونت فارسی Vazirmatn فونت انگلیسی Inter انیمیشن CSS + Web APIs ذخیره تنظیمات LocalStorage فرم تماس Formspree هاست GitHub Pages ۰۸ · امنیت 
+
+در طراحی پروژه به موارد امنیتی نیز توجه شده است.
+
+حداقل وابستگی‌های خارجی میزبانی Static Honeypot ضد Spam عدم قرار دادن Secret در Frontend جداسازی سیستم مدیریت از سایت عمومی 
+
+داشبورد admin.html به یک Backend جداگانه متصل است.
+
+هر چیزی که به مرورگر ارسال شود، دیگر Secret نیست.
+
+۰۹ · سئو 
+
+سایت دارای:
+
+Open Graph Twitter Cards Schema.org JSON-LD sitemap.xml robots.txt Semantic HTML Bilingual Metadata 
+
+است.
+
+۱۰ · اجرای محلی git clone https://github.com/here-is-leo/here-is-leo.github.io.git cd here-is-leo.github.io python3 -m http.server 8000 
+
+سپس:
+
+http://localhost:8000 
+
+را باز کنید.
+
+۱۱ · شخصی‌سازی تغییر محتوای سایت content.js افزودن پروژه projects.items افزودن مقاله blogPosts 
+
+در:
+
+blog-data.js تغییر ظاهر style.css ۱۲ · Roadmap [x] پورتفولیو شخصی [x] طراحی Responsive [x] Dark / Light Mode [x] فارسی / انگلیسی [x] RTL / LTR [x] نمایش پروژه‌ها [x] GitHub Repository Explorer [x] وبلاگ فنی [x] رزومه قابل چاپ [x] SEO [x] فرم تماس [x] انیمیشن‌های بهینه [ ] فیلتر پیشرفته پروژه‌ها [ ] مقالات فنی بیشتر [ ] امکانات بیشتر GitHub [ ] بهینه‌سازی بیشتر Performance [ ] مستندات گسترده‌تر ۱۳ · فلسفه طراحی 
+
+اصل این پروژه ساده است:
+
+از تکنولوژی برای حل مسئله استفاده کن، نه فقط چون بقیه استفاده می‌کنند.
+
+به همین دلیل این وب‌سایت عمداً بدون Framework ساخته شده است.
+
+گاهی تمام چیزی که لازم داری:
+
+HTML + CSS + JavaScript 
+
+است.
+
+۱۴ · ارتباط 
+
+🌐 Website
+
+https://www.here-is-leo.ir/
+
+🐙 GitHub
+
+@here-is-leo
+
+📧 Email
+
+ilyafarahanii@gmail.com
+
+۱۵ · License 
+
+این پروژه تحت مجوز MIT منتشر شده است.
+
+برای جزئیات کامل فایل LICENSE را مشاهده کنید.
+
+BUILD • BREAK • LEARN • SECURE 
+
+© 2026 Ilia Farahani
+
