@@ -31,8 +31,8 @@ const SITE = {
 
     stats: [
       { number: 35, suffix: "+", label: "چالش امنیتی حل شده" },
-      { number: 231, suffix: "", label: "مشارکت در یک سال" },
-      { number: 16, suffix: "", label: "پروژه عملی" },
+      { number: 355, suffix: "", label: "مشارکت در یک سال" },
+      { number: 18, suffix: "", label: "پروژه عملی" },
       { number: 5, suffix: "", label: "زبان برنامه‌نویسی" }
     ],
     
@@ -71,7 +71,11 @@ const SITE = {
       title: "پروژه‌های شاخص",
       subtitle: "پروژه‌هایی که با یادگیری خودآموز و عشق به کدنویسی ساخته‌ام.",
       items: [
-        { icon: "🛒", title: "pos-system", date: "۱۴۰۵", desc: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار.", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: "https://github.com/here-is-leo/pos-system" },
+        { icon: "📖", title: "sqlserver-book", date: "۱۴۰۵", desc: "کتاب کامل SQL Server در ۵۱ صفحه — آموزش عمیق پایگاه داده به فارسی و انگلیسی، تک‌فایل، بدون وابستگی خارجی، با تم تاریک/روشن و ناوبری با کیبورد.", tech: ["HTML", "CSS", "JavaScript", "SQL Server"], url: "https://github.com/here-is-leo/sqlserver-book" },
+        { icon: "🗂️", title: "ilia-cms", date: "۱۴۰۵", desc: "سیستم مدیریت محتوا (CMS) اختصاصی برای سایت شخصی ایلیا فراهانی.", tech: ["JavaScript"], url: "https://github.com/here-is-leo/ilia-cms" },
+        { icon: "🛒", title: "pos-system", date: "۱۴۰۵", desc: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار. (مخزن خصوصی)", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: null },
+        { icon: "💰", title: "expense-tracker", date: "۱۴۰۵", desc: "ابزار مدیریت هزینه‌های گروهی — بک‌اند ASP.NET Core API با فرانت‌اند React، مستندسازی با Swagger و طراحی رابط در Figma.", tech: ["C#", ".NET", "SQL Server", "React", "Swagger"], url: "https://github.com/here-is-leo/expense-tracker" },
+        { icon: "🖼️", title: "Endpng", date: "۱۴۰۵", desc: "پروژه‌ای کوچک و در حال توسعه — جزئیات بیشتر به‌زودی در مخزن گیت‌هاب اضافه می‌شود.", tech: [], url: "https://github.com/here-is-leo/Endpng" },
         { icon: "🔍", title: "Paris", date: "۱۴۰۵", desc: "اسکنر خودکار و حرفه‌ای آسیب‌پذیری‌های وب، طراحی‌شده برای پژوهشگران امنیتی و تست‌کنندگان نفوذ. پیاده‌سازی بیش از ۱۲ نوع تست آسیب‌پذیری.", tech: ["Python", "FastAPI", "WebSocket"], url: "https://github.com/here-is-leo/Paris" },
         { icon: "🔒", title: "Moscow", date: "۱۴۰۵", desc: "پروژه تحقیقاتی و آموزشی در حوزه امنیت پلاگین‌های وردپرس. بررسی و تحلیل نقاط ضعف امنیتی رایج در پلاگین‌ها.", tech: ["PHP", "WordPress", "Security Research"], url: "https://github.com/here-is-leo/Moscow" },
         { icon: "🕸️", title: "overthewire-natas", date: "۱۴۰۵", desc: "راهنمای کامل و دوزبانه (فارسی/انگلیسی) برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas.", tech: ["HTML", "CSS", "JavaScript", "Web Security"], url: "https://github.com/here-is-leo/overthewire-natas" },
@@ -89,7 +93,11 @@ const SITE = {
       title: "مخازن گیت‌هاب",
       subtitle: "همه پروژه‌های من در گیت‌هاب — از ابزارهای امنیتی تا سیستم‌های کنترل و اتوماسیون.",
       items: [
-        { name: "pos-system", desc: "سیستم جامع فروش و مدیریت انبار (POS) با ۴ اپلیکیشن جداگانه — REST API، پنل ادمین، فروشنده و انباردار.", lang: "TypeScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/pos-system" },
+        { name: "sqlserver-book", desc: "کتاب کامل SQL Server — ۵۱ صفحه آموزش پایگاه داده به فارسی و انگلیسی، تک‌فایل و بدون وابستگی.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/sqlserver-book" },
+        { name: "ilia-cms", desc: "سیستم مدیریت محتوا برای سایت شخصی ایلیا فراهانی.", lang: "JavaScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/ilia-cms" },
+        { name: "pos-system", desc: "سیستم جامع فروش و مدیریت انبار (POS) با ۴ اپلیکیشن جداگانه — REST API، پنل ادمین، فروشنده و انباردار. (مخزن خصوصی)", lang: "TypeScript", stars: 0, forks: 0, url: null },
+        { name: "expense-tracker", desc: "ابزار مدیریت هزینه‌های گروهی — ASP.NET Core API و فرانت‌اند React.", lang: "C#", stars: 0, forks: 0, url: "https://github.com/here-is-leo/expense-tracker" },
+        { name: "Endpng", desc: "پروژه‌ای در حال توسعه.", lang: "—", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Endpng" },
         { name: "Paris", desc: "اسکنر آسیب‌پذیری وب — شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Paris" },
         { name: "Moscow", desc: "پلاگین تحقیقاتی امنیت وردپرس — چندین نقطه ورود، Self-Destruct و Deface page.", lang: "PHP", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Moscow" },
         { name: "overthewire-natas", desc: "راهنمای کامل دوزبانه ۳۵ مرحله چالش Natas — تحلیل آسیب‌پذیری و کد اکسپلویت.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/overthewire-natas" },
@@ -130,6 +138,7 @@ const SITE = {
         { name: "FastAPI", level: 75 }
       ],
       projects: [
+        { icon: "📖", title: "sqlserver-book", desc: "کتاب ۵۱ صفحه‌ای آموزش SQL Server" },
         { icon: "🔍", title: "Paris", desc: "اسکنر آسیب‌پذیری وب با Python + FastAPI + WebSocket" },
         { icon: "🔒", title: "Moscow", desc: "پروژه تحقیقاتی امنیت پلاگین‌های وردپرس (PHP)" },
         { icon: "⚡", title: "N3XUS V7.1", desc: "سیستم کنترل مبتنی بر آردوینو با رابط وب" },
@@ -149,9 +158,9 @@ const SITE = {
         { name: "انگلیسی", level: "B2+" }
       ],
       github: {
-        commits: "۲۳ در یک سال اخیر",
+        commits: "۳۵۵ در یک سال اخیر",
         repos: "۱۳ مخزن",
-        focus: "مرداد ۱۴۰۵",
+        focus: "شهریور ۱۴۰۵",
         type: "امنیتی، آموزشی، IoT"
       }
     },
@@ -240,7 +249,7 @@ const SITE = {
       ],
       
       githubTag: "گیت‌هاب",
-      githubText: "231 مشارکت در یک سال اخیر، با تمرکز بر پروژه‌های امنیتی و آموزشی.",
+      githubText: "355 مشارکت در یک سال اخیر، با تمرکز بر پروژه‌های امنیتی و آموزشی.",
       githubLinkText: "github.com/here-is-leo"
     }
   },
@@ -281,8 +290,8 @@ const SITE = {
     
     stats: [
       { number: 35, suffix: "+", label: "Security Challenges" },
-      { number: 231, suffix: "", label: "Commits" },
-      { number: 16, suffix: "", label: "Projects" },
+      { number: 355, suffix: "", label: "Commits" },
+      { number: 18, suffix: "", label: "Projects" },
       { number: 5, suffix: "", label: "Languages" }
     ],
     
@@ -321,7 +330,11 @@ const SITE = {
       title: "Featured Projects",
       subtitle: "Projects built through self-driven learning and passion for coding.",
       items: [
-        { icon: "🛒", title: "pos-system", date: "2026", desc: "Full-featured Point-of-Sale & inventory management system built as 4 separate apps — REST API backend, admin dashboard, cashier interface, and warehouse manager.", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: "https://github.com/here-is-leo/pos-system" },
+        { icon: "📖", title: "sqlserver-book", date: "2026", desc: "The Ultimate SQL Server Book — 51 pages of deep database education in Persian & English. Single-file, zero dependencies, dark/light themes and keyboard navigation.", tech: ["HTML", "CSS", "JavaScript", "SQL Server"], url: "https://github.com/here-is-leo/sqlserver-book" },
+        { icon: "🗂️", title: "ilia-cms", date: "2026", desc: "Custom content management system built for Ilia Farahani's personal website.", tech: ["JavaScript"], url: "https://github.com/here-is-leo/ilia-cms" },
+        { icon: "🛒", title: "pos-system", date: "2026", desc: "Full-featured Point-of-Sale & inventory management system built as 4 separate apps — REST API backend, admin dashboard, cashier interface, and warehouse manager. (Private repo)", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: null },
+        { icon: "💰", title: "expense-tracker", date: "2026", desc: "Collaborative expense tracker — ASP.NET Core API backend with a React frontend, Swagger docs, and Figma-designed UI.", tech: ["C#", ".NET", "SQL Server", "React", "Swagger"], url: "https://github.com/here-is-leo/expense-tracker" },
+        { icon: "🖼️", title: "Endpng", date: "2026", desc: "A small project in early development — more details coming soon on GitHub.", tech: [], url: "https://github.com/here-is-leo/Endpng" },
         { icon: "🔍", title: "Paris", date: "2026", desc: "Web Vulnerability Scanner — a powerful tool for identifying and analyzing security vulnerabilities in websites.", tech: ["Python", "FastAPI", "WebSocket"], url: "https://github.com/here-is-leo/Paris" },
         { icon: "🔒", title: "Moscow", date: "2026", desc: "Advanced WordPress Security Research Plugin — an educational tool for identifying security weaknesses in WordPress.", tech: ["PHP", "WordPress", "Security Research"], url: "https://github.com/here-is-leo/Moscow" },
         { icon: "🕸️", title: "overthewire-natas", date: "2026", desc: "Complete bilingual (Persian/English) walkthrough for all 35 levels of OverTheWire Natas — web & server-side security concepts, vulnerabilities, exploitation code, and defense strategies.", tech: ["HTML", "CSS", "JavaScript", "Web Security"], url: "https://github.com/here-is-leo/overthewire-natas" },
@@ -339,7 +352,11 @@ const SITE = {
       title: "GitHub Repositories",
       subtitle: "All my GitHub projects — from security tools to control systems and automation.",
       items: [
-        { name: "pos-system", desc: "Full-featured Point-of-Sale & inventory management system with 4 separate apps — REST API, admin panel, cashier and warehouse manager.", lang: "TypeScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/pos-system" },
+        { name: "sqlserver-book", desc: "The Ultimate SQL Server Book — 51 pages of deep database education in Persian & English, single-file with zero dependencies.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/sqlserver-book" },
+        { name: "ilia-cms", desc: "Content management system for Ilia Farahani's personal website.", lang: "JavaScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/ilia-cms" },
+        { name: "pos-system", desc: "Full-featured Point-of-Sale & inventory management system with 4 separate apps — REST API, admin panel, cashier and warehouse manager. (Private repo)", lang: "TypeScript", stars: 0, forks: 0, url: null },
+        { name: "expense-tracker", desc: "Collaborative expense tracker — ASP.NET Core API with a React frontend.", lang: "C#", stars: 0, forks: 0, url: "https://github.com/here-is-leo/expense-tracker" },
+        { name: "Endpng", desc: "A project in early development.", lang: "—", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Endpng" },
         { name: "Paris", desc: "Web Vulnerability Scanner — identifying and analyzing security vulnerabilities in websites.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Paris" },
         { name: "Moscow", desc: "WordPress security research plugin — multiple entry points, Self-Destruct and Deface page.", lang: "PHP", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Moscow" },
         { name: "overthewire-natas", desc: "Complete bilingual walkthrough for 35 levels of Natas challenge — vulnerability analysis and exploit code.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/overthewire-natas" },
@@ -380,6 +397,7 @@ const SITE = {
         { name: "FastAPI", level: 75 }
       ],
       projects: [
+        { icon: "📖", title: "sqlserver-book", desc: "51-page SQL Server education book" },
         { icon: "🔍", title: "Paris", desc: "Web Vulnerability Scanner with Python + FastAPI + WebSocket" },
         { icon: "🔒", title: "Moscow", desc: "WordPress plugin security research project (PHP)" },
         { icon: "⚡", title: "N3XUS V7.1", desc: "Arduino-based control system with web interface" },
@@ -399,9 +417,9 @@ const SITE = {
         { name: "English", level: "B2+" }
       ],
       github: {
-        commits: "23 in the past year",
+        commits: "355 in the past year",
         repos: "13 repositories",
-        focus: "Aug 2026",
+        focus: "Sep 2026",
         type: "Security, Educational, IoT"
       }
     },
@@ -490,7 +508,7 @@ const SITE = {
       ],
       
       githubTag: "GitHub",
-      githubText: "231 commits in the past year, focused on security and educational projects.",
+      githubText: "355 commits in the past year, focused on security and educational projects.",
       githubLinkText: "github.com/here-is-leo"
     }
   }
