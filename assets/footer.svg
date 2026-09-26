@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="220" viewBox="0 0 1200 220" role="img" aria-labelledby="t">
+<title id="t">Good systems start with a good conversation. Email Ilia.</title>
+<defs>
+<radialGradient id="glow2" cx="0.5" cy="0.35" r="0.7">
+<stop offset="0" stop-color="#c9a769" stop-opacity="0.14"/>
+<stop offset="1" stop-color="#c9a769" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="hair" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#c9a769" stop-opacity="0"/>
+<stop offset="0.5" stop-color="#c9a769"/>
+<stop offset="1" stop-color="#c9a769" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<style>.serif{font-family:'Georgia','Times New Roman',serif}.sans{font-family:'Segoe UI',Arial,sans-serif}</style>
+<rect width="1200" height="220" fill="#171310"/>
+<rect width="1200" height="220" fill="url(#glow2)"/>
+<rect x="0" y="0" width="1200" height="1" fill="#3a3124"/>
+<text x="600" y="76" text-anchor="middle" class="sans" font-size="12" letter-spacing="3" fill="#8a7f6f" font-style="italic">Good systems start with a good conversation</text>
+<text x="600" y="132" text-anchor="middle" class="serif" font-size="38" fill="#f2ece2">ilyafarahanii@gmail.com</text>
+<rect x="560" y="156" width="80" height="1" fill="url(#hair)"/>
+<text x="600" y="192" text-anchor="middle" class="sans" font-size="11" letter-spacing="3" fill="#5f5646">ILIA FARAHANI &#8226; HERE-IS-LEO &#8226; STAY CURIOUS</text>
+</svg>
