@@ -1,240 +1,172 @@
-<div align="center"> <!-- ═══════════════════════════════════════════════════════════════════════ --> <!-- HERO --> <!-- ═══════════════════════════════════════════════════════════════════════ --> <img src="https://capsule-render.vercel.app/api?type=waving&color=0:050816,50:111827,100:00f0ff&height=250&section=header&text=HERE-IS-LEO&fontSize=64&fontColor=ffffff&fontAlignY=38&animation=twinkling&desc=CODE%20%E2%80%A2%20SECURITY%20%E2%80%A2%20ENGINEERING&descAlignY=62&descSize=18" width="100%" /> <br> <a href="https://here-is-leo.ir"> <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=24&duration=3000&pause=900&color=00F0FF&center=true&vCenter=true&multiline=false&width=800&height=55&lines=Ilia+Farahani+%7C+Developer+%26+Security+Enthusiast;I+build+systems%2C+not+just+code.;Python+%E2%80%A2+Backend+%E2%80%A2+Cybersecurity+%E2%80%A2+Linux;Turning+ideas+into+real+software.;Welcome+to+my+digital+workspace." alt="Typing Animation" /> </a> <br><br> <a href="https://here-is-leo.ir"> <img src="https://img.shields.io/badge/%E2%9A%A1%20LIVE%20WEBSITE-here--is--leo.ir-00f0ff?style=for-the-badge&labelColor=050816" /> </a> <a href="https://github.com/here-is-leo"> <img src="https://img.shields.io/badge/%F0%9F%92%BB%20GITHUB-here--is--leo-ffffff?style=for-the-badge&labelColor=050816&logo=github&logoColor=white" /> </a> <img src="https://img.shields.io/badge/%F0%9F%9B%A1%EF%B8%8F%20FOCUS-CYBERSECURITY-a855f7?style=for-the-badge&labelColor=050816" /> <img src="https://img.shields.io/badge/%E2%9A%99%EF%B8%8F%20STACK-PYTHON%20%7C%20JS%20%7C%20LINUX-22c55e?style=for-the-badge&labelColor=050816" /> <br><br> <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="90%" /> </div> <br> # `> whoami` ```text Ilia Farahani ──────────────────────────────────────────────────────── Role → Developer Focus → Backend • Cybersecurity • Linux Languages → Python • JavaScript • SQL • C# Mindset → Build • Break • Learn • Improve Website → here-is-leo.ir GitHub → github.com/here-is-leo 
+<div align="center">
 
-I don't just want code that works.
+<img src="./assets/hero.svg" width="100%" alt="Ilia Farahani — backend developer and security-minded engineer." />
 
-I want to understand why it works, how it breaks, and how to make it better.
+<br/><br/>
 
-⚡ The Developer Behind The Code 
+<a href="https://here-is-leo.ir/"><img src="https://img.shields.io/badge/-Website-1a1511?style=flat-square&labelColor=1a1511&color=1a1511" alt=""/></a>&nbsp;
+<a href="https://here-is-leo.ir/"><b>here-is-leo.ir</b></a>
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<a href="https://www.linkedin.com/in/ilya-farahani"><b>LinkedIn</b></a>
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<a href="https://t.me/Here_is_leo"><b>Telegram</b></a>
+&nbsp;&nbsp;·&nbsp;&nbsp;
+<a href="mailto:ilyafarahanii@gmail.com"><b>Email</b></a>
 
-BUILD → BREAK → UNDERSTAND → REBUILD 
+</div>
 
-I'm Ilia Farahani, a developer interested in the intersection of software engineering, backend systems, cybersecurity and Linux.
+<br/>
 
-I like taking an idea that exists only in my head and turning it into something that can actually run.
+<img src="./assets/sec-about.svg" width="100%" alt="Chapter One — About" />
 
-My learning philosophy is simple:
+<br/>
 
-Don't memorize the technology. Understand the system behind it. 
+<table width="100%">
+<tr>
+<td width="60%" valign="top">
 
-That means exploring:
+I'm **Ilia Farahani**, a backend developer with a security-focused mindset.
+I like understanding how things work — and what happens when their
+assumptions break.
 
-🐍 Python & Backend Engineering 🌐 Web Development 🗄️ SQL & Databases 🐧 Linux & System Administration 🛡️ Cybersecurity 🔌 APIs & Automation 🧠 Software Architecture ⚙️ Hardware & Embedded Experiments 🧠 How I Think 
+I care about what happens beneath the surface: the API that stays
+predictable, the authentication flow that holds up, the deployment you can
+repeat, the code someone else can actually understand.
 
-🔍 Understand 
+<br/>
 
-How does it work?
+*Understand. Build. Test. Refine.*
 
-💻 Build 
+</td>
+<td width="40%" valign="top">
 
-Can I create it?
+```python
+ilia = {
+  "alias": "here-is-leo",
+  "base":  "Linux, terminal, editor",
+  "focus": [
+    "Backend systems",
+    "Application security",
+  ],
+}
+```
 
-🧨 Break 
+</td>
+</tr>
+</table>
 
-How does it fail?
+<br/>
 
-🚀 Improve 
+<img src="./assets/sec-stack.svg" width="100%" alt="Chapter Two — The Toolkit" />
 
-How can it become better?
+<br/>
 
+<div align="center">
 
-┌─────────────────────┐ │ IDEA │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ RESEARCH │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ BUILD │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ TEST │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ BREAK │ └──────────┬──────────┘ │ ▼ ┌─────────────────────┐ │ IMPROVE │ └──────────┬──────────┘ │ └───────────────► 🔁 🛠️ My Arsenal 
+|  |  |
+|---|---|
+| **Backend** | Python · C# · .NET · Node.js · Express · Django · Flask |
+| **Frontend** | JavaScript · React · Next.js · HTML · CSS · Tailwind CSS |
+| **Infrastructure** | Linux · Kali Linux · Bash · Docker · Nginx · GitHub Actions |
+| **Data** | SQLite · Microsoft SQL Server |
+| **Workflow** | Git · GitHub · VS Code · Visual Studio · Postman |
 
+</div>
 
+<br/>
 
-🐍 BACKEND 
+<img src="./assets/sec-projects.svg" width="100%" alt="Chapter Three — Selected Work" />
 
-Python
-APIs
-Automation
-SQL
-Databases
+<br/>
 
-🛡️ SECURITY 
+<table width="100%">
+<tr>
+<td width="33%" valign="top">
 
-Linux
-Kali Linux
-Networking
-Web Security
-Security Research
+**Marshall**
+*Hardware & electronics*
 
-🌐 WEB 
+An experimental build exploring embedded
+concepts and hands-on hardware work.
 
-HTML
-CSS
-JavaScript
-Responsive UI
-Performance
+</td>
+<td width="33%" valign="top">
 
-⚙️ TOOLS 
+**V-Tunnel**
+*Python · Telegram Mini App*
 
-Git
-GitHub
-VS Code
-Cloudflare
-Linux CLI
+A Telegram-native ecosystem for managing
+DNS, proxy and V2Ray configurations.
 
-🔥 What I Build 
+</td>
+<td width="33%" valign="top">
 
-🐍 Backend Systems 
+**N3XUS**
+*ESP32 · NRF24 · CC1101*
 
-I enjoy building software where the interesting part happens behind the interface.
+A multi-component security hardware
+project spanning wireless and display
+modules.
 
-APIs Databases Authentication Automation Data Processing Service Architecture 🛡️ Security Projects 
+</td>
+</tr>
+</table>
 
-Security is more interesting when you actually understand the system you're defending.
+<br/>
 
-Linux Networking Web Security Security Tools Traffic Analysis Security Research 🌐 Web Experiences 
+<img src="./assets/sec-focus.svg" width="100%" alt="Chapter Four — Currently" />
 
-Not every website needs a 400 MB JavaScript ecosystem.
+<br/>
 
-Sometimes:
+<table width="100%">
+<tr>
+<td width="50%" valign="top">
 
-HTML + CSS + JavaScript = Fast Software 🔌 Experimental Projects 
+**Scalable APIs**
+Services that stay understandable as they grow.
 
-I also like going below the browser.
+**Application security**
+Understanding attack paths to build better defenses.
 
-ESP32 Electronics Wireless Embedded Systems Hardware Experiments 
+</td>
+<td width="50%" valign="top">
 
-🚀 Featured Projects 
+**System design**
+Turning requirements into deliberate architectural decisions.
 
-🔭 Marshall 
+**Automation & CI/CD**
+Making delivery repeatable, one workflow at a time.
 
-Experimental hardware / electronics project
+</td>
+</tr>
+</table>
 
-A hands-on project focused on experimenting with hardware, electronics and embedded concepts.
+<br/>
 
+<img src="./assets/sec-signal.svg" width="100%" alt="Chapter Five — In Numbers" />
 
-🌐 V-Tunnel 
+<br/>
 
-DNS • Proxy • VPN Management
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=here-is-leo&show_icons=true&hide_border=true&bg_color=1a1511&title_color=c9a769&icon_color=c9a769&text_color=8a7f6f&ring_color=c9a769" width="48%" alt="Ilia's GitHub stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=here-is-leo&layout=compact&hide_border=true&bg_color=1a1511&title_color=c9a769&text_color=8a7f6f" width="36%" alt="Ilia's most used languages" />
+</p>
 
-A Telegram Mini App ecosystem for managing networking utilities and configurations.
+<details>
+<summary align="center">Repositories &amp; recent activity</summary>
+<br/>
 
-Python Telegram Bot Mini App DNS Proxy V2Ray 
-🧠 N3XUS 
+<div align="center">
 
-Experimental Security Hardware
+[**Browse my repositories →**](https://github.com/here-is-leo?tab=repositories)
 
-A multi-component hardware project combining embedded systems, wireless modules and display interfaces.
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=here-is-leo&bg_color=1a1511&color=c9a769&line=c9a769&point=f2ece2&area=true&hide_border=true&custom_title=Contribution%20Activity" width="100%" alt="Recent public GitHub contributions." />
 
-ESP32 NRF24 CC1101 TFT OLED SD 
+</div>
 
-📊 GitHub 
+</details>
 
+<br/><br/>
 
+<a href="mailto:ilyafarahanii@gmail.com"><img src="./assets/footer.svg" width="100%" alt="Good systems start with a good conversation. Email Ilia." /></a>
 
-
-
-📂 Portfolio Architecture here-is-leo.github.io/ │ ├── 🌐 index.html │ └── Main experience │ ├── 👤 about.html │ └── About & engineering philosophy │ ├── 💼 projects.html │ └── Project showcase │ ├── 📦 repos.html │ └── GitHub repository explorer │ ├── 📝 blog.html │ └── Technical blog │ ├── 📄 resume.html │ └── Resume / printable profile │ ├── 🔐 admin.html │ └── Administration interface │ ├── ⚡ content.js │ └── Bilingual content source │ ├── 📚 blog-data.js │ └── Blog content │ ├── ⚙️ script.js │ └── Application logic │ └── 🎨 style.css └── Design system ⚡ Why Zero Framework? 
-
-Because more technology doesn't automatically mean better engineering.
-
-This website intentionally avoids unnecessary frontend complexity.
-
-React ❌ Vue ❌ Angular ❌ Webpack ❌ Vite ❌ Babel ❌ HTML ✅ CSS ✅ JavaScript ✅ 
-
-The result:
-
-LESS │ ┌────────▼────────┐ │ DEPENDENCIES │ └────────┬────────┘ │ ▼ LESS COMPLEXITY │ ▼ FASTER START │ ▼ EASIER DEBUG │ ▼ BETTER CONTROL 🌍 Bilingual By Design 
-
-The portfolio isn't simply translated.
-
-It is designed to understand two writing directions:
-
-🇬🇧 English ↓ LTR 🇮🇷 فارسی ↓ RTL 
-
-Language switching happens without forcing a full page reload.
-
-🎨 Design Philosophy 
-
-The interface combines:
-
-┌───────────────────────────────────────────┐ │ │ │ Glassmorphism │ │ Neon Accents │ │ Dark UI │ │ Micro Animations │ │ Responsive Layout │ │ Dynamic Components │ │ Minimal Dependencies │ │ │ └───────────────────────────────────────────┘ 
-
-The goal isn't to make everything move.
-
-The goal is to make movement mean something.
-
-🔐 Security Mindset 
-
-I approach security from both sides:
-
-┌─────────────────┐ │ SYSTEM │ └────────┬────────┘ │ ┌──────────┴──────────┐ ▼ ▼ 🛡️ DEFEND 🧨 BREAK │ │ └──────────┬──────────┘ ▼ UNDERSTAND │ ▼ IMPROVE 
-
-Security isn't just about running tools.
-
-It's about understanding:
-
-How the system works ↓ Where assumptions exist ↓ Where failures happen ↓ How they can be prevented 🧪 Local Development 
-
-Clone the repository:
-
-git clone https://github.com/here-is-leo/here-is-leo.github.io.git cd here-is-leo.github.io 
-
-Run locally:
-
-python3 -m http.server 8000 
-
-Or:
-
-npx serve . 
-
-Then:
-
-http://localhost:8000 ⚙️ Configuration Content 
-
-Main bilingual content:
-
-content.js 
-
-Structure:
-
-hero about skills projects contact 
-
-Languages:
-
-fa → RTL en → LTR ➕ Add A Project { icon: "fas fa-code", title: "Project Name", date: "2026", desc: "Short technical description.", tech: [ "Python", "FastAPI", "Linux" ], url: "https://github.com/here-is-leo/PROJECT" } 🧠 My Rule 
-
-Don't chase technologies. Understand systems. 
-Learn the fundamentals. Build real things. Break your own assumptions. Keep improving. 
-
-🇮🇷 نسخه فارسی 👋 من کی هستم؟ 
-
-من ایلیا فراهانی هستم، برنامه‌نویسی که بیشتر به Backend، Python، لینوکس، امنیت سایبری و ساخت پروژه‌های واقعی علاقه دارد.
-
-برای من برنامه‌نویسی فقط نوشتن کد نیست.
-
-ایده ↓ تحقیق ↓ ساخت ↓ تست ↓ خراب کردن ↓ فهمیدن ↓ بهبود 
-
-هدف این است که فقط مصرف‌کننده‌ی تکنولوژی نباشم.
-
-می‌خواهم بفهمم پشت تکنولوژی چه اتفاقی می‌افتد.
-
-🛡️ تمرکز اصلی 🐍 Python ⚙️ Backend 🗄️ SQL & Databases 🐧 Linux 🛡️ Cybersecurity 🌐 Web Development 🔌 APIs 🧠 Software Engineering 🚀 پروژه‌ها 🔭 Marshall 
-
-پروژه‌ی آزمایشی سخت‌افزاری و الکترونیکی برای تجربه‌ی عملی با قطعات و سیستم‌های Embedded.
-
-🌐 V-Tunnel 
-
-یک سیستم مبتنی بر Telegram Mini App برای مدیریت ابزارها و کانفیگ‌های شبکه شامل DNS، Proxy و V2Ray.
-
-🧠 N3XUS 
-
-پروژه‌ی سخت‌افزاری آزمایشی با تمرکز روی ESP32، ارتباطات بی‌سیم و تجهیزات جانبی مختلف.
-
-⚡ فلسفه‌ی من 
-
-فریم‌ورک بیشتر، الزاماً مهندسی بهتر نیست.
-
-گاهی بهترین راه این است که مسئله را با ساده‌ترین ابزار مناسب حل کنیم.
-
-سادگی ↓ درک بهتر ↓ کنترل بیشتر ↓ Debug آسان‌تر ↓ سیستم بهتر 🌐 ارتباط با من 
-
-
-BUILD SOMETHING WORTH REMEMBERING. 
-
-
-
-© 2026 Ilia Farahani · Built with curiosity · Powered by code
-
-``` 
