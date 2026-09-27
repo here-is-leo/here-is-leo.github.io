@@ -27,32 +27,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
-  
-  <style>
-    .project-detail-card {
-      background: linear-gradient(160deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius);
-      padding: 28px 26px;
-      backdrop-filter: blur(14px);
-      transition: all .4s cubic-bezier(.22, 1, .36, 1);
-      display: flex;
-      flex-direction: column;
-    }
-    .project-detail-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow-card-hover);
-    }
-    .project-detail-card .project-icon { font-size: 2.2rem; margin-bottom: 10px; }
-    .project-detail-card h3 { font-size: 1.15rem; margin: 0 0 4px; font-weight: 700; }
-    .project-detail-card .project-date { font-size: .72rem; color: var(--foreground-muted); margin-bottom: 10px; }
-    .project-detail-card .project-desc { color: var(--foreground-muted); font-size: .9rem; line-height: 1.9; margin: 0 0 12px; flex: 1; }
-    .project-detail-card .project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
-    .project-detail-card .project-tech span { padding: 3px 12px; border-radius: 999px; border: 1px solid var(--border-accent); background: rgba(94, 106, 210, .06); color: #b8bfff; font-size: .7rem; font-weight: 500; }
-    .project-detail-card .project-link { color: #b8bfff; font-weight: 600; font-size: .85rem; transition: color .3s; display: inline-flex; align-items: center; gap: 4px; }
-    .project-detail-card .project-link:hover { color: #fff; }
-  </style>
 </head>
 <body data-page="projects">
   <div class="bg-ambient">
@@ -82,14 +56,14 @@
   <main>
     <section class="about-hero" style="padding: 60px 0 30px;">
       <div class="container">
-        <h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;">پروژه‌های شاخص</h1>
-        <p style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;">پروژه‌هایی که با یادگیری خودآموز و عشق به کدنویسی ساخته‌ام.</p>
+        <h1 id="projects-page-title" style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;"></h1>
+        <p id="projects-page-subtitle" style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;"></p>
       </div>
     </section>
 
     <section style="border-top:0; padding-top:0;">
       <div class="container">
-        <div class="projects-grid" id="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;"></div>
+        <div class="projects-grid" id="projects-grid-page" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;"></div>
       </div>
     </section>
   </main>
@@ -101,36 +75,16 @@
   <script src="content.js"></script>
   <script src="script.js"></script>
   <script>
-    const projectsData = [
-      { icon: "🛒", title: "pos-system", date: "۱۴۰۵", description: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار.", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: "https://github.com/here-is-leo/pos-system" },
-      { icon: "🔍", title: "Paris", date: "۱۴۰۵", description: "اسکنر خودکار و حرفه‌ای آسیب‌پذیری‌های وب، طراحی‌شده برای پژوهشگران امنیتی و تست‌کنندگان نفوذ. پیاده‌سازی بیش از ۱۲ نوع تست آسیب‌پذیری.", tech: ["Python", "FastAPI", "WebSocket"], url: "https://github.com/here-is-leo/Paris" },
-      { icon: "🔒", title: "Moscow", date: "۱۴۰۵", description: "پروژه تحقیقاتی و آموزشی در حوزه امنیت پلاگین‌های وردپرس. بررسی و تحلیل نقاط ضعف امنیتی رایج در پلاگین‌ها.", tech: ["PHP", "WordPress", "Security Research"], url: "https://github.com/here-is-leo/Moscow" },
-      { icon: "🕸️", title: "overthewire-natas", date: "۱۴۰۵", description: "راهنمای کامل و دوزبانه (فارسی/انگلیسی) برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas.", tech: ["HTML", "CSS", "JavaScript", "Web Security"], url: "https://github.com/here-is-leo/overthewire-natas" },
-      { icon: "🌐", title: "V-Tunnel", date: "مرداد ۱۴۰۵", description: "Telegram Mini App برای مدیریت ابزارهای شبکه — سرورهای DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.", tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"], url: "https://github.com/here-is-leo/V-Tunnel" },
-      { icon: "📚", title: "kali-linux-complete-guide", date: "مرداد ۱۴۰۵", description: "راهنمای آموزشی جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — Nmap، Metasploit، Wireshark، John the Ripper.", tech: ["HTML", "CSS", "JavaScript", "Kali Linux"], url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
-      { icon: "⚡", title: "N3XUS V7.1", date: "۱۴۰۵", description: "سامانه کنترل پیشرفته مبتنی بر آردوینو (نسخه V7.1) با رابط کاربری تحت وب. طراحی رابط وب برای پایش و کنترل بلادرنگ سخت‌افزار.", tech: ["Arduino (C/C++)", "HTML"], url: "https://github.com/here-is-leo/N3XUS" },
-      { icon: "🔧", title: "Marshall", date: "۱۴۰۵", description: "سامانه کنترل ماژولار مبتنی بر آردوینو با پیکربندی قابل‌تنظیم. طراحی معماری ماژولار و مستندسازی جامع.", tech: ["Arduino (C/C++)", "HTML"], url: "https://github.com/here-is-leo/Marshall" },
-      { icon: "🤖", title: "Bale-Bot", date: "مرداد ۱۴۰۵", description: "پروژه اولیه ربات پیام‌رسان هوشمند برای پلتفرم بله — در حال توسعه با قابلیت‌های جدید.", tech: ["Python", "Bale API"], url: "https://github.com/here-is-leo/Bale-Bot" },
-      { icon: "📦", title: "inventory-bot", date: "۱۴۰۵", description: "ربات مدیریت موجودی و انبار — یک ابزار کاربردی برای پیگیری و مدیریت کالاها با گزارش‌گیری خودکار.", tech: ["Python"], url: "https://github.com/here-is-leo/inventory-bot" }
-    ];
-
-    function renderProjects() {
-      const grid = document.getElementById('projects-grid');
-      if (!grid) return;
-      grid.innerHTML = projectsData.map((p, i) => `
-        <div class="project-detail-card reveal reveal-delay-${i % 4}">
-          <div class="project-icon">${p.icon}</div>
-          <h3>${p.title}</h3>
-          <div class="project-date">${p.date}</div>
-          <p class="project-desc">${p.description}</p>
-          <div class="project-tech">${p.tech.map(t => `<span>${t}</span>`).join('')}</div>
-          <a href="${p.url}" target="_blank" rel="noopener" class="project-link">مشاهده در گیت‌هاب →</a>
-        </div>
-      `).join('');
-      setTimeout(() => { document.querySelectorAll('.project-detail-card').forEach((card, i) => { setTimeout(() => card.classList.add('visible'), 100 + i * 60); }); }, 200);
-    }
-
-    document.addEventListener('DOMContentLoaded', renderProjects);
+    // page title/subtitle come from SITE[lang].projects — filled in on each render
+    document.addEventListener("site:rendered", function (e) {
+      if (e.detail.page !== "projects") return;
+      var data = (typeof SITE !== "undefined") ? SITE[e.detail.lang] : null;
+      if (!data || !data.projects) return;
+      var titleEl = document.getElementById("projects-page-title");
+      var subEl = document.getElementById("projects-page-subtitle");
+      if (titleEl) titleEl.textContent = data.projects.title;
+      if (subEl) subEl.textContent = data.projects.subtitle;
+    });
   </script>
 </body>
 </html>
