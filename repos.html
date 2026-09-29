@@ -3,30 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
+
   <!-- ====== FAVICON ====== -->
   <link rel="icon" href="logo.png" type="image/png" />
   <link rel="shortcut icon" href="logo.png" type="image/png" />
-  
+
   <!-- ====== TITLE & DESCRIPTION ====== -->
-  <title id="page-title">ریپوها | ایلیا فراهانی</title>
+  <title>ریپوها | ایلیا فراهانی</title>
   <meta name="description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
   <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, گیت‌هاب, پروژه‌های امنیتی, برنامه‌نویسی, لینوکس" />
   <link rel="canonical" href="https://www.here-is-leo.ir/repos.html" />
+
+  <!-- ====== OPEN GRAPH ====== -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="ریپوها | ایلیا فراهانی" />
   <meta property="og:description" content="مخازن گیت‌هاب ایلیا فراهانی — پروژه‌های امنیتی، برنامه‌نویسی و لینوکس." />
   <meta property="og:url" content="https://www.here-is-leo.ir/repos.html" />
   <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
+
   <meta name="twitter:card" content="summary" />
   <meta name="google-site-verification" content="google32cfec778daf2edb" />
-  
+
+  <!-- ====== FONTS ====== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- ====== BLOCKING STYLESHEET RESOLVER (prevents FOUC) ====== -->
+  <script>
+  (function () {
+    var design = 'classic';
+    try { design = localStorage.getItem('site-design') || 'classic'; } catch (e) {}
+    if (design !== 'bauhaus' && design !== 'classic') design = 'classic';
+    var file = design === 'bauhaus' ? 'style.css' : 'style-classic.css';
+    document.documentElement.setAttribute('data-design', design);
+    document.write('<link rel="stylesheet" href="' + file + '" id="site-stylesheet">');
+  })();
+  </script>
+
+  <!-- ====== DESIGN SWITCHER (user clicks only) ====== -->
+  <script src="design-switcher.js" defer></script>
 </head>
 <body data-page="repos">
   <div class="bg-ambient">
@@ -37,7 +55,10 @@
 
   <header class="site-header">
     <nav class="nav">
-      <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <a href="index.html" class="brand">
+        <span class="dot"></span>
+        <span data-nav-home>خانه</span>
+      </a>
       <ul class="nav-links">
         <li><a href="projects.html" data-nav-projects>پروژه‌ها</a></li>
         <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
@@ -54,16 +75,16 @@
   </header>
 
   <main>
-    <section class="about-hero" style="padding: 60px 0 30px;">
+    <section class="about-hero">
       <div class="container">
-        <h1 id="repos-title" style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;"></h1>
-        <p id="repos-subtitle" style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;"></p>
+        <h1 id="repos-title"></h1>
+        <p id="repos-subtitle"></p>
       </div>
     </section>
 
-    <section style="border-top:0; padding-top:0;">
+    <section>
       <div class="container">
-        <div class="repos-grid" id="repos-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px;"></div>
+        <div class="repos-grid" id="repos-grid"></div>
       </div>
     </section>
   </main>
@@ -74,7 +95,5 @@
 
   <script src="content.js"></script>
   <script src="script.js"></script>
-  <script>
-  </script>
 </body>
 </html>

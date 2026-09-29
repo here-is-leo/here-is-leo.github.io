@@ -32,14 +32,30 @@
   <meta name="twitter:title" content="ایلیا فراهانی | برنامه‌نویس و متخصص امنیت" />
   <meta name="twitter:description" content="صفحه رسمی ایلیا فراهانی (ایلیا عزیزآبادی)؛ برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali." />
 
-  <!-- Google Verification -->
+  <!-- ====== GOOGLE VERIFICATION ====== -->
   <meta name="google-site-verification" content="google32cfec778daf2edb" />
 
+  <!-- ====== FONTS ====== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
+  <!-- ====== BLOCKING STYLESHEET RESOLVER (prevents FOUC) ====== -->
+  <script>
+  (function () {
+    var design = 'classic';
+    try { design = localStorage.getItem('site-design') || 'classic'; } catch (e) {}
+    if (design !== 'bauhaus' && design !== 'classic') design = 'classic';
+    var file = design === 'bauhaus' ? 'style.css' : 'style-classic.css';
+    document.documentElement.setAttribute('data-design', design);
+    document.write('<link rel="stylesheet" href="' + file + '" id="site-stylesheet">');
+  })();
+  </script>
+
+  <!-- ====== DESIGN SWITCHER (user clicks only) ====== -->
+  <script src="design-switcher.js" defer></script>
+
+  <!-- ====== STRUCTURED DATA ====== -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -73,7 +89,10 @@
 
   <header class="site-header">
     <nav class="nav">
-      <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <a href="index.html" class="brand">
+        <span class="dot"></span>
+        <span data-nav-home>خانه</span>
+      </a>
       <ul class="nav-links">
         <li><a href="projects.html" data-nav-projects>پروژه‌ها</a></li>
         <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
@@ -90,7 +109,6 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section id="home" class="hero">
       <div class="container hero-inner">
         <div class="hero-text" id="hero-content"></div>
@@ -98,14 +116,12 @@
       </div>
     </section>
 
-    <!-- STATS -->
-    <section id="stats-section" style="padding-top:0;border-top:0;">
+    <section id="stats-section" class="section-block-yellow">
       <div class="container">
         <div class="stats-grid" id="stats-grid"></div>
       </div>
     </section>
 
-    <!-- SKILLS -->
     <section id="skills">
       <div class="container">
         <div class="section-head">
@@ -117,8 +133,7 @@
       </div>
     </section>
 
-    <!-- CURRENT FOCUS -->
-    <section id="focus">
+    <section id="focus" class="section-block-red">
       <div class="container">
         <div class="section-head">
           <span class="section-tag" id="focus-tag"></span>
@@ -129,7 +144,6 @@
       </div>
     </section>
 
-    <!-- PROJECTS -->
     <section id="projects">
       <div class="container">
         <div class="section-head">
@@ -141,7 +155,6 @@
       </div>
     </section>
 
-    <!-- DONATION BANNER -->
     <section id="donation" style="border-top:0;">
       <div class="container">
         <div class="donation-banner-wrapper">
@@ -166,7 +179,6 @@
       </div>
     </section>
 
-    <!-- ABOUT PREVIEW -->
     <section>
       <div class="container">
         <div class="about-preview">
@@ -179,8 +191,7 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact">
+    <section id="contact" class="section-block-blue">
       <div class="container">
         <div class="section-head">
           <span class="section-tag" id="contact-tag"></span>
@@ -191,7 +202,6 @@
       </div>
     </section>
 
-    <!-- CONTACT FORM -->
     <section id="contact-form" style="border-top:0; padding-top:0;">
       <div class="container">
         <div class="section-head">
@@ -219,7 +229,6 @@
             <span class="form-field-line"></span>
           </div>
 
-          <!-- anti-spam -->
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
           <button type="submit" class="btn btn-primary contact-submit">
@@ -237,12 +246,10 @@
     <div class="container" id="footer-text"></div>
   </footer>
 
-  <!-- ====== SCRIPTS ====== -->
   <script>window.SITE_ASSET_VER = "20260904b";</script>
   <script src="content.js?v=20260904b"></script>
   <script src="script.js?v=20260904b"></script>
 
-  <!-- ====== FALLBACK ====== -->
   <script>
     (function () {
       var fallbackApplied = false;

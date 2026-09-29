@@ -3,91 +3,293 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>داشبورد مدیریت</title>
+  <title>داشبورد مدیریت | ایلیا فراهانی</title>
   <link rel="icon" href="logo.png">
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <style>
+    body { padding: 60px 0 40px; }
+
     .login-container {
-      max-width: 400px;
-      margin: 100px auto;
-      padding: 40px;
-      background: var(--background-elevated);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-default);
+      max-width: 420px;
+      margin: 60px auto;
+      padding: 44px 36px;
+      background: var(--card-bg);
+      border: var(--bw) solid var(--border);
+      box-shadow:
+        10px 10px 0 0 var(--bh-red),
+        20px 20px 0 0 var(--bh-yellow);
     }
-    .login-container h1 { text-align: center; margin-bottom: 8px; }
-    .login-container p { text-align: center; color: var(--foreground-muted); margin-bottom: 24px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; margin-bottom: 6px; color: var(--foreground-muted); }
+    .login-container h1 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0 0 10px;
+      color: var(--fg);
+    }
+    .login-container > p {
+      text-align: center;
+      color: var(--fg-muted);
+      margin: 0 0 30px;
+      font-size: .92rem;
+    }
+
+    .form-group { margin-bottom: 22px; }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--fg-muted);
+      font-family: var(--font-display);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
     .form-group input {
-      width: 100%; padding: 12px 16px; border-radius: 10px;
-      border: 1px solid var(--border-default); background: var(--surface);
-      color: var(--foreground); font-family: inherit; font-size: 0.95rem;
+      width: 100%;
+      padding: 14px 16px;
+      border: var(--bw-sm) solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      font-family: inherit;
+      font-size: .96rem;
+      transition: border-color var(--motion), box-shadow var(--motion);
     }
-    .form-group input:focus { outline: none; border-color: var(--accent); }
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--bh-red);
+      box-shadow: 4px 4px 0 0 var(--bh-red);
+    }
+
     .login-btn {
-      width: 100%; padding: 14px; border: none; border-radius: 10px;
-      background: var(--accent); color: #fff; font-weight: 600; font-size: 1rem;
-      cursor: pointer; transition: all 0.3s;
+      width: 100%;
+      padding: 16px;
+      border: var(--bw-sm) solid var(--bh-black);
+      background: var(--bh-red);
+      color: var(--bh-white);
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: .86rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 5px 5px 0 0 var(--bh-black);
+      transition: transform var(--motion), box-shadow var(--motion);
     }
-    .login-btn:hover { background: var(--accent-bright); transform: translateY(-2px); }
-    .error-msg { color: #ff6b6b; text-align: center; margin-top: 12px; display: none; }
+    .login-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 0 var(--bh-black);
+    }
+    .login-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: none;
+    }
+
+    .error-msg {
+      color: var(--bh-red);
+      text-align: center;
+      margin-top: 16px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: .82rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: none;
+    }
+
     .dashboard { display: none; }
+
     .dash-header {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 0; border-bottom: 1px solid var(--border-default);
-      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 26px 0;
+      border-bottom: var(--bw-sm) solid var(--border);
+      margin-bottom: 32px;
     }
+    .dash-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+    .dash-header .sub {
+      color: var(--fg-muted);
+      font-size: .8rem;
+      font-family: var(--font-display);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .dash-header .user-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--fg-muted);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .logout-btn {
+      padding: 10px 20px;
+      border: var(--bw-sm) solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: .74rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all var(--motion);
+    }
+    .logout-btn:hover {
+      background: var(--bh-red);
+      color: var(--bh-white);
+      border-color: var(--bh-black);
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 0 var(--bh-black);
+    }
+
     .stats-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px; margin-bottom: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      margin-bottom: 34px;
     }
     .stat-card {
-      background: var(--background-elevated); border: 1px solid var(--border-default);
-      border-radius: var(--radius); padding: 20px; text-align: center;
+      background: var(--card-bg);
+      border: var(--bw-sm) solid var(--border);
+      padding: 26px 20px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      transition: transform var(--motion), box-shadow var(--motion);
     }
-    .stat-card .number { font-size: 2rem; font-weight: 700; color: #b8bfff; }
-    .stat-card .label { color: var(--foreground-muted); font-size: 0.8rem; }
+    .stat-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .stat-card .number {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--bh-red);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .stat-card .label {
+      color: var(--fg-muted);
+      font-family: var(--font-display);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-top: 10px;
+    }
+
     .table-wrap {
-      background: var(--background-elevated); border: 1px solid var(--border-default);
-      border-radius: var(--radius); padding: 20px; overflow-x: auto;
+      background: var(--card-bg);
+      border: var(--bw-sm) solid var(--border);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-lg);
+      overflow-x: auto;
     }
+    .table-wrap h2 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: var(--bw-sm) solid var(--border);
+      letter-spacing: -0.01em;
+    }
+
     table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 12px; text-align: right; border-bottom: 1px solid var(--border-default); }
-    th { color: var(--foreground-muted); font-size: 0.8rem; }
-    .status-badge { padding: 3px 12px; border-radius: 20px; font-size: 0.7rem; display: inline-block; }
-    .status-pending { background: #fff3cd; color: #856404; }
-    .status-confirmed { background: #d4edda; color: #155724; }
-    .status-cancelled { background: #f8d7da; color: #721c24; }
-    .logout-btn {
-      padding: 8px 20px; border: 1px solid var(--border-default);
-      border-radius: 8px; background: transparent; color: var(--foreground-muted);
-      cursor: pointer;
+    th, td {
+      padding: 14px 16px;
+      text-align: right;
+      border-bottom: var(--bw-sm) solid var(--border);
+      font-size: .88rem;
     }
-    .logout-btn:hover { border-color: var(--border-hover); color: var(--foreground); }
+    th {
+      font-family: var(--font-display);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      background: var(--bg-section);
+    }
+
+    .status-badge {
+      padding: 5px 14px;
+      font-family: var(--font-display);
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: inline-block;
+      border: var(--bw-sm) solid var(--bh-black);
+    }
+    .status-pending   { background: var(--bh-yellow); color: var(--bh-black); }
+    .status-confirmed { background: var(--bh-blue); color: var(--bh-white); }
+    .status-cancelled { background: var(--bh-red); color: var(--bh-white); }
+
+    .empty-state {
+      text-align: center;
+      color: var(--fg-muted);
+      padding: 48px 20px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-size: .82rem;
+    }
   </style>
+
+  <!-- ====== BLOCKING STYLESHEET RESOLVER (prevents FOUC) ====== -->
+  <script>
+  (function () {
+    var design = 'classic';
+    try { design = localStorage.getItem('site-design') || 'classic'; } catch (e) {}
+    if (design !== 'bauhaus' && design !== 'classic') design = 'classic';
+    var file = design === 'bauhaus' ? 'style.css' : 'style-classic.css';
+    document.documentElement.setAttribute('data-design', design);
+    document.write('<link rel="stylesheet" href="' + file + '" id="site-stylesheet">');
+  })();
+  </script>
+
+  <!-- ====== DESIGN SWITCHER (user clicks only) ====== -->
+  <script src="design-switcher.js" defer></script>
 </head>
 <body data-page="admin">
-  <div class="bg-ambient">
-    <div class="orb"></div>
-    <div class="orb"></div>
-    <div class="orb"></div>
-  </div>
-
   <div id="loginPage" class="container">
     <div class="login-container">
-      <h1>🌸 مدیریت قرارها</h1>
+      <h1>ورود مدیر</h1>
       <p>برای مشاهده دعوت‌ها وارد شوید</p>
       <form id="loginForm">
         <div class="form-group">
-          <label>نام کاربری</label>
-          <input type="text" id="username" value="admin" required>
+          <label for="username">نام کاربری</label>
+          <input type="text" id="username" value="admin" required autocomplete="username">
         </div>
         <div class="form-group">
-          <label>رمز عبور</label>
-          <input type="password" id="password" required>
+          <label for="password">رمز عبور</label>
+          <input type="password" id="password" required autocomplete="current-password">
         </div>
-        <button type="submit" class="login-btn">ورود به داشبورد ✦</button>
+        <button type="submit" class="login-btn">ورود به داشبورد</button>
         <div id="loginError" class="error-msg"></div>
       </form>
     </div>
@@ -96,11 +298,11 @@
   <div id="dashboard" class="container dashboard">
     <div class="dash-header">
       <div>
-        <h1>🌸 قرارهای صورتی</h1>
-        <span style="color:var(--foreground-muted);font-size:0.85rem;">مدیریت دعوت‌ها</span>
+        <h1>مدیریت قرارها</h1>
+        <div class="sub">داشبورد دعوت‌ها</div>
       </div>
-      <div>
-        <span style="color:var(--foreground-muted);margin-right:16px;">👤 ادمین</span>
+      <div class="user-info">
+        <span>👤 ادمین</span>
         <button class="logout-btn" onclick="logout()">خروج</button>
       </div>
     </div>
@@ -113,9 +315,9 @@
     </div>
 
     <div class="table-wrap">
-      <h2>📋 لیست دعوت‌ها</h2>
+      <h2>لیست دعوت‌ها</h2>
       <div id="invitationsList">
-        <p style="text-align:center;color:var(--foreground-muted);padding:40px 0;">⏳ در حال بارگذاری...</p>
+        <p class="empty-state">در حال بارگذاری…</p>
       </div>
     </div>
   </div>
@@ -201,11 +403,14 @@
     function renderTable(invitations) {
       const container = document.getElementById('invitationsList');
       if (!invitations || invitations.length === 0) {
-        container.innerHTML = `<p style="text-align:center;color:var(--foreground-muted);padding:40px 0;">📭 هنوز هیچ دعوتی ثبت نشده است</p>`;
+        container.innerHTML = `<p class="empty-state">هنوز هیچ دعوتی ثبت نشده است</p>`;
         return;
       }
 
-      let html = `<table><thead><tr><th>#</th><th>مکان</th><th>تاریخ</th><th>ساعت</th><th>وضعیت</th><th>IP</th><th>زمان ثبت</th></tr></thead><tbody>`;
+      let html = `<table><thead><tr>
+        <th>#</th><th>مکان</th><th>تاریخ</th><th>ساعت</th>
+        <th>وضعیت</th><th>IP</th><th>زمان ثبت</th>
+      </tr></thead><tbody>`;
       invitations.forEach((inv, i) => {
         const statusClass = {
           'pending': 'status-pending',

@@ -897,37 +897,239 @@ function renderProjects(data) {
   });
 }
 
+
 // ============================================================
-// RENDER REPOS
+// RENDER REPOS — class-based (respects design switcher)
 // ============================================================
 function renderRepos(data) {
   var page = data && data.repos;
-  var title = document.getElementById("repos-title"), subtitle = document.getElementById("repos-subtitle"), grid = document.getElementById("repos-grid");
+  var title = document.getElementById("repos-title");
+  var subtitle = document.getElementById("repos-subtitle");
+  var grid = document.getElementById("repos-grid");
   if (!page || !grid) return;
-  if (title) title.textContent = page.title;
-  if (subtitle) subtitle.textContent = page.subtitle;
-  var colors = {TypeScript:"#3178C6",Python:"#3572A5",PHP:"#4F5D95",HTML:"#E34F26",CSS:"#563D7C",JavaScript:"#F1E05A",C:"#555"};
-  grid.innerHTML = (page.items || []).map(function(repo, i) {
-    var titleHtml = repo.url
-      ? `<a href="${repo.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${repo.name}</a>`
-      : `<span>${repo.name}</span>`;
-    return `<div class="repo-card reveal reveal-delay-${i % 4}" style="background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.008));border:1px solid var(--border-default);border-radius:var(--radius);padding:24px 26px;backdrop-filter:blur(14px);transition:all .45s var(--transition)"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px"><h3 style="margin:0;font-size:1.05rem;font-weight:600">${titleHtml}</h3><div style="font-size:.75rem;color:var(--foreground-muted)">⭐ ${repo.stars} &nbsp;⑂ ${repo.forks}</div></div><p style="color:var(--foreground-muted);font-size:.87rem;line-height:1.8;margin:0 0 14px">${repo.desc}</p><div style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;border-radius:50%;background:${colors[repo.lang] || '#888'};display:inline-block"></span><span style="font-size:.78rem;color:var(--foreground-muted)">${repo.lang}</span></div></div>`;
-  }).join("");
-}
 
+  if (title) title.textContent = page.title || (data.lang === "fa" ? "ریپوها" : "Repositories");
+  if (subtitle) subtitle.textContent = page.subtitle || "";
+
+  // GitHub language colors
+  var COLORS = {
+    TypeScript: "#3178C6", Python: "#3572A5", PHP: "#4F5D95",
+    HTML: "#E34F26", CSS: "#563D7C", JavaScript: "#F1E05A",
+    C: "#555555", "C#": "#178600", "C++": "#f34b7d",
+    Java: "#B07219", Shell: "#89e051", Go: "#00ADD8",
+    Rust: "#dea584", Vue: "#41b883", React: "#61dafb",
+    Ruby: "#701516", Swift: "#F05138", Kotlin: "#A97BFF",
+    Dart: "#00B4AB", Lua: "#000080", Perl: "#0298c3",
+    "Jupyter Notebook": "#DA5B0B", SCSS: "#c6538c"
+  };
+
+  grid.innerHTML = (page.items || []).map(function (repo, i) {
+    var nameHtml = repo.url
+      ? '<a href="' + repo.url + '" target="_blank" rel="noopener">' + repo.name + '</a>'
+      : '<span>' + repo.name + '</span>';
+
+    var starsHtml = (repo.stars != null)
+      ? '<span class="repo-stat" title="Stars">★ ' + repo.stars + '</span>'
+      : '';
+    var forksHtml = (repo.forks != null)
+      ? '<span class="repo-stat" title="Forks">⑂ ' + repo.forks + '</span>'
+      : '';
+
+    var langDot = repo.lang
+      ? '<span class="repo-lang"><span class="repo-lang-dot" style="background:' +
+        (COLORS[repo.lang] || "#888") + '"></span>' + repo.lang + '</span>'
+      : '<span class="repo-lang"></span>';
+
+    var descHtml = repo.desc
+      ? '<p class="repo-desc">' + repo.desc + '</p>'
+      : '';
+
+    return '<article class="repo-card reveal reveal-delay-' + (i % 4) + '">' +
+             '<header class="repo-card-head">' +
+               '<h3 class="repo-name">' + nameHtml + '</h3>' +
+               '<div class="repo-stats">' + starsHtml + forksHtml + '</div>' +
+             '</header>' +
+             descHtml +
+             '<div class="repo-card-foot">' + langDot + '</div>' +
+           '</article>';
+  }).join("");
+
+  setTimeout(function () {
+    document.querySelectorAll('.repo-card').forEach(function (card, i) {
+      setTimeout(function () { card.classList.add('visible'); }, 60 + i * 50);
+    });
+  }, 100);
+}
 // ============================================================
 // RENDER RESUME
 // ============================================================
+// ============================================================
+// RENDER RESUME — Bauhaus Enhanced
+// ============================================================
 function renderResume(data) {
-  var page = data && data.resume, root = document.getElementById("resume-content");
+  var page = data && data.resume;
+  var root = document.getElementById("resume-content");
   if (!page || !root) return;
-  var set = function(id, value) { var n = document.getElementById(id); if (n) n.textContent = value; };
-  set("resume-title", page.title); set("resume-subtitle", page.subtitle); set("resume-download", data.lang === "fa" ? "دانلود رزومه (PDF)" : "Download Resume (PDF)");
-  var p = page.personal;
-  var row = function(label, value) { return `<li><span class="label">${label}</span><span class="value">${value}</span></li>`; };
-  root.innerHTML = `<div class="resume-section"><h2>👤 ${data.lang === "fa" ? "اطلاعات شخصی" : "Personal Information"}</h2><ul>${row(data.lang === "fa" ? "نام" : "Name", p.name)}${row(data.lang === "fa" ? "شغل" : "Role", p.job)}${row(data.lang === "fa" ? "موقعیت" : "Location", p.location)}${row(data.lang === "fa" ? "ایمیل" : "Email", p.email)}${row(data.lang === "fa" ? "تلفن" : "Phone", p.phone)}${row(data.lang === "fa" ? "گیت‌هاب" : "GitHub", `<a href="https://github.com/here-is-leo" target="_blank" rel="noopener" style="color:#b8bfff">${p.github}</a>`)}</ul></div><div class="resume-section"><h2>📖 ${data.lang === "fa" ? "درباره من" : "About Me"}</h2><p style="color:var(--foreground-muted);line-height:2.2;margin:0">${page.about}</p></div><div class="resume-section"><h2>🛠️ ${data.lang === "fa" ? "مهارت‌های فنی" : "Technical Skills"}</h2><div>${page.skills.map(function(s){return `<span class="skill-tag ${s.level >= 80 ? "high" : "medium"}">${s.name} (${s.level}%)</span>`}).join("")}</div></div><div class="resume-section"><h2>💼 ${data.lang === "fa" ? "پروژه‌های شاخص" : "Selected Projects"}</h2><ul>${page.projects.map(function(x){return row(x.icon + " " + x.title, x.desc)}).join("")}</ul></div><div class="resume-section"><h2>🎓 ${data.lang === "fa" ? "تحصیلات و دوره‌ها" : "Education & Courses"}</h2><ul>${page.education.map(function(x){return row(x.title,x.sub)}).join("")}</ul></div><div class="resume-section"><h2>🌍 ${data.lang === "fa" ? "زبان‌ها" : "Languages"}</h2><ul>${page.languages.map(function(x){return row(x.name,x.level)}).join("")}</ul></div><div class="resume-section"><h2>📊 ${data.lang === "fa" ? "فعالیت گیت‌هاب" : "GitHub Activity"}</h2><ul>${row(data.lang === "fa" ? "مشارکت (Commit)" : "Commits",page.github.commits)}${row(data.lang === "fa" ? "مخازن عمومی" : "Public repositories",page.github.repos)}${row(data.lang === "fa" ? "تمرکز فعالیت" : "Focus",page.github.focus)}</ul></div>`;
-}
 
+  var fa = data.lang === "fa";
+
+  // Set title + subtitle + download label
+  var set = function (id, v) { var n = document.getElementById(id); if (n) n.textContent = v; };
+  set("resume-title", page.title);
+  set("resume-subtitle", page.subtitle);
+  set("resume-download", fa ? "دانلود رزومه (PDF)" : "Download Resume (PDF)");
+
+  // Avatar
+  var avatar = document.getElementById("hero-avatar");
+  if (avatar && avatar.innerHTML.trim() === "") {
+    avatar.innerHTML = '<img src="logo.png" alt="Ilia Farahani" decoding="async">';
+  }
+
+  var p = page.personal;
+
+  // ---------- PERSONAL CONTACT CARDS ----------
+  var contactCards = [
+    { icon: "email",    label: fa ? "ایمیل"    : "Email",    value: p.email,    href: "mailto:" + p.email },
+    { icon: "phone",    label: fa ? "تلفن"     : "Phone",    value: p.phone,    href: "tel:" + p.phone.replace(/\D/g, "") },
+    { icon: "location", label: fa ? "موقعیت"   : "Location", value: p.location, href: null },
+    { icon: "github",   label: "GitHub",                     value: p.github,   href: "https://" + p.github }
+  ];
+
+  var contactHtml = contactCards.map(function (c, i) {
+    var tag = c.href ? "a" : "div";
+    var attrs = c.href ? ' href="' + c.href + '"' + (c.href.indexOf("http") === 0 ? ' target="_blank" rel="noopener"' : "") : "";
+    return '<' + tag + attrs + ' class="contact-card reveal reveal-delay-' + (i % 4) + '">' +
+      renderIcon(c.icon, "icon") +
+      '<div>' +
+        '<div class="label">' + c.label + '</div>' +
+        '<div class="value">' + c.value + '</div>' +
+      '</div>' +
+    '</' + tag + '>';
+  }).join("");
+
+  // ---------- SKILLS ----------
+  var skillsHtml = page.skills.map(function (s, i) {
+    return '<div class="skill-card reveal reveal-delay-' + (i % 4) + '">' +
+      '<div class="resume-skill-head">' +
+        '<h3>' + s.name + '</h3>' +
+        '<span class="resume-skill-percent">' + s.level + '%</span>' +
+      '</div>' +
+      '<div class="skill-level">' +
+        '<div class="bar" style="width:' + s.level + '%" data-level="' + s.level + '"></div>' +
+      '</div>' +
+    '</div>';
+  }).join("");
+
+  // ---------- PROJECTS ----------
+  var projectsHtml = page.projects.map(function (x, i) {
+    return '<div class="project-card reveal reveal-delay-' + (i % 4) + '">' +
+      '<div class="project-head">' +
+        '<h3>' + x.title + '</h3>' +
+      '</div>' +
+      '<p>' + x.desc + '</p>' +
+    '</div>';
+  }).join("");
+
+  // ---------- EDUCATION ----------
+  var educationHtml = page.education.map(function (x, i) {
+    return '<div class="timeline-item reveal reveal-delay-' + (i % 3) + '">' +
+      '<h3>' + x.title + '</h3>' +
+      '<span class="sub">' + x.sub + '</span>' +
+    '</div>';
+  }).join("");
+
+  // ---------- LANGUAGES ----------
+  var languagesHtml = page.languages.map(function (x) {
+    return '<span>' + x.name + ' — ' + x.level + '</span>';
+  }).join("");
+
+  // ---------- GITHUB STATS ----------
+  var gh = page.github;
+  var githubCards = [
+    { label: fa ? "کامیت"     : "Commits",  value: gh.commits },
+    { label: fa ? "مخازن"     : "Repos",    value: gh.repos },
+    { label: fa ? "آخرین فعالیت" : "Last Active", value: gh.focus },
+    { label: fa ? "حوزه"      : "Focus Area", value: gh.type }
+  ];
+
+  var githubHtml = githubCards.map(function (s, i) {
+    return '<div class="stat-card reveal reveal-delay-' + (i % 4) + '">' +
+      '<div class="label">' + s.label + '</div>' +
+      '<div class="resume-stat-value">' + s.value + '</div>' +
+    '</div>';
+  }).join("");
+
+  // ---------- BUILD ----------
+  root.innerHTML =
+    // Personal info
+    '<div class="resume-block">' +
+      '<div class="resume-block-head">' +
+        '<span class="section-tag"><span class="dot"></span> ' + (fa ? "اطلاعات تماس" : "Personal Info") + '</span>' +
+      '</div>' +
+      '<div class="contact-grid">' + contactHtml + '</div>' +
+    '</div>' +
+
+    // About
+    '<div class="resume-block">' +
+      '<div class="resume-block-head">' +
+        '<span class="section-tag"><span class="dot"></span> ' + (fa ? "درباره من" : "About") + '</span>' +
+      '</div>' +
+      '<p class="resume-about">' + page.about + '</p>' +
+    '</div>' +
+
+    // Skills
+    '<div class="resume-block">' +
+      '<div class="resume-block-head">' +
+        '<span class="section-tag"><span class="dot"></span> ' + (fa ? "مهارت‌های فنی" : "Technical Skills") + '</span>' +
+      '</div>' +
+      '<div class="skills-grid">' + skillsHtml + '</div>' +
+    '</div>' +
+
+    // Projects
+    '<div class="resume-block">' +
+      '<div class="resume-block-head">' +
+        '<span class="section-tag"><span class="dot"></span> ' + (fa ? "پروژه‌های شاخص" : "Selected Projects") + '</span>' +
+      '</div>' +
+      '<div class="projects-grid">' + projectsHtml + '</div>' +
+    '</div>' +
+
+    // Education
+    '<div class="resume-block">' +
+      '<div class="resume-block-head">' +
+        '<span class="section-tag"><span class="dot"></span> ' + (fa ? "تحصیلات و دوره‌ها" : "Education & Courses") + '</span>' +
+      '</div>' +
+      '<div class="timeline">' + educationHtml + '</div>' +
+    '</div>' +
+
+    // Languages
+    '<div class="resume-block">' +
+      '<div class="resume-block-head">' +
+        '<span class="section-tag"><span class="dot"></span> ' + (fa ? "زبان‌ها" : "Languages") + '</span>' +
+      '</div>' +
+      '<div class="tags-row">' + languagesHtml + '</div>' +
+    '</div>' +
+
+    // GitHub — special block
+    '<div class="resume-github-block">' +
+      '<div class="resume-block-head">' +
+        '<span class="section-tag"><span class="dot"></span> ' + (fa ? "فعالیت گیت‌هاب" : "GitHub Activity") + '</span>' +
+      '</div>' +
+      '<div class="stats-grid">' + githubHtml + '</div>' +
+    '</div>';
+
+  // Reveal animation
+  setTimeout(function () {
+    root.querySelectorAll(".reveal").forEach(function (n) {
+      n.classList.add("visible");
+    });
+    // Animate skill bars
+    root.querySelectorAll(".skill-level .bar").forEach(function (bar) {
+      var lvl = bar.dataset.level || 0;
+      bar.style.width = "0%";
+      setTimeout(function () { bar.style.width = lvl + "%"; }, 120);
+    });
+  }, 80);
+}
 // ============================================================
 // CONTACT FORM
 // ============================================================

@@ -3,41 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- ====== FAVICON ====== -->
+
   <link rel="icon" href="logo.png" type="image/png" />
   <link rel="shortcut icon" href="logo.png" type="image/png" />
-  
-  <!-- ====== TITLE & DESCRIPTION ====== -->
+
   <title>پروژه‌ها | ایلیا فراهانی</title>
-  <meta name="description" content="پروژه‌های شاخص ایلیا فراهانی — از اسکنر آسیب‌پذیری وب و پلاگین‌های امنیتی وردپرس تا سیستم‌های کنترل IoT با آردوینو." />
+  <meta name="description" content="پروژه‌های شاخص ایلیا فراهانی — از اسکنر آسیب‌پذیری وب و کتاب SQL Server تا سیستم‌های کنترل IoT با آردوینو." />
   <meta name="author" content="Ilia Farahani" />
   <meta name="robots" content="index, follow" />
   <meta name="keywords" content="ایلیا فراهانی, ایلیا عزیزآبادی, here-is-leo, پروژه‌های برنامه‌نویسی, امنیت وب" />
   <link rel="canonical" href="https://www.here-is-leo.ir/projects.html" />
+
   <meta property="og:type" content="website" />
   <meta property="og:title" content="پروژه‌های ایلیا فراهانی" />
   <meta property="og:description" content="پروژه‌های شاخص ایلیا فراهانی — امنیت وب، IoT و برنامه‌نویسی." />
   <meta property="og:url" content="https://www.here-is-leo.ir/projects.html" />
   <meta property="og:image" content="https://www.here-is-leo.ir/logo.png" />
+
   <meta name="twitter:card" content="summary" />
   <meta name="google-site-verification" content="google32cfec778daf2edb" />
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- ====== BLOCKING STYLESHEET RESOLVER (prevents FOUC) ====== -->
+  <script>
+  (function () {
+    var design = 'classic';
+    try { design = localStorage.getItem('site-design') || 'classic'; } catch (e) {}
+    if (design !== 'bauhaus' && design !== 'classic') design = 'classic';
+    var file = design === 'bauhaus' ? 'style.css' : 'style-classic.css';
+    document.documentElement.setAttribute('data-design', design);
+    document.write('<link rel="stylesheet" href="' + file + '" id="site-stylesheet">');
+  })();
+  </script>
+
+  <!-- ====== DESIGN SWITCHER (user clicks only) ====== -->
+  <script src="design-switcher.js" defer></script>
 </head>
 <body data-page="projects">
-  <div class="bg-ambient">
-    <div class="orb"></div>
-    <div class="orb"></div>
-    <div class="orb"></div>
-  </div>
-
   <header class="site-header">
     <nav class="nav">
-      <a href="index.html" class="brand"><span class="dot"></span><span data-nav-home>خانه</span></a>
+      <a href="index.html" class="brand">
+        <span class="dot"></span>
+        <span data-nav-home>خانه</span>
+      </a>
       <ul class="nav-links">
         <li><a href="projects.html" data-nav-projects class="active">پروژه‌ها</a></li>
         <li><a href="blog.html" data-nav-blog>وبلاگ</a></li>
@@ -54,16 +65,16 @@
   </header>
 
   <main>
-    <section class="about-hero" style="padding: 60px 0 30px;">
+    <section class="about-hero">
       <div class="container">
-        <h1 id="projects-page-title" style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin: 0 0 10px; background: linear-gradient(170deg, #fff 28%, rgba(255,255,255,.48)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 700; letter-spacing: -0.04em;"></h1>
-        <p id="projects-page-subtitle" style="color: var(--foreground-muted); max-width: 580px; margin: 0 auto; font-size: 1.04rem; line-height: 2;"></p>
+        <h1 id="projects-hero-title">پروژه‌های شاخص</h1>
+        <p id="projects-hero-subtitle">پروژه‌هایی که با یادگیری خودآموز و عشق به کدنویسی ساخته‌ام.</p>
       </div>
     </section>
 
-    <section style="border-top:0; padding-top:0;">
+    <section>
       <div class="container">
-        <div class="projects-grid" id="projects-grid-page" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px;"></div>
+        <div class="projects-grid" id="projects-grid"></div>
       </div>
     </section>
   </main>
@@ -75,15 +86,55 @@
   <script src="content.js"></script>
   <script src="script.js"></script>
   <script>
-    // page title/subtitle come from SITE[lang].projects — filled in on each render
-    document.addEventListener("site:rendered", function (e) {
-      if (e.detail.page !== "projects") return;
-      var data = (typeof SITE !== "undefined") ? SITE[e.detail.lang] : null;
-      if (!data || !data.projects) return;
-      var titleEl = document.getElementById("projects-page-title");
-      var subEl = document.getElementById("projects-page-subtitle");
+    function renderProjectsPage() {
+      var grid = document.getElementById('projects-grid');
+      if (!grid) return;
+
+      var lang = (typeof getLang === 'function') ? getLang() : 'fa';
+      var data = (typeof SITE !== 'undefined') ? SITE[lang] : null;
+      if (!data || !data.projects || !data.projects.items) return;
+
+      var titleEl = document.getElementById('projects-hero-title');
+      var subEl = document.getElementById('projects-hero-subtitle');
       if (titleEl) titleEl.textContent = data.projects.title;
       if (subEl) subEl.textContent = data.projects.subtitle;
+
+      var footerEl = document.getElementById('footer-text');
+      if (footerEl && data.footer) footerEl.textContent = data.footer;
+
+      grid.innerHTML = data.projects.items.map(function (p, i) {
+        var icon = p.icon ? p.icon + ' ' : '';
+        var dateHtml = p.date ? '<span class="project-date">' + p.date + '</span>' : '';
+        var techHtml = (p.tech && p.tech.length)
+          ? '<div class="tech-tags">' + p.tech.map(function (t) { return '<span>' + t + '</span>'; }).join('') + '</div>'
+          : '';
+        var linkHtml = p.url
+          ? '<a href="' + p.url + '" target="_blank" rel="noopener" class="project-link">' +
+              (lang === 'fa' ? 'مشاهده در گیت‌هاب ↗' : 'View on GitHub ↗') + '</a>'
+          : '';
+
+        return '<div class="project-card reveal reveal-delay-' + (i % 4) + '">' +
+                 '<div class="project-head">' +
+                   '<h3>' + icon + p.title + '</h3>' +
+                   dateHtml +
+                 '</div>' +
+                 '<p>' + p.desc + '</p>' +
+                 techHtml +
+                 linkHtml +
+               '</div>';
+      }).join('');
+
+      setTimeout(function () {
+        document.querySelectorAll('.project-card').forEach(function (card, i) {
+          setTimeout(function () { card.classList.add('visible'); }, 60 + i * 50);
+        });
+      }, 100);
+    }
+
+    document.addEventListener('DOMContentLoaded', renderProjectsPage);
+
+    document.addEventListener('site:rendered', function (e) {
+      if (e.detail && e.detail.page === 'projects') renderProjectsPage();
     });
   </script>
 </body>
