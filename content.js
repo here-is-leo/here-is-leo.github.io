@@ -59,9 +59,9 @@ const SITE = {
       title: "روی چه چیزی کار می‌کنم؟",
       subtitle: "هر روز یک قدم به جلو.",
       items: [
+        { icon: "tools", title: "نگار", desc: "توسعه‌ی تخته سفید تحت وب و افزودن قابلیت‌های جدید." },
         { icon: "book", title: "امنیت وب پیشرفته", desc: "مطالعه آسیب‌پذیری‌های جدید و شرکت در چالش‌های CTF." },
-        { icon: "tools", title: "ابزارهای امنیتی", desc: "توسعه ابزارهای خط فرمان با Python." },
-        { icon: "opensource", title: "متن‌باز", desc: "مشارکت در پروژه‌های امنیتی." },
+        { icon: "opensource", title: "ابزارهای امنیتی", desc: "توسعه ابزارهای خط فرمان با Python." },
         { icon: "internship", title: "کارآموزی", desc: "به دنبال فرصت‌های یادگیری و همکاری." }
       ]
     },
@@ -71,6 +71,14 @@ const SITE = {
       title: "پروژه‌های شاخص",
       subtitle: "پروژه‌هایی که با یادگیری خودآموز و عشق به کدنویسی ساخته‌ام.",
       items: [
+        { 
+          icon: "🎨", 
+          title: "نگار", 
+          date: "۱۴۰۵", 
+          desc: "تخته سفید حرفه‌ای تحت وب — رسم دست‌آزاد با موتور سفارشی، آپلود PDF و تصویر، ابزار متن پیشرفته، ۹ ابزار ترسیم، خروجی PNG و PDF، ذخیره‌سازی خودکار و پشتیبانی از حالت تاریک. کاملاً بدون فریم‌ورک.", 
+          tech: ["HTML", "CSS", "JavaScript"], 
+          url: "https://github.com/here-is-leo/negar" 
+        },
         { icon: "📖", title: "sqlserver-book", date: "۱۴۰۵", desc: "کتاب کامل SQL Server در ۵۱ صفحه — آموزش عمیق پایگاه داده به فارسی و انگلیسی، تک‌فایل، بدون وابستگی خارجی، با تم تاریک/روشن و ناوبری با کیبورد.", tech: ["HTML", "CSS", "JavaScript", "SQL Server"], url: "https://github.com/here-is-leo/sqlserver-book" },
         { icon: "🗂️", title: "ilia-cms", date: "۱۴۰۵", desc: "سیستم مدیریت محتوا (CMS) اختصاصی برای سایت شخصی ایلیا فراهانی.", tech: ["JavaScript"], url: "https://github.com/here-is-leo/ilia-cms" },
         { icon: "🛒", title: "pos-system", date: "۱۴۰۵", desc: "سیستم جامع فروش و مدیریت انبار (POS) متشکل از ۴ اپلیکیشن جداگانه — بک‌اند API، پنل ادمین، سیستم فروشنده و سیستم انباردار. (مخزن خصوصی)", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: null },
@@ -93,6 +101,7 @@ const SITE = {
       title: "مخازن گیت‌هاب",
       subtitle: "همه پروژه‌های من در گیت‌هاب — از ابزارهای امنیتی تا سیستم‌های کنترل و اتوماسیون.",
       items: [
+        { name: "negar", desc: "تخته سفید تحت وب — رسم دست‌آزاد با موتور سفارشی، آپلود PDF و تصویر، ابزار متن، ۹ ابزار ترسیم، خروجی PNG/PDF و ذخیره‌سازی خودکار.", lang: "JavaScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/negar" },
         { name: "sqlserver-book", desc: "کتاب کامل SQL Server — ۵۱ صفحه آموزش پایگاه داده به فارسی و انگلیسی، تک‌فایل و بدون وابستگی.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/sqlserver-book" },
         { name: "ilia-cms", desc: "سیستم مدیریت محتوا برای سایت شخصی ایلیا فراهانی.", lang: "JavaScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/ilia-cms" },
         { name: "pos-system", desc: "سیستم جامع فروش و مدیریت انبار (POS) با ۴ اپلیکیشن جداگانه — REST API، پنل ادمین، فروشنده و انباردار. (مخزن خصوصی)", lang: "TypeScript", stars: 0, forks: 0, url: null },
@@ -138,6 +147,7 @@ const SITE = {
         { name: "FastAPI", level: 75 }
       ],
       projects: [
+        { icon: "🎨", title: "نگار", desc: "تخته سفید حرفه‌ای تحت وب با موتور رسم سفارشی و خروجی PNG/PDF" },
         { icon: "📖", title: "sqlserver-book", desc: "کتاب ۵۱ صفحه‌ای آموزش SQL Server" },
         { icon: "🔍", title: "Paris", desc: "اسکنر آسیب‌پذیری وب با Python + FastAPI + WebSocket" },
         { icon: "🔒", title: "Moscow", desc: "پروژه تحقیقاتی امنیت پلاگین‌های وردپرس (PHP)" },
@@ -159,7 +169,7 @@ const SITE = {
       ],
       github: {
         commits: "۳۵۵ در یک سال اخیر",
-        repos: "۱۳ مخزن",
+        repos: "۱۴ مخزن",
         focus: "شهریور ۱۴۰۵",
         type: "امنیتی، آموزشی، IoT"
       }
@@ -318,9 +328,9 @@ const SITE = {
       title: "What I'm working on",
       subtitle: "One step forward every day.",
       items: [
+        { icon: "tools", title: "Negar", desc: "Building a web-based whiteboard and adding new features." },
         { icon: "book", title: "Web Security", desc: "Studying vulnerabilities and CTF challenges." },
-        { icon: "tools", title: "Security Tools", desc: "Building Python CLI tools." },
-        { icon: "opensource", title: "Open Source", desc: "Contributing to security projects." },
+        { icon: "opensource", title: "Security Tools", desc: "Building Python CLI tools." },
         { icon: "internship", title: "Internship", desc: "Looking for learning opportunities." }
       ]
     },
@@ -330,6 +340,14 @@ const SITE = {
       title: "Featured Projects",
       subtitle: "Projects built through self-driven learning and passion for coding.",
       items: [
+        { 
+          icon: "🎨", 
+          title: "Negar", 
+          date: "2026", 
+          desc: "A professional web-based whiteboard — custom freehand drawing engine, PDF & image upload, advanced text tool, 9 drawing tools, PNG/PDF export, auto-save, and dark mode. Built with zero frameworks.", 
+          tech: ["HTML", "CSS", "JavaScript", "Canvas API"], 
+          url: "https://github.com/here-is-leo/negar" 
+        },
         { icon: "📖", title: "sqlserver-book", date: "2026", desc: "The Ultimate SQL Server Book — 51 pages of deep database education in Persian & English. Single-file, zero dependencies, dark/light themes and keyboard navigation.", tech: ["HTML", "CSS", "JavaScript", "SQL Server"], url: "https://github.com/here-is-leo/sqlserver-book" },
         { icon: "🗂️", title: "ilia-cms", date: "2026", desc: "Custom content management system built for Ilia Farahani's personal website.", tech: ["JavaScript"], url: "https://github.com/here-is-leo/ilia-cms" },
         { icon: "🛒", title: "pos-system", date: "2026", desc: "Full-featured Point-of-Sale & inventory management system built as 4 separate apps — REST API backend, admin dashboard, cashier interface, and warehouse manager. (Private repo)", tech: ["Node.js", "Express", "Prisma", "SQLite", "React", "Next.js", "TypeScript"], url: null },
@@ -352,6 +370,7 @@ const SITE = {
       title: "GitHub Repositories",
       subtitle: "All my GitHub projects — from security tools to control systems and automation.",
       items: [
+        { name: "negar", desc: "Web-based whiteboard — custom freehand engine, PDF & image upload, text tool, 9 drawing tools, PNG/PDF export, and auto-save.", lang: "JavaScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/negar" },
         { name: "sqlserver-book", desc: "The Ultimate SQL Server Book — 51 pages of deep database education in Persian & English, single-file with zero dependencies.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/sqlserver-book" },
         { name: "ilia-cms", desc: "Content management system for Ilia Farahani's personal website.", lang: "JavaScript", stars: 0, forks: 0, url: "https://github.com/here-is-leo/ilia-cms" },
         { name: "pos-system", desc: "Full-featured Point-of-Sale & inventory management system with 4 separate apps — REST API, admin panel, cashier and warehouse manager. (Private repo)", lang: "TypeScript", stars: 0, forks: 0, url: null },
@@ -397,6 +416,7 @@ const SITE = {
         { name: "FastAPI", level: 75 }
       ],
       projects: [
+        { icon: "🎨", title: "Negar", desc: "Professional web whiteboard with custom drawing engine and PNG/PDF export" },
         { icon: "📖", title: "sqlserver-book", desc: "51-page SQL Server education book" },
         { icon: "🔍", title: "Paris", desc: "Web Vulnerability Scanner with Python + FastAPI + WebSocket" },
         { icon: "🔒", title: "Moscow", desc: "WordPress plugin security research project (PHP)" },
@@ -418,7 +438,7 @@ const SITE = {
       ],
       github: {
         commits: "355 in the past year",
-        repos: "13 repositories",
+        repos: "14 repositories",
         focus: "Sep 2026",
         type: "Security, Educational, IoT"
       }
