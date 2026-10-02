@@ -4072,3 +4072,67 @@ html[data-theme="light"] .post-overlay-content .post-content .note a {
     color: #5144c7;
   }
 }
+/* ============================================================
+   DARK THEME — GRADIENT HEADINGS FIX
+   علت: ترکیب background-clip:text روی والد با split-wordهایی
+   که filter/will-change دارند، لایه‌ی رندر جدا می‌سازد و متن
+   دیگر داخل کلیپ والد قرار نمی‌گیرد → نامرئی یا رنگ اشتباه.
+   راه‌حل: گرادیان را از والد برمی‌داریم و روی خود split-wordها
+   اعمال می‌کنیم؛ و filter را غیرفعال می‌کنیم.
+   ============================================================ */
+
+/* ---- ۱) والد: بدون گرادیان، فقط رنگ fallback ---- */
+.section-head h2,
+.about-hero h1 {
+  color: #EDEDEF;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #EDEDEF;
+}
+
+/* ---- ۲) هر split-word: گرادیان مستقل خودش ---- */
+.section-head h2 .split-word,
+.about-hero h1 .split-word {
+  background-image: linear-gradient(170deg, #ffffff 28%, rgba(255,255,255,.55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---- ۳) حذف filter و will-change:filter که کلیپ را می‌شکنند ---- */
+.section-head h2 .split-word,
+.about-hero h1 .split-word,
+.split-word {
+  filter: none !important;
+  will-change: transform, opacity !important;
+}
+
+/* ---- ۴) تم روشن: رنگ ثابت تیره، بدون گرادیان ---- */
+html[data-theme="light"] .section-head h2 .split-word,
+html[data-theme="light"] .about-hero h1 .split-word {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #1a1e2e;
+  color: #1a1e2e;
+}
+
+/* ---- ۵) اگر مرورگر از background-clip:text پشتیبانی نمی‌کند ---- */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .section-head h2,
+  .about-hero h1,
+  .section-head h2 .split-word,
+  .about-hero h1 .split-word {
+    background: none !important;
+    -webkit-text-fill-color: currentColor;
+    color: #EDEDEF;
+  }
+  html[data-theme="light"] .section-head h2,
+  html[data-theme="light"] .about-hero h1,
+  html[data-theme="light"] .section-head h2 .split-word,
+  html[data-theme="light"] .about-hero h1 .split-word {
+    color: #1a1e2e;
+  }
+}
