@@ -2,7 +2,18 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'none';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com blob:;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com data:;
+  img-src 'self' data: blob:;
+  connect-src 'self' https://cdnjs.cloudflare.com https://0.peerjs.com wss://0.peerjs.com https://*.peerjs.com wss://*.peerjs.com;
+  worker-src blob: https://cdnjs.cloudflare.com;
+  object-src 'none';
+  base-uri 'none';
+  form-action 'none'">
 <title>Negar</title>
 <link rel="icon" type="image/png" href="assets/negar-logo.png">
 <link rel="apple-touch-icon" href="assets/negar-logo.png">
@@ -11,7 +22,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
-<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.2/peerjs.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
@@ -27,7 +38,7 @@
   --border-2:rgba(24,24,27,.14);
   --text:#18181B;
   --text-2:#52525B;
-  --text-3:#A1A1AA;
+  --text-3:#71717A;
   --shadow:0 4px 14px rgba(24,24,27,.08);
   --shadow-lg:0 16px 40px rgba(24,24,27,.14);
   --shadow-xl:0 24px 60px rgba(24,24,27,.18);
@@ -45,7 +56,7 @@ body.dark{
   --border-2:rgba(255,255,255,.14);
   --text:#FAFAFA;
   --text-2:#A1A1AA;
-  --text-3:#71717A;
+  --text-3:#A1A1AA;
   --accent-soft:rgba(99,102,241,.2);
   --shadow:0 4px 14px rgba(0,0,0,.4);
   --shadow-lg:0 16px 40px rgba(0,0,0,.5);
@@ -645,7 +656,6 @@ body.drag-over::after{
 .collab-badge.show{opacity:1;pointer-events:auto;transform:translateY(0)}
 .collab-badge .collab-dot{width:7px;height:7px}
 
-/* Use :has() to handle sibling layout when badge is visible */
 body:has(.collab-badge.show) .zoom-badge{bottom:64px;left:20px}
 
 .collab-name-field{margin-bottom:14px}
@@ -778,38 +788,38 @@ body.dark .collab-reconnect{color:#FCD34D}
 <input type="file" id="negar-input" accept=".negar,.json,application/json" style="display:none">
 
 <header class="topbar">
-  <button class="icon-btn" id="undo" title="واگرد (Ctrl+Z)">
+  <button class="icon-btn" id="undo" title="واگرد (Ctrl+Z)" aria-label="واگرد">
     <svg viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 00-9-9 9 9 0 00-6.7 3L3 13"/></svg>
   </button>
-  <button class="icon-btn" id="redo" title="ازنو (Ctrl+Shift+Z)">
+  <button class="icon-btn" id="redo" title="ازنو (Ctrl+Shift+Z)" aria-label="ازنو">
     <svg viewBox="0 0 24 24"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 019-9 9 9 0 016.7 3L21 13"/></svg>
   </button>
   <div class="title">
     <span class="save-dot" id="save-dot"></span>
     <span>ذخیره خودکار</span>
   </div>
-  <button class="icon-btn" id="upload-btn" title="آپلود PDF / تصویر">
+  <button class="icon-btn" id="upload-btn" title="آپلود PDF / تصویر" aria-label="آپلود">
     <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
   </button>
-  <button class="icon-btn" id="export-pdf" title="ذخیره PDF">
+  <button class="icon-btn" id="export-pdf" title="ذخیره PDF" aria-label="ذخیره PDF">
     <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
   </button>
-  <button class="icon-btn" id="export-svg" title="ذخیره SVG">
+  <button class="icon-btn" id="export-svg" title="ذخیره SVG" aria-label="ذخیره SVG">
     <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7z"/><path d="M2 7l10 5 10-5"/><path d="M12 12v10"/></svg>
   </button>
-  <button class="icon-btn" id="share-btn" title="اشتراک‌گذاری">
+  <button class="icon-btn" id="share-btn" title="اشتراک‌گذاری" aria-label="اشتراک‌گذاری">
     <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
   </button>
-  <button class="icon-btn" id="collab-btn" title="همکاری زنده">
+  <button class="icon-btn" id="collab-btn" title="همکاری زنده" aria-label="همکاری زنده">
     <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
   </button>
-  <button class="icon-btn" id="help-btn" title="راهنما (?)">
+  <button class="icon-btn" id="help-btn" title="راهنما (?)" aria-label="راهنما">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
   </button>
-  <button class="icon-btn" id="theme" title="تم">
+  <button class="icon-btn" id="theme" title="تم" aria-label="تغییر تم">
     <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
   </button>
-  <button class="icon-btn" id="export" title="ذخیره PNG">
+  <button class="icon-btn" id="export" title="ذخیره PNG" aria-label="ذخیره PNG">
     <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
   </button>
 </header>
@@ -826,51 +836,51 @@ body.dark .collab-reconnect{color:#FCD34D}
 </a>
 
 <aside class="toolbar">
-  <button class="tool" data-tool="select" title="انتخاب (V)">
+  <button class="tool" data-tool="select" title="انتخاب (V)" aria-label="انتخاب">
     <svg viewBox="0 0 24 24"><path d="M4 3l7 17 2.5-7.5L21 10 4 3z"/></svg>
   </button>
-  <button class="tool" data-tool="hand" title="جابجایی (H)">
+  <button class="tool" data-tool="hand" title="جابجایی (H)" aria-label="جابجایی">
     <svg viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 10-4 0v5"/><path d="M14 10V4a2 2 0 10-4 0v6"/><path d="M10 10.5V6a2 2 0 10-4 0v8"/><path d="M18 8a2 2 0 114 0v6a8 8 0 01-8 8h-2c-2.8 0-4.5-.9-6-2.3l-3.6-3.6a2 2 0 012.8-2.8L7 15"/></svg>
   </button>
   <div class="divider"></div>
-  <button class="tool active" data-tool="pen" title="قلم (P)">
+  <button class="tool active" data-tool="pen" title="قلم (P)" aria-label="قلم">
     <svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg>
   </button>
-  <button class="tool" data-tool="highlighter" title="هایلایت (M)">
+  <button class="tool" data-tool="highlighter" title="هایلایت (M)" aria-label="هایلایت">
     <svg viewBox="0 0 24 24"><path d="M9 11l-6 6v3h3l6-6"/><path d="M22 12l-4.6 4.6a2 2 0 01-2.8 0l-5.2-5.2a2 2 0 010-2.8L14 4l8 8z"/></svg>
   </button>
-  <button class="tool" data-tool="eraser" title="پاک‌کن (E)">
+  <button class="tool" data-tool="eraser" title="پاک‌کن (E)" aria-label="پاک‌کن">
     <svg viewBox="0 0 24 24"><path d="M20 20H7L3 16a2 2 0 010-2.8l9.2-9.2a2 2 0 012.8 0l6 6a2 2 0 010 2.8L14 20"/><path d="M18 13l-7-7"/></svg>
   </button>
-  <button class="tool" data-tool="text" title="متن (T)">
+  <button class="tool" data-tool="text" title="متن (T)" aria-label="متن">
     <svg viewBox="0 0 24 24"><path d="M4 6V4h16v2"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
   </button>
   <div class="divider"></div>
-  <button class="tool" data-tool="line" title="خط (L)">
+  <button class="tool" data-tool="line" title="خط (L)" aria-label="خط">
     <svg viewBox="0 0 24 24"><path d="M5 19L19 5"/></svg>
   </button>
-  <button class="tool" data-tool="arrow" title="فلش (A)">
+  <button class="tool" data-tool="arrow" title="فلش (A)" aria-label="فلش">
     <svg viewBox="0 0 24 24"><path d="M5 19L19 5"/><path d="M10 5h9v9"/></svg>
   </button>
-  <button class="tool" data-tool="rect" title="مستطیل (R)">
+  <button class="tool" data-tool="rect" title="مستطیل (R)" aria-label="مستطیل">
     <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
   </button>
-  <button class="tool" data-tool="ellipse" title="دایره (O)">
+  <button class="tool" data-tool="ellipse" title="دایره (O)" aria-label="دایره">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
   </button>
   <div class="divider"></div>
-  <button class="tool swatch" id="swatch" title="سبک">
+  <button class="tool swatch" id="swatch" title="سبک" aria-label="سبک">
     <span class="dot" id="swatch-dot"></span>
   </button>
   <div class="divider"></div>
-  <button class="tool" id="layers-toggle" title="لایه‌ها (Ctrl+L)">
+  <button class="tool" id="layers-toggle" title="لایه‌ها (Ctrl+L)" aria-label="لایه‌ها">
     <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
   </button>
-  <button class="tool" id="stencil-toggle" title="کتابخانه شکل">
+  <button class="tool" id="stencil-toggle" title="کتابخانه شکل" aria-label="کتابخانه شکل">
     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><circle cx="17.5" cy="6.5" r="3.5"/><path d="M7 14l5 7H2z"/></svg>
   </button>
   <div class="divider"></div>
-  <button class="tool danger" id="clear" title="پاک کردن همه">
+  <button class="tool danger" id="clear" title="پاک کردن همه" aria-label="پاک کردن همه">
     <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
   </button>
 </aside>
@@ -965,7 +975,7 @@ body.dark .collab-reconnect{color:#FCD34D}
 <aside class="side-panel" id="layers-panel">
   <div class="side-panel__head">
     <h3>لایه‌ها</h3>
-    <button class="icon-btn" data-close="layers-panel">
+    <button class="icon-btn" data-close="layers-panel" aria-label="بستن">
       <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
   </div>
@@ -975,7 +985,7 @@ body.dark .collab-reconnect{color:#FCD34D}
 <aside class="side-panel" id="stencil-panel">
   <div class="side-panel__head">
     <h3>کتابخانه شکل</h3>
-    <button class="icon-btn" data-close="stencil-panel">
+    <button class="icon-btn" data-close="stencil-panel" aria-label="بستن">
       <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
   </div>
@@ -985,11 +995,11 @@ body.dark .collab-reconnect{color:#FCD34D}
 </aside>
 
 <div class="zoom-badge" id="zoom-badge">
-  <button id="zoom-out" title="کوچک‌نمایی">
+  <button id="zoom-out" title="کوچک‌نمایی" aria-label="کوچک‌نمایی">
     <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
   </button>
   <span class="value" id="zoom-value" title="ریست">100%</span>
-  <button id="zoom-in" title="بزرگ‌نمایی">
+  <button id="zoom-in" title="بزرگ‌نمایی" aria-label="بزرگ‌نمایی">
     <svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
   </button>
 </div>
@@ -1004,12 +1014,12 @@ body.dark .collab-reconnect{color:#FCD34D}
   <strong>here-is-leo</strong>
 </a>
 
-<div class="help-modal" id="help-modal">
+<div class="help-modal" id="help-modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
   <div class="help-modal__backdrop" id="help-backdrop"></div>
   <div class="help-modal__panel">
     <div class="help-modal__head">
-      <h2>راهنمای میانبرها</h2>
-      <button class="icon-btn" id="help-close" style="width:28px;height:28px">
+      <h2 id="help-title">راهنمای میانبرها</h2>
+      <button class="icon-btn" id="help-close" style="width:28px;height:28px" aria-label="بستن">
         <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
@@ -1018,7 +1028,10 @@ body.dark .collab-reconnect{color:#FCD34D}
         <h4>درباره‌ی نگار</h4>
         <p class="help-about">
           نگار یک تخته سفید سبک و سریع برای ترسیم، تدریس، و یادداشت‌برداری است.
-          همه‌ی داده‌ها در مرورگر شما ذخیره می‌شوند و به سرور ارسال نمی‌شوند.
+          بوم و محتوای شما در مرورگر خودتان (localStorage) ذخیره می‌شود.
+          حالت «همکاری زنده» از یک سرور signaling ابری PeerJS برای برقراری ارتباط مستقیم P2P استفاده می‌کند؛
+          داده‌های بوم بین شما و همتاها به‌صورت مستقیم منتقل می‌شود و روی سرور نگار ذخیره نمی‌شود.
+          بارگذاری فونت و کتابخانه‌های جانبی از CDNهای عمومی انجام می‌شود که IP شما را می‌بینند.
         </p>
         <div class="help-meta">
           <div class="help-meta__row">
@@ -1037,7 +1050,7 @@ body.dark .collab-reconnect{color:#FCD34D}
           </div>
           <div class="help-meta__row">
             <span class="help-meta__label">نسخه</span>
-            <span class="help-meta__value">1.4.0</span>
+            <span class="help-meta__value">1.4.1</span>
           </div>
         </div>
       </div>
@@ -1089,13 +1102,12 @@ body.dark .collab-reconnect{color:#FCD34D}
   </div>
 </div>
 
-<!-- Share Modal -->
-<div class="help-modal" id="share-modal">
+<div class="help-modal" id="share-modal" role="dialog" aria-modal="true">
   <div class="help-modal__backdrop" data-close="share-modal"></div>
   <div class="help-modal__panel" style="width:min(500px,92vw)">
     <div class="help-modal__head">
       <h2>اشتراک‌گذاری بوم</h2>
-      <button class="icon-btn" data-close="share-modal">
+      <button class="icon-btn" data-close="share-modal" aria-label="بستن">
         <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
@@ -1134,13 +1146,12 @@ body.dark .collab-reconnect{color:#FCD34D}
   </div>
 </div>
 
-<!-- Collab Modal -->
-<div class="help-modal" id="collab-modal">
+<div class="help-modal" id="collab-modal" role="dialog" aria-modal="true">
   <div class="help-modal__backdrop" data-close="collab-modal"></div>
   <div class="help-modal__panel" style="width:min(500px,94vw)">
     <div class="help-modal__head">
       <h2>همکاری زنده (P2P)</h2>
-      <button class="icon-btn" data-close="collab-modal">
+      <button class="icon-btn" data-close="collab-modal" aria-label="بستن">
         <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
@@ -1149,6 +1160,7 @@ body.dark .collab-reconnect{color:#FCD34D}
         <p style="font-size:13px;color:var(--text-2);margin-bottom:16px;line-height:1.7">
           برای کار همزمان، یکی از شما «میزبان» می‌شه و یک کد می‌گیره.
           بقیه با وارد کردن کد به بوم وصل می‌شن.
+          <br><strong>توجه:</strong> اعضای جدید پیش‌فرض «تماشاچی» هستند؛ میزبان می‌تواند به آن‌ها اجازه کشیدن بدهد.
         </p>
 
         <div class="collab-name-field">
@@ -1166,7 +1178,7 @@ body.dark .collab-reconnect{color:#FCD34D}
         <div class="collab-or">یا</div>
         <div class="collab-join">
           <input type="text" id="collab-input" placeholder="کد اتاق را وارد کن..." />
-          <button class="icon-btn" id="collab-join-btn" title="اتصال">
+          <button class="icon-btn" id="collab-join-btn" title="اتصال" aria-label="اتصال">
             <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
           </button>
         </div>
@@ -1183,7 +1195,7 @@ body.dark .collab-reconnect{color:#FCD34D}
             <div style="font-size:13px;font-weight:600;color:var(--text)" id="collab-role-label">—</div>
             <div style="font-size:11px;color:var(--text-3);direction:ltr;font-family:monospace" id="collab-code"></div>
           </div>
-          <button class="icon-btn" id="collab-copy-code" title="کپی کد">
+          <button class="icon-btn" id="collab-copy-code" title="کپی کد" aria-label="کپی کد">
             <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
           </button>
         </div>
@@ -1218,6 +1230,11 @@ body.dark .collab-reconnect{color:#FCD34D}
 'use strict';
 
 // ═════════════════════════════════════════════════════════
+// APP VERSION
+// ═════════════════════════════════════════════════════════
+var APP_VERSION = '1.4.1';
+
+// ═════════════════════════════════════════════════════════
 // LOGGER
 // ═════════════════════════════════════════════════════════
 var logger = {
@@ -1225,6 +1242,58 @@ var logger = {
   warn: function(msg, err){ console.warn('[Negar]', msg, err || ''); },
   info: function(msg){ console.log('[Negar]', msg); }
 };
+
+// ═════════════════════════════════════════════════════════
+// SECURE RANDOM ID
+// ═════════════════════════════════════════════════════════
+function secureId(bytes){
+  bytes = bytes || 16;
+  var a = new Uint8Array(bytes);
+  if (window.crypto && crypto.getRandomValues){
+    crypto.getRandomValues(a);
+  } else {
+    for (var i = 0; i < bytes; i++) a[i] = Math.floor(Math.random() * 256);
+  }
+  var out = '';
+  for (var j = 0; j < a.length; j++){
+    out += (a[j] < 16 ? '0' : '') + a[j].toString(16);
+  }
+  return out;
+}
+function uid(){ return secureId(8); }
+
+// ═════════════════════════════════════════════════════════
+// VALIDATION PRIMITIVES
+// ═════════════════════════════════════════════════════════
+var RE_ID       = /^[A-Za-z0-9_-]{1,32}$/;
+var RE_CLIENT   = /^c_[a-f0-9]{16,40}$/;
+var RE_TOKEN    = /^[a-f0-9]{16,64}$/;
+var RE_ROOM     = /^negar-[a-z0-9]{6,32}$/;
+var RE_COLOR    = /^(#[0-9a-fA-F]{3,8}|none|transparent)$/;
+var RE_DATA_IMG = /^data:image\/(png|jpe?g|webp|gif|bmp);base64,[A-Za-z0-9+/=]+$/i;
+var RE_PATH     = /^[MLQCZHVmlqczhv0-9 ,.\-]{1,8000}$/;
+
+var MAX_IMPORT_ELEMENTS  = 10000;
+var MAX_IMAGE_SRC_LENGTH = 8 * 1024 * 1024;
+var MAX_TEXT_LEN         = 5000;
+var MAX_POINTS           = 20000;
+var MAX_PATH_LEN         = 8000;
+var MAX_MESSAGE_BYTES    = 5 * 1024 * 1024;
+var MAX_MSG_RATE_PER_SEC = 60;
+var STORAGE_SAVE_DEBOUNCE = 800;
+var HISTORY_DEBOUNCE_FOR_DRAG = 350;
+
+function num(v, lo, hi, fallback){
+  var n = Number(v);
+  if (!isFinite(n)) return fallback;
+  if (n < lo) return lo;
+  if (n > hi) return hi;
+  return n;
+}
+function isPlainObject(o){
+  return o && typeof o === 'object' && !Array.isArray(o);
+}
+function validColor(c){ return typeof c === 'string' && RE_COLOR.test(c); }
 
 // ═════════════════════════════════════════════════════════
 // SETUP
@@ -1237,17 +1306,11 @@ var SAVE_KEY = 'canvas-elements-v1';
 var CLIP_KEY = 'canvas-clipboard-v1';
 var RECENT_COLORS_KEY = 'negar-recent-colors';
 var VIEWPORT_KEY = 'negar-viewport';
-var MAX_IMPORT_ELEMENTS = 10000;
-var MAX_IMAGE_SRC_LENGTH = 8 * 1024 * 1024;
-var STORAGE_SAVE_DEBOUNCE = 800;
-var HISTORY_DEBOUNCE_FOR_DRAG = 350;
 
 if (window.pdfjsLib) {
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
-
-function uid(){ return Math.random().toString(36).slice(2, 10); }
 
 function resize(){
   dpr = Math.min(window.devicePixelRatio || 1, 2.5);
@@ -1296,17 +1359,117 @@ var state = {
   gridVisible: true,
   clipboard: [],
   viewport: { x: 0, y: 0, z: 1 },
-  usePressure: JSON.parse(localStorage.getItem('negar-pressure') || 'true')
+  usePressure: true
 };
+
+// Safe parse of pressure setting
+try {
+  var _p = localStorage.getItem('negar-pressure');
+  if (_p === 'true') state.usePressure = true;
+  else if (_p === 'false') state.usePressure = false;
+  else if (_p) state.usePressure = !!JSON.parse(_p);
+} catch(e){ state.usePressure = true; }
 
 document.body.dataset.tool = state.tool;
 
 var imageCache = {};
 var recentColors = [];
 try { recentColors = JSON.parse(localStorage.getItem(RECENT_COLORS_KEY) || '[]'); } catch(e){ recentColors = []; }
+if (!Array.isArray(recentColors)) recentColors = [];
 
 // ═════════════════════════════════════════════════════════
-// RENDER SCHEDULING (RAF batching)
+// ELEMENT SANITIZATION
+// ═════════════════════════════════════════════════════════
+var ALLOWED_TOOLS = ['pen','highlighter','line','arrow','rect','ellipse','text','image','stencil'];
+
+function validateElement(el){
+  if (!isPlainObject(el)) return false;
+  if (ALLOWED_TOOLS.indexOf(el.tool) === -1) return false;
+  return true;
+}
+
+function sanitizeElement(el){
+  if (!validateElement(el)) return null;
+  if (typeof el.id !== 'string' || !RE_ID.test(el.id)) return null;
+
+  var out = {
+    id: el.id,
+    tool: el.tool,
+    color: validColor(el.color) ? el.color : '#18181B',
+    fill: validColor(el.fill) ? el.fill : 'none',
+    width: num(el.width, 1, 64, 4),
+    opacity: num(el.opacity, 0.05, 1, 1),
+    hidden: !!el.hidden,
+    locked: !!el.locked,
+    isBackground: !!el.isBackground
+  };
+  if (typeof el.groupId === 'string' && RE_ID.test(el.groupId)) out.groupId = el.groupId;
+  if (typeof el.penStyle === 'string' && PEN_STYLES[el.penStyle]) out.penStyle = el.penStyle;
+
+  if (el.tool === 'image'){
+    if (typeof el.src !== 'string') return null;
+    if (el.src.length > MAX_IMAGE_SRC_LENGTH) return null;
+    if (!RE_DATA_IMG.test(el.src)) return null;
+    out.src = el.src;
+    out.x = num(el.x, -1e6, 1e6, 0);
+    out.y = num(el.y, -1e6, 1e6, 0);
+    out.width = num(el.width, 1, 20000, 100);
+    out.height = num(el.height, 1, 20000, 100);
+  } else if (el.tool === 'stencil'){
+    if (typeof el.path !== 'string' || el.path.length > MAX_PATH_LEN) return null;
+    if (!RE_PATH.test(el.path)) return null;
+    out.path = el.path;
+    out.x = num(el.x, -1e6, 1e6, 0);
+    out.y = num(el.y, -1e6, 1e6, 0);
+    out.w = num(el.w, 1, 1e5, 100);
+    out.h = num(el.h, 1, 1e5, 100);
+    out.baseW = num(el.baseW, 1, 1e4, 100);
+    out.baseH = num(el.baseH, 1, 1e4, 100);
+  } else if (el.tool === 'text'){
+    out.text = (typeof el.text === 'string' ? el.text : '').slice(0, MAX_TEXT_LEN);
+    out.fontSize = num(el.fontSize, 8, 200, 20);
+    out.bold = !!el.bold;
+    out.italic = !!el.italic;
+    out.x = num(el.x, -1e6, 1e6, 0);
+    out.y = num(el.y, -1e6, 1e6, 0);
+  } else if (el.points && Array.isArray(el.points)){
+    var src = el.points.slice(0, MAX_POINTS);
+    var pts = [];
+    for (var i = 0; i < src.length; i++){
+      var p = src[i];
+      if (!isPlainObject(p)) continue;
+      pts.push({
+        x: num(p.x, -1e6, 1e6, 0),
+        y: num(p.y, -1e6, 1e6, 0),
+        p: num(p.p, 0, 1, 0.5)
+      });
+    }
+    if (pts.length === 0) return null;
+    out.points = pts;
+    if (el.usePressure) out.usePressure = true;
+  } else {
+    out.x1 = num(el.x1, -1e6, 1e6, 0);
+    out.y1 = num(el.y1, -1e6, 1e6, 0);
+    out.x2 = num(el.x2, -1e6, 1e6, 0);
+    out.y2 = num(el.y2, -1e6, 1e6, 0);
+  }
+
+  return out;
+}
+
+function sanitizeElementsList(list){
+  if (!Array.isArray(list)) return [];
+  var out = [];
+  var limit = Math.min(list.length, MAX_IMPORT_ELEMENTS);
+  for (var i = 0; i < limit; i++){
+    var clean = sanitizeElement(list[i]);
+    if (clean) out.push(clean);
+  }
+  return out;
+}
+
+// ═════════════════════════════════════════════════════════
+// RENDER SCHEDULING
 // ═════════════════════════════════════════════════════════
 var _renderPending = false;
 function scheduleRender(){
@@ -1317,11 +1480,10 @@ function scheduleRender(){
     _renderNow();
   });
 }
-// legacy alias — everything calls render()
 function render(){ scheduleRender(); }
 
 // ═════════════════════════════════════════════════════════
-// AUTO-SAVE / LOAD (debounced)
+// AUTO-SAVE / LOAD
 // ═════════════════════════════════════════════════════════
 var saveDotTimer = null;
 var saveIndicatorEl = document.getElementById('save-dot');
@@ -1351,7 +1513,6 @@ function _doSaveToStorage(){
       return c;
     });
     localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
-    // Persist viewport too
     try { localStorage.setItem(VIEWPORT_KEY, JSON.stringify(state.viewport)); } catch(e){}
     _storageHasError = false;
     flashSaveDot();
@@ -1374,6 +1535,8 @@ function loadFromStorage(){
     if (!data) return false;
     var els = JSON.parse(data);
     if (!Array.isArray(els) || els.length === 0) return false;
+    els = sanitizeElementsList(els);
+    if (els.length === 0) return false;
     for (var i = 0; i < els.length; i++){
       if (!els[i].id) els[i].id = uid();
       if (els[i].tool === 'image' && els[i].src){
@@ -1384,11 +1547,14 @@ function loadFromStorage(){
       }
     }
     state.elements = els;
-    // Restore viewport
     try {
       var vp = JSON.parse(localStorage.getItem(VIEWPORT_KEY) || 'null');
       if (vp && typeof vp.x === 'number' && typeof vp.y === 'number' && typeof vp.z === 'number'){
-        state.viewport = vp;
+        state.viewport = {
+          x: num(vp.x, -1e7, 1e7, 0),
+          y: num(vp.y, -1e7, 1e7, 0),
+          z: num(vp.z, 0.1, 5, 1)
+        };
       }
     } catch(e){}
     return true;
@@ -1399,7 +1565,7 @@ function loadFromStorage(){
 }
 
 // ═════════════════════════════════════════════════════════
-// VIEWPORT HELPERS
+// VIEWPORT
 // ═════════════════════════════════════════════════════════
 function toWorld(sx, sy){
   var r = canvas.getBoundingClientRect();
@@ -1423,7 +1589,7 @@ function updateStageBg(){
 }
 
 // ═════════════════════════════════════════════════════════
-// RENDER (actual)
+// RENDER
 // ═════════════════════════════════════════════════════════
 function _renderNow(){
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1498,44 +1664,50 @@ function selectedIds(){
 
 function drawElement(el){
   if (el.hidden) return;
-  ctx.globalAlpha = (el.opacity != null ? el.opacity : 1);
-  ctx.globalCompositeOperation = 'source-over';
+  try {
+    ctx.globalAlpha = (el.opacity != null ? el.opacity : 1);
+    ctx.globalCompositeOperation = 'source-over';
 
-  if (el.tool === 'highlighter'){
-    ctx.globalAlpha *= 0.4;
-    ctx.globalCompositeOperation = 'multiply';
+    if (el.tool === 'highlighter'){
+      ctx.globalAlpha *= 0.4;
+      ctx.globalCompositeOperation = 'multiply';
+    }
+
+    if (el.tool === 'image'){
+      drawImageElement(el);
+    } else if (el.tool === 'stencil'){
+      drawStencilElement(el);
+    } else if (el.points){
+      drawFreehand(el);
+    } else if (el.tool === 'text'){
+      drawText(el);
+    } else {
+      drawShape(el);
+    }
+  } catch(e){
+    logger.warn('drawElement failed for ' + el.id, e);
+  } finally {
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
   }
-
-  if (el.tool === 'image'){
-    drawImageElement(el);
-  } else if (el.tool === 'stencil'){
-    drawStencilElement(el);
-  } else if (el.points){
-    drawFreehand(el);
-  } else if (el.tool === 'text'){
-    drawText(el);
-  } else {
-    drawShape(el);
-  }
-
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = 'source-over';
 
   if (el.locked){
-    var b = elementBounds(el);
-    var sz = 14 / state.viewport.z;
-    var pad = 4 / state.viewport.z;
-    ctx.save();
-    ctx.fillStyle = 'rgba(239,68,68,0.85)';
-    ctx.beginPath();
-    ctx.arc(b.x + b.w - pad, b.y + pad, sz * 0.7, 0, Math.PI*2);
-    ctx.fill();
-    ctx.fillStyle = '#fff';
-    ctx.font = 'bold ' + (sz) + 'px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('🔒', b.x + b.w - pad, b.y + pad + 1);
-    ctx.restore();
+    try {
+      var b = elementBounds(el);
+      var sz = 14 / state.viewport.z;
+      var pad = 4 / state.viewport.z;
+      ctx.save();
+      ctx.fillStyle = 'rgba(239,68,68,0.85)';
+      ctx.beginPath();
+      ctx.arc(b.x + b.w - pad, b.y + pad, sz * 0.7, 0, Math.PI*2);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold ' + (sz) + 'px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🔒', b.x + b.w - pad, b.y + pad + 1);
+      ctx.restore();
+    } catch(e){}
   }
 }
 
@@ -1548,7 +1720,8 @@ function drawImageElement(el){
     img.onload = function(){ scheduleRender(); };
     return;
   }
-  try { ctx.drawImage(img, el.x, el.y, el.width, el.height); } catch(e){ logger.warn('drawImage failed'); }
+  try { ctx.drawImage(img, el.x, el.y, el.width, el.height); }
+  catch(e){ logger.warn('drawImage failed'); }
 }
 
 function drawStencilElement(el){
@@ -1814,7 +1987,6 @@ function elementBounds(el){
       if (p.x > maxX) maxX = p.x;
       if (p.y > maxY) maxY = p.y;
     }
-    // FIX: highlighter has 3.5x base width
     var mult = (el.tool === 'highlighter') ? 3.5 : 1.2;
     var pad = (el.width || 4) * mult;
     return { x: minX - pad, y: minY - pad, w: (maxX - minX) + pad * 2, h: (maxY - minY) + pad * 2 };
@@ -2066,7 +2238,7 @@ function updatePreviewSelection(){
 // GROUPS
 // ═════════════════════════════════════════════════════════
 function expandGroupsInSelection(){
-  var groupIds = {};
+  var groupIds = Object.create(null);
   for (var i = 0; i < state.elements.length; i++){
     if (state.selected[state.elements[i].id] && state.elements[i].groupId){
       groupIds[state.elements[i].groupId] = true;
@@ -2155,6 +2327,8 @@ function handleImageFile(file, offsetY){
   });
 }
 
+var PDF_MAX_PAGES = 30;
+
 function handlePDFFile(file, offsetY){
   return new Promise(function(resolve){
     if (typeof pdfjsLib === 'undefined'){
@@ -2165,9 +2339,15 @@ function handlePDFFile(file, offsetY){
     showPdfLoading(true, 'در حال خواندن PDF...');
 
     file.arrayBuffer().then(function(buffer){
-      return pdfjsLib.getDocument({ data: buffer }).promise;
+      return pdfjsLib.getDocument({ data: buffer, isEvalSupported: false }).promise;
     }).then(function(pdf){
       var totalPages = pdf.numPages;
+      if (totalPages > PDF_MAX_PAGES){
+        toast('PDF حداکثر ' + PDF_MAX_PAGES + ' صفحه پشتیبانی می‌شود (این فایل ' + totalPages + ' صفحه دارد)', true);
+        showPdfLoading(false);
+        resolve();
+        return;
+      }
       toast('PDF بارگذاری شد — ' + totalPages + ' صفحه');
 
       var pagePromises = [];
@@ -2196,13 +2376,16 @@ function renderPdfPage(pdf, pageNum, offsetY, totalPages){
     cvs.height = viewport.height;
     var c = cvs.getContext('2d');
     return page.render({ canvasContext: c, viewport: viewport }).promise.then(function(){
-      var dataURL = cvs.toDataURL('image/png');
+      var dataURL;
+      try { dataURL = cvs.toDataURL('image/png'); }
+      catch(e){ logger.warn('PDF toDataURL failed'); return; }
       addImageElement(dataURL, viewport.width, viewport.height, offsetY);
     });
   });
 }
 
 function addImageElement(src, width, height, offsetY){
+  if (typeof src !== 'string' || !RE_DATA_IMG.test(src)) return;
   var vw = window.innerWidth / state.viewport.z;
   var vh = window.innerHeight / state.viewport.z;
   var maxW = vw * 0.7;
@@ -2358,6 +2541,7 @@ function hideContextMenu(){
 // CLIPBOARD
 // ═════════════════════════════════════════════════════════
 function copySelection(){
+  if (!canEdit()) return;
   var ids = selectedIds();
   if (!ids.length) return;
   state.clipboard = [];
@@ -2373,6 +2557,7 @@ function copySelection(){
 }
 
 function cutSelection(){
+  if (!canEdit()) return;
   var ids = selectedIds();
   if (!ids.length) return;
   state.clipboard = [];
@@ -2392,6 +2577,7 @@ function cutSelection(){
 }
 
 function pasteFromClipboard(){
+  if (!canEdit()) return false;
   var cb = state.clipboard;
   if (!cb || !cb.length){
     try {
@@ -2406,7 +2592,7 @@ function pasteFromClipboard(){
     toast('کلیپ‌بورد خالی است');
     return false;
   }
-  var newIds = {};
+  var newIds = Object.create(null);
   var pasted = [];
   for (var i = 0; i < cb.length; i++){
     var copy = JSON.parse(JSON.stringify(cb[i]));
@@ -2431,8 +2617,10 @@ function pasteFromClipboard(){
       copy.x1 += 20; copy.y1 += 20;
       copy.x2 += 20; copy.y2 += 20;
     }
-    pasted.push(copy);
-    newIds[copy.id] = true;
+    var clean = sanitizeElement(copy);
+    if (!clean) continue;
+    pasted.push(clean);
+    newIds[clean.id] = true;
   }
   state.elements = state.elements.concat(pasted);
   state.selected = newIds;
@@ -2443,8 +2631,9 @@ function pasteFromClipboard(){
 }
 
 function duplicateSelection(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
-  var newIds = {};
+  var newIds = Object.create(null);
   var toAdd = [];
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
@@ -2471,8 +2660,10 @@ function duplicateSelection(){
       copy.x1 += 20; copy.y1 += 20;
       copy.x2 += 20; copy.y2 += 20;
     }
-    toAdd.push(copy);
-    newIds[copy.id] = true;
+    var clean = sanitizeElement(copy);
+    if (!clean) continue;
+    toAdd.push(clean);
+    newIds[clean.id] = true;
   }
   state.elements = state.elements.concat(toAdd);
   state.selected = newIds;
@@ -2482,6 +2673,7 @@ function duplicateSelection(){
 }
 
 function deleteSelection(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
   var newEls = [];
   for (var i = 0; i < state.elements.length; i++){
@@ -2500,6 +2692,7 @@ function deleteSelection(){
 // ORDER
 // ═════════════════════════════════════════════════════════
 function bringToFront(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
   var selected = [], rest = [];
   for (var i = 0; i < state.elements.length; i++){
@@ -2511,6 +2704,7 @@ function bringToFront(){
 }
 
 function sendToBack(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
   var selected = [], rest = [];
   for (var i = 0; i < state.elements.length; i++){
@@ -2522,6 +2716,7 @@ function sendToBack(){
 }
 
 function bringForward(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
   for (var i = state.elements.length - 2; i >= 0; i--){
     if (state.selected[state.elements[i].id] && !state.selected[state.elements[i + 1].id]){
@@ -2534,6 +2729,7 @@ function bringForward(){
 }
 
 function sendBackward(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
   for (var i = 1; i < state.elements.length; i++){
     if (state.selected[state.elements[i].id] && !state.selected[state.elements[i - 1].id]){
@@ -2549,6 +2745,7 @@ function sendBackward(){
 // LOCK
 // ═════════════════════════════════════════════════════════
 function lockSelection(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
   for (var i = 0; i < state.elements.length; i++){
     if (state.selected[state.elements[i].id]) state.elements[i].locked = true;
@@ -2558,6 +2755,7 @@ function lockSelection(){
 }
 
 function unlockSelection(){
+  if (!canEdit()) return;
   if (!hasSelection()) return;
   for (var i = 0; i < state.elements.length; i++){
     if (state.selected[state.elements[i].id]) state.elements[i].locked = false;
@@ -2630,12 +2828,25 @@ function showInfo(){
 }
 
 // ═════════════════════════════════════════════════════════
+// PERMISSION GATE
+// ═════════════════════════════════════════════════════════
+function canEdit(){
+  if (!collab.active) return true;
+  if (collab.isHost) return true;
+  return !!collab.canDraw;
+}
+
+function denyEdit(){
+  toast('اجازه ویرایش ندارید — تماشاچی هستید');
+}
+
+// ═════════════════════════════════════════════════════════
 // CONTEXT MENUS
 // ═════════════════════════════════════════════════════════
 function openCanvasContextMenu(x, y){
   var items = [
-    { label: 'آپلود تصویر / PDF', icon: 'image', action: function(){ fileInput.click(); } },
-    { label: 'چسباندن', icon: 'paste', shortcut: 'Ctrl+V', action: pasteFromClipboard },
+    { label: 'آپلود تصویر / PDF', icon: 'image', action: function(){ fileInput.click(); }, disabled: !canEdit() },
+    { label: 'چسباندن', icon: 'paste', shortcut: 'Ctrl+V', action: pasteFromClipboard, disabled: !canEdit() },
     { divider: true },
     { label: 'انتخاب همه', icon: 'selectAll', shortcut: 'Ctrl+A', action: selectAll, disabled: state.elements.length === 0 },
     { label: 'لغو انتخاب', icon: 'deselect', shortcut: 'Esc', action: function(){ state.selected = {}; scheduleRender(); updateSelectionIndicator(); }, disabled: !hasSelection() },
@@ -2654,7 +2865,7 @@ function openCanvasContextMenu(x, y){
     { label: 'اطلاعات', icon: 'info', action: showInfo },
     { label: 'راهنما', icon: 'help', shortcut: '?', action: function(){ document.getElementById('help-btn').click(); } },
     { divider: true },
-    { label: 'پاک کردن همه', icon: 'trash', danger: true, action: function(){ document.getElementById('clear').click(); }, disabled: state.elements.length === 0 }
+    { label: 'پاک کردن همه', icon: 'trash', danger: true, action: function(){ document.getElementById('clear').click(); }, disabled: state.elements.length === 0 || !canEdit() }
   ];
   showContextMenu(x, y, items);
 }
@@ -2673,9 +2884,10 @@ function openElementContextMenu(x, y){
     }
   }
 
+  var editable = canEdit();
   var items = [];
 
-  if (allText && ids.length === 1){
+  if (allText && ids.length === 1 && editable){
     items.push({ label: 'ویرایش متن', icon: 'edit', shortcut: 'دابل‌کلیک', action: function(){
       var el = findById(ids[0]);
       if (el && el.tool === 'text') startTextTool(el.x, el.y, el);
@@ -2683,32 +2895,32 @@ function openElementContextMenu(x, y){
     items.push({ divider: true });
   }
 
-  items.push({ label: multi ? 'کپی (' + ids.length + ')' : 'کپی', icon: 'copy', shortcut: 'Ctrl+C', action: copySelection });
-  items.push({ label: multi ? 'برش (' + ids.length + ')' : 'برش', icon: 'cut', shortcut: 'Ctrl+X', action: cutSelection });
-  items.push({ label: 'تکثیر', icon: 'duplicate', shortcut: 'Ctrl+D', action: duplicateSelection });
+  items.push({ label: multi ? 'کپی (' + ids.length + ')' : 'کپی', icon: 'copy', shortcut: 'Ctrl+C', action: copySelection, disabled: !editable });
+  items.push({ label: multi ? 'برش (' + ids.length + ')' : 'برش', icon: 'cut', shortcut: 'Ctrl+X', action: cutSelection, disabled: !editable });
+  items.push({ label: 'تکثیر', icon: 'duplicate', shortcut: 'Ctrl+D', action: duplicateSelection, disabled: !editable });
   items.push({ divider: true });
 
   if (multi){
-    items.push({ label: 'گروه کردن', icon: 'group', shortcut: 'Ctrl+G', action: groupSelection });
+    items.push({ label: 'گروه کردن', icon: 'group', shortcut: 'Ctrl+G', action: groupSelection, disabled: !editable });
   }
   if (anyGrouped){
-    items.push({ label: 'باز کردن گروه', icon: 'ungroup', shortcut: 'Ctrl+Shift+G', action: ungroupSelection });
+    items.push({ label: 'باز کردن گروه', icon: 'ungroup', shortcut: 'Ctrl+Shift+G', action: ungroupSelection, disabled: !editable });
   }
   if (multi || anyGrouped){
     items.push({ divider: true });
   }
 
-  items.push({ label: 'آوردن به جلو', icon: 'forward', action: bringForward });
-  items.push({ label: 'فرستادن به عقب', icon: 'backward', action: sendBackward });
-  items.push({ label: 'بردن روی همه', icon: 'front', action: bringToFront });
-  items.push({ label: 'بردن زیر همه', icon: 'back', action: sendToBack });
+  items.push({ label: 'آوردن به جلو', icon: 'forward', action: bringForward, disabled: !editable });
+  items.push({ label: 'فرستادن به عقب', icon: 'backward', action: sendBackward, disabled: !editable });
+  items.push({ label: 'بردن روی همه', icon: 'front', action: bringToFront, disabled: !editable });
+  items.push({ label: 'بردن زیر همه', icon: 'back', action: sendToBack, disabled: !editable });
   items.push({ divider: true });
 
-  if (hasUnlocked) items.push({ label: 'قفل کردن', icon: 'lock', action: lockSelection });
-  if (hasLocked) items.push({ label: 'باز کردن قفل', icon: 'unlock', action: unlockSelection });
+  if (hasUnlocked) items.push({ label: 'قفل کردن', icon: 'lock', action: lockSelection, disabled: !editable });
+  if (hasLocked) items.push({ label: 'باز کردن قفل', icon: 'unlock', action: unlockSelection, disabled: !editable });
 
   items.push({ divider: true });
-  items.push({ label: multi ? 'حذف (' + ids.length + ')' : 'حذف', icon: 'trash', shortcut: 'Delete', danger: true, action: deleteSelection });
+  items.push({ label: multi ? 'حذف (' + ids.length + ')' : 'حذف', icon: 'trash', shortcut: 'Delete', danger: true, action: deleteSelection, disabled: !editable });
 
   showContextMenu(x, y, items);
 }
@@ -2732,7 +2944,6 @@ function selectAll(){
 // ═════════════════════════════════════════════════════════
 var rightClickDrag = null;
 
-// Multi-touch pinch zoom state
 var touchState = {
   active: false,
   touches: 0,
@@ -2776,14 +2987,14 @@ function onDown(e){
 
   if (e.pointerType === 'mouse' && e.button !== 0 && e.button !== 1) return;
 
-  // ── Viewer permission gate ─────────────────────────────
+  // Viewer permission gate
   if (collab.active && !collab.isHost && !collab.canDraw){
     var isMiddle = (e.button === 1);
     var isPanGesture = state.space || state.tool === 'hand';
     var isSelectTool = state.tool === 'select';
     if (!isMiddle && !isPanGesture && !isSelectTool){
       e.preventDefault();
-      toast('اجازه کشیدن ندارید — فقط تماشاچی هستید');
+      denyEdit();
       return;
     }
   }
@@ -2809,6 +3020,7 @@ function onDown(e){
   }
 
   if (state.tool === 'eraser'){
+    if (!canEdit()){ denyEdit(); return; }
     state.dragging = { type: 'erase' };
     eraseAt(w.x, w.y);
     return;
@@ -2817,10 +3029,7 @@ function onDown(e){
   if (state.tool === 'select'){
     var handleHit = hitHandle(e.clientX, e.clientY);
     if (handleHit){
-      if (collab.active && !collab.isHost && !collab.canDraw){
-        toast('اجازه ویرایش ندارید');
-        return;
-      }
+      if (!canEdit()){ denyEdit(); return; }
       var snap = {};
       for (var i = 0; i < state.elements.length; i++){
         var el = state.elements[i];
@@ -2844,10 +3053,7 @@ function onDown(e){
     var hit = hitTop(w.x, w.y);
 
     if (hit && e.altKey){
-      if (collab.active && !collab.isHost && !collab.canDraw){
-        toast('اجازه ویرایش ندارید');
-        return;
-      }
+      if (!canEdit()){ denyEdit(); return; }
       var copy = JSON.parse(JSON.stringify(hit));
       delete copy._img;
       copy.id = uid();
@@ -2857,11 +3063,13 @@ function onDown(e){
         img.src = copy.src;
         imageCache[copy.id] = img;
       }
-      state.elements.push(copy);
+      var cleanCopy = sanitizeElement(copy);
+      if (!cleanCopy) return;
+      state.elements.push(cleanCopy);
       state.selected = {};
-      state.selected[copy.id] = true;
+      state.selected[cleanCopy.id] = true;
       var snap2 = {};
-      snap2[copy.id] = JSON.parse(JSON.stringify(copy));
+      snap2[cleanCopy.id] = JSON.parse(JSON.stringify(cleanCopy));
       state.dragging = { type: 'move', sx: w.x, sy: w.y, snap: snap2 };
       pushHistory();
       scheduleRender();
@@ -2959,6 +3167,7 @@ function onDown(e){
 }
 
 function eraseAt(wx, wy){
+  if (!canEdit()) return;
   var hit = hitTop(wx, wy);
   if (!hit || hit.locked) return;
   for (var i = 0; i < state.elements.length; i++){
@@ -3233,9 +3442,12 @@ function onUp(e){
   }
 
   if (valid){
-    state.elements.push(elc);
-    pushHistory();
-    scheduleRenderLayers();
+    var clean = sanitizeElement(elc);
+    if (clean){
+      state.elements.push(clean);
+      pushHistory();
+      scheduleRenderLayers();
+    }
   }
   scheduleRender();
 }
@@ -3244,10 +3456,7 @@ function onDblClick(e){
   var w = toWorld(e.clientX, e.clientY);
   var hit = hitTop(w.x, w.y);
   if (hit && hit.tool === 'text'){
-    if (collab.active && !collab.isHost && !collab.canDraw){
-      toast('اجازه ویرایش ندارید');
-      return;
-    }
+    if (!canEdit()){ denyEdit(); return; }
     startTextTool(hit.x, hit.y, hit);
     return;
   }
@@ -3270,7 +3479,7 @@ canvas.addEventListener('pointerleave', function(){
   if (state.hoveredId){ state.hoveredId = null; scheduleRender(); }
 });
 
-// ─── Multi-touch pinch zoom ──────────────────────────────
+// Multi-touch pinch zoom
 canvas.addEventListener('touchstart', function(e){
   if (e.touches.length === 2){
     e.preventDefault();
@@ -3281,7 +3490,6 @@ canvas.addEventListener('touchstart', function(e){
     touchState.startZoom = state.viewport.z;
     touchState.startMidX = (t1.clientX + t2.clientX) / 2;
     touchState.startMidY = (t1.clientY + t2.clientY) / 2;
-    // Cancel any drawing in progress
     state.current = null;
     state.dragging = null;
   }
@@ -3357,6 +3565,7 @@ var textTarget = null;
 var _commitLock = false;
 
 function startTextTool(wx, wy, editEl){
+  if (!canEdit()){ denyEdit(); return; }
   if (textOverlay) commitText();
 
   var r = canvas.getBoundingClientRect();
@@ -3364,6 +3573,7 @@ function startTextTool(wx, wy, editEl){
   var anchorY = wy * state.viewport.z + state.viewport.y + r.top;
 
   var color = editEl ? editEl.color : state.color;
+  if (!validColor(color)) color = '#18181B';
   var fontSize = editEl ? (editEl.fontSize || 20) : state.textFontSize;
   var fontWeight = (editEl ? editEl.bold : state.textBold) ? '700' : '500';
   var fontStyle = (editEl ? editEl.italic : state.textItalic) ? 'italic' : 'normal';
@@ -3447,10 +3657,10 @@ function commitText(){
     }
 
     var base = pos._src;
-    state.elements.push({
+    var newEl = {
       id: uid(),
       tool: 'text',
-      text: txt,
+      text: txt.slice(0, MAX_TEXT_LEN),
       color: base ? base.color : state.color,
       opacity: base ? (base.opacity != null ? base.opacity : 1) : state.opacity,
       fontSize: base ? (base.fontSize || 20) : state.textFontSize,
@@ -3459,7 +3669,9 @@ function commitText(){
       groupId: base ? base.groupId : undefined,
       x: pos.x,
       y: pos.y
-    });
+    };
+    var clean = sanitizeElement(newEl);
+    if (clean) state.elements.push(clean);
     pushHistory();
     scheduleRender();
     scheduleRenderLayers();
@@ -3469,7 +3681,7 @@ function commitText(){
 }
 
 // ═════════════════════════════════════════════════════════
-// RENDER HELPERS
+// EXPORT HELPERS
 // ═════════════════════════════════════════════════════════
 function getContentBounds(padding){
   padding = padding == null ? 40 : padding;
@@ -3508,7 +3720,6 @@ function renderContentToCanvas(scale, bgColor){
   c.fillStyle = bgColor || (document.body.classList.contains('dark') ? '#0F0F12' : '#FFFFFF');
   c.fillRect(0, 0, cv.width, cv.height);
 
-  // FIX: use try/finally to guarantee ctx and viewport restoration
   var savedCtx = ctx;
   var savedVx = state.viewport.x;
   var savedVy = state.viewport.y;
@@ -3568,9 +3779,17 @@ function exportPNG(){
   ensureImagesLoaded().then(function(){
     var result = renderContentToCanvas(2);
     if (!result){ toast('محتوایی برای خروجی نیست'); return; }
+    var dataURL;
+    try {
+      dataURL = result.canvas.toDataURL('image/png');
+    } catch(e){
+      logger.error('toDataURL failed', e);
+      toast('خروجی PNG ممکن نشد (تصویر آلوده)', true);
+      return;
+    }
     var a = document.createElement('a');
     a.download = 'negar-' + Date.now() + '.png';
-    a.href = result.canvas.toDataURL('image/png');
+    a.href = dataURL;
     a.click();
     toast('PNG ذخیره شد (' + result.canvas.width + '×' + result.canvas.height + ')');
   });
@@ -3582,63 +3801,69 @@ function escapeXML(s){
   });
 }
 
+function numXML(v){
+  var n = Number(v);
+  return isFinite(n) ? String(n) : '0';
+}
+
 function elementToSVG(el){
   if (el.hidden) return '';
   var opacity = el.opacity != null ? el.opacity : 1;
   if (el.tool === 'highlighter') opacity *= 0.4;
-  var opAttr = opacity < 1 ? ' opacity="' + opacity + '"' : '';
-  var strokeAttrs = 'stroke="' + el.color + '" stroke-width="' + (el.width || 4) + '" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+  var opAttr = opacity < 1 ? ' opacity="' + numXML(opacity) + '"' : '';
+  var colorSafe = escapeXML(el.color);
+  var widthSafe = numXML(el.width || 4);
+  var strokeAttrs = 'stroke="' + colorSafe + '" stroke-width="' + widthSafe + '" stroke-linecap="round" stroke-linejoin="round" fill="none"';
 
   if (el.tool === 'image'){
-    // FIX: escapeXML on src
-    return '<image x="' + el.x + '" y="' + el.y + '" width="' + el.width +
-      '" height="' + el.height + '" xlink:href="' + escapeXML(el.src) + '"' + opAttr + '/>';
+    return '<image x="' + numXML(el.x) + '" y="' + numXML(el.y) + '" width="' + numXML(el.width) +
+      '" height="' + numXML(el.height) + '" xlink:href="' + escapeXML(el.src) + '"' + opAttr + '/>';
   }
   if (el.tool === 'stencil'){
     var sx = el.w / el.baseW;
     var sy = el.h / el.baseH;
     var avgS = (Math.abs(sx) + Math.abs(sy)) / 2 || 1;
-    var fillC = (el.fill && el.fill !== 'none') ? el.fill : 'none';
-    return '<g transform="translate(' + el.x + ',' + el.y + ') scale(' + sx + ',' + sy + ')"' + opAttr + '>' +
-      '<path d="' + el.path + '" fill="' + fillC + '" stroke="' + el.color +
-      '" stroke-width="' + ((el.width||4)/avgS) + '" stroke-linejoin="round" stroke-linecap="round"/></g>';
+    var fillC = (el.fill && el.fill !== 'none') ? escapeXML(el.fill) : 'none';
+    return '<g transform="translate(' + numXML(el.x) + ',' + numXML(el.y) + ') scale(' + numXML(sx) + ',' + numXML(sy) + ')"' + opAttr + '>' +
+      '<path d="' + escapeXML(el.path) + '" fill="' + fillC + '" stroke="' + colorSafe +
+      '" stroke-width="' + numXML((el.width||4)/avgS) + '" stroke-linejoin="round" stroke-linecap="round"/></g>';
   }
   if (el.points){
-    var pts = el.points.map(function(p){ return p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' ');
+    var pts = el.points.map(function(p){ return numXML(p.x) + ',' + numXML(p.y); }).join(' ');
     var avgW = (el.width || 4) * (el.tool === 'highlighter' ? 3.5 : 1.2);
-    return '<polyline points="' + pts + '" fill="none" stroke="' + el.color +
-      '" stroke-width="' + avgW + '" stroke-linecap="round" stroke-linejoin="round"' + opAttr + '/>';
+    return '<polyline points="' + pts + '" fill="none" stroke="' + colorSafe +
+      '" stroke-width="' + numXML(avgW) + '" stroke-linecap="round" stroke-linejoin="round"' + opAttr + '/>';
   }
   if (el.tool === 'text'){
     var lines = (el.text || '').split('\n');
     var lh = (el.fontSize || 20) * 1.35;
     var tspans = '';
     for (var i = 0; i < lines.length; i++){
-      tspans += '<tspan x="' + el.x + '" dy="' + (i === 0 ? 0 : lh) + '">' + escapeXML(lines[i]) + '</tspan>';
+      tspans += '<tspan x="' + numXML(el.x) + '" dy="' + numXML(i === 0 ? 0 : lh) + '">' + escapeXML(lines[i]) + '</tspan>';
     }
     var fw = el.bold ? '700' : '500';
     var fs = el.italic ? 'italic' : 'normal';
-    return '<text x="' + el.x + '" y="' + (el.y + (el.fontSize || 20) * 0.8) +
+    return '<text x="' + numXML(el.x) + '" y="' + numXML(el.y + (el.fontSize || 20) * 0.8) +
       '" text-anchor="end" direction="rtl" font-family="Vazirmatn, system-ui, sans-serif" ' +
-      'font-size="' + (el.fontSize || 20) + '" font-weight="' + fw +
-      '" font-style="' + fs + '" fill="' + el.color + '"' + opAttr + '>' + tspans + '</text>';
+      'font-size="' + numXML(el.fontSize || 20) + '" font-weight="' + fw +
+      '" font-style="' + fs + '" fill="' + colorSafe + '"' + opAttr + '>' + tspans + '</text>';
   }
   if (el.tool === 'line'){
-    return '<line x1="' + el.x1 + '" y1="' + el.y1 + '" x2="' + el.x2 + '" y2="' + el.y2 +
+    return '<line x1="' + numXML(el.x1) + '" y1="' + numXML(el.y1) + '" x2="' + numXML(el.x2) + '" y2="' + numXML(el.y2) +
       '" ' + strokeAttrs + opAttr + '/>';
   }
   if (el.tool === 'rect'){
     var rx = Math.min(el.x1, el.x2), ry = Math.min(el.y1, el.y2);
     var rw = Math.abs(el.x2 - el.x1), rh = Math.abs(el.y2 - el.y1);
-    var fillR = (el.fill && el.fill !== 'none') ? el.fill : 'none';
-    return '<rect x="' + rx + '" y="' + ry + '" width="' + rw + '" height="' + rh +
+    var fillR = (el.fill && el.fill !== 'none') ? escapeXML(el.fill) : 'none';
+    return '<rect x="' + numXML(rx) + '" y="' + numXML(ry) + '" width="' + numXML(rw) + '" height="' + numXML(rh) +
       '" rx="8" fill="' + fillR + '" ' + strokeAttrs + opAttr + '/>';
   }
   if (el.tool === 'ellipse'){
     var cx = (el.x1 + el.x2) / 2, cy = (el.y1 + el.y2) / 2;
     var rxE = Math.abs(el.x2 - el.x1) / 2, ryE = Math.abs(el.y2 - el.y1) / 2;
-    var fillE = (el.fill && el.fill !== 'none') ? el.fill : 'none';
-    return '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + rxE + '" ry="' + ryE +
+    var fillE = (el.fill && el.fill !== 'none') ? escapeXML(el.fill) : 'none';
+    return '<ellipse cx="' + numXML(cx) + '" cy="' + numXML(cy) + '" rx="' + numXML(rxE) + '" ry="' + numXML(ryE) +
       '" fill="' + fillE + '" ' + strokeAttrs + opAttr + '/>';
   }
   if (el.tool === 'arrow'){
@@ -3649,10 +3874,10 @@ function elementToSVG(el){
     var ax2 = el.x2 - hl * Math.cos(ang + Math.PI/7);
     var ay2 = el.y2 - hl * Math.sin(ang + Math.PI/7);
     return '<g' + opAttr + '>' +
-      '<line x1="' + el.x1 + '" y1="' + el.y1 + '" x2="' + el.x2 + '" y2="' + el.y2 +
-      '" stroke="' + el.color + '" stroke-width="' + el.width + '" stroke-linecap="round"/>' +
-      '<polyline points="' + ax1 + ',' + ay1 + ' ' + el.x2 + ',' + el.y2 + ' ' + ax2 + ',' + ay2 +
-      '" fill="none" stroke="' + el.color + '" stroke-width="' + el.width +
+      '<line x1="' + numXML(el.x1) + '" y1="' + numXML(el.y1) + '" x2="' + numXML(el.x2) + '" y2="' + numXML(el.y2) +
+      '" stroke="' + colorSafe + '" stroke-width="' + widthSafe + '" stroke-linecap="round"/>' +
+      '<polyline points="' + numXML(ax1) + ',' + numXML(ay1) + ' ' + numXML(el.x2) + ',' + numXML(el.y2) + ' ' + numXML(ax2) + ',' + numXML(ay2) +
+      '" fill="none" stroke="' + colorSafe + '" stroke-width="' + widthSafe +
       '" stroke-linecap="round" stroke-linejoin="round"/></g>';
   }
   return '';
@@ -3667,10 +3892,10 @@ function exportSVG(){
     var out = [
       '<?xml version="1.0" encoding="UTF-8"?>',
       '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ' +
-        'viewBox="' + bounds.x + ' ' + bounds.y + ' ' + bounds.w + ' ' + bounds.h + '" ' +
-        'width="' + bounds.w + '" height="' + bounds.h + '">',
-      '<rect x="' + bounds.x + '" y="' + bounds.y + '" width="' + bounds.w +
-        '" height="' + bounds.h + '" fill="' + bgColor + '"/>'
+        'viewBox="' + numXML(bounds.x) + ' ' + numXML(bounds.y) + ' ' + numXML(bounds.w) + ' ' + numXML(bounds.h) + '" ' +
+        'width="' + numXML(bounds.w) + '" height="' + numXML(bounds.h) + '">',
+      '<rect x="' + numXML(bounds.x) + '" y="' + numXML(bounds.y) + '" width="' + numXML(bounds.w) +
+        '" height="' + numXML(bounds.h) + '" fill="' + bgColor + '"/>'
     ];
     for (var i = 0; i < state.elements.length; i++){
       if (state.elements[i].isBackground) out.push(elementToSVG(state.elements[i]));
@@ -3699,7 +3924,14 @@ function exportToPDF(){
       if (!result){ toast('محتوایی برای خروجی نیست'); return; }
 
       var cv = result.canvas;
-      var dataURLPNG  = cv.toDataURL('image/png');
+      var dataURLPNG;
+      try {
+        dataURLPNG = cv.toDataURL('image/png');
+      } catch(e){
+        logger.error('PDF toDataURL failed', e);
+        toast('خروجی PDF ممکن نشد (تصویر آلوده)', true);
+        return;
+      }
 
       if (window.jspdf && window.jspdf.jsPDF){
         try {
@@ -3744,7 +3976,6 @@ function exportToPDF(){
 // HISTORY
 // ═════════════════════════════════════════════════════════
 var _historyDebounceTimer = null;
-var _pendingHistoryPush = false;
 
 function pushHistory(){
   if (_historyDebounceTimer) clearTimeout(_historyDebounceTimer);
@@ -3773,6 +4004,7 @@ function _doPushHistory(){
 }
 
 function undo(){
+  if (!canEdit()){ denyEdit(); return; }
   if (state.histIdx <= 0) return;
   if (collab.active && collab.conns.length > 0){
     toast('توجه: واگرد در حالت هم‌کاری، تغییرات طرف مقابل را هم بازمی‌گرداند');
@@ -3799,6 +4031,7 @@ function undo(){
 }
 
 function redo(){
+  if (!canEdit()){ denyEdit(); return; }
   if (state.histIdx >= state.history.length - 1) return;
   if (collab.active && collab.conns.length > 0){
     toast('توجه: ازنو در حالت هم‌کاری، تغییرات طرف مقابل را هم بازمی‌گرداند');
@@ -3879,13 +4112,10 @@ function scheduleRenderLayers(){
   }, 80);
 }
 
-function renderLayersPanel(){
-  scheduleRenderLayers();
-}
+function renderLayersPanel(){ scheduleRenderLayers(); }
 
 function _renderLayersPanelNow(){
   if (!layersListEl) return;
-  // Only update if the panel is open or exists in DOM
   if (!document.body.contains(layersListEl)) return;
 
   layersListEl.innerHTML = '';
@@ -3931,6 +4161,7 @@ function _renderLayersPanelNow(){
       });
       item.querySelector('[data-act="vis"]').addEventListener('click', function(ev){
         ev.stopPropagation();
+        if (!canEdit()){ denyEdit(); return; }
         el.hidden = !el.hidden;
         scheduleRenderLayers();
         scheduleRender();
@@ -3938,6 +4169,7 @@ function _renderLayersPanelNow(){
       });
       item.querySelector('[data-act="lock"]').addEventListener('click', function(ev){
         ev.stopPropagation();
+        if (!canEdit()){ denyEdit(); return; }
         el.locked = !el.locked;
         scheduleRenderLayers();
         pushHistory();
@@ -3974,6 +4206,7 @@ function buildStencilGrid(){
     var btn = document.createElement('button');
     btn.className = 'stencil-btn';
     btn.title = st.name;
+    btn.setAttribute('aria-label', st.name);
     var vb = '0 0 ' + st.w + ' ' + st.h;
     btn.innerHTML = '<svg viewBox="' + vb + '" preserveAspectRatio="xMidYMid meet"><path d="' + st.path + '"/></svg>';
     btn.addEventListener('click', function(){ insertStencil(st); });
@@ -3983,6 +4216,7 @@ function buildStencilGrid(){
 buildStencilGrid();
 
 function insertStencil(st){
+  if (!canEdit()){ denyEdit(); return; }
   var vw = window.innerWidth / state.viewport.z;
   var targetW = Math.min(180, vw * 0.2);
   var scale = targetW / st.w;
@@ -3992,7 +4226,7 @@ function insertStencil(st){
   var cy = (-state.viewport.y + window.innerHeight / 2) / state.viewport.z - h / 2;
 
   var id = uid();
-  state.elements.push({
+  var newEl = {
     id: id,
     tool: 'stencil',
     path: st.path,
@@ -4002,9 +4236,12 @@ function insertStencil(st){
     fill: state.fill,
     width: state.width,
     opacity: state.opacity
-  });
+  };
+  var clean = sanitizeElement(newEl);
+  if (!clean){ toast('شکل نامعتبر', true); return; }
+  state.elements.push(clean);
   state.selected = {};
-  state.selected[id] = true;
+  state.selected[clean.id] = true;
   if (state.tool !== 'select'){
     var sb = document.querySelector('.tool[data-tool="select"]');
     if (sb) sb.click();
@@ -4076,17 +4313,30 @@ function loadFromURLHash(){
     if (!json) return false;
     var els = JSON.parse(json);
     if (!Array.isArray(els) || els.length === 0) return false;
-    var validated = [];
-    for (var i = 0; i < els.length && i < MAX_IMPORT_ELEMENTS; i++){
-      var el = els[i];
-      if (!el.id) el.id = uid();
-      if (el.tool === 'image' && el.src){
+    var validated = sanitizeElementsList(els);
+    if (validated.length === 0) return false;
+
+    // Confirm before overwriting existing content
+    var hadContent = state.elements.length > 0;
+    if (hadContent){
+      if (!confirm('این لینک حاوی یک بوم است. محتوای فعلی شما با آن جایگزین می‌شود. ادامه؟')){
+        history.replaceState(null, '', location.pathname);
+        return false;
+      }
+      // Backup previous content
+      try {
+        var backup = JSON.stringify(state.elements).slice(0, 4 * 1024 * 1024);
+        localStorage.setItem('negar-url-backup', backup);
+      } catch(e){}
+    }
+
+    for (var i = 0; i < validated.length; i++){
+      if (validated[i].tool === 'image' && validated[i].src){
         var img = new Image();
-        img.src = el.src;
-        imageCache[el.id] = img;
+        img.src = validated[i].src;
+        imageCache[validated[i].id] = img;
         img.onload = function(){ scheduleRender(); };
       }
-      validated.push(el);
     }
     state.elements = validated;
     history.replaceState(null, '', location.pathname);
@@ -4099,7 +4349,7 @@ function loadFromURLHash(){
 
 function exportNegarFile(){
   if (state.elements.length === 0){ toast('بوم خالی است'); return; }
-  var data = { version: '1.4', app: 'negar', savedAt: Date.now(), elements: state.elements };
+  var data = { version: APP_VERSION, app: 'negar', savedAt: Date.now(), elements: state.elements };
   var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
   var a = document.createElement('a');
   a.download = 'negar-' + Date.now() + '.negar';
@@ -4110,36 +4360,8 @@ function exportNegarFile(){
 }
 
 // ═════════════════════════════════════════════════════════
-// IMPORT VALIDATION
+// IMPORT
 // ═════════════════════════════════════════════════════════
-var ALLOWED_TOOLS = ['pen','highlighter','line','arrow','rect','ellipse','text','image','stencil'];
-var MAX_STRING_LEN = 100000;
-var MAX_ELEMENT_FIELDS = 50;
-
-function validateElement(el){
-  if (!el || typeof el !== 'object') return false;
-  if (ALLOWED_TOOLS.indexOf(el.tool) === -1) return false;
-  // Count fields to prevent insane payloads
-  var fieldCount = 0;
-  for (var k in el) { fieldCount++; if (fieldCount > MAX_ELEMENT_FIELDS) return false; }
-  // Check strings
-  for (var k2 in el){
-    var v = el[k2];
-    if (typeof v === 'string' && v.length > MAX_STRING_LEN) return false;
-  }
-  // Type-specific
-  if (el.tool === 'image'){
-    if (typeof el.src !== 'string') return false;
-    if (el.src.length > MAX_IMAGE_SRC_LENGTH) return false;
-    if (el.src.indexOf('javascript:') === 0) return false;
-    if (el.src.indexOf('<') !== -1) return false;
-  }
-  if (el.points && Array.isArray(el.points)){
-    if (el.points.length > 100000) return false;
-  }
-  return true;
-}
-
 function importNegarData(text){
   try {
     if (typeof text !== 'string' || text.length > 100 * 1024 * 1024){
@@ -4153,29 +4375,25 @@ function importNegarData(text){
       toast('تعداد المان‌ها بیش از حد مجاز است (حداکثر ' + MAX_IMPORT_ELEMENTS + ')', true);
       return;
     }
-    var valid = [];
-    var rejected = 0;
-    for (var i = 0; i < els.length; i++){
-      var el = els[i];
-      if (!validateElement(el)){ rejected++; continue; }
-      if (!el.id) el.id = uid();
-      if (el.tool === 'image' && el.src){
-        var img = new Image();
-        img.src = el.src;
-        imageCache[el.id] = img;
-        img.onload = function(){ scheduleRender(); };
-      }
-      valid.push(el);
-    }
+    var valid = sanitizeElementsList(els);
     if (valid.length === 0){
       toast('هیچ المان معتبری یافت نشد', true);
       return;
+    }
+    for (var i = 0; i < valid.length; i++){
+      if (valid[i].tool === 'image' && valid[i].src){
+        var img = new Image();
+        img.src = valid[i].src;
+        imageCache[valid[i].id] = img;
+        img.onload = function(){ scheduleRender(); };
+      }
     }
     state.elements = state.elements.concat(valid);
     state.selected = {};
     pushHistory();
     scheduleRender();
     scheduleRenderLayers();
+    var rejected = els.length - valid.length;
     var msg = valid.length + ' آیتم بارگذاری شد';
     if (rejected > 0) msg += ' — ' + rejected + ' رد شد';
     toast(msg, rejected > 0);
@@ -4186,10 +4404,11 @@ function importNegarData(text){
 }
 
 // ═════════════════════════════════════════════════════════
-// COLLABORATION (PeerJS) — v1.4
+// COLLABORATION (PeerJS)
 // ═════════════════════════════════════════════════════════
 var COLLAB_SESSION_KEY = 'negar-collab-session';
 var COLLAB_CLIENT_KEY  = 'negar-collab-client-id';
+var COLLAB_TOKEN_KEY   = 'negar-collab-client-token';
 var COLLAB_MAX_MEMBERS = 100;
 var COLLAB_PATCH_DEBOUNCE = 110;
 var COLLAB_MEMBERS_DEBOUNCE = 300;
@@ -4203,11 +4422,20 @@ function membersCacheKey(roomId){
 function getMyClientId(){
   var id = null;
   try { id = localStorage.getItem(COLLAB_CLIENT_KEY); } catch(e){}
-  if (!id){
-    id = 'c_' + uid() + uid();
+  if (!id || !RE_CLIENT.test(id)){
+    id = 'c_' + secureId(16);
     try { localStorage.setItem(COLLAB_CLIENT_KEY, id); } catch(e){}
   }
   return id;
+}
+function getMyToken(){
+  var t = null;
+  try { t = localStorage.getItem(COLLAB_TOKEN_KEY); } catch(e){}
+  if (!t || !RE_TOKEN.test(t)){
+    t = secureId(32);
+    try { localStorage.setItem(COLLAB_TOKEN_KEY, t); } catch(e){}
+  }
+  return t;
 }
 function getSession(){
   try {
@@ -4224,7 +4452,21 @@ function clearSession(){
 function loadMembersCache(roomId){
   try {
     var s = localStorage.getItem(membersCacheKey(roomId));
-    return s ? (JSON.parse(s) || {}) : {};
+    var obj = s ? (JSON.parse(s) || {}) : {};
+    if (!isPlainObject(obj)) return {};
+    var clean = Object.create(null);
+    for (var id in obj){
+      if (!RE_CLIENT.test(id)) continue;
+      var m = obj[id];
+      if (!isPlainObject(m)) continue;
+      clean[id] = {
+        name: (typeof m.name === 'string' ? m.name.slice(0, 24) : 'ناشناس'),
+        canDraw: !!m.canDraw,
+        isHost: !!m.isHost,
+        token: (typeof m.token === 'string' && RE_TOKEN.test(m.token)) ? m.token : null
+      };
+    }
+    return clean;
   } catch(e){ return {}; }
 }
 function wipeMembersCache(roomId){
@@ -4235,22 +4477,25 @@ var collab = {
   peer: null,
   conns: [],
   guestConn: null,
-  members: {},
+  members: Object.create(null),
   roomId: null,
   isHost: false,
   active: false,
+  connecting: false,
   canDraw: true,
   canDrawReceived: false,
   myClientId: getMyClientId(),
+  myToken: getMyToken(),
   myName: '',
   reconnectTimer: null,
   reconnectAttempt: 0,
   intentionalClose: false,
   hostClaimRetries: 0,
-  deltaCache: {},
+  deltaCache: Object.create(null),
   dirtySinceLastPatch: false,
   memberBroadcastTimer: null,
-  cacheSaveTimer: null
+  cacheSaveTimer: null,
+  msgRate: Object.create(null)
 };
 
 function packMessage(obj, threshold){
@@ -4266,19 +4511,33 @@ function packMessage(obj, threshold){
 function unpackMessage(msg){
   if (!msg) return null;
   if (msg.t === 'z'){
+    if (typeof msg.d !== 'string' || msg.d.length > MAX_MESSAGE_BYTES) return null;
     try {
       var json = LZString.decompressFromUTF16(msg.d);
+      if (!json || json.length > MAX_MESSAGE_BYTES) return null;
       return JSON.parse(json);
     } catch(e){ return null; }
   }
   if (msg.t === 'j'){
+    if (typeof msg.d !== 'string' || msg.d.length > MAX_MESSAGE_BYTES) return null;
     try { return JSON.parse(msg.d); } catch(e){ return null; }
   }
-  return msg;
+  return null;
+}
+
+function rateLimitOk(clientId){
+  var now = Date.now();
+  var bucket = collab.msgRate[clientId];
+  if (!bucket || now - bucket.start > 1000){
+    collab.msgRate[clientId] = { start: now, count: 1 };
+    return true;
+  }
+  bucket.count++;
+  return bucket.count <= MAX_MSG_RATE_PER_SEC;
 }
 
 function resetDeltaCacheFromState(){
-  collab.deltaCache = {};
+  collab.deltaCache = Object.create(null);
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
     try { collab.deltaCache[el.id] = JSON.stringify(el); } catch(e){}
@@ -4287,7 +4546,7 @@ function resetDeltaCacheFromState(){
 
 function computeDeltaOps(){
   var ops = [];
-  var presentIds = {};
+  var presentIds = Object.create(null);
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
     presentIds[el.id] = true;
@@ -4309,24 +4568,28 @@ function computeDeltaOps(){
 
 function applyDeltaOps(ops){
   if (!ops || !ops.length) return false;
-  var idxMap = {};
+  var idxMap = Object.create(null);
   for (var i = 0; i < state.elements.length; i++){
     idxMap[state.elements[i].id] = i;
   }
   var changed = false;
   for (var j = 0; j < ops.length; j++){
     var op = ops[j];
+    if (!isPlainObject(op)) continue;
     if (op.op === 'u'){
-      var idx = idxMap[op.el.id];
+      var clean = sanitizeElement(op.el);
+      if (!clean) continue;
+      var idx = idxMap[clean.id];
       if (idx != null){
-        state.elements[idx] = op.el;
+        state.elements[idx] = clean;
       } else {
-        idxMap[op.el.id] = state.elements.length;
-        state.elements.push(op.el);
+        idxMap[clean.id] = state.elements.length;
+        state.elements.push(clean);
       }
-      try { collab.deltaCache[op.el.id] = JSON.stringify(op.el); } catch(e){}
+      try { collab.deltaCache[clean.id] = JSON.stringify(clean); } catch(e){}
       changed = true;
     } else if (op.op === 'd'){
+      if (typeof op.id !== 'string' || !RE_ID.test(op.id)) continue;
       var idx2 = idxMap[op.id];
       if (idx2 != null){
         state.elements[idx2] = null;
@@ -4362,6 +4625,7 @@ function memberList(){
   var arr = [];
   for (var id in collab.members){
     var m = collab.members[id];
+    if (!m) continue;
     arr.push({
       clientId: m.clientId,
       name: m.name,
@@ -4376,7 +4640,7 @@ function memberList(){
 function onlineMemberCount(){
   var n = 0;
   for (var id in collab.members){
-    if (collab.members[id].online) n++;
+    if (collab.members[id] && collab.members[id].online) n++;
   }
   return n || 1;
 }
@@ -4384,10 +4648,11 @@ function onlineMemberCount(){
 function saveMembersCacheNow(){
   if (!collab.isHost) return;
   try {
-    var cache = {};
+    var cache = Object.create(null);
     for (var id in collab.members){
       var m = collab.members[id];
-      cache[id] = { name: m.name, canDraw: m.canDraw, isHost: m.isHost };
+      if (!m) continue;
+      cache[id] = { name: m.name, canDraw: m.canDraw, isHost: m.isHost, token: m.token || null };
     }
     localStorage.setItem(membersCacheKey(collab.roomId), JSON.stringify(cache));
   } catch(e){}
@@ -4448,7 +4713,7 @@ function updateCollabMembersUI(){
   var countEl = document.getElementById('collab-member-count');
 
   var members = [];
-  for (var id in collab.members) members.push(collab.members[id]);
+  for (var id in collab.members) if (collab.members[id]) members.push(collab.members[id]);
   members.sort(function(a, b){
     if (a.isHost !== b.isHost) return a.isHost ? -1 : 1;
     if (a.online !== b.online) return a.online ? -1 : 1;
@@ -4457,62 +4722,91 @@ function updateCollabMembersUI(){
 
   if (countEl) countEl.textContent = members.length;
 
-  var html = '';
+  // Build with DOM to avoid XSS via names / ids
+  container.innerHTML = '';
   for (var k = 0; k < members.length; k++){
     var m = members[k];
-    var initial = (m.name || '?').trim().charAt(0).toUpperCase();
     var isMe = (m.clientId === collab.myClientId);
-    var youHtml = isMe ? ' <span style="color:var(--text-3);font-weight:400">(شما)</span>' : '';
+    var initial = (m.name || '?').trim().charAt(0).toUpperCase() || '?';
 
-    var permHtml = '';
-    if (collab.isHost && !m.isHost){
-      permHtml = '<label class="collab-perm">' +
-        '<input type="checkbox" ' + (m.canDraw ? 'checked' : '') +
-        ' data-client="' + m.clientId + '">' +
-        '<span>اجازه کشیدن</span></label>';
-    } else if (!m.isHost){
-      permHtml = '<span class="collab-perm-badge ' + (m.canDraw ? 'allow' : 'deny') + '">' +
-        (m.canDraw ? '✓ مجاز' : '✗ تماشاچی') + '</span>';
-    } else {
-      permHtml = '<span class="collab-perm-badge allow">میزبان</span>';
-    }
-
-    var removeHtml = '';
-    if (collab.isHost && !m.isHost && !m.online){
-      removeHtml = '<button class="collab-member-remove" data-remove="' + m.clientId + '" title="حذف از لیست">×</button>';
-    }
-
-    html += '<div class="collab-member' +
+    var row = document.createElement('div');
+    row.className = 'collab-member' +
       (m.online ? '' : ' offline') +
-      (m.isHost ? ' is-host' : '') + '">' +
-      '<span class="collab-avatar">' + escapeXML(initial) + '</span>' +
-      '<span class="collab-member-name">' + escapeXML(m.name || 'ناشناس') + youHtml + '</span>' +
-      '<span class="collab-online-dot' + (m.online ? ' on' : '') + '"></span>' +
-      permHtml + removeHtml + '</div>';
-  }
-  container.innerHTML = html;
+      (m.isHost ? ' is-host' : '');
 
-  container.querySelectorAll('input[data-client]').forEach(function(cb){
-    cb.addEventListener('change', function(){
-      setMemberPermission(this.getAttribute('data-client'), this.checked);
-    });
-  });
-  container.querySelectorAll('[data-remove]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var cid = this.getAttribute('data-remove');
-      if (collab.members[cid]){
-        delete collab.members[cid];
-        scheduleCacheSave();
-        scheduleMembersBroadcast();
-        updateCollabMembersUI();
-        updateCollabBadge();
-      }
-    });
-  });
+    var avatar = document.createElement('span');
+    avatar.className = 'collab-avatar';
+    avatar.textContent = initial;
+    row.appendChild(avatar);
+
+    var nameEl = document.createElement('span');
+    nameEl.className = 'collab-member-name';
+    nameEl.textContent = m.name || 'ناشناس';
+    if (isMe){
+      var youEl = document.createElement('span');
+      youEl.style.cssText = 'color:var(--text-3);font-weight:400';
+      youEl.textContent = ' (شما)';
+      nameEl.appendChild(youEl);
+    }
+    row.appendChild(nameEl);
+
+    var dot = document.createElement('span');
+    dot.className = 'collab-online-dot' + (m.online ? ' on' : '');
+    row.appendChild(dot);
+
+    if (collab.isHost && !m.isHost){
+      var lab = document.createElement('label');
+      lab.className = 'collab-perm';
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = !!m.canDraw;
+      cb.setAttribute('data-client', m.clientId);
+      cb.addEventListener('change', function(){
+        setMemberPermission(this.getAttribute('data-client'), this.checked);
+      });
+      lab.appendChild(cb);
+      var labSpan = document.createElement('span');
+      labSpan.textContent = 'اجازه کشیدن';
+      lab.appendChild(labSpan);
+      row.appendChild(lab);
+    } else if (!m.isHost){
+      var badge = document.createElement('span');
+      badge.className = 'collab-perm-badge ' + (m.canDraw ? 'allow' : 'deny');
+      badge.textContent = m.canDraw ? '✓ مجاز' : '✗ تماشاچی';
+      row.appendChild(badge);
+    } else {
+      var hostBadge = document.createElement('span');
+      hostBadge.className = 'collab-perm-badge allow';
+      hostBadge.textContent = 'میزبان';
+      row.appendChild(hostBadge);
+    }
+
+    if (collab.isHost && !m.isHost && !m.online){
+      var rm = document.createElement('button');
+      rm.className = 'collab-member-remove';
+      rm.title = 'حذف از لیست';
+      rm.textContent = '×';
+      rm.addEventListener('click', function(ev){
+        ev.stopPropagation();
+        var cid = m.clientId;
+        if (collab.members[cid]){
+          delete collab.members[cid];
+          scheduleCacheSave();
+          scheduleMembersBroadcast();
+          updateCollabMembersUI();
+          updateCollabBadge();
+        }
+      });
+      row.appendChild(rm);
+    }
+
+    container.appendChild(row);
+  }
 }
 
 function setMemberPermission(clientId, canDraw){
   if (!collab.isHost) return;
+  if (!RE_CLIENT.test(clientId)) return;
   var m = collab.members[clientId];
   if (!m || m.isHost) return;
   m.canDraw = !!canDraw;
@@ -4523,35 +4817,45 @@ function setMemberPermission(clientId, canDraw){
 }
 
 function startCollabHost(name, reuseCode){
-  if (collab.active) return;
+  if (collab.active || collab.connecting) return;
   if (!window.Peer){ toast('PeerJS لود نشد', true); return; }
   name = (name || '').trim();
   if (!name){ toast('نام خود را وارد کنید'); return; }
 
-  collab.roomId = reuseCode || ('negar-' + Math.random().toString(36).slice(2, 8));
+  collab.connecting = true;
+  collab.roomId = reuseCode && RE_ROOM.test(reuseCode) ? reuseCode : ('negar-' + secureId(8));
   collab.isHost = true;
-  collab.myName = name;
+  collab.myName = name.slice(0, 24);
   collab.canDraw = true;
   collab.intentionalClose = false;
   collab.hostClaimRetries = 0;
-  collab.members = {};
+  collab.members = Object.create(null);
 
   collab.members[collab.myClientId] = {
-    clientId: collab.myClientId, name: name,
-    canDraw: true, online: true, isHost: true
+    clientId: collab.myClientId,
+    token: collab.myToken,
+    name: collab.myName,
+    canDraw: true,
+    online: true,
+    isHost: true
   };
 
   var cache = loadMembersCache(collab.roomId);
   for (var id in cache){
     if (id === collab.myClientId) continue;
+    if (!RE_CLIENT.test(id)) continue;
     var m = cache[id];
     collab.members[id] = {
-      clientId: id, name: m.name,
-      canDraw: !!m.canDraw, online: false, isHost: false
+      clientId: id,
+      token: m.token || null,
+      name: m.name,
+      canDraw: !!m.canDraw,
+      online: false,
+      isHost: false
     };
   }
 
-  setSession({ role: 'host', roomId: collab.roomId, name: name });
+  setSession({ role: 'host', roomId: collab.roomId, name: collab.myName });
   resetDeltaCacheFromState();
   updateCollabBadge();
   updateCollabMembersUI();
@@ -4565,6 +4869,7 @@ function createHostPeer(code){
 
   collab.peer.on('open', function(){
     collab.active = true;
+    collab.connecting = false;
     collab.hostClaimRetries = 0;
     resetDeltaCacheFromState();
     updateCollabBadge();
@@ -4577,6 +4882,7 @@ function createHostPeer(code){
 
   collab.peer.on('error', function(err){
     logger.warn('host peer error', err);
+    collab.connecting = false;
     if (err && err.type === 'unavailable-id' && collab.isHost && collab.hostClaimRetries < 12){
       collab.hostClaimRetries++;
       var backoff = 500 * collab.hostClaimRetries + Math.random() * 500;
@@ -4599,16 +4905,25 @@ function createHostPeer(code){
 function setupHostConn(conn){
   collab.conns.push(conn);
   var registeredClientId = null;
+  var helloReceived = false;
 
   conn.on('data', function(raw){
     var data = unpackMessage(raw);
-    if (!data || !data.type) return;
+    if (!data || typeof data.type !== 'string') return;
+
+    if (!helloReceived && data.type !== 'hello') return;
 
     if (data.type === 'hello'){
-      registeredClientId = data.clientId;
+      if (helloReceived) return; // only one hello per connection
+      if (typeof data.clientId !== 'string' || !RE_CLIENT.test(data.clientId)) return;
+      if (typeof data.token !== 'string' || !RE_TOKEN.test(data.token)) return;
+
+      // Prevent host impersonation
+      if (collab.members[data.clientId] && collab.members[data.clientId].isHost) return;
 
       var online = onlineMemberCount();
-      var isReturning = !!collab.members[data.clientId];
+      var existing = collab.members[data.clientId];
+      var isReturning = !!existing;
       if (!isReturning && online >= COLLAB_MAX_MEMBERS){
         try {
           conn.send(packMessage({
@@ -4621,16 +4936,27 @@ function setupHostConn(conn){
         return;
       }
 
-      var existing = collab.members[data.clientId];
-      var canDraw = existing ? !!existing.canDraw : true;
+      // Token check for returning clients
+      if (existing && existing.token && existing.token !== data.token) {
+        // identity mismatch — reject
+        try { conn.send(packMessage({ type: 'rejected', reason: 'identity' })); } catch(e){}
+        setTimeout(function(){ try { conn.close(); } catch(e){} }, 300);
+        return;
+      }
+
+      // Default: new members are viewers
+      var canDraw = existing ? !!existing.canDraw : false;
       collab.members[data.clientId] = {
         clientId: data.clientId,
-        name: (data.name || 'ناشناس').slice(0, 24),
+        token: data.token,
+        name: (typeof data.name === 'string' ? data.name.slice(0, 24) : 'ناشناس'),
         canDraw: canDraw,
         online: true,
         isHost: false
       };
       conn._clientId = data.clientId;
+      helloReceived = true;
+      registeredClientId = data.clientId;
 
       try {
         conn.send(packMessage({
@@ -4648,12 +4974,13 @@ function setupHostConn(conn){
     }
 
     else if (data.type === 'patch'){
-      var me = registeredClientId ? collab.members[registeredClientId] : null;
+      if (!registeredClientId) return;
+      if (!rateLimitOk(registeredClientId)) return;
+      var me = collab.members[registeredClientId];
       if (!me || !me.canDraw) return;
       var changed = applyDeltaOps(data.ops);
       if (changed){
         scheduleRender();
-        // FIX: scheduleRenderLayers (was missing)
         scheduleRenderLayers();
         var relay = packMessage({ type: 'patch', ops: data.ops });
         for (var i = 0; i < collab.conns.length; i++){
@@ -4708,28 +5035,34 @@ function scheduleMembersBroadcast(){
 }
 
 function startCollabJoin(code, name){
-  if (collab.active) return;
+  if (collab.active || collab.connecting) return;
   if (!window.Peer){ toast('PeerJS لود نشد', true); return; }
   code = (code || '').trim();
   name = (name || '').trim();
   if (!name){ toast('نام خود را وارد کنید'); return; }
   if (!code){ toast('کد اتاق را وارد کنید'); return; }
+  if (!RE_ROOM.test(code)){ toast('فرمت کد اتاق صحیح نیست', true); return; }
 
+  collab.connecting = true;
   collab.roomId = code;
   collab.isHost = false;
-  collab.myName = name;
+  collab.myName = name.slice(0, 24);
   collab.intentionalClose = false;
   collab.reconnectAttempt = 0;
   collab.canDrawReceived = false;
   collab.canDraw = false;
 
-  collab.members = {};
+  collab.members = Object.create(null);
   collab.members[collab.myClientId] = {
-    clientId: collab.myClientId, name: name,
-    canDraw: false, online: true, isHost: false
+    clientId: collab.myClientId,
+    token: collab.myToken,
+    name: collab.myName,
+    canDraw: false,
+    online: true,
+    isHost: false
   };
 
-  setSession({ role: 'guest', roomId: code, name: name });
+  setSession({ role: 'guest', roomId: code, name: collab.myName });
   resetDeltaCacheFromState();
   updateCollabBadge();
   updateCollabMembersUI();
@@ -4749,7 +5082,14 @@ function createGuestPeerAndConnect(){
 
   collab.peer.on('error', function(err){
     logger.warn('guest peer error', err);
-    if (err && (err.type === 'peer-unavailable' || err.type === 'network')){
+    collab.connecting = false;
+    if (err && err.type === 'peer-unavailable'){
+      toast('اتاق پیدا نشد — کد را بررسی کنید', true);
+      clearSession();
+      stopCollab();
+      return;
+    }
+    if (err && (err.type === 'network' || err.type === 'server-error')){
       scheduleGuestReconnect();
     }
   });
@@ -4764,11 +5104,13 @@ function createGuestPeerAndConnect(){
 function setupGuestConn(conn){
   conn.on('open', function(){
     collab.active = true;
+    collab.connecting = false;
     collab.reconnectAttempt = 0;
     try {
       conn.send(packMessage({
         type: 'hello',
         clientId: collab.myClientId,
+        token: collab.myToken,
         name: collab.myName
       }));
     } catch(e){}
@@ -4777,14 +5119,31 @@ function setupGuestConn(conn){
 
   conn.on('data', function(raw){
     var data = unpackMessage(raw);
-    if (!data || !data.type) return;
+    if (!data || typeof data.type !== 'string') return;
 
     if (data.type === 'welcome'){
-      collab.members = {};
-      if (data.members){
-        data.members.forEach(function(m){ collab.members[m.clientId] = m; });
+      // Backup local canvas before overwriting
+      var hadContent = state.elements.length > 0;
+      if (hadContent){
+        try {
+          localStorage.setItem('negar-before-collab', JSON.stringify(state.elements).slice(0, 4 * 1024 * 1024));
+        } catch(e){}
       }
-      if (data.you){
+
+      collab.members = Object.create(null);
+      if (Array.isArray(data.members)){
+        data.members.forEach(function(m){
+          if (!isPlainObject(m) || !RE_CLIENT.test(m.clientId)) return;
+          collab.members[m.clientId] = {
+            clientId: m.clientId,
+            name: (typeof m.name === 'string' ? m.name.slice(0, 24) : 'ناشناس'),
+            canDraw: !!m.canDraw,
+            online: !!m.online,
+            isHost: !!m.isHost
+          };
+        });
+      }
+      if (data.you && RE_CLIENT.test(data.you.clientId)){
         var prev = collab.canDraw;
         collab.canDraw = !!data.you.canDraw;
         if (collab.canDrawReceived && prev !== collab.canDraw){
@@ -4792,7 +5151,9 @@ function setupGuestConn(conn){
         }
         collab.canDrawReceived = true;
       }
-      state.elements = data.elements || [];
+
+      var incoming = sanitizeElementsList(data.elements);
+      state.elements = incoming;
       rehydrateImages();
       resetDeltaCacheFromState();
       scheduleRender();
@@ -4803,11 +5164,18 @@ function setupGuestConn(conn){
     }
 
     else if (data.type === 'members'){
-      collab.members = {};
+      collab.members = Object.create(null);
       var prevCanDraw = collab.canDraw;
-      if (data.members){
+      if (Array.isArray(data.members)){
         data.members.forEach(function(m){
-          collab.members[m.clientId] = m;
+          if (!isPlainObject(m) || !RE_CLIENT.test(m.clientId)) return;
+          collab.members[m.clientId] = {
+            clientId: m.clientId,
+            name: (typeof m.name === 'string' ? m.name.slice(0, 24) : 'ناشناس'),
+            canDraw: !!m.canDraw,
+            online: !!m.online,
+            isHost: !!m.isHost
+          };
           if (m.clientId === collab.myClientId){
             collab.canDraw = !!m.canDraw;
           }
@@ -4825,7 +5193,6 @@ function setupGuestConn(conn){
       var changed = applyDeltaOps(data.ops);
       if (changed){
         scheduleRender();
-        // FIX: scheduleRenderLayers (was missing)
         scheduleRenderLayers();
       }
     }
@@ -4833,9 +5200,13 @@ function setupGuestConn(conn){
     else if (data.type === 'rejected'){
       if (data.reason === 'room-full'){
         toast('اتاق پر است (حداکثر ' + (data.max || 100) + ' نفر)', true);
-        clearSession();
-        stopCollab();
+      } else if (data.reason === 'identity'){
+        toast('خطای هویت — دوباره تلاش کنید', true);
+      } else {
+        toast('اتصال رد شد', true);
       }
+      clearSession();
+      stopCollab();
       return;
     }
 
@@ -4859,6 +5230,12 @@ function setupGuestConn(conn){
 
 function scheduleGuestReconnect(){
   if (collab.intentionalClose || collab.isHost) return;
+  if (collab.reconnectAttempt >= 15){
+    toast('اتصال مجدد ناموفق بود — از اتاق خارج شدید', true);
+    clearSession();
+    stopCollab();
+    return;
+  }
   collab.reconnectAttempt++;
   var base = Math.min(20000, 800 * Math.pow(1.5, Math.min(collab.reconnectAttempt, 10)));
   var jitter = Math.random() * base * 0.5;
@@ -4899,7 +5276,7 @@ function broadcastChange(){
 }
 
 // ═════════════════════════════════════════════════════════
-// COLLAB CLEANUP — full teardown of peer + listeners
+// COLLAB CLEANUP
 // ═════════════════════════════════════════════════════════
 function destroyPeerSafely(peer){
   if (!peer) return;
@@ -4908,8 +5285,6 @@ function destroyPeerSafely(peer){
 }
 
 function stopCollab(){
-  var oldRoomId = collab.roomId;
-  var oldIsHost = collab.isHost;
   var oldConns = collab.conns.slice();
   var oldGuestConn = collab.guestConn;
   var oldPeer = collab.peer;
@@ -4920,7 +5295,6 @@ function stopCollab(){
   clearTimeout(collab.cacheSaveTimer);
   clearTimeout(_collabBroadcastTimer);
 
-  // Close all data connections
   for (var i = 0; i < oldConns.length; i++){
     try { oldConns[i].close(); } catch(e){}
   }
@@ -4929,14 +5303,16 @@ function stopCollab(){
   destroyPeerSafely(oldPeer);
 
   collab = {
-    peer: null, conns: [], guestConn: null, members: {},
-    roomId: null, isHost: false, active: false,
+    peer: null, conns: [], guestConn: null,
+    members: Object.create(null),
+    roomId: null, isHost: false, active: false, connecting: false,
     canDraw: true, canDrawReceived: false,
-    myClientId: getMyClientId(), myName: '',
+    myClientId: getMyClientId(), myToken: getMyToken(), myName: '',
     reconnectTimer: null, reconnectAttempt: 0,
     intentionalClose: false, hostClaimRetries: 0,
-    deltaCache: {}, dirtySinceLastPatch: false,
-    memberBroadcastTimer: null, cacheSaveTimer: null
+    deltaCache: Object.create(null), dirtySinceLastPatch: false,
+    memberBroadcastTimer: null, cacheSaveTimer: null,
+    msgRate: Object.create(null)
   };
   updateCollabBadge();
   updateCollabMembersUI();
@@ -4958,17 +5334,18 @@ function leaveCollabPermanent(){
 }
 
 // ═════════════════════════════════════════════════════════
-// AUTO-REJOIN (robust: waits for Peer)
+// AUTO-REJOIN
 // ═════════════════════════════════════════════════════════
 function autoRejoin(){
   var s = getSession();
   if (!s || !s.roomId || !s.name) return false;
+  if (!RE_ROOM.test(s.roomId)){ clearSession(); return false; }
 
   var nameEl = document.getElementById('collab-name');
   if (nameEl) nameEl.value = s.name;
 
   var attempts = 0;
-  var maxAttempts = 60; // ~15s max
+  var maxAttempts = 60;
   var tryStart = function(){
     if (typeof window.Peer !== 'undefined'){
       try {
@@ -5031,9 +5408,11 @@ function updateSelectionIndicator(){
 }
 
 // ═════════════════════════════════════════════════════════
-// APPLY-TO-SELECTION HELPERS
+// APPLY-TO-SELECTION
 // ═════════════════════════════════════════════════════════
 function applyColorToSelection(color){
+  if (!canEdit()) return false;
+  if (!validColor(color)) return false;
   var changed = false;
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
@@ -5047,12 +5426,14 @@ function applyColorToSelection(color){
 }
 
 function applyWidthToSelection(width){
+  if (!canEdit()) return false;
+  var w = num(width, 1, 64, 4);
   var changed = false;
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
     if (!state.selected[el.id]) continue;
     if (el.tool === 'image' || el.tool === 'text') continue;
-    el.width = width;
+    el.width = w;
     changed = true;
   }
   if (changed){ pushHistory(); scheduleRender(); }
@@ -5060,11 +5441,13 @@ function applyWidthToSelection(width){
 }
 
 function applyOpacityToSelection(op){
+  if (!canEdit()) return false;
+  var v = num(op, 0.05, 1, 1);
   var changed = false;
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
     if (!state.selected[el.id]) continue;
-    el.opacity = op;
+    el.opacity = v;
     changed = true;
   }
   if (changed){ pushHistory(); scheduleRender(); }
@@ -5072,6 +5455,8 @@ function applyOpacityToSelection(op){
 }
 
 function applyPenStyleToSelection(style){
+  if (!canEdit()) return false;
+  if (!PEN_STYLES[style]) return false;
   var changed = false;
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
@@ -5088,7 +5473,7 @@ function applyPenStyleToSelection(style){
 // RECENT COLORS
 // ═════════════════════════════════════════════════════════
 function addRecentColor(color){
-  if (!color) return;
+  if (!color || !validColor(color)) return;
   recentColors = recentColors.filter(function(c){ return c !== color; });
   recentColors.unshift(color);
   if (recentColors.length > 8) recentColors.length = 8;
@@ -5107,9 +5492,11 @@ function renderRecentColors(){
   section.style.display = 'block';
   el.innerHTML = '';
   recentColors.forEach(function(c){
+    if (!validColor(c)) return;
     var btn = document.createElement('button');
     btn.style.background = c;
     btn.title = c;
+    btn.setAttribute('aria-label', 'رنگ ' + c);
     btn.addEventListener('click', function(){
       state.color = c;
       document.getElementById('swatch-dot').style.setProperty('--c', state.color);
@@ -5129,6 +5516,7 @@ for (var k = 0; k < colorBtns.length; k++){
   (function(btn){
     btn.addEventListener('click', function(){
       var c = btn.getAttribute('data-c');
+      if (!validColor(c)) return;
       state.color = c;
       addRecentColor(c);
       document.getElementById('swatch-dot').style.setProperty('--c', state.color);
@@ -5142,11 +5530,13 @@ for (var k = 0; k < colorBtns.length; k++){
 }
 
 document.getElementById('color-input').addEventListener('input', function(){
+  if (!validColor(this.value)) return;
   state.color = this.value;
   document.getElementById('swatch-dot').style.setProperty('--c', state.color);
   for (var j = 0; j < colorBtns.length; j++) colorBtns[j].classList.remove('active');
 });
 document.getElementById('color-input').addEventListener('change', function(){
+  if (!validColor(this.value)) return;
   addRecentColor(this.value);
   if (applyColorToSelection(this.value)) toast('رنگ اعمال شد');
 });
@@ -5156,7 +5546,9 @@ var fillBtns = document.querySelectorAll('#fills button');
 for (var f = 0; f < fillBtns.length; f++){
   (function(btn){
     btn.addEventListener('click', function(){
-      state.fill = btn.getAttribute('data-f');
+      var v = btn.getAttribute('data-f');
+      if (!validColor(v)) return;
+      state.fill = v;
       for (var j = 0; j < fillBtns.length; j++){
         fillBtns[j].classList.toggle('active', fillBtns[j] === btn);
       }
@@ -5170,6 +5562,7 @@ for (var m = 0; m < widthBtns.length; m++){
   (function(btn){
     btn.addEventListener('click', function(){
       var w = parseInt(btn.getAttribute('data-w'), 10);
+      if (!isFinite(w)) return;
       state.width = w;
       for (var j = 0; j < widthBtns.length; j++){
         widthBtns[j].classList.toggle('active', widthBtns[j] === btn);
@@ -5197,6 +5590,7 @@ for (var s = 0; s < penStyleBtns.length; s++){
   (function(btn){
     btn.addEventListener('click', function(){
       var style = btn.getAttribute('data-style');
+      if (!PEN_STYLES[style]) return;
       state.penStyle = style;
       for (var j = 0; j < penStyleBtns.length; j++){
         penStyleBtns[j].classList.toggle('active', penStyleBtns[j] === btn);
@@ -5221,6 +5615,7 @@ for (var ts = 0; ts < textSizeBtns.length; ts++){
   (function(btn){
     btn.addEventListener('click', function(){
       var fs = parseInt(btn.getAttribute('data-fs'), 10);
+      if (!isFinite(fs)) return;
       state.textFontSize = fs;
       applyToSelectedText(function(el){ el.fontSize = fs; });
       for (var j = 0; j < textSizeBtns.length; j++){
@@ -5254,6 +5649,7 @@ for (var tf = 0; tf < textFmtBtns.length; tf++){
 }
 
 function applyToSelectedText(fn){
+  if (!canEdit()) return false;
   var any = false;
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
@@ -5316,6 +5712,8 @@ document.getElementById('redo').addEventListener('click', redo);
 
 document.getElementById('clear').addEventListener('click', function(){
   if (!state.elements.length) return;
+  if (!canEdit()){ denyEdit(); return; }
+  if (!confirm('همه‌ی محتوای بوم پاک شود؟ این عمل با Ctrl+Z قابل بازگشت است اما تاریخچه با ریفرش از بین می‌رود.')) return;
   state.elements = [];
   state.selected = {};
   imageCache = {};
@@ -5339,11 +5737,13 @@ document.getElementById('share-url').addEventListener('click', shareViaURL);
 document.getElementById('share-file').addEventListener('click', exportNegarFile);
 document.getElementById('share-svg').addEventListener('click', exportSVG);
 document.getElementById('share-import').addEventListener('click', function(){
+  if (!canEdit()){ denyEdit(); return; }
   document.getElementById('negar-input').click();
 });
 document.getElementById('negar-input').addEventListener('change', function(e){
   var file = e.target.files && e.target.files[0];
   if (!file) return;
+  if (!canEdit()){ denyEdit(); e.target.value = ''; return; }
   if (file.size > 100 * 1024 * 1024){
     toast('فایل بیش از حد بزرگ است', true);
     e.target.value = '';
@@ -5410,10 +5810,12 @@ document.getElementById('collab-copy-code').addEventListener('click', function()
 
 // UPLOAD
 document.getElementById('upload-btn').addEventListener('click', function(){
+  if (!canEdit()){ denyEdit(); return; }
   fileInput.click();
 });
 
 fileInput.addEventListener('change', function(e){
+  if (!canEdit()){ denyEdit(); e.target.value = ''; return; }
   var files = Array.prototype.slice.call(e.target.files || []);
   if (!files.length) return;
   processFiles(files).then(function(){
@@ -5462,6 +5864,7 @@ window.addEventListener('drop', function(e){
   document.body.classList.remove('drag-over');
   var files = Array.prototype.slice.call(e.dataTransfer.files || []);
   if (files.length){
+    if (!canEdit()){ denyEdit(); return; }
     hideHint();
     processFiles(files).then(function(){
       pushHistory();
@@ -5511,11 +5914,7 @@ function toast(msg, isError){
 document.addEventListener('paste', function(e){
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-  if (collab.active && !collab.isHost && !collab.canDraw){
-    e.preventDefault();
-    toast('اجازه ویرایش ندارید');
-    return;
-  }
+  if (!canEdit()){ e.preventDefault(); denyEdit(); return; }
 
   var items = e.clipboardData && e.clipboardData.items;
   if (items){
@@ -5555,71 +5954,75 @@ document.addEventListener('paste', function(e){
 });
 
 function addTextAtCenter(text){
+  if (!canEdit()) return;
   var cx = (-state.viewport.x + window.innerWidth / 2) / state.viewport.z;
   var cy = (-state.viewport.y + window.innerHeight / 2) / state.viewport.z;
 
-  state.elements.push({
+  var newEl = {
     id: uid(),
     tool: 'text',
-    text: text,
+    text: (typeof text === 'string' ? text : '').slice(0, MAX_TEXT_LEN),
     color: state.color,
     opacity: state.opacity,
     fontSize: state.textFontSize,
     bold: state.textBold,
     italic: state.textItalic,
     x: cx, y: cy
-  });
+  };
+  var clean = sanitizeElement(newEl);
+  if (!clean) return;
+  state.elements.push(clean);
   pushHistory();
   scheduleRender();
   toast('متن چسبانده شد');
 }
 
 // ═════════════════════════════════════════════════════════
-// KEYBOARD
+// KEYBOARD (using e.code for layout independence)
 // ═════════════════════════════════════════════════════════
-var KEYMAP = {
-  v: 'select', h: 'hand', p: 'pen', m: 'highlighter',
-  e: 'eraser', t: 'text',
-  l: 'line', a: 'arrow', r: 'rect', o: 'ellipse'
+var CODE_MAP = {
+  KeyV: 'select', KeyH: 'hand', KeyP: 'pen', KeyM: 'highlighter',
+  KeyE: 'eraser', KeyT: 'text',
+  KeyL: 'line', KeyA: 'arrow', KeyR: 'rect', KeyO: 'ellipse'
 };
 
 var arrowTimer = null;
 
 document.addEventListener('keydown', function(e){
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  var key = e.key.toLowerCase();
   var mod = e.metaKey || e.ctrlKey;
+  var code = e.code;
 
   if (collab.active && !collab.isHost && !collab.canDraw){
-    var editKeys = ['z','y','x','v','d','g'];
     var isEditShortcut =
-      (mod && editKeys.indexOf(key) !== -1) ||
-      e.key === 'Delete' || e.key === 'Backspace' ||
-      e.key === 'ArrowLeft' || e.key === 'ArrowRight' ||
-      e.key === 'ArrowUp' || e.key === 'ArrowDown';
+      (mod && (code === 'KeyZ' || code === 'KeyY' || code === 'KeyX' ||
+               code === 'KeyV' || code === 'KeyD' || code === 'KeyG')) ||
+      code === 'Delete' || code === 'Backspace' ||
+      code === 'ArrowLeft' || code === 'ArrowRight' ||
+      code === 'ArrowUp' || code === 'ArrowDown';
     if (isEditShortcut){
       e.preventDefault();
-      toast('اجازه ویرایش ندارید');
+      denyEdit();
       return;
     }
   }
 
   if (ctxMenuOpen){
-    if (e.key === 'Escape'){ hideContextMenu(); return; }
-    if (e.key === 'ArrowDown'){
+    if (code === 'Escape'){ hideContextMenu(); return; }
+    if (code === 'ArrowDown'){
       e.preventDefault();
       ctxMenuActive = Math.min(ctxMenuActive + 1, ctxMenuItems.length - 1);
       if (ctxMenuActive < 0) ctxMenuActive = 0;
       updateMenuActive();
       return;
     }
-    if (e.key === 'ArrowUp'){
+    if (code === 'ArrowUp'){
       e.preventDefault();
       ctxMenuActive = Math.max(ctxMenuActive - 1, 0);
       updateMenuActive();
       return;
     }
-    if (e.key === 'Enter' && ctxMenuActive >= 0){
+    if (code === 'Enter' && ctxMenuActive >= 0){
       e.preventDefault();
       ctxMenuItems[ctxMenuActive].click();
       return;
@@ -5627,7 +6030,7 @@ document.addEventListener('keydown', function(e){
     return;
   }
 
-  if (e.code === 'Space' && !mod){
+  if (code === 'Space' && !mod){
     if (!state.space){
       state.space = true;
       document.body.classList.add('panning');
@@ -5636,14 +6039,15 @@ document.addEventListener('keydown', function(e){
     return;
   }
 
-  if (hasSelection() && (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown')){
+  if (hasSelection() && (code === 'ArrowLeft' || code === 'ArrowRight' || code === 'ArrowUp' || code === 'ArrowDown')){
     e.preventDefault();
+    if (!canEdit()){ denyEdit(); return; }
     var step = e.shiftKey ? 10 : 1;
     var adx = 0, ady = 0;
-    if (e.key === 'ArrowLeft') adx = -step;
-    if (e.key === 'ArrowRight') adx = step;
-    if (e.key === 'ArrowUp') ady = -step;
-    if (e.key === 'ArrowDown') ady = step;
+    if (code === 'ArrowLeft') adx = -step;
+    if (code === 'ArrowRight') adx = step;
+    if (code === 'ArrowUp') ady = -step;
+    if (code === 'ArrowDown') ady = step;
     for (var i = 0; i < state.elements.length; i++){
       var el = state.elements[i];
       if (state.selected[el.id]) moveElementBy(el, adx, ady);
@@ -5654,33 +6058,31 @@ document.addEventListener('keydown', function(e){
     return;
   }
 
-  if (mod && key === 'z' && !e.shiftKey){ e.preventDefault(); undo(); return; }
-  if (mod && ((e.shiftKey && key === 'z') || key === 'y')){ e.preventDefault(); redo(); return; }
-  if (mod && e.shiftKey && key === 's'){ e.preventDefault(); exportSVG(); return; }
-  if (mod && e.shiftKey && key === 'e'){ e.preventDefault(); exportNegarFile(); return; }
-  if (mod && key === 's'){ e.preventDefault(); exportPNG(); return; }
-  if (mod && key === '0'){ e.preventDefault(); resetView(); return; }
-  if (mod && key === 'p'){ e.preventDefault(); exportToPDF(); return; }
+  if (mod && code === 'KeyZ' && !e.shiftKey){ e.preventDefault(); undo(); return; }
+  if (mod && ((e.shiftKey && code === 'KeyZ') || code === 'KeyY')){ e.preventDefault(); redo(); return; }
+  if (mod && e.shiftKey && code === 'KeyS'){ e.preventDefault(); exportSVG(); return; }
+  if (mod && e.shiftKey && code === 'KeyE'){ e.preventDefault(); exportNegarFile(); return; }
+  if (mod && code === 'KeyS'){ e.preventDefault(); exportPNG(); return; }
+  if (mod && code === 'Digit0'){ e.preventDefault(); resetView(); return; }
+  if (mod && code === 'KeyP'){ e.preventDefault(); exportToPDF(); return; }
 
-  if (mod && e.shiftKey && key === 'g'){ e.preventDefault(); ungroupSelection(); return; }
-  if (mod && key === 'g'){ e.preventDefault(); groupSelection(); return; }
-  if (mod && key === 'l'){ e.preventDefault(); document.getElementById('layers-toggle').click(); return; }
+  if (mod && e.shiftKey && code === 'KeyG'){ e.preventDefault(); ungroupSelection(); return; }
+  if (mod && code === 'KeyG'){ e.preventDefault(); groupSelection(); return; }
+  if (mod && code === 'KeyL'){ e.preventDefault(); document.getElementById('layers-toggle').click(); return; }
 
-  if (mod && key === 'c'){ e.preventDefault(); copySelection(); return; }
-  if (mod && key === 'x'){ e.preventDefault(); cutSelection(); return; }
-  if (mod && key === 'd'){ e.preventDefault(); duplicateSelection(); return; }
-  if (mod && key === 'a'){ e.preventDefault(); selectAll(); return; }
+  if (mod && code === 'KeyC'){ e.preventDefault(); copySelection(); return; }
+  if (mod && code === 'KeyX'){ e.preventDefault(); cutSelection(); return; }
+  if (mod && code === 'KeyD'){ e.preventDefault(); duplicateSelection(); return; }
+  if (mod && code === 'KeyA'){ e.preventDefault(); selectAll(); return; }
+  if (mod && code === 'KeyV'){ e.preventDefault(); pasteFromClipboard(); return; }
 
-  if (e.key === 'Delete' || e.key === 'Backspace'){
+  if (code === 'Delete' || code === 'Backspace'){
     if (hasSelection()){ e.preventDefault(); deleteSelection(); }
     return;
   }
 
-  if (e.key === 'Escape'){
-    // FIX: Escape cancels current drawing first
-    if (cancelCurrentDrawing()){
-      return;
-    }
+  if (code === 'Escape'){
+    if (cancelCurrentDrawing()) return;
     state.selected = {};
     panel.classList.remove('open');
     closeHelp();
@@ -5694,7 +6096,7 @@ document.addEventListener('keydown', function(e){
     return;
   }
 
-  if (e.key === '?' || (e.shiftKey && key === '/')){
+  if (e.key === '?' || (e.shiftKey && code === 'Slash')){
     if (!mod){
       e.preventDefault();
       if (helpModal.classList.contains('open')) closeHelp();
@@ -5703,9 +6105,9 @@ document.addEventListener('keydown', function(e){
     }
   }
 
-  if (!mod && !e.altKey && KEYMAP[key]){
+  if (!mod && !e.altKey && CODE_MAP[code]){
     e.preventDefault();
-    var btn = document.querySelector('.tool[data-tool="' + KEYMAP[key] + '"]');
+    var btn = document.querySelector('.tool[data-tool="' + CODE_MAP[code] + '"]');
     if (btn) btn.click();
   }
 });
@@ -5763,12 +6165,11 @@ _renderLayersPanelNow();
 resetDeltaCacheFromState();
 autoRejoin();
 
-// Persist viewport on unload
 window.addEventListener('beforeunload', function(){
   try { localStorage.setItem(VIEWPORT_KEY, JSON.stringify(state.viewport)); } catch(e){}
 });
 
-logger.info('Negar v1.4 ready');
+logger.info('Negar v' + APP_VERSION + ' ready');
 logger.info('Author: github.com/here-is-leo');
 })();
 </script>
