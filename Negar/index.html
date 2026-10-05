@@ -126,7 +126,6 @@ body.drag-over::after{
 
 .save-dot{width:6px;height:6px;border-radius:50%;background:var(--success);opacity:0;transition:opacity .3s}
 .save-dot.show{opacity:1}
-.save-dot.error{background:var(--danger)}
 
 .toolbar{
   position:fixed;top:50%;right:16px;transform:translateY(-50%);
@@ -200,17 +199,6 @@ body.drag-over::after{
     linear-gradient(-45deg,transparent 75%,#ccc 75%);
   background-size:8px 8px;
   background-position:0 0,0 4px,4px -4px,-4px 0;
-}
-
-.recent-colors{display:flex;gap:6px;flex-wrap:wrap;min-height:22px}
-.recent-colors button{
-  width:22px;height:22px;border-radius:6px;
-  border:1px solid var(--border-2);
-  transition:transform .15s var(--spring);
-}
-.recent-colors button:hover{transform:scale(1.15)}
-.recent-colors:empty::after{
-  content:'هنوز رنگی استفاده نشده';font-size:11px;color:var(--text-3);
 }
 
 .custom-color{
@@ -294,13 +282,6 @@ body.drag-over::after{
   min-width:38px;text-align:center;font-size:12px;font-weight:600;
   color:var(--text-2);font-variant-numeric:tabular-nums;
 }
-
-.panel .selection-indicator{
-  display:none;padding:8px 10px;background:var(--accent-soft);
-  color:var(--accent);border-radius:8px;font-size:11px;font-weight:600;
-  margin-bottom:12px;text-align:center;
-}
-.panel .selection-indicator.show{display:block}
 
 .zoom-badge{
   position:fixed;bottom:20px;left:20px;
@@ -488,7 +469,6 @@ body.drag-over::after{
   border-radius:999px;font-size:13px;font-weight:500;
   box-shadow:var(--shadow-lg);animation:tIn .3s var(--spring);max-width:90vw;
 }
-.toast.error{background:var(--danger);color:#fff}
 @keyframes tIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 .hint{
@@ -508,6 +488,7 @@ body.drag-over::after{
   border-radius:4px;direction:ltr;
 }
 
+/* ══════════ FEATURE PACK v1.1 ══════════ */
 .side-panel{
   position:fixed;top:50%;right:16px;
   transform:translateY(-50%) translateX(20px);
@@ -644,10 +625,9 @@ body.drag-over::after{
 }
 .collab-badge.show{opacity:1;pointer-events:auto;transform:translateY(0)}
 .collab-badge .collab-dot{width:7px;height:7px}
+.collab-badge.show ~ .zoom-badge{bottom:64px;left:20px}
 
-/* Use :has() to handle sibling layout when badge is visible */
-body:has(.collab-badge.show) .zoom-badge{bottom:64px;left:20px}
-
+/* ══════════ COLLAB v1.3 — Room Members & Permissions ══════════ */
 .collab-name-field{margin-bottom:14px}
 .collab-name-field label{
   display:block;font-size:11px;font-weight:600;color:var(--text-3);
@@ -763,7 +743,7 @@ body.dark .collab-reconnect{color:#FCD34D}
   }
   .side-panel.open{transform:translateY(0)}
   .collab-badge{bottom:76px;left:12px}
-  body:has(.collab-badge.show) .zoom-badge{bottom:118px;left:12px}
+  .collab-badge.show ~ .zoom-badge{bottom:118px}
   .share-grid{grid-template-columns:1fr}
 }
 </style>
@@ -876,9 +856,6 @@ body.dark .collab-reconnect{color:#FCD34D}
 </aside>
 
 <div class="panel" id="panel">
-  <div class="selection-indicator" id="selection-indicator">
-    ✏️ تغییرات روی آیتم‌های انتخاب‌شده اعمال می‌شود
-  </div>
   <section>
     <h4>رنگ خط</h4>
     <div class="colors" id="colors">
@@ -891,10 +868,6 @@ body.dark .collab-reconnect{color:#FCD34D}
       <button data-c="#EC4899" style="--c:#EC4899"></button>
       <button data-c="#FFFFFF" style="--c:#FFFFFF"></button>
     </div>
-  </section>
-  <section id="recent-section" style="display:none">
-    <h4>رنگ‌های اخیر</h4>
-    <div class="recent-colors" id="recent-colors"></div>
   </section>
   <section>
     <h4>رنگ دلخواه</h4>
@@ -1037,7 +1010,7 @@ body.dark .collab-reconnect{color:#FCD34D}
           </div>
           <div class="help-meta__row">
             <span class="help-meta__label">نسخه</span>
-            <span class="help-meta__value">1.4.0</span>
+            <span class="help-meta__value">1.3.0</span>
           </div>
         </div>
       </div>
@@ -1081,9 +1054,8 @@ body.dark .collab-reconnect{color:#FCD34D}
       <div class="help-section">
         <h4>ناوبری</h4>
         <div class="help-row"><span>جابجایی بوم</span><div class="help-keys"><kbd>Space</kbd><span style="font-size:11px;color:var(--text-3)">+ کشیدن</span></div></div>
-        <div class="help-row"><span>زوم</span><div class="help-keys"><kbd>Ctrl</kbd><span style="font-size:11px;color:var(--text-3)">+ اسکرول / pinch</span></div></div>
+        <div class="help-row"><span>زوم</span><div class="help-keys"><kbd>Ctrl</kbd><span style="font-size:11px;color:var(--text-3)">+ اسکرول</span></div></div>
         <div class="help-row"><span>ریست زوم</span><div class="help-keys"><kbd>Ctrl</kbd><kbd>0</kbd></div></div>
-        <div class="help-row"><span>کنسل رسم</span><div class="help-keys"><kbd>Esc</kbd></div></div>
       </div>
     </div>
   </div>
@@ -1148,7 +1120,7 @@ body.dark .collab-reconnect{color:#FCD34D}
       <div id="collab-idle">
         <p style="font-size:13px;color:var(--text-2);margin-bottom:16px;line-height:1.7">
           برای کار همزمان، یکی از شما «میزبان» می‌شه و یک کد می‌گیره.
-          بقیه با وارد کردن کد به بوم وصل می‌شن.
+          بقیه با وارد کردن کد به بوم وصل می‌شن. تا ۱۰۰ نفر می‌تونن همزمان کار کنن.
         </p>
 
         <div class="collab-name-field">
@@ -1208,7 +1180,7 @@ body.dark .collab-reconnect{color:#FCD34D}
 <div class="hint" id="hint">
   <h2>شروع کن</h2>
   <p>بکش، تایپ کن، یا <strong>PDF / عکس</strong> رو بکش داخل</p>
-  <p style="margin-top:8px;font-size:12px;opacity:.8">راست‌کلیک = منوی گزینه‌ها • Esc = کنسل رسم</p>
+  <p style="margin-top:8px;font-size:12px;opacity:.8">راست‌کلیک = منوی گزینه‌ها • قلم بکشی خودکار شکل می‌شه ✨</p>
 </div>
 
 <div id="toasts"></div>
@@ -1216,15 +1188,6 @@ body.dark .collab-reconnect{color:#FCD34D}
 <script>
 (function(){
 'use strict';
-
-// ═════════════════════════════════════════════════════════
-// LOGGER
-// ═════════════════════════════════════════════════════════
-var logger = {
-  error: function(msg, err){ console.error('[Negar]', msg, err || ''); },
-  warn: function(msg, err){ console.warn('[Negar]', msg, err || ''); },
-  info: function(msg){ console.log('[Negar]', msg); }
-};
 
 // ═════════════════════════════════════════════════════════
 // SETUP
@@ -1235,12 +1198,6 @@ var dpr = 1;
 
 var SAVE_KEY = 'canvas-elements-v1';
 var CLIP_KEY = 'canvas-clipboard-v1';
-var RECENT_COLORS_KEY = 'negar-recent-colors';
-var VIEWPORT_KEY = 'negar-viewport';
-var MAX_IMPORT_ELEMENTS = 10000;
-var MAX_IMAGE_SRC_LENGTH = 8 * 1024 * 1024;
-var STORAGE_SAVE_DEBOUNCE = 800;
-var HISTORY_DEBOUNCE_FOR_DRAG = 350;
 
 if (window.pdfjsLib) {
   pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -1257,7 +1214,7 @@ function resize(){
   canvas.height = h * dpr;
   canvas.style.width = w + 'px';
   canvas.style.height = h + 'px';
-  scheduleRender();
+  render();
 }
 window.addEventListener('resize', resize);
 
@@ -1302,48 +1259,23 @@ var state = {
 document.body.dataset.tool = state.tool;
 
 var imageCache = {};
-var recentColors = [];
-try { recentColors = JSON.parse(localStorage.getItem(RECENT_COLORS_KEY) || '[]'); } catch(e){ recentColors = []; }
 
 // ═════════════════════════════════════════════════════════
-// RENDER SCHEDULING (RAF batching)
-// ═════════════════════════════════════════════════════════
-var _renderPending = false;
-function scheduleRender(){
-  if (_renderPending) return;
-  _renderPending = true;
-  requestAnimationFrame(function(){
-    _renderPending = false;
-    _renderNow();
-  });
-}
-// legacy alias — everything calls render()
-function render(){ scheduleRender(); }
-
-// ═════════════════════════════════════════════════════════
-// AUTO-SAVE / LOAD (debounced)
+// AUTO-SAVE / LOAD
 // ═════════════════════════════════════════════════════════
 var saveDotTimer = null;
 var saveIndicatorEl = document.getElementById('save-dot');
-var _storageSaveTimer = null;
-var _storageHasError = false;
 
 function flashSaveDot(){
   if (!saveIndicatorEl) return;
-  saveIndicatorEl.classList.toggle('error', _storageHasError);
   saveIndicatorEl.classList.add('show');
   clearTimeout(saveDotTimer);
   saveDotTimer = setTimeout(function(){
     saveIndicatorEl.classList.remove('show');
-  }, 900);
+  }, 800);
 }
 
 function saveToStorage(){
-  clearTimeout(_storageSaveTimer);
-  _storageSaveTimer = setTimeout(_doSaveToStorage, STORAGE_SAVE_DEBOUNCE);
-}
-
-function _doSaveToStorage(){
   try {
     var toSave = state.elements.map(function(el){
       var c = Object.assign({}, el);
@@ -1351,21 +1283,8 @@ function _doSaveToStorage(){
       return c;
     });
     localStorage.setItem(SAVE_KEY, JSON.stringify(toSave));
-    // Persist viewport too
-    try { localStorage.setItem(VIEWPORT_KEY, JSON.stringify(state.viewport)); } catch(e){}
-    _storageHasError = false;
     flashSaveDot();
-  } catch(e){
-    _storageHasError = true;
-    var isQuota = e && (e.name === 'QuotaExceededError' || e.code === 22 || e.code === 1014);
-    if (isQuota){
-      toast('⚠️ حافظه مرورگر پر شده — بوم ذخیره نشد. از «ذخیره .negar» استفاده کن.', true);
-      logger.error('Storage quota exceeded');
-    } else {
-      logger.error('Save failed:', e);
-    }
-    flashSaveDot();
-  }
+  } catch(e){}
 }
 
 function loadFromStorage(){
@@ -1380,22 +1299,12 @@ function loadFromStorage(){
         var img = new Image();
         img.src = els[i].src;
         imageCache[els[i].id] = img;
-        img.onload = function(){ scheduleRender(); };
+        img.onload = function(){ render(); };
       }
     }
     state.elements = els;
-    // Restore viewport
-    try {
-      var vp = JSON.parse(localStorage.getItem(VIEWPORT_KEY) || 'null');
-      if (vp && typeof vp.x === 'number' && typeof vp.y === 'number' && typeof vp.z === 'number'){
-        state.viewport = vp;
-      }
-    } catch(e){}
     return true;
-  } catch(e){
-    logger.error('Load failed', e);
-    return false;
-  }
+  } catch(e){ return false; }
 }
 
 // ═════════════════════════════════════════════════════════
@@ -1414,6 +1323,8 @@ function toWorld(sx, sy){
 function updateZoomBadge(){
   var v = document.getElementById('zoom-value');
   if (v) v.textContent = Math.round(state.viewport.z * 100) + '%';
+  var badge = document.getElementById('zoom-badge');
+  if (badge) badge.classList.add('show');
 }
 
 function updateStageBg(){
@@ -1423,9 +1334,9 @@ function updateStageBg(){
 }
 
 // ═════════════════════════════════════════════════════════
-// RENDER (actual)
+// RENDER
 // ═════════════════════════════════════════════════════════
-function _renderNow(){
+function render(){
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -1545,10 +1456,10 @@ function drawImageElement(el){
     img = new Image();
     img.src = el.src;
     imageCache[el.id] = img;
-    img.onload = function(){ scheduleRender(); };
+    img.onload = function(){ render(); };
     return;
   }
-  try { ctx.drawImage(img, el.x, el.y, el.width, el.height); } catch(e){ logger.warn('drawImage failed'); }
+  try { ctx.drawImage(img, el.x, el.y, el.width, el.height); } catch(e){}
 }
 
 function drawStencilElement(el){
@@ -1570,7 +1481,7 @@ function drawStencilElement(el){
     ctx.strokeStyle = el.color;
     ctx.stroke(p);
     ctx.restore();
-  } catch(e){ logger.warn('drawStencil failed'); }
+  } catch(e){}
 }
 
 // ═════════════════════════════════════════════════════════
@@ -1814,9 +1725,7 @@ function elementBounds(el){
       if (p.x > maxX) maxX = p.x;
       if (p.y > maxY) maxY = p.y;
     }
-    // FIX: highlighter has 3.5x base width
-    var mult = (el.tool === 'highlighter') ? 3.5 : 1.2;
-    var pad = (el.width || 4) * mult;
+    var pad = (el.width || 4) * 1.2;
     return { x: minX - pad, y: minY - pad, w: (maxX - minX) + pad * 2, h: (maxY - minY) + pad * 2 };
   }
   if (el.tool === 'text'){
@@ -2090,7 +1999,7 @@ function groupSelection(){
     }
   }
   pushHistory();
-  scheduleRenderLayers();
+  renderLayersPanel();
   toast('گروه ساخته شد (' + ids.length + ')');
 }
 
@@ -2104,7 +2013,7 @@ function ungroupSelection(){
   }
   if (any){
     pushHistory();
-    scheduleRenderLayers();
+    renderLayersPanel();
     toast('گروه باز شد');
   }
 }
@@ -2132,7 +2041,7 @@ function handleFile(file) {
     } else if (file.type === 'application/pdf'){
       handlePDFFile(file, 0).then(resolve);
     } else {
-      toast('فرمت پشتیبانی نمی‌شود: ' + file.type, true);
+      toast('فرمت پشتیبانی نمی‌شود: ' + file.type);
       resolve();
     }
   });
@@ -2147,10 +2056,10 @@ function handleImageFile(file, offsetY){
         addImageElement(ev.target.result, img.width, img.height, offsetY);
         resolve();
       };
-      img.onerror = function(){ toast('خطا در بارگذاری تصویر', true); resolve(); };
+      img.onerror = function(){ toast('خطا در بارگذاری تصویر'); resolve(); };
       img.src = ev.target.result;
     };
-    reader.onerror = function(){ toast('خطا در خواندن فایل', true); resolve(); };
+    reader.onerror = function(){ toast('خطا در خواندن فایل'); resolve(); };
     reader.readAsDataURL(file);
   });
 }
@@ -2158,7 +2067,7 @@ function handleImageFile(file, offsetY){
 function handlePDFFile(file, offsetY){
   return new Promise(function(resolve){
     if (typeof pdfjsLib === 'undefined'){
-      toast('PDF.js لود نشد — اتصال اینترنت را چک کنید', true);
+      toast('PDF.js لود نشد — اتصال اینترنت را چک کنید');
       resolve();
       return;
     }
@@ -2179,9 +2088,9 @@ function handlePDFFile(file, offsetY){
       showPdfLoading(false);
       resolve();
     }).catch(function(err){
-      logger.error('PDF error', err);
+      console.error(err);
       showPdfLoading(false);
-      toast('خطا در پردازش PDF', true);
+      toast('خطا در پردازش PDF');
       resolve();
     });
   });
@@ -2232,7 +2141,7 @@ function addImageElement(src, width, height, offsetY){
   var img = new Image();
   img.src = src;
   imageCache[id] = img;
-  img.onload = function(){ scheduleRender(); };
+  img.onload = function(){ render(); };
 }
 
 // ═════════════════════════════════════════════════════════
@@ -2387,7 +2296,7 @@ function cutSelection(){
   state.elements = state.elements.filter(function(el){ return !state.selected[el.id]; });
   state.selected = {};
   pushHistory();
-  scheduleRender();
+  render();
   toast('برش شد');
 }
 
@@ -2437,7 +2346,7 @@ function pasteFromClipboard(){
   state.elements = state.elements.concat(pasted);
   state.selected = newIds;
   pushHistory();
-  scheduleRender();
+  render();
   toast('چسبانده شد (' + pasted.length + ')');
   return true;
 }
@@ -2477,7 +2386,7 @@ function duplicateSelection(){
   state.elements = state.elements.concat(toAdd);
   state.selected = newIds;
   pushHistory();
-  scheduleRender();
+  render();
   toast('تکثیر شد');
 }
 
@@ -2491,8 +2400,8 @@ function deleteSelection(){
   state.elements = newEls;
   state.selected = {};
   pushHistory();
-  scheduleRender();
-  scheduleRenderLayers();
+  render();
+  renderLayersPanel();
   toast('حذف شد');
 }
 
@@ -2507,7 +2416,7 @@ function bringToFront(){
     else rest.push(state.elements[i]);
   }
   state.elements = rest.concat(selected);
-  pushHistory(); scheduleRender(); scheduleRenderLayers();
+  pushHistory(); render(); renderLayersPanel();
 }
 
 function sendToBack(){
@@ -2518,7 +2427,7 @@ function sendToBack(){
     else rest.push(state.elements[i]);
   }
   state.elements = selected.concat(rest);
-  pushHistory(); scheduleRender(); scheduleRenderLayers();
+  pushHistory(); render(); renderLayersPanel();
 }
 
 function bringForward(){
@@ -2530,7 +2439,7 @@ function bringForward(){
       state.elements[i + 1] = tmp;
     }
   }
-  pushHistory(); scheduleRender(); scheduleRenderLayers();
+  pushHistory(); render(); renderLayersPanel();
 }
 
 function sendBackward(){
@@ -2542,7 +2451,7 @@ function sendBackward(){
       state.elements[i - 1] = tmp;
     }
   }
-  pushHistory(); scheduleRender(); scheduleRenderLayers();
+  pushHistory(); render(); renderLayersPanel();
 }
 
 // ═════════════════════════════════════════════════════════
@@ -2553,7 +2462,7 @@ function lockSelection(){
   for (var i = 0; i < state.elements.length; i++){
     if (state.selected[state.elements[i].id]) state.elements[i].locked = true;
   }
-  pushHistory(); scheduleRender(); scheduleRenderLayers();
+  pushHistory(); render(); renderLayersPanel();
   toast('قفل شد');
 }
 
@@ -2562,7 +2471,7 @@ function unlockSelection(){
   for (var i = 0; i < state.elements.length; i++){
     if (state.selected[state.elements[i].id]) state.elements[i].locked = false;
   }
-  pushHistory(); scheduleRender(); scheduleRenderLayers();
+  pushHistory(); render(); renderLayersPanel();
   toast('قفل باز شد');
 }
 
@@ -2571,7 +2480,7 @@ function unlockSelection(){
 // ═════════════════════════════════════════════════════════
 function resetView(){
   state.viewport = { x: 0, y: 0, z: 1 };
-  updateStageBg(); updateZoomBadge(); scheduleRender();
+  updateStageBg(); updateZoomBadge(); render();
   toast('نمای بوم بازنشانی شد');
 }
 
@@ -2601,15 +2510,15 @@ function zoomToFit(){
   state.viewport.z = z;
   state.viewport.x = (cw - (minX + maxX) * z) / 2;
   state.viewport.y = (ch - (minY + maxY) * z) / 2;
-  updateStageBg(); updateZoomBadge(); scheduleRender();
+  updateStageBg(); updateZoomBadge(); render();
   toast('زوم به محتوا');
 }
 
 function toggleFullscreen(){
   if (!document.fullscreenElement){
-    document.documentElement.requestFullscreen().catch(function(e){ logger.warn('fullscreen', e); });
+    document.documentElement.requestFullscreen().catch(function(){});
   } else {
-    document.exitFullscreen().catch(function(e){ logger.warn('exit fullscreen', e); });
+    document.exitFullscreen().catch(function(){});
   }
 }
 
@@ -2638,7 +2547,7 @@ function openCanvasContextMenu(x, y){
     { label: 'چسباندن', icon: 'paste', shortcut: 'Ctrl+V', action: pasteFromClipboard },
     { divider: true },
     { label: 'انتخاب همه', icon: 'selectAll', shortcut: 'Ctrl+A', action: selectAll, disabled: state.elements.length === 0 },
-    { label: 'لغو انتخاب', icon: 'deselect', shortcut: 'Esc', action: function(){ state.selected = {}; scheduleRender(); updateSelectionIndicator(); }, disabled: !hasSelection() },
+    { label: 'لغو انتخاب', icon: 'deselect', shortcut: 'Esc', action: function(){ state.selected = {}; render(); }, disabled: !hasSelection() },
     { divider: true },
     { label: 'زوم به محتوا', icon: 'zoomFit', action: zoomToFit, disabled: state.elements.length === 0 },
     { label: 'نمایش ۱۰۰٪', icon: 'zoomIn', shortcut: 'Ctrl+0', action: resetView },
@@ -2723,24 +2632,13 @@ function selectAll(){
     var sb = document.querySelector('.tool[data-tool="select"]');
     if (sb) sb.click();
   }
-  scheduleRender();
-  updateSelectionIndicator();
+  render();
 }
 
 // ═════════════════════════════════════════════════════════
 // POINTER EVENTS
 // ═════════════════════════════════════════════════════════
 var rightClickDrag = null;
-
-// Multi-touch pinch zoom state
-var touchState = {
-  active: false,
-  touches: 0,
-  startDist: 0,
-  startZoom: 1,
-  startMidX: 0,
-  startMidY: 0
-};
 
 function hideHint(){
   var hint = document.getElementById('hint');
@@ -2750,20 +2648,8 @@ function hideHint(){
   setTimeout(function(){ if (hint.parentNode) hint.remove(); }, 300);
 }
 
-function cancelCurrentDrawing(){
-  if (state.current || state.dragging){
-    state.current = null;
-    state.last = null;
-    state.dragging = null;
-    scheduleRender();
-    return true;
-  }
-  return false;
-}
-
 function onDown(e){
   hideContextMenu();
-  hideHint();
 
   if (e.button === 2){
     rightClickDrag = {
@@ -2789,6 +2675,7 @@ function onDown(e){
   }
 
   e.preventDefault();
+  hideHint();
   try { canvas.setPointerCapture(e.pointerId); } catch(err){}
 
   var w = toWorld(e.clientX, e.clientY);
@@ -2864,11 +2751,12 @@ function onDown(e){
       snap2[copy.id] = JSON.parse(JSON.stringify(copy));
       state.dragging = { type: 'move', sx: w.x, sy: w.y, snap: snap2 };
       pushHistory();
-      scheduleRender();
+      render();
       return;
     }
 
     if (hit){
+      // Viewer: allow select but not drag/move
       if (collab.active && !collab.isHost && !collab.canDraw){
         if (!state.selected[hit.id]){
           state.selected = {};
@@ -2881,8 +2769,7 @@ function onDown(e){
             }
           }
         }
-        scheduleRender();
-        updateSelectionIndicator();
+        render();
         return;
       }
 
@@ -2893,8 +2780,7 @@ function onDown(e){
       if (e.ctrlKey || e.metaKey || e.shiftKey){
         if (state.selected[hit.id]){
           delete state.selected[hit.id];
-          scheduleRender();
-          updateSelectionIndicator();
+          render();
           return;
         } else {
           state.selected[hit.id] = true;
@@ -2930,8 +2816,7 @@ function onDown(e){
       };
       state.previewSelected = {};
     }
-    scheduleRender();
-    updateSelectionIndicator();
+    render();
     return;
   }
 
@@ -2955,7 +2840,7 @@ function onDown(e){
   } else {
     state.current = Object.assign({}, base, { x1: w.x, y1: w.y, x2: w.x, y2: w.y });
   }
-  scheduleRender();
+  render();
 }
 
 function eraseAt(wx, wy){
@@ -2968,7 +2853,7 @@ function eraseAt(wx, wy){
       break;
     }
   }
-  scheduleRender();
+  render();
 }
 
 function onMove(e){
@@ -2980,7 +2865,7 @@ function onMove(e){
       state.viewport.x = rightClickDrag.vx + dx;
       state.viewport.y = rightClickDrag.vy + dy;
       updateStageBg();
-      scheduleRender();
+      render();
     }
     return;
   }
@@ -2992,11 +2877,11 @@ function onMove(e){
       var newId = (hit0 && !hit0.locked) ? hit0.id : null;
       if (newId !== state.hoveredId){
         state.hoveredId = newId;
-        scheduleRender();
+        render();
       }
     } else if (state.hoveredId){
       state.hoveredId = null;
-      scheduleRender();
+      render();
     }
     if (state.tool === 'select' && hasSelection()){
       var h = hitHandle(e.clientX, e.clientY);
@@ -3019,7 +2904,7 @@ function onMove(e){
       state.viewport.x = state.dragging.vx + (e.clientX - state.dragging.sx);
       state.viewport.y = state.dragging.vy + (e.clientY - state.dragging.sy);
       updateStageBg();
-      scheduleRender();
+      render();
       return;
     }
     if (state.dragging.type === 'erase'){
@@ -3051,7 +2936,7 @@ function onMove(e){
           el.y2 = orig.y2 + ddy;
         }
       }
-      scheduleRender();
+      render();
       return;
     }
     if (state.dragging.type === 'resize'){
@@ -3103,7 +2988,7 @@ function onMove(e){
         if (!orig2) continue;
         scaleElement(el2, orig2, ax, ay, sfx, sfy);
       }
-      scheduleRender();
+      render();
       return;
     }
     if (state.dragging.type === 'marquee'){
@@ -3115,7 +3000,7 @@ function onMove(e){
         state.dragging.intersectMode = state.dragging.ex > state.dragging.sx;
       }
       updatePreviewSelection();
-      scheduleRender();
+      render();
       return;
     }
   }
@@ -3146,7 +3031,7 @@ function onMove(e){
     state.current.x2 = ex;
     state.current.y2 = ey;
   }
-  scheduleRender();
+  render();
 }
 
 function onUp(e){
@@ -3172,8 +3057,7 @@ function onUp(e){
             var sb = document.querySelector('.tool[data-tool="select"]');
             if (sb) sb.click();
           }
-          scheduleRender();
-          updateSelectionIndicator();
+          render();
         }
         openElementContextMenu(e.clientX, e.clientY);
       } else {
@@ -3212,11 +3096,10 @@ function onUp(e){
       state.previewSelected = {};
     } else if (state.dragging.type === 'move' || state.dragging.type === 'erase' || state.dragging.type === 'resize'){
       pushHistory();
-      scheduleRenderLayers();
+      renderLayersPanel();
     }
     state.dragging = null;
-    scheduleRender();
-    updateSelectionIndicator();
+    render();
     return;
   }
 
@@ -3235,9 +3118,9 @@ function onUp(e){
   if (valid){
     state.elements.push(elc);
     pushHistory();
-    scheduleRenderLayers();
+    renderLayersPanel();
   }
-  scheduleRender();
+  render();
 }
 
 function onDblClick(e){
@@ -3254,8 +3137,7 @@ function onDblClick(e){
   if (hit && hit.points && state.tool === 'select'){
     state.selected = {};
     state.selected[hit.id] = true;
-    scheduleRender();
-    updateSelectionIndicator();
+    render();
     return;
   }
   if (!hit && state.tool === 'hand') resetView();
@@ -3267,53 +3149,7 @@ canvas.addEventListener('pointerup', onUp);
 canvas.addEventListener('pointercancel', onUp);
 canvas.addEventListener('dblclick', onDblClick);
 canvas.addEventListener('pointerleave', function(){
-  if (state.hoveredId){ state.hoveredId = null; scheduleRender(); }
-});
-
-// ─── Multi-touch pinch zoom ──────────────────────────────
-canvas.addEventListener('touchstart', function(e){
-  if (e.touches.length === 2){
-    e.preventDefault();
-    var t1 = e.touches[0], t2 = e.touches[1];
-    touchState.active = true;
-    touchState.touches = 2;
-    touchState.startDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
-    touchState.startZoom = state.viewport.z;
-    touchState.startMidX = (t1.clientX + t2.clientX) / 2;
-    touchState.startMidY = (t1.clientY + t2.clientY) / 2;
-    // Cancel any drawing in progress
-    state.current = null;
-    state.dragging = null;
-  }
-}, { passive: false });
-
-canvas.addEventListener('touchmove', function(e){
-  if (touchState.active && e.touches.length === 2){
-    e.preventDefault();
-    var t1 = e.touches[0], t2 = e.touches[1];
-    var dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
-    var factor = dist / (touchState.startDist || 1);
-    var nz = Math.max(0.1, Math.min(5, touchState.startZoom * factor));
-
-    var r = canvas.getBoundingClientRect();
-    var mx = touchState.startMidX - r.left;
-    var my = touchState.startMidY - r.top;
-
-    state.viewport.x = mx - (mx - state.viewport.x) * (nz / state.viewport.z);
-    state.viewport.y = my - (my - state.viewport.y) * (nz / state.viewport.z);
-    state.viewport.z = nz;
-
-    updateStageBg();
-    updateZoomBadge();
-    scheduleRender();
-  }
-}, { passive: false });
-
-canvas.addEventListener('touchend', function(e){
-  if (e.touches.length < 2){
-    touchState.active = false;
-    touchState.touches = e.touches.length;
-  }
+  if (state.hoveredId){ state.hoveredId = null; render(); }
 });
 
 canvas.addEventListener('contextmenu', function(e){ e.preventDefault(); });
@@ -3340,12 +3176,12 @@ canvas.addEventListener('wheel', function(e){
     state.viewport.z = nz;
     updateStageBg();
     updateZoomBadge();
-    scheduleRender();
+    render();
   } else {
     state.viewport.x -= e.deltaX;
     state.viewport.y -= e.deltaY;
     updateStageBg();
-    scheduleRender();
+    render();
   }
 }, { passive: false });
 
@@ -3354,7 +3190,6 @@ canvas.addEventListener('wheel', function(e){
 // ═════════════════════════════════════════════════════════
 var textOverlay = null;
 var textTarget = null;
-var _commitLock = false;
 
 function startTextTool(wx, wy, editEl){
   if (textOverlay) commitText();
@@ -3399,7 +3234,7 @@ function startTextTool(wx, wy, editEl){
       }
     }
     textTarget = { x: editEl.x, y: editEl.y, _src: editEl };
-    scheduleRender();
+    render();
   } else {
     textTarget = { x: wx, y: wy };
   }
@@ -3425,47 +3260,40 @@ function cancelTextEdit(){
   ta.removeEventListener('blur', commitText);
   ta.remove();
   if (pos && pos._src) state.elements.push(pos._src);
-  scheduleRender();
+  render();
 }
 
 function commitText(){
-  if (_commitLock) return;
   if (!textOverlay) return;
-  _commitLock = true;
-  try {
-    var txt = textOverlay.value;
-    var pos = textTarget;
-    var ta = textOverlay;
-    textOverlay = null;
-    textTarget = null;
-    ta.removeEventListener('blur', commitText);
-    ta.remove();
-    if (!txt || !txt.trim()){
-      if (pos && pos._src) state.elements.push(pos._src);
-      scheduleRender();
-      return;
-    }
-
-    var base = pos._src;
-    state.elements.push({
-      id: uid(),
-      tool: 'text',
-      text: txt,
-      color: base ? base.color : state.color,
-      opacity: base ? (base.opacity != null ? base.opacity : 1) : state.opacity,
-      fontSize: base ? (base.fontSize || 20) : state.textFontSize,
-      bold: base ? !!base.bold : state.textBold,
-      italic: base ? !!base.italic : state.textItalic,
-      groupId: base ? base.groupId : undefined,
-      x: pos.x,
-      y: pos.y
-    });
-    pushHistory();
-    scheduleRender();
-    scheduleRenderLayers();
-  } finally {
-    _commitLock = false;
+  var txt = textOverlay.value;
+  var pos = textTarget;
+  var ta = textOverlay;
+  textOverlay = null;
+  textTarget = null;
+  ta.remove();
+  if (!txt || !txt.trim()){
+    if (pos && pos._src) state.elements.push(pos._src);
+    render();
+    return;
   }
+
+  var base = pos._src;
+  state.elements.push({
+    id: uid(),
+    tool: 'text',
+    text: txt,
+    color: base ? base.color : state.color,
+    opacity: base ? (base.opacity != null ? base.opacity : 1) : state.opacity,
+    fontSize: base ? (base.fontSize || 20) : state.textFontSize,
+    bold: base ? !!base.bold : state.textBold,
+    italic: base ? !!base.italic : state.textItalic,
+    groupId: base ? base.groupId : undefined,
+    x: pos.x,
+    y: pos.y
+  });
+  pushHistory();
+  render();
+  renderLayersPanel();
 }
 
 // ═════════════════════════════════════════════════════════
@@ -3508,33 +3336,30 @@ function renderContentToCanvas(scale, bgColor){
   c.fillStyle = bgColor || (document.body.classList.contains('dark') ? '#0F0F12' : '#FFFFFF');
   c.fillRect(0, 0, cv.width, cv.height);
 
-  // FIX: use try/finally to guarantee ctx and viewport restoration
   var savedCtx = ctx;
   var savedVx = state.viewport.x;
   var savedVy = state.viewport.y;
   var savedVz = state.viewport.z;
 
-  try {
-    ctx = c;
-    state.viewport.x = 0;
-    state.viewport.y = 0;
-    state.viewport.z = 1;
+  ctx = c;
+  state.viewport.x = 0;
+  state.viewport.y = 0;
+  state.viewport.z = 1;
 
-    c.setTransform(scale, 0, 0, scale, -bounds.x * scale, -bounds.y * scale);
+  c.setTransform(scale, 0, 0, scale, -bounds.x * scale, -bounds.y * scale);
 
-    for (var i = 0; i < state.elements.length; i++){
-      if (state.elements[i].isBackground) drawElement(state.elements[i]);
-    }
-    for (var j = 0; j < state.elements.length; j++){
-      if (!state.elements[j].isBackground) drawElement(state.elements[j]);
-    }
-  } finally {
-    ctx = savedCtx;
-    state.viewport.x = savedVx;
-    state.viewport.y = savedVy;
-    state.viewport.z = savedVz;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  for (var i = 0; i < state.elements.length; i++){
+    if (state.elements[i].isBackground) drawElement(state.elements[i]);
   }
+  for (var j = 0; j < state.elements.length; j++){
+    if (!state.elements[j].isBackground) drawElement(state.elements[j]);
+  }
+
+  ctx = savedCtx;
+  state.viewport.x = savedVx;
+  state.viewport.y = savedVy;
+  state.viewport.z = savedVz;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   return { canvas: cv, bounds: bounds, scale: scale };
 }
@@ -3590,9 +3415,8 @@ function elementToSVG(el){
   var strokeAttrs = 'stroke="' + el.color + '" stroke-width="' + (el.width || 4) + '" stroke-linecap="round" stroke-linejoin="round" fill="none"';
 
   if (el.tool === 'image'){
-    // FIX: escapeXML on src
     return '<image x="' + el.x + '" y="' + el.y + '" width="' + el.width +
-      '" height="' + el.height + '" xlink:href="' + escapeXML(el.src) + '"' + opAttr + '/>';
+      '" height="' + el.height + '" xlink:href="' + el.src + '"' + opAttr + '/>';
   }
   if (el.tool === 'stencil'){
     var sx = el.w / el.baseW;
@@ -3605,7 +3429,7 @@ function elementToSVG(el){
   }
   if (el.points){
     var pts = el.points.map(function(p){ return p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' ');
-    var avgW = (el.width || 4) * (el.tool === 'highlighter' ? 3.5 : 1.2);
+    var avgW = (el.width || 4) * 1.2;
     return '<polyline points="' + pts + '" fill="none" stroke="' + el.color +
       '" stroke-width="' + avgW + '" stroke-linecap="round" stroke-linejoin="round"' + opAttr + '/>';
   }
@@ -3718,7 +3542,7 @@ function exportToPDF(){
           pdf.save('negar-' + Date.now() + '.pdf');
           toast('PDF ذخیره شد (' + Math.round(pw) + '×' + Math.round(ph) + ')');
           return;
-        } catch (err){ logger.error('jsPDF failed', err); }
+        } catch (err){ console.warn('jsPDF failed:', err); }
       }
 
       var w = window.open('', '_blank');
@@ -3743,21 +3567,7 @@ function exportToPDF(){
 // ═════════════════════════════════════════════════════════
 // HISTORY
 // ═════════════════════════════════════════════════════════
-var _historyDebounceTimer = null;
-var _pendingHistoryPush = false;
-
 function pushHistory(){
-  if (_historyDebounceTimer) clearTimeout(_historyDebounceTimer);
-  _historyDebounceTimer = setTimeout(_doPushHistory, 30);
-}
-
-function pushHistoryImmediate(){
-  if (_historyDebounceTimer) clearTimeout(_historyDebounceTimer);
-  _historyDebounceTimer = null;
-  _doPushHistory();
-}
-
-function _doPushHistory(){
   state.history = state.history.slice(0, state.histIdx + 1);
   var clean = state.elements.map(function(el){
     var c = Object.assign({}, el);
@@ -3779,21 +3589,20 @@ function undo(){
   }
   state.histIdx--;
   state.elements = JSON.parse(state.history[state.histIdx]);
-  if (typeof resetDeltaCacheFromState === 'function') resetDeltaCacheFromState();
+  resetDeltaCacheFromState();
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
     if (el.tool === 'image' && !imageCache[el.id] && el.src){
       var img = new Image();
       img.src = el.src;
       imageCache[el.id] = img;
-      img.onload = function(){ scheduleRender(); };
+      img.onload = function(){ render(); };
     }
   }
   state.selected = {};
-  scheduleRender();
-  scheduleRenderLayers();
+  render();
+  renderLayersPanel();
   updateHist();
-  updateSelectionIndicator();
   saveToStorage();
   broadcastChange();
 }
@@ -3805,21 +3614,20 @@ function redo(){
   }
   state.histIdx++;
   state.elements = JSON.parse(state.history[state.histIdx]);
-  if (typeof resetDeltaCacheFromState === 'function') resetDeltaCacheFromState();
+  resetDeltaCacheFromState();
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
     if (el.tool === 'image' && !imageCache[el.id] && el.src){
       var img = new Image();
       img.src = el.src;
       imageCache[el.id] = img;
-      img.onload = function(){ scheduleRender(); };
+      img.onload = function(){ render(); };
     }
   }
   state.selected = {};
-  scheduleRender();
-  scheduleRenderLayers();
+  render();
+  renderLayersPanel();
   updateHist();
-  updateSelectionIndicator();
   saveToStorage();
   broadcastChange();
 }
@@ -3869,25 +3677,8 @@ function layerIcon(el){
 }
 
 var layersListEl = document.getElementById('layers-list');
-var _layersRenderTimer = null;
-
-function scheduleRenderLayers(){
-  if (_layersRenderTimer) clearTimeout(_layersRenderTimer);
-  _layersRenderTimer = setTimeout(function(){
-    _layersRenderTimer = null;
-    _renderLayersPanelNow();
-  }, 80);
-}
-
 function renderLayersPanel(){
-  scheduleRenderLayers();
-}
-
-function _renderLayersPanelNow(){
   if (!layersListEl) return;
-  // Only update if the panel is open or exists in DOM
-  if (!document.body.contains(layersListEl)) return;
-
   layersListEl.innerHTML = '';
   if (state.elements.length === 0){
     var empty = document.createElement('div');
@@ -3897,7 +3688,6 @@ function _renderLayersPanelNow(){
     return;
   }
   var els = state.elements.slice().reverse();
-  var frag = document.createDocumentFragment();
   for (var i = 0; i < els.length; i++){
     (function(el){
       var item = document.createElement('div');
@@ -3925,27 +3715,25 @@ function _renderLayersPanelNow(){
           if (sb) sb.click();
         }
         expandGroupsInSelection();
-        scheduleRenderLayers();
-        scheduleRender();
-        updateSelectionIndicator();
+        renderLayersPanel();
+        render();
       });
       item.querySelector('[data-act="vis"]').addEventListener('click', function(ev){
         ev.stopPropagation();
         el.hidden = !el.hidden;
-        scheduleRenderLayers();
-        scheduleRender();
+        renderLayersPanel();
+        render();
         pushHistory();
       });
       item.querySelector('[data-act="lock"]').addEventListener('click', function(ev){
         ev.stopPropagation();
         el.locked = !el.locked;
-        scheduleRenderLayers();
+        renderLayersPanel();
         pushHistory();
       });
-      frag.appendChild(item);
+      layersListEl.appendChild(item);
     })(els[i]);
   }
-  layersListEl.appendChild(frag);
 }
 
 // ═════════════════════════════════════════════════════════
@@ -4010,9 +3798,8 @@ function insertStencil(st){
     if (sb) sb.click();
   }
   pushHistory();
-  scheduleRender();
-  scheduleRenderLayers();
-  updateSelectionIndicator();
+  render();
+  renderLayersPanel();
   toast('شکل اضافه شد: ' + st.name);
   document.getElementById('stencil-panel').classList.remove('open');
 }
@@ -4038,7 +3825,7 @@ function copyToClipboard(text){
 }
 
 function shareViaURL(){
-  if (!window.LZString){ toast('LZ-String لود نشد', true); return; }
+  if (!window.LZString){ toast('LZ-String لود نشد'); return; }
   if (state.elements.length === 0){ toast('بوم خالی است'); return; }
   try {
     var totalImg = 0;
@@ -4046,13 +3833,13 @@ function shareViaURL(){
       if (state.elements[i].tool === 'image') totalImg += (state.elements[i].src || '').length;
     }
     if (totalImg > 60000){
-      toast('تصاویر بزرگ‌اند — از فایل .negar استفاده کن', true);
+      toast('تصاویر بزرگ‌اند — از فایل .negar استفاده کن');
       return;
     }
     var json = JSON.stringify(state.elements);
     var compressed = LZString.compressToEncodedURIComponent(json);
     if (compressed.length > 32000){
-      toast('بوم بزرگ‌تر از حد URL است — از فایل استفاده کن', true);
+      toast('بوم بزرگ‌تر از حد URL است — از فایل استفاده کن');
       return;
     }
     var url = location.origin + location.pathname + '#b=' + compressed;
@@ -4061,8 +3848,8 @@ function shareViaURL(){
       toast('لینک کپی شد ✓ (' + compressed.length + ' کاراکتر)');
     });
   } catch(e){
-    logger.error('shareViaURL', e);
-    toast('خطا در ساخت لینک', true);
+    console.error(e);
+    toast('خطا در ساخت لینک');
   }
 }
 
@@ -4071,35 +3858,28 @@ function loadFromURLHash(){
   if (!window.LZString) return false;
   try {
     var compressed = location.hash.slice(3);
-    if (compressed.length > 100000) return false;
     var json = LZString.decompressFromEncodedURIComponent(compressed);
     if (!json) return false;
     var els = JSON.parse(json);
     if (!Array.isArray(els) || els.length === 0) return false;
-    var validated = [];
-    for (var i = 0; i < els.length && i < MAX_IMPORT_ELEMENTS; i++){
-      var el = els[i];
-      if (!el.id) el.id = uid();
-      if (el.tool === 'image' && el.src){
+    for (var i = 0; i < els.length; i++){
+      if (!els[i].id) els[i].id = uid();
+      if (els[i].tool === 'image' && els[i].src){
         var img = new Image();
-        img.src = el.src;
-        imageCache[el.id] = img;
-        img.onload = function(){ scheduleRender(); };
+        img.src = els[i].src;
+        imageCache[els[i].id] = img;
+        img.onload = function(){ render(); };
       }
-      validated.push(el);
     }
-    state.elements = validated;
+    state.elements = els;
     history.replaceState(null, '', location.pathname);
     return true;
-  } catch(e){
-    logger.warn('loadFromURLHash', e);
-    return false;
-  }
+  } catch(e){ return false; }
 }
 
 function exportNegarFile(){
   if (state.elements.length === 0){ toast('بوم خالی است'); return; }
-  var data = { version: '1.4', app: 'negar', savedAt: Date.now(), elements: state.elements };
+  var data = { version: '1.3', app: 'negar', savedAt: Date.now(), elements: state.elements };
   var blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
   var a = document.createElement('a');
   a.download = 'negar-' + Date.now() + '.negar';
@@ -4109,96 +3889,48 @@ function exportNegarFile(){
   toast('فایل .negar ذخیره شد');
 }
 
-// ═════════════════════════════════════════════════════════
-// IMPORT VALIDATION
-// ═════════════════════════════════════════════════════════
-var ALLOWED_TOOLS = ['pen','highlighter','line','arrow','rect','ellipse','text','image','stencil'];
-var MAX_STRING_LEN = 100000;
-var MAX_ELEMENT_FIELDS = 50;
-
-function validateElement(el){
-  if (!el || typeof el !== 'object') return false;
-  if (ALLOWED_TOOLS.indexOf(el.tool) === -1) return false;
-  // Count fields to prevent insane payloads
-  var fieldCount = 0;
-  for (var k in el) { fieldCount++; if (fieldCount > MAX_ELEMENT_FIELDS) return false; }
-  // Check strings
-  for (var k2 in el){
-    var v = el[k2];
-    if (typeof v === 'string' && v.length > MAX_STRING_LEN) return false;
-  }
-  // Type-specific
-  if (el.tool === 'image'){
-    if (typeof el.src !== 'string') return false;
-    if (el.src.length > MAX_IMAGE_SRC_LENGTH) return false;
-    if (el.src.indexOf('javascript:') === 0) return false;
-    if (el.src.indexOf('<') !== -1) return false;
-  }
-  if (el.points && Array.isArray(el.points)){
-    if (el.points.length > 100000) return false;
-  }
-  return true;
-}
-
 function importNegarData(text){
   try {
-    if (typeof text !== 'string' || text.length > 100 * 1024 * 1024){
-      toast('فایل بیش از حد بزرگ است', true);
-      return;
-    }
     var data = JSON.parse(text);
     var els = Array.isArray(data) ? data : data.elements;
     if (!Array.isArray(els)) throw new Error('invalid');
-    if (els.length > MAX_IMPORT_ELEMENTS){
-      toast('تعداد المان‌ها بیش از حد مجاز است (حداکثر ' + MAX_IMPORT_ELEMENTS + ')', true);
-      return;
-    }
-    var valid = [];
-    var rejected = 0;
     for (var i = 0; i < els.length; i++){
-      var el = els[i];
-      if (!validateElement(el)){ rejected++; continue; }
-      if (!el.id) el.id = uid();
-      if (el.tool === 'image' && el.src){
+      if (!els[i].id) els[i].id = uid();
+      if (els[i].tool === 'image' && els[i].src){
         var img = new Image();
-        img.src = el.src;
-        imageCache[el.id] = img;
-        img.onload = function(){ scheduleRender(); };
+        img.src = els[i].src;
+        imageCache[els[i].id] = img;
+        img.onload = function(){ render(); };
       }
-      valid.push(el);
     }
-    if (valid.length === 0){
-      toast('هیچ المان معتبری یافت نشد', true);
-      return;
-    }
-    state.elements = state.elements.concat(valid);
+    state.elements = state.elements.concat(els);
     state.selected = {};
     pushHistory();
-    scheduleRender();
-    scheduleRenderLayers();
-    var msg = valid.length + ' آیتم بارگذاری شد';
-    if (rejected > 0) msg += ' — ' + rejected + ' رد شد';
-    toast(msg, rejected > 0);
+    render();
+    renderLayersPanel();
+    toast('بارگذاری شد (' + els.length + ' آیتم)');
   } catch(e){
-    logger.error('import', e);
-    toast('فایل نامعتبر', true);
+    toast('فایل نامعتبر');
   }
 }
 
 // ═════════════════════════════════════════════════════════
-// COLLABORATION (PeerJS) — v1.4
+// COLLABORATION (PeerJS) — v1.3 — scales to 100 users
+// - Delta-based sync (only changed elements sent)
+// - LZString compression for large payloads
+// - Throttled member broadcasts + localStorage writes
+// - Jitter in reconnect backoff (no thundering herd)
+// - Room size cap (100)
+// - Persistent room + auto-reconnect
 // ═════════════════════════════════════════════════════════
 var COLLAB_SESSION_KEY = 'negar-collab-session';
 var COLLAB_CLIENT_KEY  = 'negar-collab-client-id';
+var COLLAB_MEMBERS_KEY = 'negar-collab-members-cache';
 var COLLAB_MAX_MEMBERS = 100;
 var COLLAB_PATCH_DEBOUNCE = 110;
 var COLLAB_MEMBERS_DEBOUNCE = 300;
 var COLLAB_CACHE_DEBOUNCE = 1200;
 var COLLAB_COMPRESS_THRESHOLD = 1200;
-
-function membersCacheKey(roomId){
-  return 'negar-collab-members-' + (roomId || 'default');
-}
 
 function getMyClientId(){
   var id = null;
@@ -4209,6 +3941,7 @@ function getMyClientId(){
   }
   return id;
 }
+
 function getSession(){
   try {
     var s = localStorage.getItem(COLLAB_SESSION_KEY);
@@ -4221,14 +3954,11 @@ function setSession(s){
 function clearSession(){
   try { localStorage.removeItem(COLLAB_SESSION_KEY); } catch(e){}
 }
-function loadMembersCache(roomId){
+function loadMembersCache(){
   try {
-    var s = localStorage.getItem(membersCacheKey(roomId));
+    var s = localStorage.getItem(COLLAB_MEMBERS_KEY);
     return s ? (JSON.parse(s) || {}) : {};
   } catch(e){ return {}; }
-}
-function wipeMembersCache(roomId){
-  try { localStorage.removeItem(membersCacheKey(roomId)); } catch(e){}
 }
 
 var collab = {
@@ -4248,11 +3978,11 @@ var collab = {
   intentionalClose: false,
   hostClaimRetries: 0,
   deltaCache: {},
-  dirtySinceLastPatch: false,
   memberBroadcastTimer: null,
   cacheSaveTimer: null
 };
 
+// ─── Serialization helpers ───────────────────────────────
 function packMessage(obj, threshold){
   threshold = threshold || COLLAB_COMPRESS_THRESHOLD;
   var json = JSON.stringify(obj);
@@ -4263,6 +3993,7 @@ function packMessage(obj, threshold){
   }
   return { t: 'j', d: json };
 }
+
 function unpackMessage(msg){
   if (!msg) return null;
   if (msg.t === 'z'){
@@ -4277,6 +4008,7 @@ function unpackMessage(msg){
   return msg;
 }
 
+// ─── Delta tracking ──────────────────────────────────────
 function resetDeltaCacheFromState(){
   collab.deltaCache = {};
   for (var i = 0; i < state.elements.length; i++){
@@ -4345,6 +4077,7 @@ function applyDeltaOps(ops){
   return changed;
 }
 
+// ─── Helpers ─────────────────────────────────────────────
 function rehydrateImages(){
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
@@ -4353,7 +4086,7 @@ function rehydrateImages(){
       var img = new Image();
       img.src = el.src;
       imageCache[el.id] = img;
-      img.onload = function(){ scheduleRender(); };
+      img.onload = function(){ render(); };
     }
   }
 }
@@ -4381,7 +4114,7 @@ function onlineMemberCount(){
   return n || 1;
 }
 
-function saveMembersCacheNow(){
+function saveMembersCache(){
   if (!collab.isHost) return;
   try {
     var cache = {};
@@ -4389,7 +4122,7 @@ function saveMembersCacheNow(){
       var m = collab.members[id];
       cache[id] = { name: m.name, canDraw: m.canDraw, isHost: m.isHost };
     }
-    localStorage.setItem(membersCacheKey(collab.roomId), JSON.stringify(cache));
+    localStorage.setItem(COLLAB_MEMBERS_KEY, JSON.stringify(cache));
   } catch(e){}
 }
 
@@ -4397,10 +4130,11 @@ function scheduleCacheSave(){
   if (collab.cacheSaveTimer) return;
   collab.cacheSaveTimer = setTimeout(function(){
     collab.cacheSaveTimer = null;
-    saveMembersCacheNow();
+    saveMembersCache();
   }, COLLAB_CACHE_DEBOUNCE);
 }
 
+// ─── UI ──────────────────────────────────────────────────
 function updateCollabBadge(){
   var badge = document.getElementById('collab-badge');
   if (!badge) return;
@@ -4522,9 +4256,10 @@ function setMemberPermission(clientId, canDraw){
   toast((canDraw ? 'اجازه کشیدن داده شد به ' : 'اجازه کشیدن گرفته شد از ') + (m.name || 'کاربر'));
 }
 
+// ─── Host ────────────────────────────────────────────────
 function startCollabHost(name, reuseCode){
   if (collab.active) return;
-  if (!window.Peer){ toast('PeerJS لود نشد', true); return; }
+  if (!window.Peer){ toast('PeerJS لود نشد'); return; }
   name = (name || '').trim();
   if (!name){ toast('نام خود را وارد کنید'); return; }
 
@@ -4541,7 +4276,7 @@ function startCollabHost(name, reuseCode){
     canDraw: true, online: true, isHost: true
   };
 
-  var cache = loadMembersCache(collab.roomId);
+  var cache = loadMembersCache();
   for (var id in cache){
     if (id === collab.myClientId) continue;
     var m = cache[id];
@@ -4576,7 +4311,7 @@ function createHostPeer(code){
   collab.peer.on('connection', function(conn){ setupHostConn(conn); });
 
   collab.peer.on('error', function(err){
-    logger.warn('host peer error', err);
+    console.warn('host peer error', err);
     if (err && err.type === 'unavailable-id' && collab.isHost && collab.hostClaimRetries < 12){
       collab.hostClaimRetries++;
       var backoff = 500 * collab.hostClaimRetries + Math.random() * 500;
@@ -4586,7 +4321,7 @@ function createHostPeer(code){
       return;
     }
     if (err && err.type === 'peer-unavailable') return;
-    toast('خطای اتصال: ' + ((err && err.type) || 'unknown'), true);
+    toast('خطای اتصال: ' + ((err && err.type) || 'unknown'));
   });
 
   collab.peer.on('disconnected', function(){
@@ -4652,9 +4387,7 @@ function setupHostConn(conn){
       if (!me || !me.canDraw) return;
       var changed = applyDeltaOps(data.ops);
       if (changed){
-        scheduleRender();
-        // FIX: scheduleRenderLayers (was missing)
-        scheduleRenderLayers();
+        render();
         var relay = packMessage({ type: 'patch', ops: data.ops });
         for (var i = 0; i < collab.conns.length; i++){
           if (collab.conns[i] !== conn){
@@ -4686,12 +4419,12 @@ function setupHostConn(conn){
     updateCollabBadge();
   });
 
-  conn.on('error', function(e){ logger.warn('host conn error', e); });
+  conn.on('error', function(){});
 }
 
 function actuallyBroadcastMembers(){
   if (!collab.isHost) return;
-  saveMembersCacheNow();
+  saveMembersCache();
   var msg = packMessage({ type: 'members', members: memberList() }, 400);
   for (var i = 0; i < collab.conns.length; i++){
     try { collab.conns[i].send(msg); } catch(e){}
@@ -4707,9 +4440,10 @@ function scheduleMembersBroadcast(){
   }, COLLAB_MEMBERS_DEBOUNCE);
 }
 
+// ─── Guest ───────────────────────────────────────────────
 function startCollabJoin(code, name){
   if (collab.active) return;
-  if (!window.Peer){ toast('PeerJS لود نشد', true); return; }
+  if (!window.Peer){ toast('PeerJS لود نشد'); return; }
   code = (code || '').trim();
   name = (name || '').trim();
   if (!name){ toast('نام خود را وارد کنید'); return; }
@@ -4748,7 +4482,7 @@ function createGuestPeerAndConnect(){
   });
 
   collab.peer.on('error', function(err){
-    logger.warn('guest peer error', err);
+    console.warn('guest peer error', err);
     if (err && (err.type === 'peer-unavailable' || err.type === 'network')){
       scheduleGuestReconnect();
     }
@@ -4795,8 +4529,8 @@ function setupGuestConn(conn){
       state.elements = data.elements || [];
       rehydrateImages();
       resetDeltaCacheFromState();
-      scheduleRender();
-      scheduleRenderLayers();
+      render();
+      renderLayersPanel();
       updateCollabMembersUI();
       updateCollabBadge();
       toast('به اتاق متصل شدید');
@@ -4824,15 +4558,13 @@ function setupGuestConn(conn){
     else if (data.type === 'patch'){
       var changed = applyDeltaOps(data.ops);
       if (changed){
-        scheduleRender();
-        // FIX: scheduleRenderLayers (was missing)
-        scheduleRenderLayers();
+        render();
       }
     }
 
     else if (data.type === 'rejected'){
       if (data.reason === 'room-full'){
-        toast('اتاق پر است (حداکثر ' + (data.max || 100) + ' نفر)', true);
+        toast('اتاق پر است (حداکثر ' + (data.max || 100) + ' نفر)');
         clearSession();
         stopCollab();
       }
@@ -4840,7 +4572,7 @@ function setupGuestConn(conn){
     }
 
     else if (data.type === 'host-left'){
-      toast('میزبان اتاق را ترک کرد', true);
+      toast('میزبان اتاق را ترک کرد');
       collab.active = false;
       updateCollabBadge();
       scheduleGuestReconnect();
@@ -4854,7 +4586,7 @@ function setupGuestConn(conn){
     scheduleGuestReconnect();
   });
 
-  conn.on('error', function(e){ logger.warn('guest conn error', e); });
+  conn.on('error', function(){});
 }
 
 function scheduleGuestReconnect(){
@@ -4874,6 +4606,7 @@ function scheduleGuestReconnect(){
   }, delay);
 }
 
+// ─── Broadcast canvas changes ────────────────────────────
 var _collabBroadcastTimer = null;
 function broadcastChange(){
   if (!collab.active) return;
@@ -4898,36 +4631,13 @@ function broadcastChange(){
   }, COLLAB_PATCH_DEBOUNCE);
 }
 
-// ═════════════════════════════════════════════════════════
-// COLLAB CLEANUP — full teardown of peer + listeners
-// ═════════════════════════════════════════════════════════
-function destroyPeerSafely(peer){
-  if (!peer) return;
-  try { peer.removeAllListeners && peer.removeAllListeners(); } catch(e){}
-  try { peer.destroy(); } catch(e){}
-}
-
+// ─── Leave / Stop ────────────────────────────────────────
 function stopCollab(){
-  var oldRoomId = collab.roomId;
-  var oldIsHost = collab.isHost;
-  var oldConns = collab.conns.slice();
-  var oldGuestConn = collab.guestConn;
-  var oldPeer = collab.peer;
-
   collab.intentionalClose = true;
   clearTimeout(collab.reconnectTimer);
   clearTimeout(collab.memberBroadcastTimer);
   clearTimeout(collab.cacheSaveTimer);
-  clearTimeout(_collabBroadcastTimer);
-
-  // Close all data connections
-  for (var i = 0; i < oldConns.length; i++){
-    try { oldConns[i].close(); } catch(e){}
-  }
-  if (oldGuestConn){ try { oldGuestConn.close(); } catch(e){} }
-
-  destroyPeerSafely(oldPeer);
-
+  try { if (collab.peer) collab.peer.destroy(); } catch(e){}
   collab = {
     peer: null, conns: [], guestConn: null, members: {},
     roomId: null, isHost: false, active: false,
@@ -4935,11 +4645,11 @@ function stopCollab(){
     myClientId: getMyClientId(), myName: '',
     reconnectTimer: null, reconnectAttempt: 0,
     intentionalClose: false, hostClaimRetries: 0,
-    deltaCache: {}, dirtySinceLastPatch: false,
-    memberBroadcastTimer: null, cacheSaveTimer: null
+    deltaCache: {}, memberBroadcastTimer: null, cacheSaveTimer: null
   };
   updateCollabBadge();
   updateCollabMembersUI();
+  toast('اتصال قطع شد');
 }
 
 function leaveCollabPermanent(){
@@ -4948,43 +4658,30 @@ function leaveCollabPermanent(){
     for (var i = 0; i < collab.conns.length; i++){
       try { collab.conns[i].send(msg); } catch(e){}
     }
-    wipeMembersCache(collab.roomId);
+    try { localStorage.removeItem(COLLAB_MEMBERS_KEY); } catch(e){}
   } else if (collab.guestConn){
     try { collab.guestConn.send(packMessage({ type: 'bye', clientId: collab.myClientId })); } catch(e){}
   }
   clearSession();
   stopCollab();
-  toast('اتصال قطع شد');
 }
 
-// ═════════════════════════════════════════════════════════
-// AUTO-REJOIN (robust: waits for Peer)
-// ═════════════════════════════════════════════════════════
+// ─── Auto-rejoin on load ─────────────────────────────────
 function autoRejoin(){
   var s = getSession();
   if (!s || !s.roomId || !s.name) return false;
+  if (!window.Peer) return false;
 
   var nameEl = document.getElementById('collab-name');
   if (nameEl) nameEl.value = s.name;
 
-  var attempts = 0;
-  var maxAttempts = 60; // ~15s max
-  var tryStart = function(){
-    if (typeof window.Peer !== 'undefined'){
-      try {
-        if (s.role === 'host'){
-          startCollabHost(s.name, s.roomId);
-        } else {
-          startCollabJoin(s.roomId, s.name);
-        }
-      } catch(e){ logger.warn('autoRejoin start', e); }
-    } else if (attempts++ < maxAttempts){
-      setTimeout(tryStart, 250);
+  setTimeout(function(){
+    if (s.role === 'host'){
+      startCollabHost(s.name, s.roomId);
     } else {
-      logger.warn('autoRejoin: PeerJS never loaded');
+      startCollabJoin(s.roomId, s.name);
     }
-  };
-  setTimeout(tryStart, 300);
+  }, 500);
   return true;
 }
 
@@ -5004,8 +4701,7 @@ for (var i = 0; i < toolBtns.length; i++){
         toolBtns[j].classList.toggle('active', toolBtns[j] === btn);
       }
       updateTextSection();
-      updateSelectionIndicator();
-      scheduleRender();
+      render();
     });
   })(toolBtns[i]);
 }
@@ -5024,119 +4720,17 @@ function updateTextSection(){
   sec.style.display = show ? 'block' : 'none';
 }
 
-function updateSelectionIndicator(){
-  var ind = document.getElementById('selection-indicator');
-  if (!ind) return;
-  ind.classList.toggle('show', hasSelection());
-}
-
-// ═════════════════════════════════════════════════════════
-// APPLY-TO-SELECTION HELPERS
-// ═════════════════════════════════════════════════════════
-function applyColorToSelection(color){
-  var changed = false;
-  for (var i = 0; i < state.elements.length; i++){
-    var el = state.elements[i];
-    if (!state.selected[el.id]) continue;
-    if (el.tool === 'image') continue;
-    el.color = color;
-    changed = true;
-  }
-  if (changed){ pushHistory(); scheduleRender(); }
-  return changed;
-}
-
-function applyWidthToSelection(width){
-  var changed = false;
-  for (var i = 0; i < state.elements.length; i++){
-    var el = state.elements[i];
-    if (!state.selected[el.id]) continue;
-    if (el.tool === 'image' || el.tool === 'text') continue;
-    el.width = width;
-    changed = true;
-  }
-  if (changed){ pushHistory(); scheduleRender(); }
-  return changed;
-}
-
-function applyOpacityToSelection(op){
-  var changed = false;
-  for (var i = 0; i < state.elements.length; i++){
-    var el = state.elements[i];
-    if (!state.selected[el.id]) continue;
-    el.opacity = op;
-    changed = true;
-  }
-  if (changed){ pushHistory(); scheduleRender(); }
-  return changed;
-}
-
-function applyPenStyleToSelection(style){
-  var changed = false;
-  for (var i = 0; i < state.elements.length; i++){
-    var el = state.elements[i];
-    if (!state.selected[el.id]) continue;
-    if (el.tool !== 'pen' && el.tool !== 'highlighter') continue;
-    el.penStyle = style;
-    changed = true;
-  }
-  if (changed){ pushHistory(); scheduleRender(); }
-  return changed;
-}
-
-// ═════════════════════════════════════════════════════════
-// RECENT COLORS
-// ═════════════════════════════════════════════════════════
-function addRecentColor(color){
-  if (!color) return;
-  recentColors = recentColors.filter(function(c){ return c !== color; });
-  recentColors.unshift(color);
-  if (recentColors.length > 8) recentColors.length = 8;
-  try { localStorage.setItem(RECENT_COLORS_KEY, JSON.stringify(recentColors)); } catch(e){}
-  renderRecentColors();
-}
-
-function renderRecentColors(){
-  var el = document.getElementById('recent-colors');
-  var section = document.getElementById('recent-section');
-  if (!el || !section) return;
-  if (recentColors.length === 0){
-    section.style.display = 'none';
-    return;
-  }
-  section.style.display = 'block';
-  el.innerHTML = '';
-  recentColors.forEach(function(c){
-    var btn = document.createElement('button');
-    btn.style.background = c;
-    btn.title = c;
-    btn.addEventListener('click', function(){
-      state.color = c;
-      document.getElementById('swatch-dot').style.setProperty('--c', state.color);
-      document.getElementById('color-input').value = c;
-      for (var j = 0; j < colorBtns.length; j++) colorBtns[j].classList.remove('active');
-      if (applyColorToSelection(c)) toast('رنگ اعمال شد');
-    });
-    el.appendChild(btn);
-  });
-}
-
-// ═════════════════════════════════════════════════════════
 // COLORS
-// ═════════════════════════════════════════════════════════
 var colorBtns = document.querySelectorAll('#colors button');
 for (var k = 0; k < colorBtns.length; k++){
   (function(btn){
     btn.addEventListener('click', function(){
-      var c = btn.getAttribute('data-c');
-      state.color = c;
-      addRecentColor(c);
+      state.color = btn.getAttribute('data-c');
       document.getElementById('swatch-dot').style.setProperty('--c', state.color);
       document.getElementById('color-input').value = state.color;
       for (var j = 0; j < colorBtns.length; j++){
         colorBtns[j].classList.toggle('active', colorBtns[j] === btn);
       }
-      if (applyColorToSelection(c)) toast('رنگ اعمال شد');
     });
   })(colorBtns[k]);
 }
@@ -5145,10 +4739,6 @@ document.getElementById('color-input').addEventListener('input', function(){
   state.color = this.value;
   document.getElementById('swatch-dot').style.setProperty('--c', state.color);
   for (var j = 0; j < colorBtns.length; j++) colorBtns[j].classList.remove('active');
-});
-document.getElementById('color-input').addEventListener('change', function(){
-  addRecentColor(this.value);
-  if (applyColorToSelection(this.value)) toast('رنگ اعمال شد');
 });
 
 // FILLS
@@ -5169,12 +4759,10 @@ var widthBtns = document.querySelectorAll('#widths button');
 for (var m = 0; m < widthBtns.length; m++){
   (function(btn){
     btn.addEventListener('click', function(){
-      var w = parseInt(btn.getAttribute('data-w'), 10);
-      state.width = w;
+      state.width = parseInt(btn.getAttribute('data-w'), 10);
       for (var j = 0; j < widthBtns.length; j++){
         widthBtns[j].classList.toggle('active', widthBtns[j] === btn);
       }
-      if (applyWidthToSelection(w)) toast('ضخامت اعمال شد');
     });
   })(widthBtns[m]);
 }
@@ -5186,22 +4774,16 @@ opacityInput.addEventListener('input', function(){
   state.opacity = parseInt(this.value, 10) / 100;
   opacityValue.textContent = this.value + '%';
 });
-opacityInput.addEventListener('change', function(){
-  var op = parseInt(this.value, 10) / 100;
-  if (applyOpacityToSelection(op)) toast('شفافیت اعمال شد');
-});
 
 // PEN STYLES
 var penStyleBtns = document.querySelectorAll('#pen-styles button');
 for (var s = 0; s < penStyleBtns.length; s++){
   (function(btn){
     btn.addEventListener('click', function(){
-      var style = btn.getAttribute('data-style');
-      state.penStyle = style;
+      state.penStyle = btn.getAttribute('data-style');
       for (var j = 0; j < penStyleBtns.length; j++){
         penStyleBtns[j].classList.toggle('active', penStyleBtns[j] === btn);
       }
-      if (applyPenStyleToSelection(style)) toast('سبک قلم اعمال شد');
     });
   })(penStyleBtns[s]);
 }
@@ -5227,7 +4809,7 @@ for (var ts = 0; ts < textSizeBtns.length; ts++){
         textSizeBtns[j].classList.toggle('active', textSizeBtns[j] === btn);
       }
       pushHistory();
-      scheduleRender();
+      render();
     });
   })(textSizeBtns[ts]);
 }
@@ -5248,7 +4830,7 @@ for (var tf = 0; tf < textFmtBtns.length; tf++){
         btn.classList.toggle('active', state.textItalic);
       }
       pushHistory();
-      scheduleRender();
+      render();
     });
   })(textFmtBtns[tf]);
 }
@@ -5287,7 +4869,7 @@ function openPanel(id){
   document.querySelectorAll('.side-panel').forEach(function(p){
     p.classList.toggle('open', p.id === id);
   });
-  if (id === 'layers-panel') _renderLayersPanelNow();
+  if (id === 'layers-panel') renderLayersPanel();
 }
 document.getElementById('layers-toggle').addEventListener('click', function(e){
   e.stopPropagation();
@@ -5319,10 +4901,9 @@ document.getElementById('clear').addEventListener('click', function(){
   state.elements = [];
   state.selected = {};
   imageCache = {};
-  pushHistoryImmediate();
-  scheduleRender();
-  scheduleRenderLayers();
-  updateSelectionIndicator();
+  pushHistory();
+  render();
+  renderLayersPanel();
   toast('پاک شد');
 });
 
@@ -5344,14 +4925,8 @@ document.getElementById('share-import').addEventListener('click', function(){
 document.getElementById('negar-input').addEventListener('change', function(e){
   var file = e.target.files && e.target.files[0];
   if (!file) return;
-  if (file.size > 100 * 1024 * 1024){
-    toast('فایل بیش از حد بزرگ است', true);
-    e.target.value = '';
-    return;
-  }
   var reader = new FileReader();
   reader.onload = function(ev){ importNegarData(ev.target.result); };
-  reader.onerror = function(){ toast('خطا در خواندن فایل', true); };
   reader.readAsText(file);
   e.target.value = '';
   document.getElementById('share-modal').classList.remove('open');
@@ -5418,8 +4993,8 @@ fileInput.addEventListener('change', function(e){
   if (!files.length) return;
   processFiles(files).then(function(){
     pushHistory();
-    scheduleRender();
-    scheduleRenderLayers();
+    render();
+    renderLayersPanel();
   });
   e.target.value = '';
 });
@@ -5465,8 +5040,8 @@ window.addEventListener('drop', function(e){
     hideHint();
     processFiles(files).then(function(){
       pushHistory();
-      scheduleRender();
-      scheduleRenderLayers();
+      render();
+      renderLayersPanel();
     });
   }
 });
@@ -5490,13 +5065,13 @@ function zoomAt(sx, sy, factor){
   state.viewport.z = nz;
   updateStageBg();
   updateZoomBadge();
-  scheduleRender();
+  render();
 }
 
 // TOAST
-function toast(msg, isError){
+function toast(msg){
   var t = document.createElement('div');
-  t.className = 'toast' + (isError ? ' error' : '');
+  t.className = 'toast';
   t.textContent = msg;
   document.getElementById('toasts').appendChild(t);
   setTimeout(function(){
@@ -5504,7 +5079,7 @@ function toast(msg, isError){
     t.style.opacity = '0';
     t.style.transform = 'translateY(-8px)';
     setTimeout(function(){ t.remove(); }, 250);
-  }, 2200);
+  }, 2000);
 }
 
 // PASTE
@@ -5526,7 +5101,7 @@ document.addEventListener('paste', function(e){
         if (blob){
           handleImageFile(blob, 0).then(function(){
             pushHistory();
-            scheduleRender();
+            render();
             toast('تصویر چسبانده شد');
           });
         }
@@ -5570,7 +5145,7 @@ function addTextAtCenter(text){
     x: cx, y: cy
   });
   pushHistory();
-  scheduleRender();
+  render();
   toast('متن چسبانده شد');
 }
 
@@ -5648,9 +5223,9 @@ document.addEventListener('keydown', function(e){
       var el = state.elements[i];
       if (state.selected[el.id]) moveElementBy(el, adx, ady);
     }
-    scheduleRender();
+    render();
     clearTimeout(arrowTimer);
-    arrowTimer = setTimeout(function(){ pushHistoryImmediate(); }, 400);
+    arrowTimer = setTimeout(function(){ pushHistory(); }, 400);
     return;
   }
 
@@ -5677,10 +5252,6 @@ document.addEventListener('keydown', function(e){
   }
 
   if (e.key === 'Escape'){
-    // FIX: Escape cancels current drawing first
-    if (cancelCurrentDrawing()){
-      return;
-    }
     state.selected = {};
     panel.classList.remove('open');
     closeHelp();
@@ -5689,8 +5260,7 @@ document.addEventListener('keydown', function(e){
     document.querySelectorAll('.help-modal').forEach(function(m){ m.classList.remove('open'); });
     if (textOverlay) commitText();
     updateTextSection();
-    updateSelectionIndicator();
-    scheduleRender();
+    render();
     return;
   }
 
@@ -5732,8 +5302,8 @@ if (loadedFromURL){
   state.history = [JSON.stringify(state.elements)];
   state.histIdx = 0;
   updateHist();
-  scheduleRender();
-  scheduleRenderLayers();
+  render();
+  renderLayersPanel();
   toast('بوم از لینک بازیابی شد');
 } else {
   var loaded = loadFromStorage();
@@ -5741,35 +5311,26 @@ if (loadedFromURL){
     state.history = [JSON.stringify(state.elements)];
     state.histIdx = 0;
     updateHist();
-    scheduleRender();
-    scheduleRenderLayers();
-    updateStageBg();
+    render();
+    renderLayersPanel();
     toast('بوم بازیابی شد');
   } else {
-    pushHistoryImmediate();
+    pushHistory();
   }
 }
 
 updateHist();
 updateZoomBadge();
-updateStageBg();
 document.getElementById('swatch-dot').style.setProperty('--c', state.color);
-renderRecentColors();
 updateCollabBadge();
 updateCollabMembersUI();
-updateSelectionIndicator();
-_renderLayersPanelNow();
+renderLayersPanel();
 
 resetDeltaCacheFromState();
 autoRejoin();
 
-// Persist viewport on unload
-window.addEventListener('beforeunload', function(){
-  try { localStorage.setItem(VIEWPORT_KEY, JSON.stringify(state.viewport)); } catch(e){}
-});
-
-logger.info('Negar v1.4 ready');
-logger.info('Author: github.com/here-is-leo');
+console.log('Negar v1.3 ready — delta sync, compression, 100-user rooms');
+console.log('Author: github.com/here-is-leo');
 })();
 </script>
 </body>
