@@ -2,8 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://0.peerjs.com wss://0.peerjs.com; worker-src 'self' blob: https://cdnjs.cloudflare.com; object-src 'none'; base-uri 'self';">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Negar</title>
 <link rel="icon" type="image/png" href="assets/negar-logo.png">
 <link rel="apple-touch-icon" href="assets/negar-logo.png">
@@ -28,7 +27,7 @@
   --border-2:rgba(24,24,27,.14);
   --text:#18181B;
   --text-2:#52525B;
-  --text-3:#71717A;
+  --text-3:#A1A1AA;
   --shadow:0 4px 14px rgba(24,24,27,.08);
   --shadow-lg:0 16px 40px rgba(24,24,27,.14);
   --shadow-xl:0 24px 60px rgba(24,24,27,.18);
@@ -348,7 +347,7 @@ body.drag-over::after{
 .brand-badge:hover .brand-badge__author{color:var(--accent)}
 
 .signature{
-  position:fixed;bottom:20px;left:20px;
+  position:fixed;bottom:20px;right:20px;
   display:flex;align-items:center;gap:6px;
   padding:6px 12px;background:transparent;border:1px solid transparent;
   border-radius:999px;font-size:11px;color:var(--text-3);text-decoration:none;z-index:100;
@@ -755,7 +754,7 @@ body.dark .collab-reconnect{color:#FCD34D}
   .brand-badge__name{font-size:12px}
   .brand-badge__author{font-size:9px}
   .brand-badge__author svg{width:9px;height:9px}
-  .signature{bottom:76px;left:12px;font-size:10px;padding:4px 8px}
+  .signature{bottom:76px;right:12px;font-size:10px;padding:4px 8px}
   .help-modal__panel{width:95vw}
   .ctx-menu{min-width:200px}
   .side-panel{
@@ -779,38 +778,38 @@ body.dark .collab-reconnect{color:#FCD34D}
 <input type="file" id="negar-input" accept=".negar,.json,application/json" style="display:none">
 
 <header class="topbar">
-  <button class="icon-btn" id="undo" aria-label="واگرد" title="واگرد (Ctrl+Z)">
+  <button class="icon-btn" id="undo" title="واگرد (Ctrl+Z)">
     <svg viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 00-9-9 9 9 0 00-6.7 3L3 13"/></svg>
   </button>
-  <button class="icon-btn" id="redo" aria-label="ازنو" title="ازنو (Ctrl+Shift+Z)">
+  <button class="icon-btn" id="redo" title="ازنو (Ctrl+Shift+Z)">
     <svg viewBox="0 0 24 24"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 019-9 9 9 0 016.7 3L21 13"/></svg>
   </button>
   <div class="title">
     <span class="save-dot" id="save-dot"></span>
     <span>ذخیره خودکار</span>
   </div>
-  <button class="icon-btn" id="upload-btn" aria-label="آپلود PDF یا تصویر" title="آپلود PDF / تصویر">
+  <button class="icon-btn" id="upload-btn" title="آپلود PDF / تصویر">
     <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
   </button>
-  <button class="icon-btn" id="export-pdf" aria-label="ذخیره PDF" title="ذخیره PDF">
+  <button class="icon-btn" id="export-pdf" title="ذخیره PDF">
     <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
   </button>
-  <button class="icon-btn" id="export-svg" aria-label="ذخیره SVG" title="ذخیره SVG">
+  <button class="icon-btn" id="export-svg" title="ذخیره SVG">
     <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10l10 5 10-5V7z"/><path d="M2 7l10 5 10-5"/><path d="M12 12v10"/></svg>
   </button>
-  <button class="icon-btn" id="share-btn" aria-label="اشتراک‌گذاری" title="اشتراک‌گذاری">
+  <button class="icon-btn" id="share-btn" title="اشتراک‌گذاری">
     <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>
   </button>
-  <button class="icon-btn" id="collab-btn" aria-label="همکاری زنده" title="همکاری زنده">
+  <button class="icon-btn" id="collab-btn" title="همکاری زنده">
     <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
   </button>
-  <button class="icon-btn" id="help-btn" aria-label="راهنما" title="راهنما (?)">
+  <button class="icon-btn" id="help-btn" title="راهنما (?)">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 015.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
   </button>
-  <button class="icon-btn" id="theme" aria-label="تغییر تم" title="تم">
+  <button class="icon-btn" id="theme" title="تم">
     <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
   </button>
-  <button class="icon-btn" id="export" aria-label="ذخیره PNG" title="ذخیره PNG">
+  <button class="icon-btn" id="export" title="ذخیره PNG">
     <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
   </button>
 </header>
@@ -860,37 +859,37 @@ body.dark .collab-reconnect{color:#FCD34D}
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
   </button>
   <div class="divider"></div>
-  <button class="tool swatch" id="swatch" aria-label="تنظیمات سبک قلم" title="سبک">
+  <button class="tool swatch" id="swatch" title="سبک">
     <span class="dot" id="swatch-dot"></span>
   </button>
   <div class="divider"></div>
-  <button class="tool" id="layers-toggle" aria-label="لایه‌ها" title="لایه‌ها (Ctrl+L)">
+  <button class="tool" id="layers-toggle" title="لایه‌ها (Ctrl+L)">
     <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
   </button>
-  <button class="tool" id="stencil-toggle" aria-label="کتابخانه شکل" title="کتابخانه شکل">
+  <button class="tool" id="stencil-toggle" title="کتابخانه شکل">
     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><circle cx="17.5" cy="6.5" r="3.5"/><path d="M7 14l5 7H2z"/></svg>
   </button>
   <div class="divider"></div>
-  <button class="tool danger" id="clear" aria-label="پاک کردن همه" title="پاک کردن همه">
+  <button class="tool danger" id="clear" title="پاک کردن همه">
     <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
   </button>
 </aside>
 
-<div class="panel" id="panel" inert>
+<div class="panel" id="panel">
   <div class="selection-indicator" id="selection-indicator">
     ✏️ تغییرات روی آیتم‌های انتخاب‌شده اعمال می‌شود
   </div>
   <section>
     <h4>رنگ خط</h4>
     <div class="colors" id="colors">
-      <button aria-label="انتخاب رنگ" data-c="#18181B" style="--c:#18181B" class="active"></button>
-      <button aria-label="انتخاب رنگ" data-c="#EF4444" style="--c:#EF4444"></button>
-      <button aria-label="انتخاب رنگ" data-c="#10B981" style="--c:#10B981"></button>
-      <button aria-label="انتخاب رنگ" data-c="#3B82F6" style="--c:#3B82F6"></button>
-      <button aria-label="انتخاب رنگ" data-c="#F59E0B" style="--c:#F59E0B"></button>
-      <button aria-label="انتخاب رنگ" data-c="#8B5CF6" style="--c:#8B5CF6"></button>
-      <button aria-label="انتخاب رنگ" data-c="#EC4899" style="--c:#EC4899"></button>
-      <button aria-label="انتخاب رنگ" data-c="#FFFFFF" style="--c:#FFFFFF"></button>
+      <button data-c="#18181B" style="--c:#18181B" class="active"></button>
+      <button data-c="#EF4444" style="--c:#EF4444"></button>
+      <button data-c="#10B981" style="--c:#10B981"></button>
+      <button data-c="#3B82F6" style="--c:#3B82F6"></button>
+      <button data-c="#F59E0B" style="--c:#F59E0B"></button>
+      <button data-c="#8B5CF6" style="--c:#8B5CF6"></button>
+      <button data-c="#EC4899" style="--c:#EC4899"></button>
+      <button data-c="#FFFFFF" style="--c:#FFFFFF"></button>
     </div>
   </section>
   <section id="recent-section" style="display:none">
@@ -907,14 +906,14 @@ body.dark .collab-reconnect{color:#FCD34D}
   <section>
     <h4>رنگ پر (اشکال)</h4>
     <div class="colors" id="fills">
-      <button aria-label="انتخاب رنگ پر" data-f="none" class="none active"></button>
-      <button aria-label="انتخاب رنگ پر" data-f="#FFC9C9" style="--c:#FFC9C9"></button>
-      <button aria-label="انتخاب رنگ پر" data-f="#B2F2BB" style="--c:#B2F2BB"></button>
-      <button aria-label="انتخاب رنگ پر" data-f="#A5D8FF" style="--c:#A5D8FF"></button>
-      <button aria-label="انتخاب رنگ پر" data-f="#FFEC99" style="--c:#FFEC99"></button>
-      <button aria-label="انتخاب رنگ پر" data-f="#EEBEFA" style="--c:#EEBEFA"></button>
-      <button aria-label="انتخاب رنگ پر" data-f="#FFD8A8" style="--c:#FFD8A8"></button>
-      <button aria-label="انتخاب رنگ پر" data-f="#99E9F2" style="--c:#99E9F2"></button>
+      <button data-f="none" class="none active"></button>
+      <button data-f="#FFC9C9" style="--c:#FFC9C9"></button>
+      <button data-f="#B2F2BB" style="--c:#B2F2BB"></button>
+      <button data-f="#A5D8FF" style="--c:#A5D8FF"></button>
+      <button data-f="#FFEC99" style="--c:#FFEC99"></button>
+      <button data-f="#EEBEFA" style="--c:#EEBEFA"></button>
+      <button data-f="#FFD8A8" style="--c:#FFD8A8"></button>
+      <button data-f="#99E9F2" style="--c:#99E9F2"></button>
     </div>
   </section>
   <section>
@@ -1038,7 +1037,7 @@ body.dark .collab-reconnect{color:#FCD34D}
           </div>
           <div class="help-meta__row">
             <span class="help-meta__label">نسخه</span>
-            <span class="help-meta__value">1.5</span>
+            <span class="help-meta__value">1.4.0</span>
           </div>
         </div>
       </div>
@@ -1248,27 +1247,7 @@ if (window.pdfjsLib) {
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 }
 
-function secureRandomHex(bytes){
-  bytes = bytes || 16;
-  var a = new Uint8Array(bytes);
-  if (window.crypto && window.crypto.getRandomValues){
-    window.crypto.getRandomValues(a);
-  } else {
-    for (var i = 0; i < a.length; i++) a[i] = Math.floor(Math.random() * 256);
-  }
-  var out = '';
-  for (var j = 0; j < a.length; j++) out += a[j].toString(16).padStart(2, '0');
-  return out;
-}
-function uid(){ return secureRandomHex(8); }
-function canEdit(){
-  return !collab.active || collab.isHost || collab.canDraw;
-}
-function requireEdit(){
-  if (canEdit()) return true;
-  toast('اجازه ویرایش ندارید', true);
-  return false;
-}
+function uid(){ return Math.random().toString(36).slice(2, 10); }
 
 function resize(){
   dpr = Math.min(window.devicePixelRatio || 1, 2.5);
@@ -1317,7 +1296,7 @@ var state = {
   gridVisible: true,
   clipboard: [],
   viewport: { x: 0, y: 0, z: 1 },
-  usePressure: (function(){ try { var v = JSON.parse(localStorage.getItem('negar-pressure') || 'true'); return v === true; } catch(e){ return true; } })()
+  usePressure: JSON.parse(localStorage.getItem('negar-pressure') || 'true')
 };
 
 document.body.dataset.tool = state.tool;
@@ -1395,20 +1374,16 @@ function loadFromStorage(){
     if (!data) return false;
     var els = JSON.parse(data);
     if (!Array.isArray(els) || els.length === 0) return false;
-    var clean = [];
-    for (var i = 0; i < Math.min(els.length, MAX_IMPORT_ELEMENTS); i++){
-      var safe = sanitizeElement(els[i]);
-      if (!safe) continue;
-      if (safe.tool === 'image' && safe.src){
+    for (var i = 0; i < els.length; i++){
+      if (!els[i].id) els[i].id = uid();
+      if (els[i].tool === 'image' && els[i].src){
         var img = new Image();
-        img.src = safe.src;
-        imageCache[safe.id] = img;
+        img.src = els[i].src;
+        imageCache[els[i].id] = img;
         img.onload = function(){ scheduleRender(); };
       }
-      clean.push(safe);
     }
-    if (!clean.length) return false;
-    state.elements = clean;
+    state.elements = els;
     // Restore viewport
     try {
       var vp = JSON.parse(localStorage.getItem(VIEWPORT_KEY) || 'null');
@@ -2190,15 +2165,9 @@ function handlePDFFile(file, offsetY){
     showPdfLoading(true, 'در حال خواندن PDF...');
 
     file.arrayBuffer().then(function(buffer){
-      return pdfjsLib.getDocument({ data: buffer, isEvalSupported: false }).promise;
+      return pdfjsLib.getDocument({ data: buffer }).promise;
     }).then(function(pdf){
       var totalPages = pdf.numPages;
-      if (totalPages > 30){
-        showPdfLoading(false);
-        toast('PDF بیش از ۳۰ صفحه است', true);
-        resolve();
-        return;
-      }
       toast('PDF بارگذاری شد — ' + totalPages + ' صفحه');
 
       var pagePromises = [];
@@ -3394,7 +3363,7 @@ function startTextTool(wx, wy, editEl){
   var anchorX = wx * state.viewport.z + state.viewport.x + r.left;
   var anchorY = wy * state.viewport.z + state.viewport.y + r.top;
 
-  var color = COLOR_RE.test(String(editEl ? editEl.color : state.color)) ? String(editEl ? editEl.color : state.color) : '#18181B';
+  var color = editEl ? editEl.color : state.color;
   var fontSize = editEl ? (editEl.fontSize || 20) : state.textFontSize;
   var fontWeight = (editEl ? editEl.bold : state.textBold) ? '700' : '500';
   var fontStyle = (editEl ? editEl.italic : state.textItalic) ? 'italic' : 'normal';
@@ -3423,7 +3392,12 @@ function startTextTool(wx, wy, editEl){
 
   if (editEl){
     textOverlay.value = editEl.text || '';
-    editEl.hidden = true;
+    for (var i = 0; i < state.elements.length; i++){
+      if (state.elements[i].id === editEl.id){
+        state.elements.splice(i, 1);
+        break;
+      }
+    }
     textTarget = { x: editEl.x, y: editEl.y, _src: editEl };
     scheduleRender();
   } else {
@@ -3450,7 +3424,7 @@ function cancelTextEdit(){
   textTarget = null;
   ta.removeEventListener('blur', commitText);
   ta.remove();
-  if (pos && pos._src) pos._src.hidden = false;
+  if (pos && pos._src) state.elements.push(pos._src);
   scheduleRender();
 }
 
@@ -3467,30 +3441,25 @@ function commitText(){
     ta.removeEventListener('blur', commitText);
     ta.remove();
     if (!txt || !txt.trim()){
-      if (pos && pos._src) pos._src.hidden = false;
+      if (pos && pos._src) state.elements.push(pos._src);
       scheduleRender();
       return;
     }
 
     var base = pos._src;
-    if (base){
-      base.text = txt.slice(0, 5000);
-      base.hidden = false;
-      base.color = COLOR_RE.test(String(base.color || '')) ? base.color : '#18181B';
-    } else {
-      state.elements.push({
-        id: uid(),
-        tool: 'text',
-        text: txt.slice(0, 5000),
-        color: state.color,
-        opacity: state.opacity,
-        fontSize: state.textFontSize,
-        bold: state.textBold,
-        italic: state.textItalic,
-        x: pos.x,
-        y: pos.y
-      });
-    }
+    state.elements.push({
+      id: uid(),
+      tool: 'text',
+      text: txt,
+      color: base ? base.color : state.color,
+      opacity: base ? (base.opacity != null ? base.opacity : 1) : state.opacity,
+      fontSize: base ? (base.fontSize || 20) : state.textFontSize,
+      bold: base ? !!base.bold : state.textBold,
+      italic: base ? !!base.italic : state.textItalic,
+      groupId: base ? base.groupId : undefined,
+      x: pos.x,
+      y: pos.y
+    });
     pushHistory();
     scheduleRender();
     scheduleRenderLayers();
@@ -3599,17 +3568,10 @@ function exportPNG(){
   ensureImagesLoaded().then(function(){
     var result = renderContentToCanvas(2);
     if (!result){ toast('محتوایی برای خروجی نیست'); return; }
-    try {
-      var dataUrl = result.canvas.toDataURL('image/png');
-      var a = document.createElement('a');
-      a.download = 'negar-' + Date.now() + '.png';
-      a.href = dataUrl;
-      a.click();
-    } catch(e){
-      logger.error('PNG export failed', e);
-      toast('خروجی PNG ممکن نیست؛ یکی از تصاویر بوم نامعتبر یا ناامن است', true);
-      return;
-    }
+    var a = document.createElement('a');
+    a.download = 'negar-' + Date.now() + '.png';
+    a.href = result.canvas.toDataURL('image/png');
+    a.click();
     toast('PNG ذخیره شد (' + result.canvas.width + '×' + result.canvas.height + ')');
   });
 }
@@ -3621,79 +3583,76 @@ function escapeXML(s){
 }
 
 function elementToSVG(el){
-  if (!el || el.hidden) return '';
-  function N(v){ v = Number(v); return isFinite(v) ? v : 0; }
-  function A(v){ return escapeXML(String(v == null ? '' : v)); }
-  var opacity = clampNum(el.opacity, 0.05, 1, 1);
+  if (el.hidden) return '';
+  var opacity = el.opacity != null ? el.opacity : 1;
   if (el.tool === 'highlighter') opacity *= 0.4;
-  var opAttr = opacity < 1 ? ' opacity="' + N(opacity) + '"' : '';
-  var stroke = A(COLOR_RE.test(String(el.color || '')) ? el.color : '#18181B');
-  var width = N(clampNum(el.width, 1, 64, 4));
-  var strokeAttrs = 'stroke="' + stroke + '" stroke-width="' + width + '" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+  var opAttr = opacity < 1 ? ' opacity="' + opacity + '"' : '';
+  var strokeAttrs = 'stroke="' + el.color + '" stroke-width="' + (el.width || 4) + '" stroke-linecap="round" stroke-linejoin="round" fill="none"';
 
   if (el.tool === 'image'){
-    return '<image x="' + N(el.x) + '" y="' + N(el.y) + '" width="' + N(el.width) +
-      '" height="' + N(el.height) + '" href="' + A(el.src) + '" xlink:href="' + A(el.src) + '"' + opAttr + '/>';
+    // FIX: escapeXML on src
+    return '<image x="' + el.x + '" y="' + el.y + '" width="' + el.width +
+      '" height="' + el.height + '" xlink:href="' + escapeXML(el.src) + '"' + opAttr + '/>';
   }
   if (el.tool === 'stencil'){
-    var sx = N(el.w) / (N(el.baseW) || 1);
-    var sy = N(el.h) / (N(el.baseH) || 1);
+    var sx = el.w / el.baseW;
+    var sy = el.h / el.baseH;
     var avgS = (Math.abs(sx) + Math.abs(sy)) / 2 || 1;
-    var fillC = (el.fill && el.fill !== 'none' && COLOR_RE.test(String(el.fill))) ? el.fill : 'none';
-    return '<g transform="translate(' + N(el.x) + ',' + N(el.y) + ') scale(' + N(sx) + ',' + N(sy) + ')"' + opAttr + '>' +
-      '<path d="' + A(el.path) + '" fill="' + A(fillC) + '" stroke="' + stroke +
-      '" stroke-width="' + N(width/avgS) + '" stroke-linejoin="round" stroke-linecap="round"/></g>';
+    var fillC = (el.fill && el.fill !== 'none') ? el.fill : 'none';
+    return '<g transform="translate(' + el.x + ',' + el.y + ') scale(' + sx + ',' + sy + ')"' + opAttr + '>' +
+      '<path d="' + el.path + '" fill="' + fillC + '" stroke="' + el.color +
+      '" stroke-width="' + ((el.width||4)/avgS) + '" stroke-linejoin="round" stroke-linecap="round"/></g>';
   }
   if (el.points){
-    var pts = el.points.slice(0, MAX_POINTS).map(function(p){ return N(p.x).toFixed(1) + ',' + N(p.y).toFixed(1); }).join(' ');
-    var avgW = width * (el.tool === 'highlighter' ? 3.5 : 1.2);
-    return '<polyline points="' + A(pts) + '" fill="none" stroke="' + stroke +
-      '" stroke-width="' + N(avgW) + '" stroke-linecap="round" stroke-linejoin="round"' + opAttr + '/>';
+    var pts = el.points.map(function(p){ return p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' ');
+    var avgW = (el.width || 4) * (el.tool === 'highlighter' ? 3.5 : 1.2);
+    return '<polyline points="' + pts + '" fill="none" stroke="' + el.color +
+      '" stroke-width="' + avgW + '" stroke-linecap="round" stroke-linejoin="round"' + opAttr + '/>';
   }
   if (el.tool === 'text'){
-    var lines = String(el.text || '').slice(0,5000).split('\n');
-    var lh = N(el.fontSize || 20) * 1.35;
+    var lines = (el.text || '').split('\n');
+    var lh = (el.fontSize || 20) * 1.35;
     var tspans = '';
     for (var i = 0; i < lines.length; i++){
-      tspans += '<tspan x="' + N(el.x) + '" dy="' + N(i === 0 ? 0 : lh) + '">' + A(lines[i]) + '</tspan>';
+      tspans += '<tspan x="' + el.x + '" dy="' + (i === 0 ? 0 : lh) + '">' + escapeXML(lines[i]) + '</tspan>';
     }
     var fw = el.bold ? '700' : '500';
     var fs = el.italic ? 'italic' : 'normal';
-    return '<text x="' + N(el.x) + '" y="' + N(N(el.y) + N(el.fontSize || 20) * 0.8) +
+    return '<text x="' + el.x + '" y="' + (el.y + (el.fontSize || 20) * 0.8) +
       '" text-anchor="end" direction="rtl" font-family="Vazirmatn, system-ui, sans-serif" ' +
-      'font-size="' + N(el.fontSize || 20) + '" font-weight="' + fw +
-      '" font-style="' + fs + '" fill="' + stroke + '"' + opAttr + '>' + tspans + '</text>';
+      'font-size="' + (el.fontSize || 20) + '" font-weight="' + fw +
+      '" font-style="' + fs + '" fill="' + el.color + '"' + opAttr + '>' + tspans + '</text>';
   }
   if (el.tool === 'line'){
-    return '<line x1="' + N(el.x1) + '" y1="' + N(el.y1) + '" x2="' + N(el.x2) + '" y2="' + N(el.y2) +
+    return '<line x1="' + el.x1 + '" y1="' + el.y1 + '" x2="' + el.x2 + '" y2="' + el.y2 +
       '" ' + strokeAttrs + opAttr + '/>';
   }
   if (el.tool === 'rect'){
-    var rx = Math.min(N(el.x1), N(el.x2)), ry = Math.min(N(el.y1), N(el.y2));
-    var rw = Math.abs(N(el.x2) - N(el.x1)), rh = Math.abs(N(el.y2) - N(el.y1));
-    var fillR = (el.fill && el.fill !== 'none' && COLOR_RE.test(String(el.fill))) ? el.fill : 'none';
+    var rx = Math.min(el.x1, el.x2), ry = Math.min(el.y1, el.y2);
+    var rw = Math.abs(el.x2 - el.x1), rh = Math.abs(el.y2 - el.y1);
+    var fillR = (el.fill && el.fill !== 'none') ? el.fill : 'none';
     return '<rect x="' + rx + '" y="' + ry + '" width="' + rw + '" height="' + rh +
-      '" rx="8" fill="' + A(fillR) + '" ' + strokeAttrs + opAttr + '/>';
+      '" rx="8" fill="' + fillR + '" ' + strokeAttrs + opAttr + '/>';
   }
   if (el.tool === 'ellipse'){
-    var cx = (N(el.x1) + N(el.x2)) / 2, cy = (N(el.y1) + N(el.y2)) / 2;
-    var rxE = Math.abs(N(el.x2) - N(el.x1)) / 2, ryE = Math.abs(N(el.y2) - N(el.y1)) / 2;
-    var fillE = (el.fill && el.fill !== 'none' && COLOR_RE.test(String(el.fill))) ? el.fill : 'none';
+    var cx = (el.x1 + el.x2) / 2, cy = (el.y1 + el.y2) / 2;
+    var rxE = Math.abs(el.x2 - el.x1) / 2, ryE = Math.abs(el.y2 - el.y1) / 2;
+    var fillE = (el.fill && el.fill !== 'none') ? el.fill : 'none';
     return '<ellipse cx="' + cx + '" cy="' + cy + '" rx="' + rxE + '" ry="' + ryE +
-      '" fill="' + A(fillE) + '" ' + strokeAttrs + opAttr + '/>';
+      '" fill="' + fillE + '" ' + strokeAttrs + opAttr + '/>';
   }
   if (el.tool === 'arrow'){
-    var ang = Math.atan2(N(el.y2) - N(el.y1), N(el.x2) - N(el.x1));
-    var hl = Math.max(12, width * 4);
-    var ax1 = N(el.x2) - hl * Math.cos(ang - Math.PI/7);
-    var ay1 = N(el.y2) - hl * Math.sin(ang - Math.PI/7);
-    var ax2 = N(el.x2) - hl * Math.cos(ang + Math.PI/7);
-    var ay2 = N(el.y2) - hl * Math.sin(ang + Math.PI/7);
+    var ang = Math.atan2(el.y2 - el.y1, el.x2 - el.x1);
+    var hl = Math.max(12, el.width * 4);
+    var ax1 = el.x2 - hl * Math.cos(ang - Math.PI/7);
+    var ay1 = el.y2 - hl * Math.sin(ang - Math.PI/7);
+    var ax2 = el.x2 - hl * Math.cos(ang + Math.PI/7);
+    var ay2 = el.y2 - hl * Math.sin(ang + Math.PI/7);
     return '<g' + opAttr + '>' +
-      '<line x1="' + N(el.x1) + '" y1="' + N(el.y1) + '" x2="' + N(el.x2) + '" y2="' + N(el.y2) +
-      '" stroke="' + stroke + '" stroke-width="' + width + '" stroke-linecap="round"/>' +
-      '<polyline points="' + ax1 + ',' + ay1 + ' ' + N(el.x2) + ',' + N(el.y2) + ' ' + ax2 + ',' + ay2 +
-      '" fill="none" stroke="' + stroke + '" stroke-width="' + width +
+      '<line x1="' + el.x1 + '" y1="' + el.y1 + '" x2="' + el.x2 + '" y2="' + el.y2 +
+      '" stroke="' + el.color + '" stroke-width="' + el.width + '" stroke-linecap="round"/>' +
+      '<polyline points="' + ax1 + ',' + ay1 + ' ' + el.x2 + ',' + el.y2 + ' ' + ax2 + ',' + ay2 +
+      '" fill="none" stroke="' + el.color + '" stroke-width="' + el.width +
       '" stroke-linecap="round" stroke-linejoin="round"/></g>';
   }
   return '';
@@ -3740,14 +3699,7 @@ function exportToPDF(){
       if (!result){ toast('محتوایی برای خروجی نیست'); return; }
 
       var cv = result.canvas;
-      var dataURLPNG;
-      try {
-        dataURLPNG = cv.toDataURL('image/png');
-      } catch(e){
-        logger.error('PDF canvas export failed', e);
-        toast('خروجی PDF ممکن نیست؛ یکی از تصاویر بوم نامعتبر یا ناامن است', true);
-        return;
-      }
+      var dataURLPNG  = cv.toDataURL('image/png');
 
       if (window.jspdf && window.jspdf.jsPDF){
         try {
@@ -3821,7 +3773,6 @@ function _doPushHistory(){
 }
 
 function undo(){
-  if (!requireEdit()) return;
   if (state.histIdx <= 0) return;
   if (collab.active && collab.conns.length > 0){
     toast('توجه: واگرد در حالت هم‌کاری، تغییرات طرف مقابل را هم بازمی‌گرداند');
@@ -3848,7 +3799,6 @@ function undo(){
 }
 
 function redo(){
-  if (!requireEdit()) return;
   if (state.histIdx >= state.history.length - 1) return;
   if (collab.active && collab.conns.length > 0){
     toast('توجه: ازنو در حالت هم‌کاری، تغییرات طرف مقابل را هم بازمی‌گرداند');
@@ -4125,18 +4075,21 @@ function loadFromURLHash(){
     var json = LZString.decompressFromEncodedURIComponent(compressed);
     if (!json) return false;
     var els = JSON.parse(json);
-    if (!Array.isArray(els) || els.length === 0 || els.length > MAX_IMPORT_ELEMENTS) return false;
+    if (!Array.isArray(els) || els.length === 0) return false;
     var validated = [];
-    for (var i = 0; i < els.length; i++){
-      var safe = sanitizeElement(els[i]);
-      if (safe) validated.push(safe);
-    }
-    if (!validated.length) return false;
-    if (!window.confirm('این لینک یک بوم مشترک را بارگذاری می‌کند و ممکن است بوم فعلی را جایگزین کند. ادامه می‌دهید؟')){
-      return false;
+    for (var i = 0; i < els.length && i < MAX_IMPORT_ELEMENTS; i++){
+      var el = els[i];
+      if (!el.id) el.id = uid();
+      if (el.tool === 'image' && el.src){
+        var img = new Image();
+        img.src = el.src;
+        imageCache[el.id] = img;
+        img.onload = function(){ scheduleRender(); };
+      }
+      validated.push(el);
     }
     state.elements = validated;
-    history.replaceState(null, '', location.pathname + location.search);
+    history.replaceState(null, '', location.pathname);
     return true;
   } catch(e){
     logger.warn('loadFromURLHash', e);
@@ -4162,94 +4115,29 @@ function exportNegarFile(){
 var ALLOWED_TOOLS = ['pen','highlighter','line','arrow','rect','ellipse','text','image','stencil'];
 var MAX_STRING_LEN = 100000;
 var MAX_ELEMENT_FIELDS = 50;
-var MAX_POINTS = 20000;
-var ID_RE = /^[A-Za-z0-9_-]{1,32}$/;
-var CLIENT_ID_RE = /^c_[a-f0-9]{16,40}$/;
-var COLOR_RE = /^(#[0-9a-fA-F]{3,8}|none)$/;
-var IMG_RE = /^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/;
-var PATH_RE = /^[MLQCZHVmlqczhv0-9 .,\-]{1,5000}$/;
 
 function validateElement(el){
   if (!el || typeof el !== 'object') return false;
   if (ALLOWED_TOOLS.indexOf(el.tool) === -1) return false;
+  // Count fields to prevent insane payloads
   var fieldCount = 0;
-  for (var k in el){ fieldCount++; if (fieldCount > MAX_ELEMENT_FIELDS) return false; }
+  for (var k in el) { fieldCount++; if (fieldCount > MAX_ELEMENT_FIELDS) return false; }
+  // Check strings
   for (var k2 in el){
     var v = el[k2];
     if (typeof v === 'string' && v.length > MAX_STRING_LEN) return false;
   }
-  if (el.id != null && !ID_RE.test(String(el.id))) return false;
-  if (el.color != null && !COLOR_RE.test(String(el.color))) return false;
-  if (el.fill != null && !COLOR_RE.test(String(el.fill))) return false;
+  // Type-specific
   if (el.tool === 'image'){
-    if (!IMG_RE.test(String(el.src || ''))) return false;
-    if (String(el.src).length > MAX_IMAGE_SRC_LENGTH) return false;
+    if (typeof el.src !== 'string') return false;
+    if (el.src.length > MAX_IMAGE_SRC_LENGTH) return false;
+    if (el.src.indexOf('javascript:') === 0) return false;
+    if (el.src.indexOf('<') !== -1) return false;
   }
-  if (el.points && Array.isArray(el.points) && el.points.length > MAX_POINTS) return false;
-  if (el.tool === 'stencil' && el.path != null && !PATH_RE.test(String(el.path))) return false;
+  if (el.points && Array.isArray(el.points)){
+    if (el.points.length > 100000) return false;
+  }
   return true;
-}
-
-function clampNum(v, lo, hi, fallback){
-  v = Number(v);
-  return isFinite(v) ? Math.min(hi, Math.max(lo, v)) : fallback;
-}
-
-function sanitizeElement(el){
-  if (!el || typeof el !== 'object') return null;
-  if (ALLOWED_TOOLS.indexOf(el.tool) === -1) return null;
-  var id = ID_RE.test(String(el.id || '')) ? String(el.id) : uid();
-  var o = {
-    id: id,
-    tool: el.tool,
-    color: COLOR_RE.test(String(el.color || '')) ? String(el.color) : '#18181B',
-    fill: COLOR_RE.test(String(el.fill || '')) ? String(el.fill) : 'none',
-    width: clampNum(el.width, 1, 64, 4),
-    opacity: clampNum(el.opacity, .05, 1, 1),
-    hidden: !!el.hidden,
-    locked: !!el.locked,
-    isBackground: !!el.isBackground
-  };
-  if (typeof el.groupId === 'string' && ID_RE.test(el.groupId)) o.groupId = el.groupId;
-
-  if (el.tool === 'image'){
-    if (!IMG_RE.test(String(el.src || ''))) return null;
-    o.src = String(el.src);
-    o.x = clampNum(el.x, -1000000, 1000000, 0);
-    o.y = clampNum(el.y, -1000000, 1000000, 0);
-    o.width = clampNum(el.width, 1, 20000, 100);
-    o.height = clampNum(el.height, 1, 20000, 100);
-  } else if (el.tool === 'stencil'){
-    if (!PATH_RE.test(String(el.path || ''))) return null;
-    o.path = String(el.path);
-    o.x = clampNum(el.x, -1000000, 1000000, 0);
-    o.y = clampNum(el.y, -1000000, 1000000, 0);
-    o.w = clampNum(el.w, 1, 100000, 100);
-    o.h = clampNum(el.h, 1, 100000, 100);
-    o.baseW = clampNum(el.baseW, 1, 10000, 100);
-    o.baseH = clampNum(el.baseH, 1, 10000, 100);
-  } else if (el.tool === 'text'){
-    o.text = String(el.text || '').slice(0, 5000);
-    o.fontSize = clampNum(el.fontSize, 8, 200, 20);
-    o.bold = !!el.bold;
-    o.italic = !!el.italic;
-    o.x = clampNum(el.x, -1000000, 1000000, 0);
-    o.y = clampNum(el.y, -1000000, 1000000, 0);
-  } else if (Array.isArray(el.points)){
-    o.points = el.points.slice(0, MAX_POINTS).map(function(pt){
-      return {
-        x: clampNum(pt && pt.x, -1000000, 1000000, 0),
-        y: clampNum(pt && pt.y, -1000000, 1000000, 0),
-        p: clampNum(pt && pt.p, 0, 1, .5)
-      };
-    });
-  } else {
-    o.x1 = clampNum(el.x1, -1000000, 1000000, 0);
-    o.y1 = clampNum(el.y1, -1000000, 1000000, 0);
-    o.x2 = clampNum(el.x2, -1000000, 1000000, 0);
-    o.y2 = clampNum(el.y2, -1000000, 1000000, 0);
-  }
-  return o;
 }
 
 function importNegarData(text){
@@ -4268,8 +4156,9 @@ function importNegarData(text){
     var valid = [];
     var rejected = 0;
     for (var i = 0; i < els.length; i++){
-      var el = sanitizeElement(els[i]);
-      if (!el){ rejected++; continue; }
+      var el = els[i];
+      if (!validateElement(el)){ rejected++; continue; }
+      if (!el.id) el.id = uid();
       if (el.tool === 'image' && el.src){
         var img = new Image();
         img.src = el.src;
@@ -4306,10 +4195,6 @@ var COLLAB_PATCH_DEBOUNCE = 110;
 var COLLAB_MEMBERS_DEBOUNCE = 300;
 var COLLAB_CACHE_DEBOUNCE = 1200;
 var COLLAB_COMPRESS_THRESHOLD = 1200;
-var MAX_MESSAGE_SIZE = 5 * 1024 * 1024;
-var MAX_PATCH_OPS = 2000;
-var MAX_MESSAGES_PER_SECOND = 30;
-var COLLAB_BACKUP_KEY = 'negar-collab-local-backup';
 
 function membersCacheKey(roomId){
   return 'negar-collab-members-' + (roomId || 'default');
@@ -4318,20 +4203,11 @@ function membersCacheKey(roomId){
 function getMyClientId(){
   var id = null;
   try { id = localStorage.getItem(COLLAB_CLIENT_KEY); } catch(e){}
-  if (!CLIENT_ID_RE.test(String(id || ''))){
-    id = 'c_' + secureRandomHex(16);
+  if (!id){
+    id = 'c_' + uid() + uid();
     try { localStorage.setItem(COLLAB_CLIENT_KEY, id); } catch(e){}
   }
   return id;
-}
-function getMyClientToken(){
-  var token = null;
-  try { token = localStorage.getItem(COLLAB_CLIENT_KEY + '-token'); } catch(e){}
-  if (!/^[a-f0-9]{32,128}$/.test(String(token || ''))){
-    token = secureRandomHex(32);
-    try { localStorage.setItem(COLLAB_CLIENT_KEY + '-token', token); } catch(e){}
-  }
-  return token;
 }
 function getSession(){
   try {
@@ -4348,18 +4224,8 @@ function clearSession(){
 function loadMembersCache(roomId){
   try {
     var s = localStorage.getItem(membersCacheKey(roomId));
-    var raw = s ? (JSON.parse(s) || {}) : {};
-    var safe = Object.create(null);
-    for (var id in raw){
-      if (!CLIENT_ID_RE.test(id) || !raw[id] || typeof raw[id] !== 'object') continue;
-      safe[id] = {
-        name: String(raw[id].name || 'ناشناس').slice(0,24),
-        canDraw: !!raw[id].canDraw,
-        token: /^[a-f0-9]{32,128}$/.test(String(raw[id].token || '')) ? raw[id].token : null
-      };
-    }
-    return safe;
-  } catch(e){ return Object.create(null); }
+    return s ? (JSON.parse(s) || {}) : {};
+  } catch(e){ return {}; }
 }
 function wipeMembersCache(roomId){
   try { localStorage.removeItem(membersCacheKey(roomId)); } catch(e){}
@@ -4369,21 +4235,19 @@ var collab = {
   peer: null,
   conns: [],
   guestConn: null,
-  members: Object.create(null),
+  members: {},
   roomId: null,
   isHost: false,
   active: false,
   canDraw: true,
   canDrawReceived: false,
   myClientId: getMyClientId(),
-  myToken: getMyClientToken(),
-  connecting: false,
   myName: '',
   reconnectTimer: null,
   reconnectAttempt: 0,
   intentionalClose: false,
   hostClaimRetries: 0,
-  deltaCache: Object.create(null),
+  deltaCache: {},
   dirtySinceLastPatch: false,
   memberBroadcastTimer: null,
   cacheSaveTimer: null
@@ -4414,7 +4278,7 @@ function unpackMessage(msg){
 }
 
 function resetDeltaCacheFromState(){
-  collab.deltaCache = Object.create(null);
+  collab.deltaCache = {};
   for (var i = 0; i < state.elements.length; i++){
     var el = state.elements[i];
     try { collab.deltaCache[el.id] = JSON.stringify(el); } catch(e){}
@@ -4444,28 +4308,25 @@ function computeDeltaOps(){
 }
 
 function applyDeltaOps(ops){
-  if (!Array.isArray(ops) || !ops.length || ops.length > MAX_PATCH_OPS) return false;
-  var idxMap = Object.create(null);
+  if (!ops || !ops.length) return false;
+  var idxMap = {};
   for (var i = 0; i < state.elements.length; i++){
-    if (state.elements[i] && ID_RE.test(String(state.elements[i].id))) idxMap[state.elements[i].id] = i;
+    idxMap[state.elements[i].id] = i;
   }
   var changed = false;
   for (var j = 0; j < ops.length; j++){
     var op = ops[j];
-    if (!op || (op.op !== 'u' && op.op !== 'd')) continue;
     if (op.op === 'u'){
-      var clean = sanitizeElement(op.el);
-      if (!clean) continue;
-      var idx = idxMap[clean.id];
+      var idx = idxMap[op.el.id];
       if (idx != null){
-        state.elements[idx] = clean;
+        state.elements[idx] = op.el;
       } else {
-        idxMap[clean.id] = state.elements.length;
-        state.elements.push(clean);
+        idxMap[op.el.id] = state.elements.length;
+        state.elements.push(op.el);
       }
-      try { collab.deltaCache[clean.id] = JSON.stringify(clean); } catch(e){}
+      try { collab.deltaCache[op.el.id] = JSON.stringify(op.el); } catch(e){}
       changed = true;
-    } else if (op.op === 'd' && ID_RE.test(String(op.id || ''))){
+    } else if (op.op === 'd'){
       var idx2 = idxMap[op.id];
       if (idx2 != null){
         state.elements[idx2] = null;
@@ -4607,7 +4468,7 @@ function updateCollabMembersUI(){
     if (collab.isHost && !m.isHost){
       permHtml = '<label class="collab-perm">' +
         '<input type="checkbox" ' + (m.canDraw ? 'checked' : '') +
-        ' data-client="' + escapeXML(m.clientId) + '">' +
+        ' data-client="' + m.clientId + '">' +
         '<span>اجازه کشیدن</span></label>';
     } else if (!m.isHost){
       permHtml = '<span class="collab-perm-badge ' + (m.canDraw ? 'allow' : 'deny') + '">' +
@@ -4662,21 +4523,21 @@ function setMemberPermission(clientId, canDraw){
 }
 
 function startCollabHost(name, reuseCode){
-  if (collab.active || collab.connecting) return;
+  if (collab.active) return;
   if (!window.Peer){ toast('PeerJS لود نشد', true); return; }
   name = (name || '').trim();
   if (!name){ toast('نام خود را وارد کنید'); return; }
 
-  collab.roomId = reuseCode || ('negar-' + secureRandomHex(8));
+  collab.roomId = reuseCode || ('negar-' + Math.random().toString(36).slice(2, 8));
   collab.isHost = true;
   collab.myName = name;
   collab.canDraw = true;
   collab.intentionalClose = false;
   collab.hostClaimRetries = 0;
-  collab.members = Object.create(null);
+  collab.members = {};
 
   collab.members[collab.myClientId] = {
-    clientId: collab.myClientId, token: collab.myToken, name: name,
+    clientId: collab.myClientId, name: name,
     canDraw: true, online: true, isHost: true
   };
 
@@ -4685,7 +4546,7 @@ function startCollabHost(name, reuseCode){
     if (id === collab.myClientId) continue;
     var m = cache[id];
     collab.members[id] = {
-      clientId: id, token: m.token, name: m.name,
+      clientId: id, name: m.name,
       canDraw: !!m.canDraw, online: false, isHost: false
     };
   }
@@ -4738,106 +4599,93 @@ function createHostPeer(code){
 function setupHostConn(conn){
   collab.conns.push(conn);
   var registeredClientId = null;
-  var helloReceived = false;
-  var rateStart = Date.now();
-  var rateCount = 0;
 
   conn.on('data', function(raw){
-    try {
-      var rawSize = 0;
-      try { rawSize = JSON.stringify(raw).length; } catch(e){}
-      if (rawSize > MAX_MESSAGE_SIZE) { conn.close(); return; }
+    var data = unpackMessage(raw);
+    if (!data || !data.type) return;
 
-      var now = Date.now();
-      if (now - rateStart >= 1000){ rateStart = now; rateCount = 0; }
-      if (++rateCount > MAX_MESSAGES_PER_SECOND){ conn.close(); return; }
+    if (data.type === 'hello'){
+      registeredClientId = data.clientId;
 
-      var data = unpackMessage(raw);
-      if (!data || !data.type) return;
-
-      if (data.type === 'hello'){
-        if (helloReceived || typeof data.clientId !== 'string' || !CLIENT_ID_RE.test(data.clientId)){
-          conn.close(); return;
-        }
-        if (typeof data.token !== 'string' || !/^[a-f0-9]{32,128}$/.test(data.token)){
-          conn.close(); return;
-        }
-        helloReceived = true;
-        registeredClientId = data.clientId;
-
-        var online = onlineMemberCount();
-        var isReturning = !!collab.members[data.clientId];
-        if (!isReturning && online >= COLLAB_MAX_MEMBERS){
-          try { conn.send(packMessage({type:'rejected', reason:'room-full', max:COLLAB_MAX_MEMBERS})); } catch(e){}
-          setTimeout(function(){ try { conn.close(); } catch(e){} }, 500);
-          return;
-        }
-
-        var existing = collab.members[data.clientId];
-        if (existing && existing.isHost){ conn.close(); return; }
-        if (existing && existing.token && existing.token !== data.token){ conn.close(); return; }
-
-        var canDraw = existing ? !!existing.canDraw : false;
-        collab.members[data.clientId] = {
-          clientId: data.clientId,
-          token: existing && existing.token ? existing.token : data.token,
-          name: String(data.name || 'ناشناس').slice(0,24),
-          canDraw: canDraw, online: true, isHost: false
-        };
-        conn._clientId = data.clientId;
-
-        var welcomeElements = state.elements.map(function(el){ return sanitizeElement(el); }).filter(Boolean);
+      var online = onlineMemberCount();
+      var isReturning = !!collab.members[data.clientId];
+      if (!isReturning && online >= COLLAB_MAX_MEMBERS){
         try {
           conn.send(packMessage({
-            type: 'welcome',
-            you: { clientId: data.clientId, canDraw: canDraw },
-            members: memberList(),
-            elements: welcomeElements
-          }, 400));
+            type: 'rejected',
+            reason: 'room-full',
+            max: COLLAB_MAX_MEMBERS
+          }));
         } catch(e){}
-
-        scheduleCacheSave();
-        scheduleMembersBroadcast();
-        updateCollabMembersUI();
-        updateCollabBadge();
+        setTimeout(function(){ try { conn.close(); } catch(e){} }, 500);
+        return;
       }
 
-      else if (data.type === 'patch'){
-        var me = registeredClientId ? collab.members[registeredClientId] : null;
-        if (!me || !me.canDraw || !Array.isArray(data.ops) || data.ops.length > MAX_PATCH_OPS) return;
-        var changed = applyDeltaOps(data.ops);
-        if (changed){
-          scheduleRender();
-          scheduleRenderLayers();
-          var relay = packMessage({ type: 'patch', ops: data.ops });
-          for (var i = 0; i < collab.conns.length; i++){
-            if (collab.conns[i] !== conn){
-              try { collab.conns[i].send(relay); } catch(e){}
-            }
+      var existing = collab.members[data.clientId];
+      var canDraw = existing ? !!existing.canDraw : true;
+      collab.members[data.clientId] = {
+        clientId: data.clientId,
+        name: (data.name || 'ناشناس').slice(0, 24),
+        canDraw: canDraw,
+        online: true,
+        isHost: false
+      };
+      conn._clientId = data.clientId;
+
+      try {
+        conn.send(packMessage({
+          type: 'welcome',
+          you: { clientId: data.clientId, canDraw: canDraw },
+          members: memberList(),
+          elements: state.elements
+        }, 400));
+      } catch(e){}
+
+      scheduleCacheSave();
+      scheduleMembersBroadcast();
+      updateCollabMembersUI();
+      updateCollabBadge();
+    }
+
+    else if (data.type === 'patch'){
+      var me = registeredClientId ? collab.members[registeredClientId] : null;
+      if (!me || !me.canDraw) return;
+      var changed = applyDeltaOps(data.ops);
+      if (changed){
+        scheduleRender();
+        // FIX: scheduleRenderLayers (was missing)
+        scheduleRenderLayers();
+        var relay = packMessage({ type: 'patch', ops: data.ops });
+        for (var i = 0; i < collab.conns.length; i++){
+          if (collab.conns[i] !== conn){
+            try { collab.conns[i].send(relay); } catch(e){}
           }
         }
       }
+    }
 
-      else if (data.type === 'bye'){
-        if (registeredClientId && collab.members[registeredClientId]){
-          collab.members[registeredClientId].online = false;
-        }
-        scheduleCacheSave();
-        scheduleMembersBroadcast();
-        updateCollabMembersUI();
-        updateCollabBadge();
+    else if (data.type === 'bye'){
+      if (registeredClientId && collab.members[registeredClientId]){
+        collab.members[registeredClientId].online = false;
       }
-    } catch(e){ logger.warn('host data rejected', e); }
+      scheduleCacheSave();
+      scheduleMembersBroadcast();
+      updateCollabMembersUI();
+      updateCollabBadge();
+    }
   });
 
   conn.on('close', function(){
     collab.conns = collab.conns.filter(function(c){ return c !== conn; });
-    if (registeredClientId && collab.members[registeredClientId]) collab.members[registeredClientId].online = false;
+    if (registeredClientId && collab.members[registeredClientId]){
+      collab.members[registeredClientId].online = false;
+    }
     scheduleCacheSave();
     scheduleMembersBroadcast();
     updateCollabMembersUI();
     updateCollabBadge();
   });
+
   conn.on('error', function(e){ logger.warn('host conn error', e); });
 }
 
@@ -4860,7 +4708,7 @@ function scheduleMembersBroadcast(){
 }
 
 function startCollabJoin(code, name){
-  if (collab.active || collab.connecting) return;
+  if (collab.active) return;
   if (!window.Peer){ toast('PeerJS لود نشد', true); return; }
   code = (code || '').trim();
   name = (name || '').trim();
@@ -4875,7 +4723,7 @@ function startCollabJoin(code, name){
   collab.canDrawReceived = false;
   collab.canDraw = false;
 
-  collab.members = Object.create(null);
+  collab.members = {};
   collab.members[collab.myClientId] = {
     clientId: collab.myClientId, name: name,
     canDraw: false, online: true, isHost: false
@@ -4921,7 +4769,6 @@ function setupGuestConn(conn){
       conn.send(packMessage({
         type: 'hello',
         clientId: collab.myClientId,
-        token: collab.myToken,
         name: collab.myName
       }));
     } catch(e){}
@@ -4933,16 +4780,9 @@ function setupGuestConn(conn){
     if (!data || !data.type) return;
 
     if (data.type === 'welcome'){
-      collab.members = Object.create(null);
+      collab.members = {};
       if (data.members){
-        data.members.forEach(function(m){
-          if (m && CLIENT_ID_RE.test(String(m.clientId || ''))){
-            collab.members[m.clientId] = {
-              clientId: m.clientId, name: String(m.name || 'ناشناس').slice(0,24),
-              canDraw: !!m.canDraw, online: !!m.online, isHost: !!m.isHost
-            };
-          }
-        });
+        data.members.forEach(function(m){ collab.members[m.clientId] = m; });
       }
       if (data.you){
         var prev = collab.canDraw;
@@ -4952,22 +4792,7 @@ function setupGuestConn(conn){
         }
         collab.canDrawReceived = true;
       }
-      var incoming = Array.isArray(data.elements) ? data.elements : [];
-      var safeIncoming = [];
-      for (var wi = 0; wi < Math.min(incoming.length, MAX_IMPORT_ELEMENTS); wi++){
-        var safeEl = sanitizeElement(incoming[wi]);
-        if (safeEl) safeIncoming.push(safeEl);
-      }
-      if (state.elements.length && safeIncoming.length){
-        try {
-          localStorage.setItem(COLLAB_BACKUP_KEY, JSON.stringify(state.elements));
-        } catch(e){}
-        if (!window.confirm('بوم اتاق جایگزین بوم فعلی شود؟ یک نسخه پشتیبان محلی نیز ذخیره می‌شود.')){
-          toast('بوم فعلی حفظ شد');
-          return;
-        }
-      }
-      state.elements = safeIncoming;
+      state.elements = data.elements || [];
       rehydrateImages();
       resetDeltaCacheFromState();
       scheduleRender();
@@ -4978,17 +4803,12 @@ function setupGuestConn(conn){
     }
 
     else if (data.type === 'members'){
-      collab.members = Object.create(null);
+      collab.members = {};
       var prevCanDraw = collab.canDraw;
       if (data.members){
         data.members.forEach(function(m){
-          if (m && CLIENT_ID_RE.test(String(m.clientId || ''))){
-            collab.members[m.clientId] = {
-              clientId: m.clientId, name: String(m.name || 'ناشناس').slice(0,24),
-              canDraw: !!m.canDraw, online: !!m.online, isHost: !!m.isHost
-            };
-          }
-          if (m && m.clientId === collab.myClientId){
+          collab.members[m.clientId] = m;
+          if (m.clientId === collab.myClientId){
             collab.canDraw = !!m.canDraw;
           }
         });
@@ -5447,13 +5267,12 @@ function applyToSelectedText(fn){
 
 // PANEL
 var panel = document.getElementById('panel');
-function setPanelOpen(el, open){ if (!el) return; el.classList.toggle('open', !!open); if (open) el.removeAttribute('inert'); else el.setAttribute('inert',''); }
 document.getElementById('swatch').addEventListener('click', function(e){
   e.stopPropagation();
-  setPanelOpen(panel, !panel.classList.contains('open'));
+  panel.classList.toggle('open');
 });
 panel.addEventListener('click', function(e){ e.stopPropagation(); });
-document.addEventListener('click', function(){ setPanelOpen(panel, false); });
+document.addEventListener('click', function(){ panel.classList.remove('open'); });
 
 // HELP MODAL
 var helpModal = document.getElementById('help-modal');
@@ -5496,7 +5315,6 @@ document.getElementById('undo').addEventListener('click', undo);
 document.getElementById('redo').addEventListener('click', redo);
 
 document.getElementById('clear').addEventListener('click', function(){
-  if (!requireEdit()) return;
   if (!state.elements.length) return;
   state.elements = [];
   state.selected = {};
@@ -5521,11 +5339,9 @@ document.getElementById('share-url').addEventListener('click', shareViaURL);
 document.getElementById('share-file').addEventListener('click', exportNegarFile);
 document.getElementById('share-svg').addEventListener('click', exportSVG);
 document.getElementById('share-import').addEventListener('click', function(){
-  if (!requireEdit()) return;
   document.getElementById('negar-input').click();
 });
 document.getElementById('negar-input').addEventListener('change', function(e){
-  if (!requireEdit()){ e.target.value = ''; return; }
   var file = e.target.files && e.target.files[0];
   if (!file) return;
   if (file.size > 100 * 1024 * 1024){
@@ -5594,12 +5410,10 @@ document.getElementById('collab-copy-code').addEventListener('click', function()
 
 // UPLOAD
 document.getElementById('upload-btn').addEventListener('click', function(){
-  if (!requireEdit()) return;
   fileInput.click();
 });
 
 fileInput.addEventListener('change', function(e){
-  if (!requireEdit()){ e.target.value = ''; return; }
   var files = Array.prototype.slice.call(e.target.files || []);
   if (!files.length) return;
   processFiles(files).then(function(){
@@ -5611,7 +5425,6 @@ fileInput.addEventListener('change', function(e){
 });
 
 function processFiles(files){
-  if (!requireEdit()) return Promise.resolve();
   var offsetY = 0;
   var chain = Promise.resolve();
   files.forEach(function(file){
@@ -5645,7 +5458,6 @@ window.addEventListener('dragleave', function(e){
 });
 window.addEventListener('drop', function(e){
   e.preventDefault();
-  if (!requireEdit()) return;
   dragCounter = 0;
   document.body.classList.remove('drag-over');
   var files = Array.prototype.slice.call(e.dataTransfer.files || []);
@@ -5775,7 +5587,7 @@ var arrowTimer = null;
 
 document.addEventListener('keydown', function(e){
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  var key = (e.code || '').replace(/^Key/, '').toLowerCase();
+  var key = e.key.toLowerCase();
   var mod = e.metaKey || e.ctrlKey;
 
   if (collab.active && !collab.isHost && !collab.canDraw){
@@ -5870,7 +5682,7 @@ document.addEventListener('keydown', function(e){
       return;
     }
     state.selected = {};
-    setPanelOpen(panel, false);
+    panel.classList.remove('open');
     closeHelp();
     hideContextMenu();
     document.querySelectorAll('.side-panel').forEach(function(p){ p.classList.remove('open'); });
@@ -5882,7 +5694,7 @@ document.addEventListener('keydown', function(e){
     return;
   }
 
-  if (e.key === '?' || (e.shiftKey && e.code === 'Slash')){
+  if (e.key === '?' || (e.shiftKey && key === '/')){
     if (!mod){
       e.preventDefault();
       if (helpModal.classList.contains('open')) closeHelp();
