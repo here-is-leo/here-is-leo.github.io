@@ -2,210 +2,529 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>.</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{background:#000;height:100%;overflow:hidden}
-  body{
-    color:#00d26a;
-    font-family:'Courier New',Courier,monospace;
-    font-size:15px;
-    line-height:1.7;
-    cursor:crosshair;
-    user-select:none;
-    -webkit-user-select:none;
-  }
+  body{color:#c8d3d8;font-family:'JetBrains Mono','Fira Code','Courier New',monospace;
+    font-size:13px;line-height:1.5;cursor:crosshair;
+    user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;
+    letter-spacing:.2px}
 
-  /* ================ صفحهٔ ترمینال ================ */
-  #screen{
-    position:fixed;inset:0;
-    padding:20px 22px 40px;
-    overflow-y:auto;
-    scrollbar-width:none;
-  }
+  /* ================ CODE TERMINAL — واضح و ترسناک ================ */
+  #screen{position:fixed;inset:0;padding:56px 20px 60px 62px;overflow-y:auto;
+    scrollbar-width:none;z-index:20;
+    background:
+      radial-gradient(ellipse at 50% -10%,rgba(0,60,40,.5),transparent 60%),
+      radial-gradient(ellipse at 50% 110%,rgba(80,0,0,.4),transparent 60%),
+      linear-gradient(180deg,#051510 0%,#000 60%,#0a0000 100%)}
   #screen::-webkit-scrollbar{display:none}
+  #term{white-space:pre;direction:ltr;text-align:left;
+    font-variant-ligatures:none;
+    font-size:16px;
+    text-shadow:0 0 5px rgba(120,255,200,.2),0 0 12px rgba(60,200,120,.12)}
 
-  #term{white-space:pre-wrap;word-break:break-word;direction:ltr;text-align:left}
+  .cline{
+    display:flex;align-items:flex-start;
+    min-height:1.8em;padding:3px 8px;
+    position:relative;
+    animation:lineIn .3s ease-out;
+    font-size:16px;line-height:1.7;
+    transition:background .2s;
+  }
+  @keyframes lineIn{
+    from{opacity:0;transform:translateX(-10px);
+      background:rgba(0,255,150,.2)}
+    to{opacity:1;transform:translateX(0);background:transparent}
+  }
+  .cline:nth-child(even){background:rgba(0,25,15,.4)}
+  .cline:hover{background:rgba(0,60,40,.3)}
+  .cline.hl::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to right,rgba(0,255,150,.2),transparent 70%);
+    pointer-events:none;
+    animation:hlFade 1.4s ease-out forwards;
+  }
+  @keyframes hlFade{to{opacity:0}}
 
-  .line{display:block;min-height:1.7em}
-  .dim{color:#2a5a3a}
-  .ok{color:#00d26a}
-  .warn{color:#ffaa00}
-  .err{color:#ff0033}
-  .bold{font-weight:700}
-  .ghost{color:#5a0018;text-shadow:0 0 12px #ff0033}
+  .lnum{
+    color:#4a7a60;
+    width:54px;flex-shrink:0;
+    text-align:right;padding-right:18px;
+    user-select:none;font-size:14px;font-weight:800;
+    border-right:2px solid rgba(0,160,90,.5);
+    margin-right:20px;
+    text-shadow:0 0 8px rgba(0,220,120,.4);
+  }
+  .lnum.brk{color:#ff3355;
+    text-shadow:0 0 12px #ff0033,0 0 24px #ff0033;
+    animation:lnumPulse .6s ease-in-out infinite}
+  @keyframes lnumPulse{50%{opacity:.4}}
+  .lnum::after{
+    content:'';position:absolute;
+    right:-2px;top:0;bottom:0;width:2px;
+    background:linear-gradient(to bottom,
+      rgba(0,180,90,.0),rgba(0,255,140,.85),rgba(0,180,90,.0));
+    box-shadow:0 0 10px rgba(0,255,140,.6);
+  }
+  .lcode{flex:1;white-space:pre;word-break:break-all;
+    display:flex;align-items:center;flex-wrap:wrap;
+    font-size:16px;letter-spacing:.4px}
 
-  .cursor{
-    display:inline-block;width:9px;height:17px;
-    background:#00d26a;vertical-align:-3px;margin-left:1px;
-    animation:blink 1s steps(1) infinite;
+  /* ====== SYNTAX — خیلی روشن و پرکنتراست ====== */
+  .tk-k{color:#ff79c6;font-weight:800;
+    text-shadow:0 0 8px rgba(255,121,198,.7)}
+  .tk-f{color:#8be9fd;font-weight:700;
+    text-shadow:0 0 8px rgba(139,233,253,.7)}
+  .tk-s{color:#f1fa8c;font-weight:700;
+    text-shadow:0 0 8px rgba(241,250,140,.6)}
+  .tk-n{color:#bd93f9;font-weight:700;
+    text-shadow:0 0 8px rgba(189,147,249,.7)}
+  .tk-c{color:#8fa5d0;font-style:italic;
+    text-shadow:0 0 6px rgba(143,165,208,.5)}
+  .tk-o{color:#ff79c6;font-weight:800}
+  .tk-i{color:#ffffff;font-weight:600}
+  .tk-t{color:#50fa7b;font-weight:800;
+    text-shadow:0 0 8px rgba(80,250,123,.7)}
+  .tk-p{color:#ffb86c;font-weight:600}
+  .tk-x{color:#ff2244;font-weight:900;
+    text-shadow:0 0 10px #ff0033,0 0 22px #ff0033,0 0 40px #800;
+    animation:dangerPulse 1.4s ease-in-out infinite}
+  @keyframes dangerPulse{
+    50%{text-shadow:0 0 16px #ff0033,0 0 40px #ff0033,0 0 70px #ff0033}
+  }
+  .tk-g{color:#ff0033;
+    text-shadow:0 0 12px #ff0033,0 0 28px #ff0033,0 0 50px #ff0033;
+    font-weight:900;
+    animation:ghostPulse 1.1s ease-in-out infinite}
+  @keyframes ghostPulse{
+    0%,100%{opacity:.9}
+    50%{opacity:1;text-shadow:0 0 20px #ff0033,0 0 50px #ff0033,0 0 90px #ff0033}
+  }
+  .tk-b{color:#ff1744;font-weight:900;
+    text-shadow:0 0 12px #ff0033,0 0 26px #ff0033,0 0 50px #800;
+    animation:bloodPulse .7s ease-in-out infinite}
+  @keyframes bloodPulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.015);
+      text-shadow:0 0 18px #ff0033,0 0 40px #ff0033,0 0 80px #ff0033}
+  }
+
+  .tcur{
+    display:inline-block;width:11px;height:20px;
+    background:#50fa7b;vertical-align:-4px;margin-left:2px;
+    box-shadow:0 0 12px #50fa7b,0 0 26px #50fa7b,0 0 52px #50fa7b;
+    animation:blink .75s steps(1) infinite;
   }
   @keyframes blink{50%{opacity:0}}
 
-  /* ================ صفحهٔ شروع ================ */
-  #start{
-    position:fixed;inset:0;z-index:900;
-    display:flex;align-items:center;justify-content:center;flex-direction:column;
-    gap:22px;background:#000;
-    cursor:pointer;
-    transition:opacity .8s;
+  /* glitch line */
+  .cline.glitch{
+    animation:glitch .25s steps(2) infinite;
   }
-  #start.gone{opacity:0;pointer-events:none}
-  #start .warn-txt{
-    color:#ff0033;
-    font-size:clamp(15px,3.5vw,22px);
-    letter-spacing:6px;
-    text-align:center;
-    padding:0 24px;
-    animation:pulse 2.4s ease-in-out infinite;
-    text-shadow:0 0 20px #ff0033;
+  @keyframes glitch{
+    0%{transform:translate(0);text-shadow:none}
+    25%{transform:translate(-3px,0);
+      text-shadow:2px 0 #ff0033,-2px 0 #00e0ff}
+    50%{transform:translate(3px,-1px);
+      text-shadow:-2px 0 #ff0033,2px 0 #00e0ff}
+    75%{transform:translate(-1px,1px);
+      text-shadow:1px 0 #ff0033,-1px 0 #00e0ff}
+    100%{transform:translate(0);text-shadow:none}
   }
-  #start .sub{
-    color:#444;font-size:11px;letter-spacing:3px;
-    text-align:center;padding:0 24px;
-    animation:pulse 4s ease-in-out infinite reverse;
-  }
-  @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
 
-  /* ================ جامپ‌اسکر ================ */
-  .scare{
-    position:fixed;inset:0;z-index:1000;
-    display:flex;align-items:center;justify-content:center;
+  .cline.corrupt{
+    background:
+      linear-gradient(to right,
+        rgba(150,0,0,.4) 0%,
+        rgba(80,0,0,.2) 30%,
+        transparent 70%);
+    color:#a02030;
+  }
+  .cline.corrupt .tk-c,.cline.corrupt .tk-i,.cline.corrupt .tk-s{
+    color:#8a1525 !important;
+  }
+
+  /* ================ START SCREEN ================ */
+  #start{position:fixed;inset:0;z-index:900;display:flex;align-items:center;
+    justify-content:center;flex-direction:column;gap:22px;background:#000;
+    cursor:pointer;transition:opacity 1.2s}
+  #start.gone{opacity:0;pointer-events:none}
+  #start .warn-txt{color:#ff0033;font-size:clamp(20px,5vw,36px);
+    letter-spacing:12px;text-align:center;padding:0 24px;font-weight:900;
+    animation:pulse 1.4s ease-in-out infinite;
+    text-shadow:0 0 25px #ff0033,0 0 70px #ff0033,0 0 140px #ff0033}
+  #start .sub{color:#666;font-size:11px;letter-spacing:5px;text-align:center;
+    padding:0 24px;animation:pulse 4s ease-in-out infinite reverse}
+  @keyframes pulse{0%,100%{opacity:.15}50%{opacity:1}}
+
+  /* ================ OVERLAYS ================ */
+  #vignette{position:fixed;inset:0;pointer-events:none;z-index:350;
+    background:radial-gradient(ellipse at center,transparent 12%,rgba(0,0,0,.95) 92%)}
+  #scanlines{position:fixed;inset:0;pointer-events:none;z-index:400;
+    background:
+      repeating-linear-gradient(to bottom,
+        transparent 0 2px,
+        rgba(255,0,0,.025) 2px 3px),
+      repeating-linear-gradient(to bottom,
+        rgba(255,255,255,.015) 0 1px,
+        transparent 1px 4px);
+    opacity:.85;
+    animation:scan 8s linear infinite}
+  @keyframes scan{
+    from{background-position:0 0,0 0}
+    to{background-position:0 300px,0 300px}
+  }
+  #redflash{position:fixed;inset:0;z-index:500;pointer-events:none;
+    background:radial-gradient(circle at center,rgba(255,0,51,.9),
+      rgba(255,0,51,.35) 55%,transparent 85%);
+    opacity:0;transition:opacity .08s}
+  #redflash.on{opacity:1}
+  #whiteflash{position:fixed;inset:0;z-index:501;pointer-events:none;
+    background:#fff;opacity:0;transition:opacity .03s}
+  #whiteflash.on{opacity:.92}
+  #blackout{position:fixed;inset:0;z-index:502;pointer-events:none;
+    background:#000;opacity:0;transition:opacity .4s}
+  #blackout.on{opacity:1}
+  #tear{position:fixed;inset:0;pointer-events:none;z-index:505;opacity:0;
+    background:
+      repeating-linear-gradient(to bottom,
+        transparent 0 1px,
+        rgba(255,0,51,.15) 1px 2px,
+        transparent 2px 5px);
+    mix-blend-mode:screen;transition:opacity .06s}
+  #tear.on{opacity:1}
+
+  /* ================ HORROR CANVAS LAYERS ================ */
+  #face-bg{position:fixed;inset:0;z-index:2;pointer-events:none;
+    opacity:0;transition:opacity 1.6s}
+  #face-bg.on{opacity:.55}
+  #crawler{position:fixed;inset:0;z-index:4;pointer-events:none;
+    opacity:0;transition:opacity 1s}
+  #crawler.on{opacity:1}
+  #hands{position:fixed;inset:0;z-index:5;pointer-events:none;
+    opacity:0;transition:opacity .8s}
+  #hands.on{opacity:1}
+  #knife{position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0}
+  #knife.on{opacity:1}
+  #bloadeff{position:fixed;inset:0;z-index:7;pointer-events:none;overflow:hidden}
+  #floattxt{position:fixed;inset:0;z-index:8;pointer-events:none;overflow:hidden}
+
+  /* ================ BLOOD EFFECTS ================ */
+  .splatter{position:absolute;pointer-events:none;
+    animation:splatIn .25s cubic-bezier(.2,.9,.4,1.3) forwards,
+      splatFade 6s 1.5s forwards}
+  @keyframes splatIn{from{transform:scale(0) rotate(0);opacity:0}
+    to{transform:scale(1) rotate(var(--rot,0deg));opacity:1}}
+  @keyframes splatFade{to{opacity:0}}
+  .slashmark{position:fixed;pointer-events:none;z-index:9;height:3px;
+    background:linear-gradient(to right,
+      transparent,#ff0033 15%,#fff 50%,#ff0033 85%,transparent);
+    box-shadow:0 0 20px #ff0033,0 0 40px #ff0033;
+    animation:slashIn .1s ease-out forwards,slashFade .8s .35s forwards;
+    transform-origin:left center}
+  @keyframes slashIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes slashFade{to{opacity:0}}
+
+  #blood{position:fixed;inset:0;pointer-events:none;z-index:470;overflow:hidden}
+  .drip{position:absolute;top:-10px;width:4px;
+    background:linear-gradient(to bottom,
+      rgba(180,0,0,.98) 0%,
+      rgba(120,0,0,.9) 40%,
+      rgba(60,0,0,.7) 80%,
+      transparent 100%);
+    border-radius:0 0 50% 50%;
+    box-shadow:0 0 8px #600,inset 2px 0 2px rgba(255,80,80,.3);
+    animation:drip 4s linear forwards}
+  @keyframes drip{
+    from{height:0;opacity:1;transform:scaleX(1)}
+    to{height:100vh;opacity:.85;transform:scaleX(1.3)}
+  }
+
+  #bloodpool{position:fixed;left:0;right:0;bottom:0;height:0;z-index:471;
     pointer-events:none;
-  }
-  .scare .inner{
-    font-family:'Courier New',monospace;
-    font-weight:900;
-    font-size:clamp(36px,16vw,180px);
-    text-align:center;
-    line-height:.9;
-    padding:20px;
-    letter-spacing:2px;
-    animation:scareJitter .07s steps(2) infinite;
-  }
-  @keyframes scareJitter{
-    0%{transform:translate(-5px,4px) skewX(-3deg) scale(1.02)}
-    100%{transform:translate(5px,-4px) skewX(3deg) scale(.98)}
-  }
+    background:linear-gradient(to top,
+      rgba(140,0,0,.98),
+      rgba(90,0,0,.7) 40%,
+      rgba(50,0,0,.4) 70%,
+      transparent);
+    transition:height 2s ease;
+    box-shadow:0 -8px 40px rgba(255,0,51,.5),inset 0 8px 30px rgba(255,0,0,.3);
+    filter:blur(.5px)}
+
+  /* ================ FLOATING TEXT ================ */
+  .float-msg{position:absolute;color:#ff0033;
+    font-family:'Courier New',monospace;font-weight:900;
+    letter-spacing:3px;white-space:nowrap;
+    text-shadow:0 0 18px #ff0033,0 0 40px #ff0033,0 0 80px #000;
+    animation:floatIn .3s ease-out forwards,floatOut .5s 1.3s forwards}
+  @keyframes floatIn{from{opacity:0;transform:scale(.5) rotate(var(--rot,0deg))}
+    to{opacity:1;transform:scale(1) rotate(var(--rot,0deg))}}
+  @keyframes floatOut{to{opacity:0;transform:scale(1.15) rotate(var(--rot,0deg))}}
+
+  /* ================ JUMPSCARES ================ */
+  .scare{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;
+    justify-content:center;pointer-events:none;background:#000}
+  .scare .inner{font-family:'Courier New',monospace;font-weight:900;
+    font-size:clamp(36px,16vw,170px);text-align:center;line-height:.9;padding:20px;
+    letter-spacing:2px;animation:jitter .05s steps(2) infinite}
+  @keyframes jitter{
+    0%{transform:translate(-8px,6px) skewX(-5deg) scale(1.03)}
+    100%{transform:translate(8px,-6px) skewX(5deg) scale(.97)}}
   .scare.flash{background:#ff0033}
   .scare.flash .inner{color:#000;text-shadow:0 0 60px #fff,0 0 120px #fff}
   .scare.dark{background:#000}
-  .scare.dark .inner{color:#ff0033;text-shadow:0 0 40px #ff0033,0 0 90px #ff0033}
+  .scare.dark .inner{color:#ff0033;
+    text-shadow:0 0 40px #ff0033,0 0 90px #ff0033}
+  .scare.face{background:#000}
+  .scare.face .face-cvs{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .scare.face .scare-text{position:relative;z-index:2;color:#ff0033;
+    font-family:'Courier New',monospace;font-weight:900;
+    font-size:clamp(26px,9vw,100px);letter-spacing:6px;text-align:center;
+    text-shadow:0 0 30px #ff0033,0 0 70px #ff0033,0 0 140px #000;
+    padding:0 20px;animation:jitter .05s steps(2) infinite}
 
-  /* ================ لرزش صفحه ================ */
+  /* ================ SHAKE / PULSE ================ */
   @keyframes shakeHard{
     0%,100%{transform:translate(0,0) rotate(0)}
-    10%{transform:translate(-9px,5px) rotate(-.6deg)}
-    20%{transform:translate(8px,-6px) rotate(.6deg)}
-    30%{transform:translate(-7px,-4px) rotate(-.4deg)}
-    40%{transform:translate(6px,7px) rotate(.5deg)}
-    50%{transform:translate(-5px,3px) rotate(-.3deg)}
-    60%{transform:translate(7px,-5px) rotate(.4deg)}
-    70%{transform:translate(-4px,-6px) rotate(-.5deg)}
-    80%{transform:translate(5px,4px) rotate(.3deg)}
-    90%{transform:translate(-3px,-2px) rotate(-.2deg)}
-  }
-  #screen.shake{animation:shakeHard .6s cubic-bezier(.36,.07,.19,.97)}
+    10%{transform:translate(-14px,8px) rotate(-1deg)}
+    20%{transform:translate(13px,-9px) rotate(1deg)}
+    30%{transform:translate(-11px,-7px) rotate(-.7deg)}
+    40%{transform:translate(10px,10px) rotate(.8deg)}
+    50%{transform:translate(-8px,6px) rotate(-.6deg)}
+    60%{transform:translate(10px,-8px) rotate(.7deg)}
+    70%{transform:translate(-7px,-9px) rotate(-.8deg)}
+    80%{transform:translate(8px,7px) rotate(.6deg)}
+    90%{transform:translate(-6px,-5px) rotate(-.5deg)}}
+  #screen.shake{animation:shakeHard .55s cubic-bezier(.36,.07,.19,.97)}
+  @keyframes bodyPulse{
+    0%,100%{transform:scale(1)}8%{transform:scale(1.015)}
+    16%{transform:scale(1)}24%{transform:scale(1.015)}32%{transform:scale(1)}}
+  body.pulse{animation:bodyPulse 1.4s ease-out}
 
-  /* ================ فلاش قرمز ================ */
-  #redflash{
-    position:fixed;inset:0;z-index:500;pointer-events:none;
-    background:radial-gradient(circle at center,rgba(255,0,51,.55),rgba(255,0,51,.08) 60%,transparent 80%);
-    opacity:0;transition:opacity .1s;
-  }
-  #redflash.on{opacity:1}
-
-  /* ================ نویز و اسکن‌لاین ================ */
-  #static{
-    position:fixed;inset:0;pointer-events:none;z-index:400;
-    opacity:.055;
-    background:repeating-linear-gradient(to bottom,#fff 0 1px,transparent 1px 3px);
-    mix-blend-mode:overlay;
-    animation:noise .15s steps(2) infinite;
-  }
-  @keyframes noise{
-    0%{transform:translate(0,0)}
-    50%{transform:translate(-2px,1px)}
-    100%{transform:translate(1px,-2px)}
-  }
-
-  /* ================ نشانگر ضبط ================ */
-  #rec{
-    position:fixed;top:14px;right:18px;z-index:800;
-    display:none;align-items:center;gap:8px;
-    color:#ff0033;font-family:monospace;
-    font-size:12px;letter-spacing:3px;font-weight:700;
-    text-shadow:0 0 14px #ff0033;
-    direction:ltr;
-    opacity:.9;
-  }
+  /* ================ REC / TOPBAR ================ */
+  #rec{position:fixed;top:10px;right:12px;z-index:800;display:none;
+    align-items:center;gap:8px;color:#ff0033;font-family:monospace;
+    font-size:11px;letter-spacing:3px;font-weight:700;
+    text-shadow:0 0 14px #ff0033;direction:ltr;opacity:.95}
   #rec.on{display:flex}
-  #rec .dot{
-    width:9px;height:9px;border-radius:50%;
-    background:#ff0033;box-shadow:0 0 14px #ff0033;
-    animation:blink 1s steps(1) infinite;
+  #rec .dot{width:8px;height:8px;border-radius:50%;background:#ff0033;
+    box-shadow:0 0 14px #ff0033;animation:blink 1s steps(1) infinite}
+
+  #topbar{position:fixed;top:0;left:0;right:0;z-index:790;display:none;
+    justify-content:space-between;padding:6px 14px;
+    background:linear-gradient(to bottom,rgba(0,0,0,.95),transparent);
+    font-size:10px;letter-spacing:2px;color:#ff0033;
+    text-shadow:0 0 10px #ff0033;font-family:monospace;direction:ltr;
+    border-bottom:1px solid rgba(255,0,51,.15)}
+  #topbar.on{display:flex}
+
+  /* ================ REVEAL — نفس بکش ================ */
+  #reveal{
+    --ink:#f0e8e0;
+    --ink-soft:#cfc3ba;
+    --glow:#ffd4c0;
+    position:fixed;inset:0;z-index:1200;
+    display:none;align-items:center;justify-content:center;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
+    background:linear-gradient(180deg,#0a0a18 0%,#1a0f1a 55%,#2a1a1f 100%);
+    padding:env(safe-area-inset-top,24px) 20px env(safe-area-inset-bottom,24px);
+    overflow:hidden;direction:rtl;
+  }
+  #reveal.on{display:flex;animation:revealScreenIn 1.5s ease forwards}
+  @keyframes revealScreenIn{from{opacity:0}to{opacity:1}}
+
+  #reveal .dawn{
+    position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);
+    width:140vw;height:60vh;
+    background:radial-gradient(ellipse at center,rgba(255,170,140,.18),transparent 70%);
+    z-index:0;
+  }
+  #reveal .glow{
+    position:absolute;top:30%;left:50%;
+    width:480px;height:480px;transform:translate(-50%,-50%);
+    background:radial-gradient(circle,rgba(255,212,192,.22),transparent 70%);
+    animation:revealPulse 6s ease-in-out infinite;z-index:0;
+  }
+  @keyframes revealPulse{0%,100%{opacity:.7}50%{opacity:1}}
+
+  #reveal .arc{
+    position:absolute;bottom:-220px;left:50%;transform:translateX(-50%);
+    width:900px;height:450px;opacity:.15;z-index:0;pointer-events:none;
   }
 
-  /* ================ شمارش معکوس ================ */
-  .countdown{
-    display:block;direction:ltr;
-    color:#ff0033;
-    font-family:'Courier New',monospace;
-    font-size:clamp(32px,10vw,74px);
-    font-weight:900;
-    letter-spacing:10px;
-    text-align:center;
-    text-shadow:0 0 25px #ff0033,0 0 60px #ff0033,0 0 120px #ff0033;
-    margin:22px 0;
+  #reveal .motes{position:absolute;inset:0;z-index:0;pointer-events:none}
+  #reveal .mote{
+    position:absolute;width:3px;height:3px;border-radius:50%;
+    background:rgba(255,230,210,.55);
+    animation:revealDrift 14s ease-in-out infinite;
   }
-  .countdown.critical{animation:crit 1s steps(2) infinite}
-  @keyframes crit{50%{opacity:.25;transform:scale(1.02)}}
+  @keyframes revealDrift{
+    0%{transform:translateY(0) translateX(0);opacity:0}
+    15%{opacity:.8}
+    85%{opacity:.6}
+    100%{transform:translateY(-80px) translateX(20px);opacity:0}
+  }
 
-  /* ================ تیتر فینال ================ */
-  .final-title{
-    display:block;text-align:center;
-    color:#ff0033;
-    font-family:'Courier New',monospace;
-    font-size:clamp(24px,8vw,58px);
-    font-weight:900;
-    letter-spacing:5px;
-    text-shadow:0 0 35px #ff0033,0 0 80px #ff0033;
-    margin:26px 0;
-    animation:flick 3.5s steps(1) infinite;
+  #reveal .corner-mark{
+    position:absolute;top:22px;left:22px;font-size:13px;
+    opacity:.5;z-index:2;
   }
-  @keyframes flick{
-    0%,91%,100%{opacity:1}
-    92%{opacity:0}
-    93.5%{opacity:1}
-    95%{opacity:0}
-    96.5%{opacity:1}
+
+  #reveal .card{
+    position:relative;z-index:1;
+    width:100%;max-width:440px;
+    background:rgba(255,255,255,.045);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,212,192,.18);
+    border-radius:20px;
+    padding:38px 28px 30px;text-align:center;
+    box-shadow:0 0 60px rgba(255,180,150,.06),0 20px 50px rgba(0,0,0,.4);
+    transform:scale(.96) translateY(8px);opacity:0;
+    animation:revealCardIn 1s cubic-bezier(.22,.9,.3,1) .3s forwards;
+  }
+  @keyframes revealCardIn{
+    to{transform:scale(1) translateY(0);opacity:1}
+  }
+
+  #reveal h1{
+    font-size:clamp(22px,6vw,27px);font-weight:600;
+    color:var(--ink);margin:0 0 6px;letter-spacing:.2px;
+    text-shadow:none;
+  }
+  #reveal .eng{
+    font-size:12px;color:var(--ink-soft);
+    direction:ltr;margin-bottom:26px;opacity:.75;
+  }
+  #reveal p{
+    font-size:15.5px;line-height:1.95;color:var(--ink);
+    margin:0 0 14px;text-align:right;
+    opacity:0;transform:translateY(6px);
+    animation:revealLineIn .7s ease forwards;
+    text-shadow:none;
+  }
+  #reveal p:nth-of-type(1){animation-delay:1.0s}
+  #reveal p:nth-of-type(2){animation-delay:1.4s}
+  #reveal p:nth-of-type(3){animation-delay:1.8s}
+  @keyframes revealLineIn{to{opacity:1;transform:translateY(0)}}
+
+  #reveal .tip{
+    font-size:13.5px;line-height:1.9;color:var(--ink-soft);
+    margin:22px 0 6px;text-align:right;
+    padding-top:18px;border-top:1px solid rgba(255,255,255,.08);
+    opacity:0;animation:revealLineIn .7s ease 2.2s forwards;
+  }
+  #reveal .footer{
+    font-size:12.5px;color:var(--ink-soft);
+    opacity:0;margin:18px 0 24px;
+    animation:revealLineIn .7s ease 2.5s forwards;
+  }
+  #reveal button{
+    width:100%;font-family:inherit;font-size:15.5px;font-weight:500;
+    padding:13px;border-radius:14px;cursor:pointer;
+    color:var(--ink);
+    background:rgba(255,212,192,.1);
+    border:1px solid rgba(255,212,192,.3);
+    opacity:0;
+    animation:revealLineIn .8s ease 2.8s forwards,
+      revealBtnGlow 3s ease-in-out 3.6s infinite;
+    transition:transform .15s ease,background .2s ease;
+  }
+  #reveal button:active{transform:scale(.97)}
+  @keyframes revealBtnGlow{
+    0%,100%{box-shadow:0 0 0 rgba(255,212,192,0)}
+    50%{box-shadow:0 0 18px rgba(255,212,192,.25)}
   }
 
   @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+    *,*::before,*::after{animation-duration:.001ms!important;
+      transition-duration:.001ms!important}
+    #reveal p,#reveal .tip,#reveal .footer,#reveal button{
+      opacity:1;transform:none;
+    }
   }
 </style>
 </head>
 <body>
 
-<div id="screen"><div id="term"><span class="cursor"></span></div></div>
-<div id="static"></div>
+<div id="screen"><div id="term"></div></div>
+<canvas id="face-bg"></canvas>
+<canvas id="crawler"></canvas>
+<canvas id="hands"></canvas>
+<canvas id="knife"></canvas>
+<div id="bloadeff"></div>
+<div id="floattxt"></div>
+<div id="blood"></div>
+<div id="bloodpool"></div>
+
+<div id="vignette"></div>
+<div id="scanlines"></div>
+<div id="tear"></div>
 <div id="redflash"></div>
+<div id="whiteflash"></div>
+<div id="blackout"></div>
+
 <div id="rec"><span class="dot"></span>REC</div>
+<div id="topbar">
+  <span>● CAM: ACCESS ATTEMPT</span><span>● MIC: ACCESS ATTEMPT</span><span>● GPS: SIMULATION</span><span>● KEYLOG: SIMULATED</span>
+</div>
 
 <div id="start">
   <div class="warn-txt">DO NOT CLICK</div>
   <div class="sub">once you enter — you cannot leave</div>
 </div>
 
+<!-- ================= REVEAL — نفس بکش ================= -->
+<div id="reveal">
+  <div class="dawn"></div>
+  <div class="glow"></div>
+  <svg class="arc" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 50 450 A 400 400 0 0 1 850 450" fill="none" stroke="url(#g1)" stroke-width="3"/>
+    <path d="M 90 450 A 360 360 0 0 1 810 450" fill="none" stroke="url(#g2)" stroke-width="2"/>
+    <defs>
+      <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#ffb4a2"/>
+        <stop offset="50%" stop-color="#ffe5a0"/>
+        <stop offset="100%" stop-color="#a2d2ff"/>
+      </linearGradient>
+      <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#cdb4db"/>
+        <stop offset="50%" stop-color="#b8f2e6"/>
+        <stop offset="100%" stop-color="#ffafcc"/>
+      </linearGradient>
+    </defs>
+  </svg>
+  <div class="motes" id="motes"></div>
+  <div class="corner-mark">🦄</div>
+
+  <div class="card">
+    <h1>نفس بکش... تمومه 🤍</h1>
+    <div class="eng">NO DEVICE ACCESS • JUST A PRANK</div>
+
+    <p>هیچ چیزی از گوشی تو هک نشد. هیچ فیلمی گرفته نشد و هیچ اطلاعات واقعی از تو گرفته نشد.</p>
+    <p>تمام آنچه دیدی یک شبیه‌سازی نمایشی بود، نه هک واقعی.</p>
+    <p>اگر واقعاً ترسیدی، واقعاً معذرت می‌خوام. قصدش فقط یک شوخی ترسناک بود. 🙏</p>
+
+    <div class="tip">فقط یه چیز واقعی: اینجور صفحه‌ها وجود دارن. هیچ‌وقت روی لینک ناشناس کلیک نکن. مراقب خودت باش.</div>
+
+    <div class="footer">با محبت ساخته شده ❤️</div>
+
+    <button id="okBtn">باشه، بخشیدمت</button>
+  </div>
+</div>
+
 <script>
 (function(){
 'use strict';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let prankStopped = false;
+const ambientTimers = [];
+function safeSetInterval(fn, ms){ const id = setInterval(() => { if(!prankStopped) fn(); }, ms); ambientTimers.push(id); return id; }
+function stopPrank(){ prankStopped = true; ambientTimers.splice(0).forEach(clearInterval); try{ speechSynthesis.cancel(); }catch(e){} vibStop(); if(droneGain && ac){ try{ droneGain.gain.cancelScheduledValues(ac.currentTime); droneGain.gain.linearRampToValueAtTime(0, ac.currentTime+.15); }catch(e){} } }
 
 /* ============================================================
-   صدا — همه‌چیز با Web Audio ساخته می‌شود، فایل خارجی نیست
+   AUDIO
    ============================================================ */
 let ac = null;
 function audioInit(){
@@ -215,44 +534,65 @@ function audioInit(){
   ac = new AC();
   return ac;
 }
-function audioResume(){
-  if(ac && ac.state === 'suspended') ac.resume();
+function audioResume(){ if(ac && ac.state === 'suspended') ac.resume(); }
+
+let droneStarted = false, droneGain = null;
+function startDrone(){
+  if(!ac || droneStarted) return;
+  droneStarted = true;
+  const t = ac.currentTime;
+  const o1 = ac.createOscillator(); o1.type='sawtooth'; o1.frequency.value = 30;
+  const o2 = ac.createOscillator(); o2.type='sawtooth'; o2.frequency.value = 30.6;
+  const o3 = ac.createOscillator(); o3.type='sine';     o3.frequency.value = 16;
+  const lp = ac.createBiquadFilter(); lp.type='lowpass';
+  lp.frequency.value = 180; lp.Q.value = 6;
+  droneGain = ac.createGain(); droneGain.gain.value = 0.055;
+  const lfo = ac.createOscillator(); lfo.frequency.value = 0.13;
+  const lfoG = ac.createGain(); lfoG.gain.value = 0.03;
+  lfo.connect(lfoG).connect(droneGain.gain); lfo.start();
+  o1.connect(lp); o2.connect(lp); o3.connect(lp);
+  lp.connect(droneGain).connect(ac.destination);
+  o1.start(); o2.start(); o3.start();
 }
 
-function scream(){
+function scream(intensity){
   if(!ac) return;
+  intensity = intensity || 1;
   const t = ac.currentTime;
-
-  // نویز سفید برای جیغ اصلی
-  const dur = 1.0;
+  const dur = 1.4;
   const buf = ac.createBuffer(1, Math.floor(ac.sampleRate*dur), ac.sampleRate);
   const d = buf.getChannelData(0);
-  for(let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 2.2);
+  for(let i=0;i<d.length;i++)
+    d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 1.6);
   const noise = ac.createBufferSource(); noise.buffer = buf;
-  const bq = ac.createBiquadFilter();
-  bq.type='bandpass';
-  bq.frequency.setValueAtTime(3200, t);
-  bq.frequency.exponentialRampToValueAtTime(280, t+dur);
-  bq.Q.value = 2.5;
+  const bq = ac.createBiquadFilter(); bq.type='bandpass';
+  bq.frequency.setValueAtTime(4600, t);
+  bq.frequency.exponentialRampToValueAtTime(140, t+dur);
+  bq.Q.value = 4;
   const gn = ac.createGain();
-  gn.gain.setValueAtTime(0.45, t);
+  gn.gain.setValueAtTime(0.7*intensity, t);
   gn.gain.exponentialRampToValueAtTime(0.001, t+dur);
   noise.connect(bq).connect(gn).connect(ac.destination);
   noise.start(t); noise.stop(t+dur+.02);
-
-  // تون بالا و پایین همزمان
-  const o1 = ac.createOscillator(); o1.type='sawtooth';
-  o1.frequency.setValueAtTime(2400, t);
-  o1.frequency.exponentialRampToValueAtTime(90, t+.75);
-  const o2 = ac.createOscillator(); o2.type='square';
-  o2.frequency.setValueAtTime(1700, t);
-  o2.frequency.exponentialRampToValueAtTime(60, t+.75);
-  const g2 = ac.createGain();
-  g2.gain.setValueAtTime(0.16, t);
-  g2.gain.exponentialRampToValueAtTime(0.001, t+.8);
-  o1.connect(g2); o2.connect(g2); g2.connect(ac.destination);
-  o1.start(t); o2.start(t);
-  o1.stop(t+.85); o2.stop(t+.85);
+  [3600,2600,1900,1300,900].forEach((f,i)=>{
+    const o = ac.createOscillator();
+    o.type = i%2 ? 'square':'sawtooth';
+    o.frequency.setValueAtTime(f, t);
+    o.frequency.exponentialRampToValueAtTime(45+i*18, t+1.1);
+    const og = ac.createGain();
+    og.gain.setValueAtTime((0.19-i*0.028)*intensity, t);
+    og.gain.exponentialRampToValueAtTime(0.001, t+1.2);
+    o.connect(og).connect(ac.destination);
+    o.start(t); o.stop(t+1.25);
+  });
+  const sub = ac.createOscillator(); sub.type='sine';
+  sub.frequency.setValueAtTime(180, t);
+  sub.frequency.exponentialRampToValueAtTime(18, t+.7);
+  const sg = ac.createGain();
+  sg.gain.setValueAtTime(0.55*intensity, t);
+  sg.gain.exponentialRampToValueAtTime(0.001, t+.8);
+  sub.connect(sg).connect(ac.destination);
+  sub.start(t); sub.stop(t+.85);
 }
 
 function heartbeat(){
@@ -262,12 +602,12 @@ function heartbeat(){
     const o = ac.createOscillator();
     const g = ac.createGain();
     o.type='sine';
-    o.frequency.setValueAtTime(75, t+off);
-    o.frequency.exponentialRampToValueAtTime(28, t+off+.16);
-    g.gain.setValueAtTime(0.16, t+off);
-    g.gain.exponentialRampToValueAtTime(0.0001, t+off+.32);
+    o.frequency.setValueAtTime(82, t+off);
+    o.frequency.exponentialRampToValueAtTime(25, t+off+.18);
+    g.gain.setValueAtTime(0.24, t+off);
+    g.gain.exponentialRampToValueAtTime(0.0001, t+off+.34);
     o.connect(g).connect(ac.destination);
-    o.start(t+off); o.stop(t+off+.35);
+    o.start(t+off); o.stop(t+off+.37);
   });
 }
 
@@ -277,10 +617,22 @@ function blip(f){
   const o = ac.createOscillator();
   const g = ac.createGain();
   o.type='square'; o.frequency.value = f||1100;
-  g.gain.setValueAtTime(0.028, t);
-  g.gain.exponentialRampToValueAtTime(0.0001, t+.05);
+  g.gain.setValueAtTime(0.022, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+.04);
   o.connect(g).connect(ac.destination);
-  o.start(t); o.stop(t+.06);
+  o.start(t); o.stop(t+.05);
+}
+
+function typeTick(){
+  if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator();
+  const g = ac.createGain();
+  o.type='square'; o.frequency.value = 1800 + Math.random()*400;
+  g.gain.setValueAtTime(0.008, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+.015);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t+.02);
 }
 
 function boom(){
@@ -289,92 +641,1426 @@ function boom(){
   const o = ac.createOscillator();
   const g = ac.createGain();
   o.type='sine';
-  o.frequency.setValueAtTime(95, t);
-  o.frequency.exponentialRampToValueAtTime(28, t+1.3);
-  g.gain.setValueAtTime(0.3, t);
-  g.gain.exponentialRampToValueAtTime(0.0001, t+1.4);
+  o.frequency.setValueAtTime(120, t);
+  o.frequency.exponentialRampToValueAtTime(18, t+1.7);
+  g.gain.setValueAtTime(0.45, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+1.8);
   o.connect(g).connect(ac.destination);
-  o.start(t); o.stop(t+1.5);
+  o.start(t); o.stop(t+1.9);
+}
+
+function breath(vol){
+  if(!ac) return;
+  vol = vol || 0.1;
+  const t = ac.currentTime;
+  const dur = 1.9;
+  const buf = ac.createBuffer(1, ac.sampleRate*dur, ac.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i=0;i<d.length;i++){
+    const env = Math.sin(Math.PI*i/d.length);
+    d[i] = (Math.random()*2-1) * env * 0.55;
+  }
+  const src = ac.createBufferSource(); src.buffer = buf;
+  const bp = ac.createBiquadFilter(); bp.type='bandpass';
+  bp.frequency.value = 540; bp.Q.value = 1.1;
+  const g = ac.createGain(); g.gain.value = vol;
+  src.connect(bp).connect(g).connect(ac.destination);
+  src.start(t);
+}
+
+function growl(){
+  if(!ac) return;
+  const t = ac.currentTime;
+  const dur = 2.2;
+  const buf = ac.createBuffer(1, ac.sampleRate*dur, ac.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i=0;i<d.length;i++){
+    const env = Math.sin(Math.PI*i/d.length);
+    d[i] = (Math.random()*2-1) * env * 0.6;
+  }
+  const src = ac.createBufferSource(); src.buffer = buf;
+  const bp = ac.createBiquadFilter(); bp.type='bandpass';
+  bp.frequency.setValueAtTime(130, t);
+  bp.frequency.linearRampToValueAtTime(340, t+dur);
+  bp.Q.value = 4;
+  const g = ac.createGain(); g.gain.value = 0.18;
+  src.connect(bp).connect(g).connect(ac.destination);
+  src.start(t);
+}
+
+function slashSound(){
+  if(!ac) return;
+  const t = ac.currentTime;
+  const dur = 0.35;
+  const buf = ac.createBuffer(1, ac.sampleRate*dur, ac.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i=0;i<d.length;i++)
+    d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 3);
+  const src = ac.createBufferSource(); src.buffer = buf;
+  const hp = ac.createBiquadFilter(); hp.type='highpass';
+  hp.frequency.value = 2000;
+  const g = ac.createGain();
+  g.gain.setValueAtTime(0.4, t);
+  g.gain.exponentialRampToValueAtTime(0.001, t+dur);
+  src.connect(hp).connect(g).connect(ac.destination);
+  src.start(t); src.stop(t+dur);
 }
 
 function whisper(text){
   if(!('speechSynthesis' in window)) return;
   try{
     const u = new SpeechSynthesisUtterance(text);
-    u.rate = .5;
-    u.pitch = .05;
-    u.volume = .75;
-    u.lang = 'en-US';
-    // انتخاب صدای مردانه اگر موجود بود
+    u.rate = .4; u.pitch = .01; u.volume = 1; u.lang = 'en-US';
     const v = speechSynthesis.getVoices();
     if(v && v.length){
-      const m = v.find(x=>/male|david|daniel|alex|fred|google uk english male/i.test(x.name));
+      const m = v.find(x=>/male|david|daniel|alex|fred|google uk english male|microsoft david/i.test(x.name));
       if(m) u.voice = m;
     }
     speechSynthesis.speak(u);
   }catch(e){}
 }
 
-function vibrate(p){
-  if(navigator.vibrate && !reduceMotion){
-    try{ navigator.vibrate(p); }catch(e){}
+/* ============================================================
+   HAPTIC / VIBRATION ENGINE
+   ============================================================ */
+function canVibrate(){ return !!(navigator.vibrate); }
+function vib(pattern){
+  if(!canVibrate() || reduceMotion) return;
+  try{ navigator.vibrate(pattern); }catch(e){}
+}
+function vibStop(){ if(canVibrate()){ try{ navigator.vibrate(0); }catch(e){} } }
+
+const VIB = {
+  tap:       25,
+  tap2:      [35, 50, 35],
+  tap3:      [35, 45, 35, 45, 35],
+  heart:     [70, 70, 70, 300, 70, 70, 70],
+  panic:     [200, 80, 200, 80, 200, 80, 600],
+  slam:      400,
+  slam2:     [500, 130, 500],
+  long:      1500,
+  longer:    2800,
+  verylong:  4500,
+  final:     [800, 200, 800, 200, 800, 200, 2500],
+  tornado:   [1000,150,1000,150,1000,150,1000,150,4000],
+  codeTick:  [15, 20, 15],
+  warn:      [120, 60, 120],
+  threat:    [300, 100, 300, 100, 500],
+  bite:      [60, 30, 60, 30, 200, 100, 400],
+  crazy:     [80,30,80,30,80,30,80,30,80,30,1500],
+  /* جدید — خیلی شدید */
+  heartAttack: [150, 40, 150, 40, 150, 40, 800, 100, 800, 100, 1200],
+  demon:       [300, 80, 300, 80, 300, 80, 1000, 100, 2000],
+  nightmare:   [500, 100, 500, 100, 500, 100, 500, 100, 3500],
+  chainSaw:    [80,20,80,20,80,20,80,20,80,20,80,20,80,20,80,20,80,20,2500],
+  deathGrip:   [2000, 150, 2000, 150, 4000],
+  seizure:     [40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,
+                40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,3000]
+};
+function vibe(kind){
+  if(typeof kind === 'string' && VIB[kind] !== undefined) vib(VIB[kind]);
+  else vib(kind);
+}
+
+/* ============================================================
+   FACE LIBRARY
+   ============================================================ */
+
+/* --- 0. CLOWN --- */
+function drawClown(ctx, cx, cy, s){
+  const fw = s*0.32, fh = s*0.42;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#f8f0e8'); grd.addColorStop(0.5,'#c8b8b0'); grd.addColorStop(1,'#100808');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#c81818';
+  for(let side of [-1,1]){
+    for(let i=0;i<6;i++){
+      const hx = cx + side*(fw*0.85 + i*6);
+      const hy = cy - fh*0.4 + i*10;
+      ctx.beginPath();
+      ctx.ellipse(hx, hy, 14, 22, side*0.4, 0, Math.PI*2);
+      ctx.fill();
+    }
+  }
+  for(let i=0;i<5;i++){
+    ctx.beginPath();
+    ctx.ellipse(cx - fw*0.5 + i*fw*0.25, cy - fh*0.9, 10, 18, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+  const eyeY = cy - fh*0.18;
+  const eyeX = fw*0.40;
+  const eyeR = fw*0.30;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*0.9, eyeR*0.9, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 30;
+  ctx.fillStyle = '#ff0033';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.35, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.14, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.moveTo(cx+eyeX, eyeY-eyeR);
+  ctx.lineTo(cx+eyeX+eyeR*0.85, eyeY);
+  ctx.lineTo(cx+eyeX, eyeY+eyeR);
+  ctx.lineTo(cx+eyeX-eyeR*0.85, eyeY);
+  ctx.closePath(); ctx.fill();
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 30;
+  ctx.fillStyle = '#ff0033';
+  ctx.beginPath();
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.30, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.12, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#e01818';
+  ctx.shadowColor = '#800'; ctx.shadowBlur = 10;
+  ctx.beginPath();
+  ctx.arc(cx, cy + fh*0.05, fw*0.14, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(255,180,180,0.6)';
+  ctx.beginPath();
+  ctx.arc(cx - fw*0.05, cy + fh*0.02, fw*0.05, 0, Math.PI*2);
+  ctx.fill();
+  const mouthY = cy + fh*0.48;
+  const mouthW = fw*1.15;
+  const mouthH = fh*0.32;
+  ctx.fillStyle = '#c00808';
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW, mouthH*0.55, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW*0.9, mouthH*0.4, 0, 0, Math.PI*2);
+  ctx.fill();
+  for(let i=0;i<12;i++){
+    const tx = cx - mouthW*0.85 + (i+0.5)*(mouthW*1.7/12);
+    const th = mouthH*0.35 + Math.random()*mouthH*0.25;
+    ctx.fillStyle = '#e8d878';
+    ctx.beginPath();
+    ctx.moveTo(tx-6, mouthY - mouthH*0.42);
+    ctx.lineTo(tx+6, mouthY - mouthH*0.42);
+    ctx.lineTo(tx + (Math.random()*4-2), mouthY - mouthH*0.42 + th);
+    ctx.closePath(); ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(tx-6, mouthY + mouthH*0.42);
+    ctx.lineTo(tx+6, mouthY + mouthH*0.42);
+    ctx.lineTo(tx + (Math.random()*4-2), mouthY + mouthH*0.42 - th);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.strokeStyle = '#600';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW, mouthH*0.55, 0, 0, Math.PI*2);
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(150,0,0,0.95)';
+  for(let side of [-1, 1]){
+    const bx = cx + side*mouthW*0.95;
+    const bh = 50 + Math.random()*140;
+    ctx.beginPath();
+    ctx.moveTo(bx-4, mouthY);
+    ctx.lineTo(bx+4, mouthY);
+    ctx.lineTo(bx+2, mouthY+bh);
+    ctx.lineTo(bx-2, mouthY+bh);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.fillStyle = 'rgba(180,0,0,0.92)';
+  ctx.fillRect(cx-eyeX-3, eyeY+eyeR*0.6, 6, 60 + Math.random()*90);
+  ctx.fillRect(cx+eyeX-3, eyeY+eyeR*0.6, 6, 60 + Math.random()*90);
+  for(let i=0;i<4;i++){
+    const lx = cx-eyeX + (Math.random()-0.5)*14;
+    const ly = eyeY+eyeR + i*20 + Math.random()*6;
+    ctx.beginPath();
+    ctx.ellipse(lx, ly, 5, 8, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+  for(let i=0;i<4;i++){
+    const lx = cx+eyeX + (Math.random()-0.5)*14;
+    const ly = eyeY+eyeR + i*20 + Math.random()*6;
+    ctx.beginPath();
+    ctx.ellipse(lx, ly, 5, 8, 0, 0, Math.PI*2);
+    ctx.fill();
   }
 }
 
+/* --- 1. DEMON --- */
+function drawDemon(ctx, cx, cy, s){
+  const fw = s*0.30, fh = s*0.44;
+  ctx.fillStyle = '#1a0808'; ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx-fw*0.75, cy-fh*0.55);
+  ctx.quadraticCurveTo(cx-fw*1.5, cy-fh*1.6, cx-fw*0.95, cy-fh*2.05);
+  ctx.quadraticCurveTo(cx-fw*1.1, cy-fh*1.4, cx-fw*0.35, cy-fh*0.75);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx+fw*0.75, cy-fh*0.55);
+  ctx.quadraticCurveTo(cx+fw*1.5, cy-fh*1.6, cx+fw*0.95, cy-fh*2.05);
+  ctx.quadraticCurveTo(cx+fw*1.1, cy-fh*1.4, cx+fw*0.35, cy-fh*0.75);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#6a1010'); grd.addColorStop(0.4,'#3a0808'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.16, eyeX = fw*0.4, eyeR = fw*0.28;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*1.1, eyeR*1.25, 0, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR*1.1, eyeR*1.25, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 35;
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.16, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.16, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.42, mouthW = fw*0.82, mouthH = fh*0.30;
+  const mg = ctx.createRadialGradient(cx, mouthY, 4, cx, mouthY, mouthW);
+  mg.addColorStop(0,'#000'); mg.addColorStop(1,'#200000');
+  ctx.fillStyle = mg;
+  ctx.beginPath(); ctx.ellipse(cx, mouthY, mouthW, mouthH, 0, 0, Math.PI*2); ctx.fill();
+  for(let i=0;i<9;i++){
+    const tx = cx-mouthW + (i+0.5)*(mouthW*2/9);
+    const th = mouthH*(0.55 + Math.random()*0.35);
+    ctx.fillStyle = '#c8bc98';
+    ctx.beginPath();
+    ctx.moveTo(tx-9, mouthY-mouthH*0.95);
+    ctx.lineTo(tx+9, mouthY-mouthH*0.95);
+    ctx.lineTo(tx + (Math.random()*6-3), mouthY-mouthH*0.95 + th);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.fillStyle = 'rgba(160,0,0,0.92)';
+  for(let i=0;i<8;i++){
+    const bx = cx-fw*0.75 + i*fw*0.21;
+    ctx.fillRect(bx, mouthY+mouthH*0.6, 3+Math.random()*6, 50+Math.random()*180);
+  }
+  ctx.fillRect(cx-eyeX-3, eyeY+eyeR*0.7, 6, 55 + Math.random()*90);
+  ctx.fillRect(cx+eyeX-3, eyeY+eyeR*0.7, 6, 55 + Math.random()*90);
+}
+
+/* --- 2. SKULL --- */
+function drawSkull(ctx, cx, cy, s){
+  const fw = s*0.30, fh = s*0.42;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#f0e8d8'); grd.addColorStop(0.5,'#a89880'); grd.addColorStop(1,'#1a1a1a');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = 'rgba(0,0,0,0.7)'; ctx.lineWidth = 1.5;
+  for(let i=0;i<6;i++){
+    const a = Math.random()*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(a)*fw*0.2, cy+Math.sin(a)*fh*0.2);
+    ctx.lineTo(cx+Math.cos(a)*fw*0.9, cy+Math.sin(a)*fh*0.9);
+    ctx.stroke();
+  }
+  const eyeY = cy-fh*0.15, eyeX = fw*0.42, eyeR = fw*0.32;
+  ctx.fillStyle = '#000'; ctx.shadowColor = '#000'; ctx.shadowBlur = 30;
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*1.15, eyeR*1.25, -0.1, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR*1.15, eyeR*1.25, 0.1, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 30;
+  ctx.fillStyle = 'rgba(200,0,0,0.45)';
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*0.9, eyeR*1.0, -0.1, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR*0.9, eyeR*1.0, 0.1, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.moveTo(cx, cy+fh*0.02);
+  ctx.lineTo(cx-fw*0.10, cy+fh*0.22);
+  ctx.lineTo(cx+fw*0.10, cy+fh*0.22);
+  ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  const mouthY = cy+fh*0.52, mouthW = fw*0.78, mouthH = fh*0.20;
+  ctx.strokeRect(cx-mouthW, mouthY-mouthH, mouthW*2, mouthH*2);
+  for(let i=0;i<10;i++){
+    const tx = cx-mouthW + (i+0.5)*(mouthW*2/10);
+    ctx.beginPath();
+    ctx.moveTo(tx, mouthY-mouthH); ctx.lineTo(tx, mouthY+mouthH); ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.moveTo(cx-mouthW, mouthY); ctx.lineTo(cx+mouthW, mouthY); ctx.stroke();
+  ctx.fillStyle = 'rgba(160,0,0,0.9)';
+  ctx.fillRect(cx-eyeX-3, eyeY+eyeR*0.9, 6, 40+Math.random()*70);
+  ctx.fillRect(cx+eyeX-3, eyeY+eyeR*0.9, 6, 40+Math.random()*70);
+}
+
+/* --- 3. GHOST --- */
+function drawGhost(ctx, cx, cy, s){
+  const fw = s*0.32, fh = s*0.46;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#e8e0d0'); grd.addColorStop(0.5,'#a8a090'); grd.addColorStop(1,'#1a1a1a');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.16, eyeX = fw*0.38, eyeR = fw*0.30;
+  ctx.fillStyle = '#000'; ctx.shadowColor = '#000'; ctx.shadowBlur = 30;
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*1.05, eyeR*1.35, 0, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR*1.05, eyeR*1.35, 0, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 25;
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY+2, eyeR*0.09, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY+2, eyeR*0.09, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.42, mouthW = fw*0.55, mouthH = fh*0.38;
+  ctx.fillStyle = '#000'; ctx.shadowColor = '#000'; ctx.shadowBlur = 25;
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW, mouthH, 0, 0, Math.PI*2); ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.strokeStyle = '#4a3030'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW, mouthH, 0, 0, Math.PI*2); ctx.stroke();
+}
+
+/* --- 4. FLAYED --- */
+function drawFlayed(ctx, cx, cy, s){
+  const fw = s*0.32, fh = s*0.45;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#b01818'); grd.addColorStop(0.4,'#700808'); grd.addColorStop(1,'#180000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = 'rgba(60,0,0,0.8)'; ctx.lineWidth = 1.5;
+  for(let i=0;i<14;i++){
+    const yy = cy-fh*0.85 + i*fh*0.13;
+    ctx.beginPath();
+    ctx.moveTo(cx-fw*0.85, yy);
+    ctx.quadraticCurveTo(cx, yy + (Math.random()-0.5)*8, cx+fw*0.85, yy);
+    ctx.stroke();
+  }
+  const eyeY = cy-fh*0.16, eyeX = fw*0.38, eyeR = fw*0.30;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*1.15, eyeR*1.2, 0, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR*1.15, eyeR*1.2, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 25;
+  ctx.fillStyle = '#e8d8c0';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.75, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.75, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.12, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.12, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.42, mouthW = fw*0.72, mouthH = fh*0.28;
+  ctx.fillStyle = '#000';
+  ctx.beginPath(); ctx.ellipse(cx, mouthY, mouthW, mouthH, 0, 0, Math.PI*2); ctx.fill();
+  for(let i=0;i<11;i++){
+    const tx = cx-mouthW + (i+0.5)*(mouthW*2/11);
+    const th = mouthH*(0.6 + Math.random()*0.35);
+    ctx.fillStyle = '#e8e0d0';
+    ctx.beginPath();
+    ctx.moveTo(tx-7, mouthY-mouthH*0.98);
+    ctx.lineTo(tx+7, mouthY-mouthH*0.98);
+    ctx.lineTo(tx + (Math.random()*4-2), mouthY-mouthH*0.98 + th);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.fillStyle = 'rgba(140,0,0,0.9)';
+  for(let i=0;i<10;i++){
+    const bx = cx-fw*0.85 + i*fw*0.19;
+    ctx.fillRect(bx, mouthY+mouthH*0.7, 3+Math.random()*4, 30+Math.random()*140);
+  }
+}
+
+/* --- 5. BURNING --- */
+function drawBurning(ctx, cx, cy, s){
+  const fw = s*0.30, fh = s*0.44;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#200808'); grd.addColorStop(0.5,'#100404'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#ff5010'; ctx.lineWidth = 2;
+  ctx.shadowColor = '#ff3300'; ctx.shadowBlur = 25;
+  for(let i=0;i<14;i++){
+    const a = Math.random()*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    let px = cx, py = cy;
+    for(let j=0;j<4;j++){
+      px += Math.cos(a + (Math.random()-0.5)*0.6) * fw*0.25;
+      py += Math.sin(a + (Math.random()-0.5)*0.6) * fh*0.25;
+      ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  }
+  ctx.shadowBlur = 0;
+  const eyeY = cy-fh*0.16, eyeX = fw*0.40;
+  ctx.shadowColor = '#ff6600'; ctx.shadowBlur = 45;
+  ctx.fillStyle = '#ffcc00';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, fw*0.09, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, fw*0.09, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, fw*0.035, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, fw*0.035, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.42, mouthW = fw*0.55, mouthH = fh*0.34;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW, mouthH, 0, 0, Math.PI*2); ctx.fill();
+  ctx.shadowColor = '#ff3300'; ctx.shadowBlur = 25;
+  ctx.fillStyle = '#ff4400';
+  for(let i=0;i<10;i++){
+    ctx.beginPath();
+    ctx.arc(cx + (Math.random()-0.5)*mouthW*1.5,
+      mouthY + (Math.random()-0.5)*mouthH*1.5,
+      1.5 + Math.random()*2.5, 0, Math.PI*2);
+    ctx.fill();
+  }
+  ctx.shadowBlur = 0;
+}
+
+/* --- 6. CRYING WOMAN --- */
+function drawCrying(ctx, cx, cy, s){
+  const fw = s*0.30, fh = s*0.44;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#b0a8a0'); grd.addColorStop(0.5,'#5a4a44'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.12, eyeX = fw*0.36, eyeR = fw*0.24;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR, eyeR*0.85, -0.25, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR, eyeR*0.85, 0.25, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#8a0000'; ctx.shadowBlur = 15;
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY+2, eyeR*0.15, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY+2, eyeR*0.15, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(0,0,0,0.95)';
+  for(let i=0;i<6;i++){
+    const lx = cx-eyeX + (Math.random()-0.5)*10;
+    const ly = eyeY+eyeR + i*22 + Math.random()*8;
+    ctx.beginPath();
+    ctx.ellipse(lx, ly, 4+Math.random()*3, 6+Math.random()*4, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+  for(let i=0;i<6;i++){
+    const lx = cx+eyeX + (Math.random()-0.5)*10;
+    const ly = eyeY+eyeR + i*22 + Math.random()*8;
+    ctx.beginPath();
+    ctx.ellipse(lx, ly, 4+Math.random()*3, 6+Math.random()*4, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+  const mouthY = cy+fh*0.42, mouthW = fw*0.5, mouthH = fh*0.10;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.moveTo(cx-mouthW, mouthY+mouthH);
+  ctx.quadraticCurveTo(cx, mouthY-mouthH*1.6, cx+mouthW, mouthY+mouthH);
+  ctx.quadraticCurveTo(cx, mouthY+mouthH*0.4, cx-mouthW, mouthY+mouthH);
+  ctx.fill();
+}
+
+/* --- 7. GRINNING --- */
+function drawGrinning(ctx, cx, cy, s){
+  const fw = s*0.32, fh = s*0.44;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#d8c8b8'); grd.addColorStop(0.5,'#6a5040'); grd.addColorStop(1,'#0a0808');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.18, eyeX = fw*0.36, eyeR = fw*0.30;
+  ctx.fillStyle = '#fff'; ctx.shadowColor = '#000'; ctx.shadowBlur = 15;
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*1.05, eyeR*1.1, 0, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR*1.05, eyeR*1.1, 0, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 20;
+  ctx.fillStyle = '#8a0000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.35, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.35, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.18, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.18, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.35, mouthW = fw*0.95, mouthH = fh*0.35;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.moveTo(cx-mouthW, mouthY);
+  ctx.quadraticCurveTo(cx, mouthY+mouthH*2.2, cx+mouthW, mouthY);
+  ctx.quadraticCurveTo(cx, mouthY+mouthH*0.6, cx-mouthW, mouthY);
+  ctx.fill();
+  for(let i=0;i<14;i++){
+    const tx = cx-mouthW + (i+0.5)*(mouthW*2/14);
+    const curve = Math.sin((i/14)*Math.PI) * mouthH*0.9;
+    ctx.fillStyle = '#d8cba8';
+    ctx.fillRect(tx-6, mouthY, 12, 6 + curve);
+    ctx.fillRect(tx-6, mouthY + 12 + curve, 12, 8 + curve*0.5);
+  }
+  ctx.fillStyle = 'rgba(160,0,0,0.92)';
+  ctx.fillRect(cx-mouthW+2, mouthY+8, 4, 60+Math.random()*80);
+  ctx.fillRect(cx+mouthW-6, mouthY+8, 4, 60+Math.random()*80);
+}
+
+/* --- 8. MASK KILLER --- */
+function drawKillerMask(ctx, cx, cy, s){
+  const fw = s*0.30, fh = s*0.42;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#f0ede8'); grd.addColorStop(0.6,'#a8a098'); grd.addColorStop(1,'#0a0808');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.14, eyeX = fw*0.34, eyeR = fw*0.22;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, eyeR*1.1, eyeR*1.25, -0.1, 0, Math.PI*2);
+  ctx.ellipse(cx+eyeX, eyeY, eyeR*1.1, eyeR*1.25, 0.1, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#000'; ctx.shadowBlur = 25;
+  ctx.fillStyle = '#1a0000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.35, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.35, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.42, mouthW = fw*0.72, mouthH = fh*0.22;
+  ctx.fillStyle = '#000';
+  ctx.beginPath(); ctx.ellipse(cx, mouthY, mouthW, mouthH*0.7, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#f8f4e8';
+  for(let i=0;i<8;i++){
+    const tx = cx-mouthW*0.85 + (i+0.5)*(mouthW*1.7/8);
+    ctx.beginPath();
+    ctx.moveTo(tx-8, mouthY-mouthH*0.65);
+    ctx.lineTo(tx+8, mouthY-mouthH*0.65);
+    ctx.lineTo(tx, mouthY-mouthH*0.65 + mouthH*0.35);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.strokeStyle = 'rgba(40,30,20,0.7)'; ctx.lineWidth = 1.5;
+  for(let i=0;i<8;i++){
+    const a = Math.random()*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(a)*fw*0.2, cy+Math.sin(a)*fh*0.2);
+    ctx.lineTo(cx+Math.cos(a)*fw*0.9, cy+Math.sin(a)*fh*0.9);
+    ctx.stroke();
+  }
+  ctx.fillStyle = 'rgba(180,0,0,0.9)';
+  ctx.fillRect(cx-eyeX-4, eyeY+eyeR*0.7, 8, 70+Math.random()*80);
+  ctx.fillRect(cx+eyeX-4, eyeY+eyeR*0.7, 8, 70+Math.random()*80);
+}
+
+/* --- 9. MANGLED --- */
+function drawMangled(ctx, cx, cy, s){
+  const fw = s*0.33, fh = s*0.45;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#4a1a1a'); grd.addColorStop(0.5,'#1a0808'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#ff2244'; ctx.lineWidth = 3;
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 20;
+  for(let i=0;i<8;i++){
+    const a = Math.random()*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(a)*fw*0.2, cy+Math.sin(a)*fh*0.2);
+    let px = cx+Math.cos(a)*fw*0.2, py = cy+Math.sin(a)*fh*0.2;
+    for(let j=0;j<4;j++){
+      px += Math.cos(a+(Math.random()-0.5)*0.8)*fw*0.18;
+      py += Math.sin(a+(Math.random()-0.5)*0.8)*fh*0.18;
+      ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  }
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = '#f0e8d0';
+  ctx.beginPath();
+  ctx.ellipse(cx-fw*0.4, cy-fh*0.2, fw*0.15, fh*0.2, 0.3, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx+fw*0.45, cy+fh*0.1, fw*0.12, fh*0.15, -0.4, 0, Math.PI*2);
+  ctx.fill();
+  const eyeY = cy-fh*0.16;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-fw*0.35, eyeY, fw*0.22, fw*0.26, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-fw*0.35, eyeY, fw*0.08, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(cx-fw*0.35, eyeY, fw*0.04, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = '#7a1010'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(cx+fw*0.35, eyeY);
+  ctx.lineTo(cx+fw*0.40, eyeY+fh*0.20);
+  ctx.stroke();
+  ctx.fillStyle = '#e8d8c0';
+  ctx.beginPath();
+  ctx.arc(cx+fw*0.42, eyeY+fh*0.24, fw*0.10, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(cx+fw*0.42, eyeY+fh*0.24, fw*0.04, 0, Math.PI*2);
+  ctx.fill();
+  const mouthY = cy+fh*0.42, mouthW = fw*0.85, mouthH = fh*0.30;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.moveTo(cx-mouthW, mouthY);
+  ctx.quadraticCurveTo(cx-mouthW*0.3, mouthY+mouthH*1.4, cx, mouthY+mouthH*0.6);
+  ctx.quadraticCurveTo(cx+mouthW*0.3, mouthY+mouthH*1.7, cx+mouthW, mouthY+mouthH*0.3);
+  ctx.lineTo(cx+mouthW, mouthY);
+  ctx.closePath(); ctx.fill();
+  ctx.fillStyle = 'rgba(150,0,0,0.95)';
+  for(let i=0;i<12;i++){
+    const bx = cx-fw*0.9 + i*fw*0.16;
+    ctx.fillRect(bx, mouthY+mouthH*0.4, 3+Math.random()*5, 40+Math.random()*160);
+  }
+}
+
+/* --- 10. WIDE MOUTH --- */
+function drawWideMouth(ctx, cx, cy, s){
+  const fw = s*0.28, fh = s*0.40;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#d8c8b8'); grd.addColorStop(0.5,'#6a5040'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.30, eyeX = fw*0.22;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, fw*0.12, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, fw*0.12, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 25;
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, fw*0.04, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, fw*0.04, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  const mouthY = cy + fh*0.25;
+  const mouthW = fw*1.05;
+  const mouthH = fh*0.42;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW, mouthH, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = '#3a1010'; ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, mouthW, mouthH, 0, 0, Math.PI*2);
+  ctx.stroke();
+  for(let i=0;i<9;i++){
+    const tx = cx-mouthW*0.9 + (i+0.5)*(mouthW*1.8/9);
+    const th = mouthH*0.55 + Math.random()*mouthH*0.35;
+    ctx.fillStyle = '#e8e0c8';
+    ctx.beginPath();
+    ctx.moveTo(tx-8, mouthY-mouthH*0.95);
+    ctx.lineTo(tx+8, mouthY-mouthH*0.95);
+    ctx.lineTo(tx + (Math.random()*5-2.5), mouthY-mouthH*0.95+th);
+    ctx.closePath(); ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(tx-8, mouthY+mouthH*0.95);
+    ctx.lineTo(tx+8, mouthY+mouthH*0.95);
+    ctx.lineTo(tx + (Math.random()*5-2.5), mouthY+mouthH*0.95-th);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.fillStyle = 'rgba(150,0,0,0.95)';
+  for(let i=0;i<10;i++){
+    const bx = cx-mouthW*0.9 + i*fw*0.22;
+    ctx.fillRect(bx, mouthY+mouthH*0.85, 3+Math.random()*5, 60+Math.random()*180);
+  }
+  ctx.fillStyle = 'rgba(180,0,0,0.9)';
+  ctx.fillRect(cx-eyeX-3, eyeY+fw*0.12, 6, 60+Math.random()*80);
+  ctx.fillRect(cx+eyeX-3, eyeY+fw*0.12, 6, 60+Math.random()*80);
+}
+
+/* --- 11. GIRL GHOST (دختر موبلند رو صورت) --- */
+function drawGirlGhost(ctx, cx, cy, s){
+  const fw = s*0.30, fh = s*0.44;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#e8dcd0'); grd.addColorStop(0.5,'#8a7a70'); grd.addColorStop(1,'#0a0808');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.15, eyeX = fw*0.32;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-eyeX, eyeY, fw*0.24, fw*0.30, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx+eyeX*1.3, eyeY+fh*0.03, fw*0.20, fw*0.26, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#fff'; ctx.shadowBlur = 15;
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY+2, fw*0.04, 0, Math.PI*2);
+  ctx.arc(cx+eyeX*1.3, eyeY+fh*0.03+2, fw*0.03, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.42;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, fw*0.42, fh*0.24, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = '#3a2020'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, fw*0.42, fh*0.24, 0, 0, Math.PI*2);
+  ctx.stroke();
+  ctx.strokeStyle = '#000'; ctx.lineCap = 'round';
+  for(let i=0;i<70;i++){
+    ctx.lineWidth = 2 + Math.random()*4;
+    const sx = cx + (Math.random()-0.5)*fw*3;
+    const sy = cy - fh*1.8;
+    const ex = cx + (Math.random()-0.5)*fw*2.8;
+    const ey = cy + fh*(0.6 + Math.random()*1.4);
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.quadraticCurveTo((sx+ex)/2 + (Math.random()-0.5)*50, (sy+ey)/2, ex, ey);
+    ctx.stroke();
+  }
+}
+
+/* --- 12. NO-EYE FACE (صورت بدون چشم) --- */
+function drawNoEyes(ctx, cx, cy, s){
+  const fw = s*0.32, fh = s*0.45;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#c8b8a8'); grd.addColorStop(0.5,'#4a3a30'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.shadowColor = '#000'; ctx.shadowBlur = 40;
+  ctx.beginPath();
+  ctx.ellipse(cx-fw*0.36, cy-fh*0.14, fw*0.26, fw*0.32, -0.1, 0, Math.PI*2);
+  ctx.ellipse(cx+fw*0.36, cy-fh*0.14, fw*0.26, fw*0.32, 0.1, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.strokeStyle = '#6a1a1a'; ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.ellipse(cx-fw*0.36, cy-fh*0.14, fw*0.28, fw*0.34, -0.1, 0, Math.PI*2);
+  ctx.ellipse(cx+fw*0.36, cy-fh*0.14, fw*0.28, fw*0.34, 0.1, 0, Math.PI*2);
+  ctx.stroke();
+  const mouthY = cy+fh*0.42, mouthW = fw*0.85;
+  ctx.strokeStyle = '#2a0a0a'; ctx.lineWidth = 6;
+  ctx.beginPath();
+  ctx.moveTo(cx-mouthW, mouthY);
+  ctx.lineTo(cx+mouthW, mouthY);
+  ctx.stroke();
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 3;
+  for(let i=0;i<14;i++){
+    const sx = cx-mouthW + (i+0.5)*(mouthW*2/14);
+    const sh = 10;
+    ctx.beginPath();
+    ctx.moveTo(sx-sh, mouthY-sh);
+    ctx.lineTo(sx+sh, mouthY+sh);
+    ctx.moveTo(sx+sh, mouthY-sh);
+    ctx.lineTo(sx-sh, mouthY+sh);
+    ctx.stroke();
+  }
+  ctx.fillStyle = 'rgba(160,0,0,0.95)';
+  ctx.fillRect(cx-fw*0.36-5, cy+fh*0.05, 10, 100 + Math.random()*100);
+  ctx.fillRect(cx+fw*0.36-5, cy+fh*0.05, 10, 100 + Math.random()*100);
+  ctx.fillStyle = 'rgba(150,0,0,0.9)';
+  for(let i=0;i<10;i++){
+    const bx = cx-mouthW*0.95 + i*(mouthW*1.9/10);
+    ctx.fillRect(bx, mouthY+6, 3+Math.random()*4, 40 + Math.random()*140);
+  }
+}
+
+/* --- 13. SCREAMING BURNT (سوخته‌ی جیغ‌کش) --- */
+function drawBurntScream(ctx, cx, cy, s){
+  const fw = s*0.32, fh = s*0.46;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#1a0505'); grd.addColorStop(0.4,'#0a0202'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#ff4400'; ctx.lineWidth = 3;
+  ctx.shadowColor = '#ff2200'; ctx.shadowBlur = 30;
+  for(let i=0;i<18;i++){
+    const a = Math.random()*Math.PI*2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    let px=cx, py=cy;
+    for(let j=0;j<5;j++){
+      px += Math.cos(a+(Math.random()-0.5)*0.7) * fw*0.2;
+      py += Math.sin(a+(Math.random()-0.5)*0.7) * fh*0.2;
+      ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  }
+  ctx.shadowBlur = 0;
+  const eyeY = cy-fh*0.18, eyeX = fw*0.36;
+  ctx.shadowColor = '#ff6600'; ctx.shadowBlur = 50;
+  ctx.fillStyle = '#fff8e0';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, fw*0.10, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, fw*0.10, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#ff3300';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, fw*0.05, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, fw*0.05, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.45;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, fw*0.28, fh*0.36, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#ff3300'; ctx.shadowBlur = 30;
+  ctx.fillStyle = '#ff5500';
+  for(let i=0;i<20;i++){
+    ctx.beginPath();
+    ctx.arc(cx+(Math.random()-0.5)*fw*1.4, mouthY+(Math.random()-0.5)*fh*1.4,
+            2+Math.random()*3.5, 0, Math.PI*2);
+    ctx.fill();
+  }
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(80,0,0,0.95)';
+  for(let i=0;i<8;i++){
+    const bx = cx-fw*0.9 + i*fw*0.25;
+    ctx.fillRect(bx, mouthY, 4, 60+Math.random()*160);
+  }
+}
+
+/* --- 14. TWISTED (صورت پیچیده‌شده) --- */
+function drawTwisted(ctx, cx, cy, s){
+  const fw = s*0.32, fh = s*0.45;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#b0a090'); grd.addColorStop(0.5,'#4a3a30'); grd.addColorStop(1,'#000');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY1 = cy-fh*0.20, eyeY2 = cy-fh*0.08;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx-fw*0.35, eyeY1, fw*0.24, fw*0.20, -0.4, 0, Math.PI*2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(cx+fw*0.38, eyeY2, fw*0.22, fw*0.28, 0.5, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 30;
+  ctx.fillStyle = '#ff4444';
+  ctx.beginPath();
+  ctx.arc(cx-fw*0.35, eyeY1, fw*0.06, 0, Math.PI*2);
+  ctx.arc(cx+fw*0.38, eyeY2, fw*0.06, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(cx-fw*0.35, eyeY1, fw*0.02, 0, Math.PI*2);
+  ctx.arc(cx+fw*0.38, eyeY2, fw*0.02, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(0,0,0,0.7)';
+  ctx.beginPath();
+  ctx.moveTo(cx-fw*0.05, cy-fh*0.02);
+  ctx.lineTo(cx-fw*0.20, cy+fh*0.18);
+  ctx.lineTo(cx+fw*0.15, cy+fh*0.10);
+  ctx.closePath(); ctx.fill();
+  const mouthY = cy+fh*0.40;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.moveTo(cx-fw*0.85, mouthY-fh*0.05);
+  ctx.quadraticCurveTo(cx, mouthY+fh*0.25, cx+fw*0.75, mouthY+fh*0.15);
+  ctx.quadraticCurveTo(cx+fw*0.3, mouthY+fh*0.02, cx-fw*0.85, mouthY-fh*0.05);
+  ctx.fill();
+  for(let i=0;i<8;i++){
+    const tx = cx-fw*0.75 + i*fw*0.19;
+    const ty = mouthY + Math.sin(i*0.7)*fh*0.05;
+    ctx.fillStyle = '#c8b898';
+    ctx.beginPath();
+    ctx.moveTo(tx-6, ty);
+    ctx.lineTo(tx+6, ty);
+    ctx.lineTo(tx+(Math.random()*4-2), ty+fh*0.06+Math.random()*fh*0.04);
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.fillStyle = 'rgba(150,0,0,0.9)';
+  for(let i=0;i<6;i++){
+    const bx = cx-fw*0.8 + i*fw*0.3;
+    ctx.fillRect(bx, mouthY+fh*0.15, 4, 50+Math.random()*130);
+  }
+}
+
+/* --- 15. CRAWLING FACE (صورت خزنده روی صفحه) --- */
+function drawCrawlingFace(ctx, cx, cy, s){
+  const fw = s*0.34, fh = s*0.46;
+  const grd = ctx.createRadialGradient(cx, cy-fh*0.1, fw*0.15, cx, cy, fw*1.5);
+  grd.addColorStop(0,'#d8ccc0'); grd.addColorStop(0.5,'#7a6a60'); grd.addColorStop(1,'#0a0505');
+  ctx.fillStyle = grd;
+  ctx.beginPath(); ctx.ellipse(cx, cy, fw, fh, 0, 0, Math.PI*2); ctx.fill();
+  const eyeY = cy-fh*0.20, eyeX = fw*0.36, eyeR = fw*0.26;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 30;
+  ctx.fillStyle = '#8a0000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.42, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.42, 0, Math.PI*2);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.arc(cx-eyeX, eyeY, eyeR*0.20, 0, Math.PI*2);
+  ctx.arc(cx+eyeX, eyeY, eyeR*0.20, 0, Math.PI*2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  const mouthY = cy+fh*0.42;
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.ellipse(cx, mouthY, fw*0.30, fh*0.18, 0, 0, Math.PI*2);
+  ctx.fill();
+  ctx.strokeStyle = '#1a0808'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+  for(let i=0;i<6;i++){
+    const a = -Math.PI/2 + (i-2.5)*0.4;
+    const len = fw*0.6 + Math.random()*fw*0.4;
+    const ex = cx + Math.cos(a)*len;
+    const ey = mouthY + Math.sin(a)*len + fh*0.15;
+    ctx.beginPath();
+    ctx.moveTo(cx, mouthY);
+    ctx.quadraticCurveTo(cx+Math.cos(a)*len*0.5, mouthY+Math.sin(a)*len*0.5 - 20, ex, ey);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(ex, ey, 3, 0, Math.PI*2);
+    ctx.fillStyle = '#1a0808';
+    ctx.fill();
+  }
+  ctx.fillStyle = 'rgba(160,0,0,0.95)';
+  ctx.fillRect(cx-eyeX-4, eyeY+eyeR*0.7, 8, 80 + Math.random()*80);
+  ctx.fillRect(cx+eyeX-4, eyeY+eyeR*0.7, 8, 80 + Math.random()*80);
+}
+
+const FACE_FUNCS = [drawClown, drawDemon, drawSkull, drawGhost,
+  drawFlayed, drawBurning, drawCrying, drawGrinning,
+  drawKillerMask, drawMangled, drawWideMouth,
+  drawGirlGhost, drawNoEyes, drawBurntScream, drawTwisted, drawCrawlingFace];
+const FACE_COUNT = FACE_FUNCS.length;
+
+function drawFaceByIndex(ctx, cx, cy, s, idx){
+  if(idx === undefined) idx = Math.floor(Math.random()*FACE_COUNT);
+  FACE_FUNCS[idx % FACE_COUNT](ctx, cx, cy, s);
+}
+
 /* ============================================================
-   ترمینال
+   KNIFE
+   ============================================================ */
+function drawKnife(ctx, x, y, angle, scale, dripping){
+  ctx.save();
+  ctx.translate(x, y); ctx.rotate(angle); ctx.scale(scale, scale);
+  const L = 280;
+  const grd = ctx.createLinearGradient(0, 0, L, 0);
+  grd.addColorStop(0,'#444'); grd.addColorStop(0.3,'#d8d8d8');
+  grd.addColorStop(0.5,'#fff'); grd.addColorStop(0.7,'#a8a8a8');
+  grd.addColorStop(1,'#555');
+  ctx.fillStyle = grd; ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, -9);
+  ctx.lineTo(L*0.85, -6);
+  ctx.quadraticCurveTo(L, -2, L, 0);
+  ctx.quadraticCurveTo(L*0.98, 4, L*0.9, 6);
+  ctx.lineTo(0, 9);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(4, -6); ctx.lineTo(L*0.85, -3); ctx.stroke();
+  ctx.strokeStyle = 'rgba(120,0,0,0.9)'; ctx.lineWidth = 2.5;
+  ctx.beginPath();
+  ctx.moveTo(10, 0); ctx.lineTo(L*0.8, 0); ctx.stroke();
+  ctx.fillStyle = '#1a0a0a'; ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(-2, -11); ctx.lineTo(-32, -15);
+  ctx.lineTo(-48, -13); ctx.lineTo(-48, 13);
+  ctx.lineTo(-32, 15); ctx.lineTo(-2, 11);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#333'; ctx.fillRect(-4, -15, 5, 30);
+  if(dripping){
+    ctx.fillStyle = 'rgba(160,0,0,0.95)';
+    for(let i=0;i<7;i++){
+      const bx = 30 + i*36 + Math.random()*18;
+      const bh = 20 + Math.random()*90;
+      const bw = 3 + Math.random()*4;
+      ctx.beginPath();
+      ctx.moveTo(bx, 7); ctx.lineTo(bx+bw, 7);
+      ctx.lineTo(bx+bw*0.6, 7+bh); ctx.lineTo(bx+bw*0.4, 7+bh);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+const knifeEl = document.getElementById('knife');
+const knifeCtx = knifeEl.getContext('2d');
+function resizeKnife(){ knifeEl.width = innerWidth; knifeEl.height = innerHeight; }
+resizeKnife(); addEventListener('resize', resizeKnife);
+
+function knifeSlash(){
+  const dur = 600;
+  const t0 = performance.now();
+  const sX = -100, sY = knifeEl.height*(0.15+Math.random()*0.7);
+  const eX = knifeEl.width+100, eY = knifeEl.height*(0.15+Math.random()*0.7);
+  const angle = Math.atan2(eY-sY, eX-sX);
+  knifeEl.classList.add('on');
+  slashSound(); growl(); vibe(VIB.bite);
+  const sm = document.createElement('div');
+  sm.className = 'slashmark';
+  sm.style.left = Math.min(sX, eX) + 'px';
+  sm.style.top = sY + 'px';
+  sm.style.width = Math.abs(eX-sX) + 'px';
+  sm.style.transform = 'rotate(' + (angle*180/Math.PI) + 'deg)';
+  document.body.appendChild(sm);
+  setTimeout(()=>sm.remove(), 1300);
+  setTimeout(()=>bloodSplatter(8), 150);
+  function loop(){
+    const p = (performance.now()-t0)/dur;
+    if(p >= 1){ knifeEl.classList.remove('on'); return; }
+    knifeCtx.setTransform(1,0,0,1,0,0);
+    knifeCtx.clearRect(0,0,knifeEl.width,knifeEl.height);
+    const x = sX + (eX-sX)*p, y = sY + (eY-sY)*p;
+    drawKnife(knifeCtx, x, y, angle, 1.4, true);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+function knifeStab(){
+  const t0 = performance.now();
+  const dur = 1400;
+  const cx = knifeEl.width*0.5;
+  const cy = knifeEl.height*0.5;
+  knifeEl.classList.add('on');
+  slashSound(); growl();
+  function loop(){
+    const p = (performance.now()-t0)/dur;
+    if(p >= 1){ knifeEl.classList.remove('on'); return; }
+    knifeCtx.setTransform(1,0,0,1,0,0);
+    knifeCtx.clearRect(0,0,knifeEl.width,knifeEl.height);
+    const strike = (Math.sin(p*Math.PI*6)+1)/2;
+    const y = -100 + strike*(cy+100);
+    const jx = (Math.random()-0.5)*6;
+    drawKnife(knifeCtx, cx+jx, y, -Math.PI/2+(Math.random()-0.5)*0.1, 1.7, true);
+    if(strike > 0.95 && Math.random() > 0.9){
+      bloodSplatter(4); flashRed(80); shake(); vibe(VIB.bite);
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+/* ============================================================
+   BLOOD
+   ============================================================ */
+const bloodEffEl = document.getElementById('bloadeff');
+function bloodSplatter(count){
+  count = count || 5;
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'splatter';
+    const size = 30 + Math.random()*110;
+    s.style.width = size + 'px';
+    s.style.height = size*(0.6+Math.random()*0.8) + 'px';
+    s.style.left = (Math.random()*100) + 'vw';
+    s.style.top = (Math.random()*100) + 'vh';
+    s.style.background = 'radial-gradient(ellipse at 30% 30%, rgba(180,0,0,.95) 5%, rgba(140,0,0,.9) 25%, rgba(80,0,0,.7) 60%, transparent 95%)';
+    s.style.borderRadius = '50% 40% 55% 45% / 45% 55% 40% 50%';
+    s.style.filter = 'blur(1px)';
+    s.style.setProperty('--rot', (Math.random()*360) + 'deg');
+    bloodEffEl.appendChild(s);
+    setTimeout(()=>s.remove(), 7000);
+  }
+}
+
+const bloodEl = document.getElementById('blood');
+function spawnDrip(){
+  const d = document.createElement('div');
+  d.className = 'drip';
+  d.style.left = (Math.random()*100) + 'vw';
+  d.style.width = (2 + Math.random()*4) + 'px';
+  d.style.animationDuration = (2.5 + Math.random()*3) + 's';
+  bloodEl.appendChild(d);
+  setTimeout(()=>d.remove(), 6500);
+}
+
+const bloodpoolEl = document.getElementById('bloodpool');
+
+/* ============================================================
+   FLOATING TEXT
+   ============================================================ */
+const floatTxtEl = document.getElementById('floattxt');
+const FLOAT_MSGS = [
+  'BEHIND YOU','RUN','DO NOT LOOK','HE IS HERE','TOO LATE',
+  'DO NOT BLINK','I SEE YOU','TURN AROUND','DO NOT SCREAM',
+  'I AM RECORDING YOU','I HAVE YOUR PHOTOS','I READ YOUR MESSAGES',
+  'I CAN SEE YOUR FACE','SMILE FOR THE CAMERA','I KNOW WHERE YOU LIVE',
+  'YOUR FAMILY IS NEXT','I AM INSIDE YOUR PHONE','YOUR CAMERA IS ON',
+  'I HAVE YOUR PASSWORDS','YOUR FILES ARE MINE','DO NOT TRY TO HIDE',
+  'I AM WATCHING YOU RIGHT NOW','OPEN YOUR EYES','DO NOT TURN AROUND',
+  'I AM EVERYWHERE','YOUR SOUL IS MARKED','LOOK AT YOUR CAMERA'
+];
+function floatMessage(text){
+  const el = document.createElement('div');
+  el.className = 'float-msg';
+  el.textContent = text || FLOAT_MSGS[Math.floor(Math.random()*FLOAT_MSGS.length)];
+  const size = 15 + Math.random()*24;
+  el.style.fontSize = size + 'px';
+  el.style.left = (Math.random()*60+5) + 'vw';
+  el.style.top = (Math.random()*70+15) + 'vh';
+  el.style.setProperty('--rot', ((Math.random()-0.5)*8) + 'deg');
+  floatTxtEl.appendChild(el);
+  setTimeout(()=>el.remove(), 2400);
+}
+
+/* ============================================================
+   FACE BACKGROUND / CRAWLER / HANDS
+   ============================================================ */
+const faceBg = document.getElementById('face-bg');
+const faceBgCtx = faceBg.getContext('2d');
+function resizeFaceBg(){ faceBg.width = innerWidth; faceBg.height = innerHeight; }
+resizeFaceBg(); addEventListener('resize', resizeFaceBg);
+let faceBgActive = false;
+function startFaceBg(dur, type){
+  dur = dur || 5000;
+  faceBgActive = true;
+  faceBg.classList.add('on');
+  const t0 = performance.now();
+  function loop(){
+    if(!faceBgActive) return;
+    const p = (performance.now()-t0)/dur;
+    if(p >= 1){ faceBgActive = false; faceBg.classList.remove('on'); return; }
+    faceBgCtx.setTransform(1,0,0,1,0,0);
+    faceBgCtx.fillStyle = '#000';
+    faceBgCtx.fillRect(0,0,faceBg.width,faceBg.height);
+    const jx = (Math.random()-0.5)*22, jy = (Math.random()-0.5)*22;
+    const zoom = 1.3 + Math.sin(p*Math.PI)*0.4;
+    drawFaceByIndex(faceBgCtx, faceBg.width/2+jx, faceBg.height/2+jy,
+      Math.min(faceBg.width, faceBg.height)*zoom, type);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+const crawlerEl = document.getElementById('crawler');
+const crawlerCtx = crawlerEl.getContext('2d');
+function resizeCrawler(){ crawlerEl.width = innerWidth; crawlerEl.height = innerHeight; }
+resizeCrawler(); addEventListener('resize', resizeCrawler);
+function drawCrawler(ctx, x, y, scale, flip){
+  ctx.save();
+  ctx.translate(x, y); if(flip) ctx.scale(-1, 1); ctx.scale(scale, scale);
+  const s = 200;
+  ctx.fillStyle = 'rgba(5,0,0,0.98)';
+  ctx.shadowColor = '#ff0033'; ctx.shadowBlur = 35;
+  ctx.beginPath(); ctx.ellipse(0, 0, s*0.55, s*0.22, 0, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(-s*0.55, -s*0.08, s*0.16, 0, Math.PI*2); ctx.fill();
+  ctx.lineWidth = s*0.09; ctx.strokeStyle = 'rgba(5,0,0,0.98)'; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(-s*0.3, -s*0.05);
+  ctx.quadraticCurveTo(-s*0.55, s*0.18, -s*0.85, s*0.22); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-s*0.2, s*0.05);
+  ctx.quadraticCurveTo(-s*0.5, s*0.28, -s*0.75, s*0.32); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(s*0.4, -s*0.02);
+  ctx.quadraticCurveTo(s*0.65, s*0.15, s*0.85, s*0.28); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(s*0.4, s*0.08);
+  ctx.quadraticCurveTo(s*0.68, s*0.22, s*0.9, s*0.35); ctx.stroke();
+  ctx.shadowBlur = 30; ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(-s*0.6, -s*0.12, s*0.024, 0, Math.PI*2);
+  ctx.arc(-s*0.52, -s*0.14, s*0.024, 0, Math.PI*2);
+  ctx.fill(); ctx.shadowBlur = 0;
+  ctx.restore();
+}
+function launchCrawler(){
+  const dir = Math.random() > .5 ? 1 : -1;
+  crawlerEl.classList.add('on');
+  const dur = 5000 + Math.random()*3000;
+  const t0 = performance.now();
+  const y = crawlerEl.height*(0.7+Math.random()*0.2);
+  growl(); breath(0.14);
+  function loop(){
+    const p = (performance.now()-t0)/dur;
+    if(p >= 1){ crawlerEl.classList.remove('on'); return; }
+    crawlerCtx.setTransform(1,0,0,1,0,0);
+    crawlerCtx.clearRect(0,0,crawlerEl.width,crawlerEl.height);
+    let x;
+    if(dir > 0) x = -200 + p*(crawlerEl.width+400);
+    else x = crawlerEl.width + 200 - p*(crawlerEl.width+400);
+    const scale = 0.7 + Math.sin(p*Math.PI)*0.3;
+    drawCrawler(crawlerCtx, x, y, scale, dir < 0);
+    if(Math.random() > .95) spawnDrip();
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+const handsEl = document.getElementById('hands');
+const handsCtx = handsEl.getContext('2d');
+function resizeHands(){ handsEl.width = innerWidth; handsEl.height = innerHeight; }
+resizeHands(); addEventListener('resize', resizeHands);
+function drawHand(ctx, x, y, angle, scale){
+  ctx.save();
+  ctx.translate(x, y); ctx.rotate(angle); ctx.scale(scale, scale);
+  const s = 200;
+  ctx.fillStyle = '#0a0000'; ctx.strokeStyle = '#3a0000'; ctx.lineWidth = 3;
+  ctx.shadowColor = '#000'; ctx.shadowBlur = 15;
+  ctx.beginPath();
+  ctx.moveTo(-s*0.25, 0);
+  ctx.quadraticCurveTo(-s*0.3, -s*0.35, -s*0.1, -s*0.55);
+  ctx.quadraticCurveTo(0, -s*0.6, s*0.1, -s*0.55);
+  ctx.quadraticCurveTo(s*0.3, -s*0.35, s*0.25, 0);
+  ctx.quadraticCurveTo(s*0.15, s*0.2, 0, s*0.25);
+  ctx.quadraticCurveTo(-s*0.15, s*0.2, -s*0.25, 0);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  [{x:-s*0.22,l:s*0.5,a:-0.5},{x:-s*0.08,l:s*0.6,a:-0.15},
+   {x:s*0.06,l:s*0.62,a:0.05},{x:s*0.20,l:s*0.55,a:0.25}].forEach(f=>{
+    ctx.save();
+    ctx.translate(f.x, -s*0.5); ctx.rotate(f.a);
+    ctx.lineWidth = s*0.09; ctx.strokeStyle = '#0a0000';
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -f.l); ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0, -f.l, s*0.045, 0, Math.PI*2);
+    ctx.fillStyle = '#0a0000'; ctx.fill();
+    ctx.restore();
+  });
+  ctx.shadowBlur = 0; ctx.restore();
+}
+function launchHands(){
+  handsEl.classList.add('on');
+  const dur = 3800 + Math.random()*1800;
+  const t0 = performance.now();
+  breath(0.1); growl();
+  const edges = [
+    { x: 0, y: handsEl.height*0.5, a: -Math.PI/2 },
+    { x: handsEl.width, y: handsEl.height*0.5, a: Math.PI/2 },
+    { x: handsEl.width*0.5, y: 0, a: 0 },
+    { x: handsEl.width*0.5, y: handsEl.height, a: Math.PI }
+  ];
+  const hand = edges[Math.floor(Math.random()*edges.length)];
+  function loop(){
+    const p = (performance.now()-t0)/dur;
+    if(p >= 1){ handsEl.classList.remove('on'); return; }
+    handsCtx.setTransform(1,0,0,1,0,0);
+    handsCtx.clearRect(0,0,handsEl.width,handsEl.height);
+    const reach = Math.sin(p*Math.PI);
+    drawHand(handsCtx, hand.x, hand.y, hand.a, reach*1.15);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+/* ============================================================
+   JUMPSCARES
    ============================================================ */
 const screenEl = document.getElementById('screen');
-const term     = document.getElementById('term');
 const redflash = document.getElementById('redflash');
-const recEl    = document.getElementById('rec');
+const whiteflash = document.getElementById('whiteflash');
+const tearEl = document.getElementById('tear');
+const recEl = document.getElementById('rec');
+const topbar = document.getElementById('topbar');
 
-function cursorEl(){ return term.querySelector('.cursor'); }
-function insertBeforeCursor(el){
-  const c = cursorEl();
-  if(c) term.insertBefore(el, c); else term.appendChild(el);
-  screenEl.scrollTop = screenEl.scrollHeight;
-}
-
-function addLine(html, cls){
-  const d = document.createElement('div');
-  d.className = 'line ' + (cls||'');
-  d.innerHTML = html;
-  insertBeforeCursor(d);
-  if(Math.random() > 0.55) blip(700 + Math.random()*700);
-}
-
-function typeLine(text, cls, speed){
-  return new Promise(res=>{
-    const d = document.createElement('div');
-    d.className = 'line ' + (cls||'');
-    insertBeforeCursor(d);
-    let i = 0;
-    const step = speed || 22;
-    const iv = setInterval(()=>{
-      d.textContent = text.slice(0, ++i);
-      if(i % 4 === 0 && Math.random() > .65) blip(900 + Math.random()*900);
-      if(i >= text.length){ clearInterval(iv); res(); }
-    }, step);
-  });
-}
-
-function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
-/* ============================================================
-   افکت‌ها
-   ============================================================ */
 function shake(){
   if(reduceMotion) return;
   screenEl.classList.remove('shake');
   void screenEl.offsetWidth;
   screenEl.classList.add('shake');
-  setTimeout(()=>screenEl.classList.remove('shake'), 650);
+  setTimeout(()=>screenEl.classList.remove('shake'), 620);
 }
-
 function flashRed(d){
   redflash.classList.add('on');
-  setTimeout(()=>redflash.classList.remove('on'), d||110);
+  setTimeout(()=>redflash.classList.remove('on'), d || 110);
+}
+function flashWhite(d){
+  whiteflash.classList.add('on');
+  setTimeout(()=>whiteflash.classList.remove('on'), d || 60);
+}
+function tear(d){
+  tearEl.classList.add('on');
+  setTimeout(()=>tearEl.classList.remove('on'), d || 120);
+}
+
+function faceScare(text, duration, type){
+  duration = duration || 1500;
+  const wrap = document.createElement('div');
+  wrap.className = 'scare face';
+  const cvs = document.createElement('canvas');
+  cvs.className = 'face-cvs';
+  wrap.appendChild(cvs);
+  if(text){
+    const t = document.createElement('div');
+    t.className = 'scare-text';
+    t.textContent = text;
+    wrap.appendChild(t);
+  }
+  document.body.appendChild(wrap);
+  function resize(){ cvs.width = innerWidth; cvs.height = innerHeight; }
+  resize();
+  addEventListener('resize', resize);
+  const ctx = cvs.getContext('2d');
+  const t0 = performance.now();
+  const faceType = type !== undefined ? type : Math.floor(Math.random()*FACE_COUNT);
+  let raf;
+  function loop(){
+    const p = (performance.now()-t0)/duration;
+    if(p >= 1){ cancelAnimationFrame(raf); return; }
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.fillStyle = '#000'; ctx.fillRect(0,0,cvs.width,cvs.height);
+    const jx = (Math.random()-0.5)*38;
+    const jy = (Math.random()-0.5)*38;
+    const zoom = 1 + p*0.55;
+    drawFaceByIndex(ctx, cvs.width/2+jx, cvs.height/2+jy,
+      Math.min(cvs.width, cvs.height)*zoom, faceType);
+    raf = requestAnimationFrame(loop);
+  }
+  loop();
+  scream(); shake(); tear(200);
+  vibe(VIB.final);
+  flashRed(200);
+  bloodSplatter(5);
+  setTimeout(()=>{
+    wrap.style.transition = 'opacity .28s';
+    wrap.style.opacity = '0';
+    setTimeout(()=>{
+      wrap.remove();
+      removeEventListener('resize', resize);
+    }, 320);
+  }, duration);
+}
+
+function microFaceFlash(){
+  if(reduceMotion) return;
+  const cvs = document.createElement('canvas');
+  cvs.width = innerWidth; cvs.height = innerHeight;
+  cvs.style.cssText = 'position:fixed;inset:0;z-index:990;pointer-events:none;';
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#000'; ctx.fillRect(0,0,cvs.width,cvs.height);
+  drawFaceByIndex(ctx, cvs.width/2, cvs.height/2,
+    Math.min(cvs.width, cvs.height)*1.15);
+  document.body.appendChild(cvs);
+  scream(0.85); flashRed(110); tear(90);
+  vibe(VIB.tap2);
+  setTimeout(()=>cvs.remove(), 150);
+}
+
+function flashHorror(){
+  if(reduceMotion) return;
+  const cvs = document.createElement('canvas');
+  cvs.width = innerWidth; cvs.height = innerHeight;
+  cvs.style.cssText = 'position:fixed;inset:0;z-index:995;pointer-events:none;opacity:.95;';
+  const ctx = cvs.getContext('2d');
+  ctx.fillStyle = '#000'; ctx.fillRect(0,0,cvs.width,cvs.height);
+  const n = 3 + Math.floor(Math.random()*3);
+  for(let i=0;i<n;i++){
+    const scale = 0.7 + Math.random()*0.8;
+    const jx = (Math.random()-0.5)*200;
+    const jy = (Math.random()-0.5)*200;
+    drawFaceByIndex(ctx, cvs.width/2+jx, cvs.height/2+jy,
+      Math.min(cvs.width, cvs.height)*scale);
+  }
+  ctx.fillStyle = 'rgba(255,0,51,0.08)';
+  for(let y=0;y<cvs.height;y+=2) ctx.fillRect(0,y,cvs.width,1);
+  document.body.appendChild(cvs);
+  scream(0.5); flashRed(60); tear(60);
+  vibe([30, 20, 60, 20, 120]);
+  setTimeout(()=>cvs.remove(), 90);
 }
 
 function jumpscare(text, mode){
@@ -383,316 +2069,381 @@ function jumpscare(text, mode){
   el.className = 'scare ' + mode;
   el.innerHTML = '<div class="inner">' + text + '</div>';
   document.body.appendChild(el);
-
-  scream();
-  shake();
-  vibrate([220, 90, 220, 90, 450]);
-  flashRed(200);
-
+  scream(); shake(); vibe(VIB.final);
+  flashRed(220); tear(180);
+  bloodSplatter(5);
   setTimeout(()=>{
     el.style.transition = 'opacity .3s';
     el.style.opacity = '0';
     setTimeout(()=>el.remove(), 350);
-  }, mode === 'flash' ? 600 : 950);
+  }, mode === 'flash' ? 700 : 1100);
 }
 
 /* ============================================================
-   اطلاعات واقعی دستگاه کاربر
+   CODE DISPLAY — IDE STYLE
    ============================================================ */
-function fingerprint(){
-  const ua = navigator.userAgent;
-  let browser = 'Unknown';
-  if(/Edg\//.test(ua)) browser = 'Edge';
-  else if(/OPR\/|Opera/.test(ua)) browser = 'Opera';
-  else if(/Firefox\//.test(ua)) browser = 'Firefox';
-  else if(/Chrome\//.test(ua)) browser = 'Chrome';
-  else if(/Safari\//.test(ua)) browser = 'Safari';
+const term = document.getElementById('term');
+let lineNumber = 1;
 
-  let os = 'Unknown';
-  if(/Windows NT 10/.test(ua)) os = 'Windows 10/11';
-  else if(/Windows/.test(ua)) os = 'Windows';
-  else if(/Mac OS X/.test(ua)) os = 'macOS';
-  else if(/Android/.test(ua)) os = 'Android';
-  else if(/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
-  else if(/Linux/.test(ua)) os = 'Linux';
+function createCodeLine(){
+  const line = document.createElement('div');
+  line.className = 'cline';
 
-  let tz = '—';
-  try{ tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '—'; }catch(e){}
-  const lang = (navigator.language || '—').toUpperCase();
-  const cores = navigator.hardwareConcurrency || '?';
-  const mem = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : '—';
-  const sc = screen.width + '×' + screen.height;
-  const touch = ('ontouchstart' in window) ? 'YES' : 'NO';
-  const ip = (Math.floor(Math.random()*180)+40)+'.'+
-             (Math.floor(Math.random()*255))+'.'+
-             (Math.floor(Math.random()*255))+'.'+
-             (Math.floor(Math.random()*254)+1);
+  const ln = document.createElement('div');
+  ln.className = 'lnum';
+  ln.textContent = String(lineNumber).padStart(3, '0');
+  lineNumber++;
 
-  return {os, browser, lang, tz, cores, mem, sc, touch, ip};
+  const code = document.createElement('div');
+  code.className = 'lcode';
+
+  line.appendChild(ln);
+  line.appendChild(code);
+  term.appendChild(line);
+  screenEl.scrollTop = screenEl.scrollHeight;
+  return { line, code };
 }
 
-/* ============================================================
-   شمارش معکوس + ضربان قلب + رویدادهای تصادفی
-   ============================================================ */
-let seconds = 50 * 3600;   // ۵۰ ساعت
-let cdEl = null;
-let cdIv = null;
-let hbIv = null;
-
-function fmt(s){
-  const h = Math.floor(s/3600);
-  const m = Math.floor((s%3600)/60);
-  const sec = s%60;
-  return String(h).padStart(2,'0')+':'+
-         String(m).padStart(2,'0')+':'+
-         String(sec).padStart(2,'0');
-}
-
-function startCountdown(){
-  cdIv = setInterval(()=>{
-    seconds--;
-    if(seconds < 0) seconds = 0;
-    if(cdEl){
-      cdEl.textContent = fmt(seconds);
-      if(seconds <= 600) cdEl.classList.add('critical');
-    }
-    if(seconds % 60 === 0 && seconds > 0){
-      boom(); flashRed(180);
-    }
-    if(seconds % 10 === 0 && seconds > 0) blip(360);
-    // ضربان قلب تندتر در دقایق آخر
-    if(seconds <= 600 && seconds % 3 === 0) heartbeat();
-  }, 1000);
-}
-
-function startHeartbeat(){
-  heartbeat();
-  hbIv = setInterval(()=>heartbeat(), 2800);
-}
-
-function startRandomEvents(){
-  const whispers = [
-    'I know you are there',
-    'do not close this tab',
-    'I am still here',
-    'you should not have opened this',
-    'do not turn around',
-    'something is behind you',
-    'it heard you',
-    'you are not alone',
-    'I can hear you breathing',
-    'we found you',
-    'do not blink',
-    'it is getting closer',
-    'too late to leave',
-    'keep looking at the screen'
-  ];
-  const silent = [
-    ['still connected...',          'dim'],
-    ['user is reading',             'dim'],
-    ['user is still here',          'warn'],
-    ['something heard you',         'ghost'],
-    ['you were warned',             'err'],
-    ['do not turn around',           'ghost'],
-    ['session: locked',              'err'],
-    ['exit attempt detected',        'warn'],
-    ['you cannot leave yet',         'err bold'],
-    ['movement detected',            'ghost'],
-    ['breathing pattern detected',   'warn'],
-    ['something is behind you',      'ghost'],
-    ['it knows you are watching',    'err'],
-    ['do not blink',                 'ghost'],
-    ['distance: decreasing...',      'warn'],
-  ];
-
-  // زمزمه‌های تصادفی
-  setInterval(()=>{
-    if(Math.random() > .55){
-      whisper(whispers[Math.floor(Math.random()*whispers.length)]);
-    }
-  }, 17000);
-
-  // فلاش‌های کوچک
-  setInterval(()=>{
-    if(Math.random() > .72){
-      flashRed(70);
-      blip(180);
-    }
-  }, 6500);
-
-  // لرزش تصادفی
-  setInterval(()=>{
-    if(Math.random() > .78){
-      shake(); vibrate(40);
-    }
-  }, 14000);
-
-  // پیام‌های ترسناک در ترمینال
-  setInterval(()=>{
-    const m = silent[Math.floor(Math.random()*silent.length)];
-    addLine('> ' + m[0], m[1]);
-  }, 6800);
-
-  // جامپ‌اسکرهای برنامه‌ریزی‌شده
-  setTimeout(()=>jumpscare('STOP LOOKING', 'flash'), 48000);
-  setTimeout(()=>jumpscare('DO NOT TURN AROUND', 'dark'),  115000);
-  setTimeout(()=>jumpscare('IT IS TOO LATE', 'flash'), 205000);
-}
-
-/* ============================================================
-   اگر کاربر تب را ترک کرد و برگشت — چیز ترسناکی نشان بده
-   ============================================================ */
-document.addEventListener('visibilitychange', ()=>{
-  if(document.hidden){
-    // ذخیره زمان خروج
-    try{ sessionStorage.setItem('gone_at', Date.now()); }catch(e){}
-  }else{
-    let gone = 0;
-    try{
-      const t = parseInt(sessionStorage.getItem('gone_at')||'0', 10);
-      if(t) gone = Math.floor((Date.now() - t) / 1000);
-      sessionStorage.removeItem('gone_at');
-    }catch(e){}
-    if(gone > 3 && started){
-      setTimeout(()=>{
-        addLine('> where did you go?', 'ghost');
-        whisper('I waited for you');
-        flashRed(150);
-      }, 400);
-    }
+function printCodeLine(html, opts){
+  opts = opts || {};
+  const { line, code } = createCodeLine();
+  code.innerHTML = html;
+  if(opts.hl) line.classList.add('hl');
+  if(opts.corrupt) line.classList.add('corrupt');
+  if(opts.glitch) line.classList.add('glitch');
+  if(opts.brk){
+    line.querySelector('.lnum').classList.add('brk');
   }
-});
+  screenEl.scrollTop = screenEl.scrollHeight;
+  if(Math.random() > .6) typeTick();
+}
+
+function typeCodeLine(html, opts){
+  return new Promise(res => {
+    opts = opts || {};
+    const { line, code } = createCodeLine();
+    if(opts.hl) line.classList.add('hl');
+    if(opts.corrupt) line.classList.add('corrupt');
+    if(opts.brk){
+      line.querySelector('.lnum').classList.add('brk');
+    }
+
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+
+    const chunks = [];
+    function walk(node, cls){
+      for(let i = 0; i < node.childNodes.length; i++){
+        const c = node.childNodes[i];
+        if(c.nodeType === 3){
+          chunks.push({ text: c.textContent, cls: cls });
+        } else if(c.nodeType === 1){
+          walk(c, c.className || cls);
+        }
+      }
+    }
+    walk(tmp, '');
+
+    let chunkIdx = 0;
+    let charIdx = 0;
+    const step = opts.speed || 14;
+    const iv = setInterval(() => {
+      if(chunkIdx >= chunks.length){
+        clearInterval(iv);
+        if(opts.glitch) line.classList.add('glitch');
+        res();
+        return;
+      }
+      const c = chunks[chunkIdx];
+      charIdx++;
+      let html2 = '';
+      for(let i = 0; i < chunkIdx; i++){
+        const ch = chunks[i];
+        html2 += ch.cls ? '<span class="' + ch.cls + '">' + escapeHtml(ch.text) + '</span>' : escapeHtml(ch.text);
+      }
+      html2 += c.cls
+        ? '<span class="' + c.cls + '">' + escapeHtml(c.text.slice(0, charIdx)) + '</span>'
+        : escapeHtml(c.text.slice(0, charIdx));
+      html2 += '<span class="tcur"></span>';
+      code.innerHTML = html2;
+
+      if(charIdx % 3 === 0) typeTick();
+      screenEl.scrollTop = screenEl.scrollHeight;
+
+      if(charIdx >= c.text.length){
+        charIdx = 0;
+        chunkIdx++;
+      }
+    }, step);
+  });
+}
+
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+function clearCursor(){
+  const curs = term.querySelectorAll('.tcur');
+  curs.forEach(c => c.remove());
+}
+
+function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
 
 /* ============================================================
-   شروع تجربه
+   CODE BLOCKS
    ============================================================ */
-let started = false;
-const startEl = document.getElementById('start');
-
-startEl.addEventListener('click', async ()=>{
-  if(started) return;
-  started = true;
-
-  // فعال‌سازی صدا در اولین کلیک (قانون مرورگرها)
-  audioInit();
-  audioResume();
-
-  // محو کردن صفحهٔ شروع
-  startEl.classList.add('gone');
-  setTimeout(()=>startEl.remove(), 900);
-
-  // شروع خودِ تجربه
-  await runBoot();
-});
-
-async function runBoot(){
-  await sleep(600);
-
-  await typeLine('> establishing connection...', 'dim', 30);
-  await sleep(450);
-  await typeLine('> handshake accepted.', 'ok', 20);
-  await sleep(400);
-
-  boom();
-  await typeLine('> reading device...', 'warn', 22);
-  await sleep(550);
-
-  const f = fingerprint();
-  const pairs = [
-    ['os',        f.os],
-    ['browser',   f.browser],
-    ['language',  f.lang],
-    ['timezone',  f.tz],
-    ['screen',    f.sc],
-    ['cpu cores', f.cores],
-    ['memory',    f.mem],
-    ['touch',     f.touch],
-    ['ip',        f.ip],
-  ];
-  for(let i=0;i<pairs.length;i++){
-    const k = pairs[i][0], v = pairs[i][1];
-    await typeLine('  ├─ ' + k.padEnd(11,' ') + v, i===pairs.length-1 ? 'err' : 'dim', 12);
-    await sleep(140);
+const CODE_BLOCKS = [
+  {
+    title:'./device_probe.sim — simulated device scan', dur:4800,
+    lines:[
+      ['<span class="tk-c">// SIMULATION MODE — no device access is performed</span>'],
+      ['<span class="tk-k">const</span> target <span class="tk-o">=</span> <span class="tk-s">"LOCAL_DEVICE"</span>;'],
+      ['<span class="tk-f">probe</span>(target, { camera:<span class="tk-k">true</span>, mic:<span class="tk-k">true</span> });'],
+      ['<span class="tk-f">scan</span>(<span class="tk-s">"/photos"</span>);'],
+      ['<span class="tk-f">scan</span>(<span class="tk-s">"/messages"</span>);'],
+      ['<span class="tk-f">scan</span>(<span class="tk-s">"/contacts"</span>);'],
+      ['<span class="tk-x">// simulated access path established</span>']
+    ]
+  },
+  {
+    title:'./camera_watch.sim — visual access simulation', dur:4800,
+    lines:[
+      ['<span class="tk-c">// rendering a fake camera-access sequence</span>'],
+      ['<span class="tk-k">let</span> camera <span class="tk-o">=</span> <span class="tk-f">requestAccess</span>(<span class="tk-s">"front_camera"</span>);'],
+      ['<span class="tk-f">captureFrame</span>(camera);'],
+      ['<span class="tk-f">analyzeFace</span>(<span class="tk-s">"current_view"</span>);'],
+      ['<span class="tk-f">streamStatus</span>(<span class="tk-s">"LIVE — SIMULATED"</span>);'],
+      ['<span class="tk-g">// the screen is now pretending to watch</span>']
+    ]
+  },
+  {
+    title:'./data_map.sim — building a fake information map', dur:5000,
+    lines:[
+      ['<span class="tk-c">// creating visual-only records for the prank</span>'],
+      ['<span class="tk-k">const</span> photos <span class="tk-o">=</span> <span class="tk-f">enumerate</span>(<span class="tk-s">"PHOTO_LIBRARY"</span>);'],
+      ['<span class="tk-k">const</span> chats <span class="tk-o">=</span> <span class="tk-f">enumerate</span>(<span class="tk-s">"MESSAGES"</span>);'],
+      ['<span class="tk-k">const</span> contacts <span class="tk-o">=</span> <span class="tk-f">enumerate</span>(<span class="tk-s">"CONTACTS"</span>);'],
+      ['<span class="tk-f">buildThreatScreen</span>(photos, chats, contacts);'],
+      ['<span class="tk-b">// ACCESS: SIMULATED</span>']
+    ]
+  },
+  {
+    title:'./watcher.sim — escalating threat sequence', dur:5200,
+    lines:[
+      ['<span class="tk-c">// psychological effect layer</span>'],
+      ['<span class="tk-f">enable</span>(<span class="tk-s">"REC_INDICATOR"</span>);'],
+      ['<span class="tk-f">enable</span>(<span class="tk-s">"GLITCH_OVERLAY"</span>);'],
+      ['<span class="tk-f">enable</span>(<span class="tk-s">"HEARTBEAT_HAPTICS"</span>);'],
+      ['<span class="tk-f">raiseTension</span>(<span class="tk-n">94</span>);'],
+      ['<span class="tk-x">// WARNING: simulated surveillance sequence</span>']
+    ]
+  },
+  {
+    title:'./lockdown.sim — final countdown', dur:5200,
+    lines:[
+      ['<span class="tk-c">// final visual sequence — countdown begins</span>'],
+      ['<span class="tk-f">lockScreen</span>(<span class="tk-s">"SIMULATION"</span>);'],
+      ['<span class="tk-f">countdown</span>(<span class="tk-n">10</span>);'],
+      ['<span class="tk-f">countdown</span>(<span class="tk-n">09</span>);'],
+      ['<span class="tk-f">countdown</span>(<span class="tk-n">08</span>);'],
+      ['<span class="tk-f">countdown</span>(<span class="tk-n">07</span>);'],
+      ['<span class="tk-f">countdown</span>(<span class="tk-n">06</span>);'],
+      ['<span class="tk-x">// DO NOT LOOK AWAY</span>']
+    ]
+  },
+  {
+    title:'./finale.sim — reveal preparation', dur:4200,
+    lines:[
+      ['<span class="tk-c">// compiling final scare...</span>'],
+      ['<span class="tk-b">THREAT_LEVEL = MAX</span>;'],
+      ['<span class="tk-b">HEARTBEAT = RAPID</span>;'],
+      ['<span class="tk-b">SCREEN = UNSTABLE</span>;'],
+      ['<span class="tk-g">// 3...</span>'],
+      ['<span class="tk-g">// 2...</span>'],
+      ['<span class="tk-g">// 1...</span>']
+    ]
   }
+];
+
+/* ============================================================
+   CODE TYPE RUNNER — با ترتیب جدید وحشت
+   ============================================================ */
+async function runCodeSequence(){
+  const TOTAL_MS = 30000;
+  const startT = performance.now();
+  for(let i=0; i<CODE_BLOCKS.length && !prankStopped; i++){
+    if(performance.now()-startT > TOTAL_MS) break;
+    const block = CODE_BLOCKS[i];
+    printCodeLine('<span class="tk-c">// ━━━━ ' + block.title + ' ━━━━</span>', {hl:true});
+    vibe(i % 2 ? 'tap2' : 'codeTick');
+    await sleep(100);
+    const blockStart = performance.now();
+    for(let j=0;j<block.lines.length && !prankStopped;j++){
+      if(performance.now()-startT > TOTAL_MS) break;
+      const html=block.lines[j][0];
+      if(html===''){ printCodeLine(''); await sleep(45); continue; }
+      const remaining=Math.max(120, block.dur-(performance.now()-blockStart));
+      const remainLines=block.lines.length-j;
+      const perLine=Math.max(90,remaining/remainLines);
+      await typeCodeLine(html,{speed:Math.max(8,Math.min(15,perLine/42))});
+      if(j%2===0) vibe('tap');
+      await sleep(Math.min(180,Math.max(35,perLine*.14)));
+    }
+    blip(620+i*55);
+    if(i===1){ printCodeLine('<span class="tk-g">// SOMEONE IS WATCHING... (SIMULATED)</span>',{glitch:true}); vibe('heart'); microFaceFlash(); await sleep(350); }
+    if(i===2){ printCodeLine('<span class="tk-b">// YOUR DATA MAP IS COMPLETE</span>',{glitch:true}); vibe('threat'); shake(); flashRed(120); await sleep(450); }
+    if(i===4){ printCodeLine('<span class="tk-b">// YOU HAVE ABOUT 5 SECONDS</span>',{glitch:true}); vibe('slam2'); await sleep(500); }
+  }
+}
+
+/* ============================================================
+   AMBIENT — شدیدتر
+   ============================================================ */
+function startAmbient(){
+  safeSetInterval(()=>{ const w=['I SEE YOU','DO NOT LOOK AWAY','CAMERA: SIMULATION','TOO LATE...','KEEP WATCHING','ACCESS: FAKE']; whisper(w[Math.floor(Math.random()*w.length)]); }, 6200);
+  safeSetInterval(()=>{ if(Math.random()>.55){ flashRed(70); blip(180); } }, 3900);
+  safeSetInterval(()=>{ if(Math.random()>.72) microFaceFlash(); }, 6100);
+  safeSetInterval(()=>{ if(Math.random()>.75) flashHorror(); }, 5300);
+  safeSetInterval(()=>{ if(Math.random()>.45) vibe('warn'); }, 5200);
+}
+
+/* ============================================================
+   REVEAL — نفس بکش
+   ============================================================ */
+function buildRevealMotes(){
+  const motesEl = document.getElementById('motes');
+  if(!motesEl) return;
+  for(let i=0;i<10;i++){
+    const m = document.createElement('div');
+    m.className = 'mote';
+    m.style.left = (10 + Math.random()*80) + 'vw';
+    m.style.top = (20 + Math.random()*60) + 'vh';
+    m.style.animationDelay = (Math.random()*10) + 's';
+    m.style.animationDuration = (10 + Math.random()*8) + 's';
+    motesEl.appendChild(m);
+  }
+}
+
+async function showReveal(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(droneGain && ac){
+    const t = ac.currentTime;
+    droneGain.gain.cancelScheduledValues(t);
+    droneGain.gain.setValueAtTime(droneGain.gain.value, t);
+    droneGain.gain.linearRampToValueAtTime(0, t + 1.0);
+  }
+  vibStop();
+
+  document.getElementById('blackout').classList.add('on');
   await sleep(900);
 
-  // ===== جامپ‌اسکر اول =====
-  jumpscare('I SEE YOU', 'flash');
-  await sleep(1000);
+  document.getElementById('blood').innerHTML = '';
+  document.getElementById('bloadeff').innerHTML = '';
+  document.getElementById('floattxt').innerHTML = '';
+  bloodpoolEl.style.height = '0';
+  recEl.classList.remove('on');
+  topbar.classList.remove('on');
+  document.getElementById('face-bg').classList.remove('on');
 
-  await typeLine('> accessing webcam...', 'warn', 22);
-  await sleep(650);
-  await typeLine('  └ camera   : READY', 'err', 14);
-  await sleep(350);
+  buildRevealMotes();
+  const reveal = document.getElementById('reveal');
+  reveal.classList.add('on');
+  document.getElementById('blackout').classList.remove('on');
 
-  await typeLine('> accessing microphone...', 'warn', 22);
-  await sleep(650);
-  await typeLine('  └ microphone: READY', 'err', 14);
-  await sleep(350);
+  /* slowing heartbeat-like vibration */
+  vibe([200, 400, 200, 400, 100]);
 
-  await typeLine('> reading saved passwords...', 'warn', 22);
-  await sleep(700);
-  await typeLine('  └ 12 credentials exported', 'err', 14);
-  await sleep(350);
+  /* single warm resonant tone */
+  try{
+    if(ac){
+      const now = ac.currentTime;
+      const osc = ac.createOscillator();
+      const osc2 = ac.createOscillator();
+      const gain = ac.createGain();
+      const gain2 = ac.createGain();
 
-  await typeLine('> reading browser history...', 'warn', 22);
-  await sleep(600);
-  const ref = document.referrer || 'about:blank';
-  await typeLine('  └ last page: ' + ref.slice(0, 60), 'err', 12);
-  await sleep(350);
+      osc.type = 'sine'; osc.frequency.value = 196.00;
+      osc2.type = 'sine'; osc2.frequency.value = 196.00 * 2.003;
+      gain2.gain.value = 0.04;
 
-  await typeLine('> enumerating files...', 'warn', 22);
-  await sleep(650);
-  await typeLine('  └ 3,847 files indexed', 'err', 14);
-  await sleep(400);
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.09, now + 1.2);
+      gain.gain.linearRampToValueAtTime(0.0, now + 4.5);
 
-  await typeLine('> installing persistence...', 'warn', 22);
-  await sleep(650);
-  await typeLine('  └ backdoor: ACTIVE', 'err', 14);
-  await sleep(800);
+      osc.connect(gain);
+      osc2.connect(gain2);
+      gain2.connect(gain);
+      gain.connect(ac.destination);
 
-  // ===== جامپ‌اسکر دوم =====
-  jumpscare('YOU CANNOT HIDE', 'dark');
-  await sleep(1200);
-
-  // تیتر اصلی — بزرگ و قرمز
-  const title = document.createElement('div');
-  title.className = 'final-title';
-  title.innerHTML = 'HACKED BY HERE IS LEO';
-  insertBeforeCursor(title);
-  boom();
-  await sleep(1800);
-
-  addLine('');
-  await typeLine('YOUR SYSTEM IS COMPROMISED', 'err bold', 40);
-  await typeLine('IMPROVE YOUR SECURITY — BEFORE IT IS TOO LATE', 'warn', 26);
-  addLine('');
-  await sleep(500);
-
-  addLine('<span class="dim">countdown to destruction:</span>');
-
-  cdEl = document.createElement('div');
-  cdEl.className = 'countdown';
-  cdEl.textContent = fmt(seconds);
-  insertBeforeCursor(cdEl);
-
-  await sleep(400);
-  addLine('');
-  addLine('dedicated to all members of <span class="err bold">HACKFORCE</span> :)', 'dim');
-  await sleep(700);
-
-  // شروع همه‌چیز
-  recEl.classList.add('on');
-  startCountdown();
-  startHeartbeat();
-  startRandomEvents();
-
-  // اولین زمزمه با تأخیر کوتاه
-  setTimeout(()=>whisper('I am inside your computer'), 2200);
-
-  // یک لرزش ناگهانی بدون هیچ دلیلی بعد از چند ثانیه
-  setTimeout(()=>{ shake(); vibrate(60); }, 5000);
+      osc.start(now); osc2.start(now);
+      osc.stop(now + 4.6); osc2.stop(now + 4.6);
+    }
+  }catch(e){}
 }
+
+/* ============================================================
+   REVEAL BUTTON
+   ============================================================ */
+document.getElementById('okBtn').addEventListener('click', function(){
+  stopPrank();
+  window.dispatchEvent(new CustomEvent('prank-forgiven'));
+  const reveal = document.getElementById('reveal');
+  reveal.style.transition = 'opacity .6s ease';
+  reveal.style.opacity = '0';
+  setTimeout(()=>{
+    reveal.classList.remove('on');
+    reveal.style.opacity = '';
+    reveal.style.transition = '';
+  }, 650);
+});
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+const startEl = document.getElementById('start');
+let started = false;
+
+async function bootShow(e){
+  if(e && e.preventDefault) e.preventDefault();
+  if(started) return;
+  started=true;
+  try{ audioInit(); audioResume(); startDrone(); }catch(err){}
+  startEl.style.transition='opacity .7s'; startEl.style.opacity='0'; startEl.style.pointerEvents='none';
+  setTimeout(()=>{ try{startEl.remove();}catch(e){} },750);
+  vibe('longer');
+  try{
+    printCodeLine('<span class="tk-c">// boot sequence initiated...</span>'); await sleep(350);
+    printCodeLine('<span class="tk-c">// visual-only security simulation loaded</span>'); await sleep(350);
+    printCodeLine('<span class="tk-x">// WARNING: THIS SCREEN IS A PRANK</span>',{glitch:true}); await sleep(450);
+    recEl.classList.add('on'); topbar.classList.add('on'); startAmbient();
+    await runCodeSequence();
+    if(prankStopped) return;
+    clearCursor();
+    printCodeLine('');
+    printCodeLine('<span class="tk-b">═══════════════════════════════════════════</span>');
+    printCodeLine('<span class="tk-b">   SIMULATED FULL DEVICE BREACH</span>',{glitch:true});
+    printCodeLine('<span class="tk-b">═══════════════════════════════════════════</span>');
+    boom(); vibe('final'); await sleep(500);
+    printCodeLine('<span class="tk-g">// ALL PHOTOS: VISUAL SIMULATION</span>',{glitch:true}); vibe('slam2'); await sleep(400);
+    printCodeLine('<span class="tk-g">// ALL MESSAGES: VISUAL SIMULATION</span>',{glitch:true}); await sleep(400);
+    printCodeLine('<span class="tk-g">// CAMERA FEED: VISUAL SIMULATION</span>',{glitch:true}); vibe('threat'); await sleep(400);
+    printCodeLine('<span class="tk-b">// YOU HAVE BEEN WATCHING THE SCREEN.</span>',{glitch:true}); await sleep(350);
+    faceScare('I SEE YOU',1100,0); await sleep(1250);
+    jumpscare('ACCESS DENIED','dark'); await sleep(850);
+    vibe('tornado'); await sleep(450);
+    printCodeLine('');
+    printCodeLine('<span class="tk-b" style="font-size:clamp(20px,6vw,42px);letter-spacing:4px;font-weight:900;">HACKFORCE // SIMULATION</span>',{brk:true,glitch:true});
+    boom(); vibe('final'); await sleep(900);
+    await showReveal();
+  }catch(err){ console.error('[BOOT] show failed:',err); await showReveal(); }
+}
+
+startEl.addEventListener('click', bootShow);
+startEl.addEventListener('pointerdown', bootShow);
+startEl.addEventListener('touchstart', bootShow, {passive:false});
 
 })();
 </script>
