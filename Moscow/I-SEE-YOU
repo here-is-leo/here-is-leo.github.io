@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#000;height:100%;overflow:hidden}
+  body{
+    color:#00d26a;
+    font-family:'Courier New',Courier,monospace;
+    font-size:15px;
+    line-height:1.7;
+    cursor:crosshair;
+    user-select:none;
+    -webkit-user-select:none;
+  }
+
+  /* ================ صفحهٔ ترمینال ================ */
+  #screen{
+    position:fixed;inset:0;
+    padding:20px 22px 40px;
+    overflow-y:auto;
+    scrollbar-width:none;
+  }
+  #screen::-webkit-scrollbar{display:none}
+
+  #term{white-space:pre-wrap;word-break:break-word;direction:ltr;text-align:left}
+
+  .line{display:block;min-height:1.7em}
+  .dim{color:#2a5a3a}
+  .ok{color:#00d26a}
+  .warn{color:#ffaa00}
+  .err{color:#ff0033}
+  .bold{font-weight:700}
+  .ghost{color:#5a0018;text-shadow:0 0 12px #ff0033}
+
+  .cursor{
+    display:inline-block;width:9px;height:17px;
+    background:#00d26a;vertical-align:-3px;margin-left:1px;
+    animation:blink 1s steps(1) infinite;
+  }
+  @keyframes blink{50%{opacity:0}}
+
+  /* ================ صفحهٔ شروع ================ */
+  #start{
+    position:fixed;inset:0;z-index:900;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    gap:22px;background:#000;
+    cursor:pointer;
+    transition:opacity .8s;
+  }
+  #start.gone{opacity:0;pointer-events:none}
+  #start .warn-txt{
+    color:#ff0033;
+    font-size:clamp(15px,3.5vw,22px);
+    letter-spacing:6px;
+    text-align:center;
+    padding:0 24px;
+    animation:pulse 2.4s ease-in-out infinite;
+    text-shadow:0 0 20px #ff0033;
+  }
+  #start .sub{
+    color:#444;font-size:11px;letter-spacing:3px;
+    text-align:center;padding:0 24px;
+    animation:pulse 4s ease-in-out infinite reverse;
+  }
+  @keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+
+  /* ================ جامپ‌اسکر ================ */
+  .scare{
+    position:fixed;inset:0;z-index:1000;
+    display:flex;align-items:center;justify-content:center;
+    pointer-events:none;
+  }
+  .scare .inner{
+    font-family:'Courier New',monospace;
+    font-weight:900;
+    font-size:clamp(36px,16vw,180px);
+    text-align:center;
+    line-height:.9;
+    padding:20px;
+    letter-spacing:2px;
+    animation:scareJitter .07s steps(2) infinite;
+  }
+  @keyframes scareJitter{
+    0%{transform:translate(-5px,4px) skewX(-3deg) scale(1.02)}
+    100%{transform:translate(5px,-4px) skewX(3deg) scale(.98)}
+  }
+  .scare.flash{background:#ff0033}
+  .scare.flash .inner{color:#000;text-shadow:0 0 60px #fff,0 0 120px #fff}
+  .scare.dark{background:#000}
+  .scare.dark .inner{color:#ff0033;text-shadow:0 0 40px #ff0033,0 0 90px #ff0033}
+
+  /* ================ لرزش صفحه ================ */
+  @keyframes shakeHard{
+    0%,100%{transform:translate(0,0) rotate(0)}
+    10%{transform:translate(-9px,5px) rotate(-.6deg)}
+    20%{transform:translate(8px,-6px) rotate(.6deg)}
+    30%{transform:translate(-7px,-4px) rotate(-.4deg)}
+    40%{transform:translate(6px,7px) rotate(.5deg)}
+    50%{transform:translate(-5px,3px) rotate(-.3deg)}
+    60%{transform:translate(7px,-5px) rotate(.4deg)}
+    70%{transform:translate(-4px,-6px) rotate(-.5deg)}
+    80%{transform:translate(5px,4px) rotate(.3deg)}
+    90%{transform:translate(-3px,-2px) rotate(-.2deg)}
+  }
+  #screen.shake{animation:shakeHard .6s cubic-bezier(.36,.07,.19,.97)}
+
+  /* ================ فلاش قرمز ================ */
+  #redflash{
+    position:fixed;inset:0;z-index:500;pointer-events:none;
+    background:radial-gradient(circle at center,rgba(255,0,51,.55),rgba(255,0,51,.08) 60%,transparent 80%);
+    opacity:0;transition:opacity .1s;
+  }
+  #redflash.on{opacity:1}
+
+  /* ================ نویز و اسکن‌لاین ================ */
+  #static{
+    position:fixed;inset:0;pointer-events:none;z-index:400;
+    opacity:.055;
+    background:repeating-linear-gradient(to bottom,#fff 0 1px,transparent 1px 3px);
+    mix-blend-mode:overlay;
+    animation:noise .15s steps(2) infinite;
+  }
+  @keyframes noise{
+    0%{transform:translate(0,0)}
+    50%{transform:translate(-2px,1px)}
+    100%{transform:translate(1px,-2px)}
+  }
+
+  /* ================ نشانگر ضبط ================ */
+  #rec{
+    position:fixed;top:14px;right:18px;z-index:800;
+    display:none;align-items:center;gap:8px;
+    color:#ff0033;font-family:monospace;
+    font-size:12px;letter-spacing:3px;font-weight:700;
+    text-shadow:0 0 14px #ff0033;
+    direction:ltr;
+    opacity:.9;
+  }
+  #rec.on{display:flex}
+  #rec .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:#ff0033;box-shadow:0 0 14px #ff0033;
+    animation:blink 1s steps(1) infinite;
+  }
+
+  /* ================ شمارش معکوس ================ */
+  .countdown{
+    display:block;direction:ltr;
+    color:#ff0033;
+    font-family:'Courier New',monospace;
+    font-size:clamp(32px,10vw,74px);
+    font-weight:900;
+    letter-spacing:10px;
+    text-align:center;
+    text-shadow:0 0 25px #ff0033,0 0 60px #ff0033,0 0 120px #ff0033;
+    margin:22px 0;
+  }
+  .countdown.critical{animation:crit 1s steps(2) infinite}
+  @keyframes crit{50%{opacity:.25;transform:scale(1.02)}}
+
+  /* ================ تیتر فینال ================ */
+  .final-title{
+    display:block;text-align:center;
+    color:#ff0033;
+    font-family:'Courier New',monospace;
+    font-size:clamp(24px,8vw,58px);
+    font-weight:900;
+    letter-spacing:5px;
+    text-shadow:0 0 35px #ff0033,0 0 80px #ff0033;
+    margin:26px 0;
+    animation:flick 3.5s steps(1) infinite;
+  }
+  @keyframes flick{
+    0%,91%,100%{opacity:1}
+    92%{opacity:0}
+    93.5%{opacity:1}
+    95%{opacity:0}
+    96.5%{opacity:1}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  }
+</style>
+</head>
+<body>
+
+<div id="screen"><div id="term"><span class="cursor"></span></div></div>
+<div id="static"></div>
+<div id="redflash"></div>
+<div id="rec"><span class="dot"></span>REC</div>
+
+<div id="start">
+  <div class="warn-txt">DO NOT CLICK</div>
+  <div class="sub">once you enter — you cannot leave</div>
+</div>
+
+<script>
+(function(){
+'use strict';
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============================================================
+   صدا — همه‌چیز با Web Audio ساخته می‌شود، فایل خارجی نیست
+   ============================================================ */
+let ac = null;
+function audioInit(){
+  if(ac) return ac;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if(!AC) return null;
+  ac = new AC();
+  return ac;
+}
+function audioResume(){
+  if(ac && ac.state === 'suspended') ac.resume();
+}
+
+function scream(){
+  if(!ac) return;
+  const t = ac.currentTime;
+
+  // نویز سفید برای جیغ اصلی
+  const dur = 1.0;
+  const buf = ac.createBuffer(1, Math.floor(ac.sampleRate*dur), ac.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i=0;i<d.length;i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 2.2);
+  const noise = ac.createBufferSource(); noise.buffer = buf;
+  const bq = ac.createBiquadFilter();
+  bq.type='bandpass';
+  bq.frequency.setValueAtTime(3200, t);
+  bq.frequency.exponentialRampToValueAtTime(280, t+dur);
+  bq.Q.value = 2.5;
+  const gn = ac.createGain();
+  gn.gain.setValueAtTime(0.45, t);
+  gn.gain.exponentialRampToValueAtTime(0.001, t+dur);
+  noise.connect(bq).connect(gn).connect(ac.destination);
+  noise.start(t); noise.stop(t+dur+.02);
+
+  // تون بالا و پایین همزمان
+  const o1 = ac.createOscillator(); o1.type='sawtooth';
+  o1.frequency.setValueAtTime(2400, t);
+  o1.frequency.exponentialRampToValueAtTime(90, t+.75);
+  const o2 = ac.createOscillator(); o2.type='square';
+  o2.frequency.setValueAtTime(1700, t);
+  o2.frequency.exponentialRampToValueAtTime(60, t+.75);
+  const g2 = ac.createGain();
+  g2.gain.setValueAtTime(0.16, t);
+  g2.gain.exponentialRampToValueAtTime(0.001, t+.8);
+  o1.connect(g2); o2.connect(g2); g2.connect(ac.destination);
+  o1.start(t); o2.start(t);
+  o1.stop(t+.85); o2.stop(t+.85);
+}
+
+function heartbeat(){
+  if(!ac) return;
+  const t = ac.currentTime;
+  [0, .17].forEach(off=>{
+    const o = ac.createOscillator();
+    const g = ac.createGain();
+    o.type='sine';
+    o.frequency.setValueAtTime(75, t+off);
+    o.frequency.exponentialRampToValueAtTime(28, t+off+.16);
+    g.gain.setValueAtTime(0.16, t+off);
+    g.gain.exponentialRampToValueAtTime(0.0001, t+off+.32);
+    o.connect(g).connect(ac.destination);
+    o.start(t+off); o.stop(t+off+.35);
+  });
+}
+
+function blip(f){
+  if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator();
+  const g = ac.createGain();
+  o.type='square'; o.frequency.value = f||1100;
+  g.gain.setValueAtTime(0.028, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+.05);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t+.06);
+}
+
+function boom(){
+  if(!ac) return;
+  const t = ac.currentTime;
+  const o = ac.createOscillator();
+  const g = ac.createGain();
+  o.type='sine';
+  o.frequency.setValueAtTime(95, t);
+  o.frequency.exponentialRampToValueAtTime(28, t+1.3);
+  g.gain.setValueAtTime(0.3, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t+1.4);
+  o.connect(g).connect(ac.destination);
+  o.start(t); o.stop(t+1.5);
+}
+
+function whisper(text){
+  if(!('speechSynthesis' in window)) return;
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    u.rate = .5;
+    u.pitch = .05;
+    u.volume = .75;
+    u.lang = 'en-US';
+    // انتخاب صدای مردانه اگر موجود بود
+    const v = speechSynthesis.getVoices();
+    if(v && v.length){
+      const m = v.find(x=>/male|david|daniel|alex|fred|google uk english male/i.test(x.name));
+      if(m) u.voice = m;
+    }
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+function vibrate(p){
+  if(navigator.vibrate && !reduceMotion){
+    try{ navigator.vibrate(p); }catch(e){}
+  }
+}
+
+/* ============================================================
+   ترمینال
+   ============================================================ */
+const screenEl = document.getElementById('screen');
+const term     = document.getElementById('term');
+const redflash = document.getElementById('redflash');
+const recEl    = document.getElementById('rec');
+
+function cursorEl(){ return term.querySelector('.cursor'); }
+function insertBeforeCursor(el){
+  const c = cursorEl();
+  if(c) term.insertBefore(el, c); else term.appendChild(el);
+  screenEl.scrollTop = screenEl.scrollHeight;
+}
+
+function addLine(html, cls){
+  const d = document.createElement('div');
+  d.className = 'line ' + (cls||'');
+  d.innerHTML = html;
+  insertBeforeCursor(d);
+  if(Math.random() > 0.55) blip(700 + Math.random()*700);
+}
+
+function typeLine(text, cls, speed){
+  return new Promise(res=>{
+    const d = document.createElement('div');
+    d.className = 'line ' + (cls||'');
+    insertBeforeCursor(d);
+    let i = 0;
+    const step = speed || 22;
+    const iv = setInterval(()=>{
+      d.textContent = text.slice(0, ++i);
+      if(i % 4 === 0 && Math.random() > .65) blip(900 + Math.random()*900);
+      if(i >= text.length){ clearInterval(iv); res(); }
+    }, step);
+  });
+}
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+/* ============================================================
+   افکت‌ها
+   ============================================================ */
+function shake(){
+  if(reduceMotion) return;
+  screenEl.classList.remove('shake');
+  void screenEl.offsetWidth;
+  screenEl.classList.add('shake');
+  setTimeout(()=>screenEl.classList.remove('shake'), 650);
+}
+
+function flashRed(d){
+  redflash.classList.add('on');
+  setTimeout(()=>redflash.classList.remove('on'), d||110);
+}
+
+function jumpscare(text, mode){
+  mode = mode || 'flash';
+  const el = document.createElement('div');
+  el.className = 'scare ' + mode;
+  el.innerHTML = '<div class="inner">' + text + '</div>';
+  document.body.appendChild(el);
+
+  scream();
+  shake();
+  vibrate([220, 90, 220, 90, 450]);
+  flashRed(200);
+
+  setTimeout(()=>{
+    el.style.transition = 'opacity .3s';
+    el.style.opacity = '0';
+    setTimeout(()=>el.remove(), 350);
+  }, mode === 'flash' ? 600 : 950);
+}
+
+/* ============================================================
+   اطلاعات واقعی دستگاه کاربر
+   ============================================================ */
+function fingerprint(){
+  const ua = navigator.userAgent;
+  let browser = 'Unknown';
+  if(/Edg\//.test(ua)) browser = 'Edge';
+  else if(/OPR\/|Opera/.test(ua)) browser = 'Opera';
+  else if(/Firefox\//.test(ua)) browser = 'Firefox';
+  else if(/Chrome\//.test(ua)) browser = 'Chrome';
+  else if(/Safari\//.test(ua)) browser = 'Safari';
+
+  let os = 'Unknown';
+  if(/Windows NT 10/.test(ua)) os = 'Windows 10/11';
+  else if(/Windows/.test(ua)) os = 'Windows';
+  else if(/Mac OS X/.test(ua)) os = 'macOS';
+  else if(/Android/.test(ua)) os = 'Android';
+  else if(/iPhone|iPad|iPod/.test(ua)) os = 'iOS';
+  else if(/Linux/.test(ua)) os = 'Linux';
+
+  let tz = '—';
+  try{ tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '—'; }catch(e){}
+  const lang = (navigator.language || '—').toUpperCase();
+  const cores = navigator.hardwareConcurrency || '?';
+  const mem = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : '—';
+  const sc = screen.width + '×' + screen.height;
+  const touch = ('ontouchstart' in window) ? 'YES' : 'NO';
+  const ip = (Math.floor(Math.random()*180)+40)+'.'+
+             (Math.floor(Math.random()*255))+'.'+
+             (Math.floor(Math.random()*255))+'.'+
+             (Math.floor(Math.random()*254)+1);
+
+  return {os, browser, lang, tz, cores, mem, sc, touch, ip};
+}
+
+/* ============================================================
+   شمارش معکوس + ضربان قلب + رویدادهای تصادفی
+   ============================================================ */
+let seconds = 50 * 3600;   // ۵۰ ساعت
+let cdEl = null;
+let cdIv = null;
+let hbIv = null;
+
+function fmt(s){
+  const h = Math.floor(s/3600);
+  const m = Math.floor((s%3600)/60);
+  const sec = s%60;
+  return String(h).padStart(2,'0')+':'+
+         String(m).padStart(2,'0')+':'+
+         String(sec).padStart(2,'0');
+}
+
+function startCountdown(){
+  cdIv = setInterval(()=>{
+    seconds--;
+    if(seconds < 0) seconds = 0;
+    if(cdEl){
+      cdEl.textContent = fmt(seconds);
+      if(seconds <= 600) cdEl.classList.add('critical');
+    }
+    if(seconds % 60 === 0 && seconds > 0){
+      boom(); flashRed(180);
+    }
+    if(seconds % 10 === 0 && seconds > 0) blip(360);
+    // ضربان قلب تندتر در دقایق آخر
+    if(seconds <= 600 && seconds % 3 === 0) heartbeat();
+  }, 1000);
+}
+
+function startHeartbeat(){
+  heartbeat();
+  hbIv = setInterval(()=>heartbeat(), 2800);
+}
+
+function startRandomEvents(){
+  const whispers = [
+    'I know you are there',
+    'do not close this tab',
+    'I am still here',
+    'you should not have opened this',
+    'do not turn around',
+    'something is behind you',
+    'it heard you',
+    'you are not alone',
+    'I can hear you breathing',
+    'we found you',
+    'do not blink',
+    'it is getting closer',
+    'too late to leave',
+    'keep looking at the screen'
+  ];
+  const silent = [
+    ['still connected...',          'dim'],
+    ['user is reading',             'dim'],
+    ['user is still here',          'warn'],
+    ['something heard you',         'ghost'],
+    ['you were warned',             'err'],
+    ['do not turn around',           'ghost'],
+    ['session: locked',              'err'],
+    ['exit attempt detected',        'warn'],
+    ['you cannot leave yet',         'err bold'],
+    ['movement detected',            'ghost'],
+    ['breathing pattern detected',   'warn'],
+    ['something is behind you',      'ghost'],
+    ['it knows you are watching',    'err'],
+    ['do not blink',                 'ghost'],
+    ['distance: decreasing...',      'warn'],
+  ];
+
+  // زمزمه‌های تصادفی
+  setInterval(()=>{
+    if(Math.random() > .55){
+      whisper(whispers[Math.floor(Math.random()*whispers.length)]);
+    }
+  }, 17000);
+
+  // فلاش‌های کوچک
+  setInterval(()=>{
+    if(Math.random() > .72){
+      flashRed(70);
+      blip(180);
+    }
+  }, 6500);
+
+  // لرزش تصادفی
+  setInterval(()=>{
+    if(Math.random() > .78){
+      shake(); vibrate(40);
+    }
+  }, 14000);
+
+  // پیام‌های ترسناک در ترمینال
+  setInterval(()=>{
+    const m = silent[Math.floor(Math.random()*silent.length)];
+    addLine('> ' + m[0], m[1]);
+  }, 6800);
+
+  // جامپ‌اسکرهای برنامه‌ریزی‌شده
+  setTimeout(()=>jumpscare('STOP LOOKING', 'flash'), 48000);
+  setTimeout(()=>jumpscare('DO NOT TURN AROUND', 'dark'),  115000);
+  setTimeout(()=>jumpscare('IT IS TOO LATE', 'flash'), 205000);
+}
+
+/* ============================================================
+   اگر کاربر تب را ترک کرد و برگشت — چیز ترسناکی نشان بده
+   ============================================================ */
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){
+    // ذخیره زمان خروج
+    try{ sessionStorage.setItem('gone_at', Date.now()); }catch(e){}
+  }else{
+    let gone = 0;
+    try{
+      const t = parseInt(sessionStorage.getItem('gone_at')||'0', 10);
+      if(t) gone = Math.floor((Date.now() - t) / 1000);
+      sessionStorage.removeItem('gone_at');
+    }catch(e){}
+    if(gone > 3 && started){
+      setTimeout(()=>{
+        addLine('> where did you go?', 'ghost');
+        whisper('I waited for you');
+        flashRed(150);
+      }, 400);
+    }
+  }
+});
+
+/* ============================================================
+   شروع تجربه
+   ============================================================ */
+let started = false;
+const startEl = document.getElementById('start');
+
+startEl.addEventListener('click', async ()=>{
+  if(started) return;
+  started = true;
+
+  // فعال‌سازی صدا در اولین کلیک (قانون مرورگرها)
+  audioInit();
+  audioResume();
+
+  // محو کردن صفحهٔ شروع
+  startEl.classList.add('gone');
+  setTimeout(()=>startEl.remove(), 900);
+
+  // شروع خودِ تجربه
+  await runBoot();
+});
+
+async function runBoot(){
+  await sleep(600);
+
+  await typeLine('> establishing connection...', 'dim', 30);
+  await sleep(450);
+  await typeLine('> handshake accepted.', 'ok', 20);
+  await sleep(400);
+
+  boom();
+  await typeLine('> reading device...', 'warn', 22);
+  await sleep(550);
+
+  const f = fingerprint();
+  const pairs = [
+    ['os',        f.os],
+    ['browser',   f.browser],
+    ['language',  f.lang],
+    ['timezone',  f.tz],
+    ['screen',    f.sc],
+    ['cpu cores', f.cores],
+    ['memory',    f.mem],
+    ['touch',     f.touch],
+    ['ip',        f.ip],
+  ];
+  for(let i=0;i<pairs.length;i++){
+    const k = pairs[i][0], v = pairs[i][1];
+    await typeLine('  ├─ ' + k.padEnd(11,' ') + v, i===pairs.length-1 ? 'err' : 'dim', 12);
+    await sleep(140);
+  }
+  await sleep(900);
+
+  // ===== جامپ‌اسکر اول =====
+  jumpscare('I SEE YOU', 'flash');
+  await sleep(1000);
+
+  await typeLine('> accessing webcam...', 'warn', 22);
+  await sleep(650);
+  await typeLine('  └ camera   : READY', 'err', 14);
+  await sleep(350);
+
+  await typeLine('> accessing microphone...', 'warn', 22);
+  await sleep(650);
+  await typeLine('  └ microphone: READY', 'err', 14);
+  await sleep(350);
+
+  await typeLine('> reading saved passwords...', 'warn', 22);
+  await sleep(700);
+  await typeLine('  └ 12 credentials exported', 'err', 14);
+  await sleep(350);
+
+  await typeLine('> reading browser history...', 'warn', 22);
+  await sleep(600);
+  const ref = document.referrer || 'about:blank';
+  await typeLine('  └ last page: ' + ref.slice(0, 60), 'err', 12);
+  await sleep(350);
+
+  await typeLine('> enumerating files...', 'warn', 22);
+  await sleep(650);
+  await typeLine('  └ 3,847 files indexed', 'err', 14);
+  await sleep(400);
+
+  await typeLine('> installing persistence...', 'warn', 22);
+  await sleep(650);
+  await typeLine('  └ backdoor: ACTIVE', 'err', 14);
+  await sleep(800);
+
+  // ===== جامپ‌اسکر دوم =====
+  jumpscare('YOU CANNOT HIDE', 'dark');
+  await sleep(1200);
+
+  // تیتر اصلی — بزرگ و قرمز
+  const title = document.createElement('div');
+  title.className = 'final-title';
+  title.innerHTML = 'HACKED BY HERE IS LEO';
+  insertBeforeCursor(title);
+  boom();
+  await sleep(1800);
+
+  addLine('');
+  await typeLine('YOUR SYSTEM IS COMPROMISED', 'err bold', 40);
+  await typeLine('IMPROVE YOUR SECURITY — BEFORE IT IS TOO LATE', 'warn', 26);
+  addLine('');
+  await sleep(500);
+
+  addLine('<span class="dim">countdown to destruction:</span>');
+
+  cdEl = document.createElement('div');
+  cdEl.className = 'countdown';
+  cdEl.textContent = fmt(seconds);
+  insertBeforeCursor(cdEl);
+
+  await sleep(400);
+  addLine('');
+  addLine('dedicated to all members of <span class="err bold">HACKFORCE</span> :)', 'dim');
+  await sleep(700);
+
+  // شروع همه‌چیز
+  recEl.classList.add('on');
+  startCountdown();
+  startHeartbeat();
+  startRandomEvents();
+
+  // اولین زمزمه با تأخیر کوتاه
+  setTimeout(()=>whisper('I am inside your computer'), 2200);
+
+  // یک لرزش ناگهانی بدون هیچ دلیلی بعد از چند ثانیه
+  setTimeout(()=>{ shake(); vibrate(60); }, 5000);
+}
+
+})();
+</script>
+</body>
+</html>
