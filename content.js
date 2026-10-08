@@ -77,7 +77,8 @@ const SITE = {
           date: "۱۴۰۵", 
           desc: "تخته سفید حرفه‌ای تحت وب — رسم دست‌آزاد با موتور سفارشی، آپلود PDF و تصویر، ابزار متن پیشرفته، ۹ ابزار ترسیم، خروجی PNG و PDF، ذخیره‌سازی خودکار و پشتیبانی از حالت تاریک. کاملاً بدون فریم‌ورک.", 
           tech: ["HTML", "CSS", "JavaScript"], 
-          url: "https://github.com/here-is-leo/negar" 
+          url: "https://github.com/here-is-leo/negar",
+          live: "https://here-is-leo.ir/Negar"
         },
         { icon: "📖", title: "sqlserver-book", date: "۱۴۰۵", desc: "کتاب کامل SQL Server در ۵۱ صفحه — آموزش عمیق پایگاه داده به فارسی و انگلیسی، تک‌فایل، بدون وابستگی خارجی، با تم تاریک/روشن و ناوبری با کیبورد.", tech: ["HTML", "CSS", "JavaScript", "SQL Server"], url: "https://github.com/here-is-leo/sqlserver-book" },
         { icon: "🗂️", title: "ilia-cms", date: "۱۴۰۵", desc: "سیستم مدیریت محتوا (CMS) اختصاصی برای سایت شخصی ایلیا فراهانی.", tech: ["JavaScript"], url: "https://github.com/here-is-leo/ilia-cms" },
@@ -85,7 +86,24 @@ const SITE = {
         { icon: "💰", title: "expense-tracker", date: "۱۴۰۵", desc: "ابزار مدیریت هزینه‌های گروهی — بک‌اند ASP.NET Core API با فرانت‌اند React، مستندسازی با Swagger و طراحی رابط در Figma.", tech: ["C#", ".NET", "SQL Server", "React", "Swagger"], url: "https://github.com/here-is-leo/expense-tracker" },
         { icon: "🖼️", title: "Endpng", date: "۱۴۰۵", desc: "پروژه‌ای کوچک و در حال توسعه — جزئیات بیشتر به‌زودی در مخزن گیت‌هاب اضافه می‌شود.", tech: [], url: "https://github.com/here-is-leo/Endpng" },
         { icon: "🔍", title: "Paris", date: "۱۴۰۵", desc: "اسکنر خودکار و حرفه‌ای آسیب‌پذیری‌های وب، طراحی‌شده برای پژوهشگران امنیتی و تست‌کنندگان نفوذ. پیاده‌سازی بیش از ۱۲ نوع تست آسیب‌پذیری.", tech: ["Python", "FastAPI", "WebSocket"], url: "https://github.com/here-is-leo/Paris" },
-        { icon: "🔒", title: "Moscow", date: "۱۴۰۵", desc: "پروژه تحقیقاتی و آموزشی در حوزه امنیت پلاگین‌های وردپرس. بررسی و تحلیل نقاط ضعف امنیتی رایج در پلاگین‌ها.", tech: ["PHP", "WordPress", "Security Research"], url: "https://github.com/here-is-leo/Moscow" },
+        { 
+          icon: "🔒", 
+          title: "Moscow", 
+          date: "۱۴۰۵", 
+          desc: "پروژه تحقیقاتی و آموزشی در حوزه امنیت پلاگین‌های وردپرس. بررسی و تحلیل نقاط ضعف امنیتی رایج در پلاگین‌ها.", 
+          tech: ["PHP", "WordPress", "Security Research"], 
+          url: "https://github.com/here-is-leo/Moscow",
+          live: "https://here-is-leo.ir/Moscow"
+        },
+        { 
+          icon: "🏛️", 
+          title: "Alexandria", 
+          date: "۱۴۰۵", 
+          desc: "پروژه الکساندریا — توضیحات پروژه را اینجا بنویس.", 
+          tech: [], 
+          url: "https://github.com/here-is-leo/Alexandria",
+          live: "https://here-is-leo.ir/Alexandria"
+        },
         { icon: "🕸️", title: "overthewire-natas", date: "۱۴۰۵", desc: "راهنمای کامل و دوزبانه (فارسی/انگلیسی) برای آموزش امنیت وب از طریق ۳۵ مرحله چالش Natas.", tech: ["HTML", "CSS", "JavaScript", "Web Security"], url: "https://github.com/here-is-leo/overthewire-natas" },
         { icon: "🌐", title: "V-Tunnel", date: "مرداد ۱۴۰۵", desc: "Telegram Mini App برای مدیریت ابزارهای شبکه — سرورهای DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.", tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"], url: "https://github.com/here-is-leo/V-Tunnel" },
         { icon: "📚", title: "kali-linux-complete-guide", date: "مرداد ۱۴۰۵", desc: "راهنمای آموزشی جامع (بیش از ۴۰ صفحه) ابزارهای Kali Linux — Nmap، Metasploit، Wireshark، John the Ripper.", tech: ["HTML", "CSS", "JavaScript", "Kali Linux"], url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
@@ -109,6 +127,7 @@ const SITE = {
         { name: "Endpng", desc: "پروژه‌ای در حال توسعه.", lang: "—", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Endpng" },
         { name: "Paris", desc: "اسکنر آسیب‌پذیری وب — شناسایی و تحلیل آسیب‌پذیری‌های امنیتی در وب‌سایت‌ها.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Paris" },
         { name: "Moscow", desc: "پلاگین تحقیقاتی امنیت وردپرس — چندین نقطه ورود، Self-Destruct و Deface page.", lang: "PHP", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Moscow" },
+        { name: "Alexandria", desc: "پروژه الکساندریا — توضیحات پروژه را اینجا بنویس.", lang: "—", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Alexandria" },
         { name: "overthewire-natas", desc: "راهنمای کامل دوزبانه ۳۵ مرحله چالش Natas — تحلیل آسیب‌پذیری و کد اکسپلویت.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/overthewire-natas" },
         { name: "V-Tunnel", desc: "Telegram Mini App برای مدیریت DNS عمومی، پروکسی‌های MTProto و کانفیگ‌های V2Ray.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/V-Tunnel" },
         { name: "kali-linux-complete-guide", desc: "راهنمای جامع ۴۰+ صفحه‌ای ابزارهای Kali Linux — Nmap، Metasploit، Wireshark و...", lang: "HTML", stars: 1, forks: 0, url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
@@ -151,6 +170,7 @@ const SITE = {
         { icon: "📖", title: "sqlserver-book", desc: "کتاب ۵۱ صفحه‌ای آموزش SQL Server" },
         { icon: "🔍", title: "Paris", desc: "اسکنر آسیب‌پذیری وب با Python + FastAPI + WebSocket" },
         { icon: "🔒", title: "Moscow", desc: "پروژه تحقیقاتی امنیت پلاگین‌های وردپرس (PHP)" },
+        { icon: "🏛️", title: "Alexandria", desc: "پروژه الکساندریا" },
         { icon: "⚡", title: "N3XUS V7.1", desc: "سیستم کنترل مبتنی بر آردوینو با رابط وب" },
         { icon: "🔧", title: "Marshall", desc: "سیستم کنترل ماژولار آردوینو" },
         { icon: "🕸️", title: "overthewire-natas", desc: "راهنمای ۳۵ مرحله چالش Natas" },
@@ -169,7 +189,7 @@ const SITE = {
       ],
       github: {
         commits: "۳۵۵ در یک سال اخیر",
-        repos: "۱۴ مخزن",
+        repos: "۱۵ مخزن",
         focus: "شهریور ۱۴۰۵",
         type: "امنیتی، آموزشی، IoT"
       }
@@ -346,7 +366,8 @@ const SITE = {
           date: "2026", 
           desc: "A professional web-based whiteboard — custom freehand drawing engine, PDF & image upload, advanced text tool, 9 drawing tools, PNG/PDF export, auto-save, and dark mode. Built with zero frameworks.", 
           tech: ["HTML", "CSS", "JavaScript", "Canvas API"], 
-          url: "https://github.com/here-is-leo/negar" 
+          url: "https://github.com/here-is-leo/negar",
+          live: "https://here-is-leo.ir/Negar"
         },
         { icon: "📖", title: "sqlserver-book", date: "2026", desc: "The Ultimate SQL Server Book — 51 pages of deep database education in Persian & English. Single-file, zero dependencies, dark/light themes and keyboard navigation.", tech: ["HTML", "CSS", "JavaScript", "SQL Server"], url: "https://github.com/here-is-leo/sqlserver-book" },
         { icon: "🗂️", title: "ilia-cms", date: "2026", desc: "Custom content management system built for Ilia Farahani's personal website.", tech: ["JavaScript"], url: "https://github.com/here-is-leo/ilia-cms" },
@@ -354,7 +375,24 @@ const SITE = {
         { icon: "💰", title: "expense-tracker", date: "2026", desc: "Collaborative expense tracker — ASP.NET Core API backend with a React frontend, Swagger docs, and Figma-designed UI.", tech: ["C#", ".NET", "SQL Server", "React", "Swagger"], url: "https://github.com/here-is-leo/expense-tracker" },
         { icon: "🖼️", title: "Endpng", date: "2026", desc: "A small project in early development — more details coming soon on GitHub.", tech: [], url: "https://github.com/here-is-leo/Endpng" },
         { icon: "🔍", title: "Paris", date: "2026", desc: "Web Vulnerability Scanner — a powerful tool for identifying and analyzing security vulnerabilities in websites.", tech: ["Python", "FastAPI", "WebSocket"], url: "https://github.com/here-is-leo/Paris" },
-        { icon: "🔒", title: "Moscow", date: "2026", desc: "Advanced WordPress Security Research Plugin — an educational tool for identifying security weaknesses in WordPress.", tech: ["PHP", "WordPress", "Security Research"], url: "https://github.com/here-is-leo/Moscow" },
+        { 
+          icon: "🔒", 
+          title: "Moscow", 
+          date: "2026", 
+          desc: "Advanced WordPress Security Research Plugin — an educational tool for identifying security weaknesses in WordPress.", 
+          tech: ["PHP", "WordPress", "Security Research"], 
+          url: "https://github.com/here-is-leo/Moscow",
+          live: "https://here-is-leo.ir/Moscow"
+        },
+        { 
+          icon: "🏛️", 
+          title: "Alexandria", 
+          date: "2026", 
+          desc: "Alexandria project — write the project description here.", 
+          tech: [], 
+          url: "https://github.com/here-is-leo/Alexandria",
+          live: "https://here-is-leo.ir/Alexandria"
+        },
         { icon: "🕸️", title: "overthewire-natas", date: "2026", desc: "Complete bilingual (Persian/English) walkthrough for all 35 levels of OverTheWire Natas — web & server-side security concepts, vulnerabilities, exploitation code, and defense strategies.", tech: ["HTML", "CSS", "JavaScript", "Web Security"], url: "https://github.com/here-is-leo/overthewire-natas" },
         { icon: "🌐", title: "V-Tunnel", date: "Aug 2026", desc: "Telegram Mini App for managing network tools — public DNS servers, MTProto proxies, and V2Ray configs.", tech: ["Python", "HTML", "CSS", "JavaScript", "Telegram API"], url: "https://github.com/here-is-leo/V-Tunnel" },
         { icon: "📚", title: "kali-linux-complete-guide", date: "Aug 2026", desc: "A comprehensive guide (40+ pages) covering Kali Linux tools — a compact encyclopedia for penetration testers.", tech: ["HTML", "CSS", "JavaScript", "Kali Linux"], url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
@@ -378,6 +416,7 @@ const SITE = {
         { name: "Endpng", desc: "A project in early development.", lang: "—", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Endpng" },
         { name: "Paris", desc: "Web Vulnerability Scanner — identifying and analyzing security vulnerabilities in websites.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Paris" },
         { name: "Moscow", desc: "WordPress security research plugin — multiple entry points, Self-Destruct and Deface page.", lang: "PHP", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Moscow" },
+        { name: "Alexandria", desc: "Alexandria project — write the project description here.", lang: "—", stars: 0, forks: 0, url: "https://github.com/here-is-leo/Alexandria" },
         { name: "overthewire-natas", desc: "Complete bilingual walkthrough for 35 levels of Natas challenge — vulnerability analysis and exploit code.", lang: "HTML", stars: 0, forks: 0, url: "https://github.com/here-is-leo/overthewire-natas" },
         { name: "V-Tunnel", desc: "Telegram Mini App for managing public DNS, MTProto proxies and V2Ray configs.", lang: "Python", stars: 0, forks: 0, url: "https://github.com/here-is-leo/V-Tunnel" },
         { name: "kali-linux-complete-guide", desc: "Comprehensive 40+ page guide to Kali Linux tools — Nmap, Metasploit, Wireshark and more.", lang: "HTML", stars: 1, forks: 0, url: "https://github.com/here-is-leo/kali-linux-complete-guide" },
@@ -420,6 +459,7 @@ const SITE = {
         { icon: "📖", title: "sqlserver-book", desc: "51-page SQL Server education book" },
         { icon: "🔍", title: "Paris", desc: "Web Vulnerability Scanner with Python + FastAPI + WebSocket" },
         { icon: "🔒", title: "Moscow", desc: "WordPress plugin security research project (PHP)" },
+        { icon: "🏛️", title: "Alexandria", desc: "Alexandria project" },
         { icon: "⚡", title: "N3XUS V7.1", desc: "Arduino-based control system with web interface" },
         { icon: "🔧", title: "Marshall", desc: "Modular Arduino control system" },
         { icon: "🕸️", title: "overthewire-natas", desc: "35-level Natas challenge walkthrough" },
@@ -438,7 +478,7 @@ const SITE = {
       ],
       github: {
         commits: "355 in the past year",
-        repos: "14 repositories",
+        repos: "15 repositories",
         focus: "Sep 2026",
         type: "Security, Educational, IoT"
       }
