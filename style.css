@@ -2921,3 +2921,39 @@ html[data-design="classic"] .brand .dot::before {
     padding: 20px 18px;
   }
 }
+/* ============================================================
+   PROJECT LINKS — shared across all designs
+   ============================================================ */
+.project-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border, rgba(255,255,255,.12));
+  background: var(--surface, rgba(255,255,255,.04));
+  color: inherit;
+  transition: transform .25s ease, background .25s ease, border-color .25s ease;
+}
+
+.project-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent, #6ea8fe);
+}
+
+.project-link-live {
+  background: linear-gradient(135deg, var(--accent, #6ea8fe), #a78bfa);
+  color: #0b0d12;
+  border-color: transparent;
+  font-weight: 600;
+}
