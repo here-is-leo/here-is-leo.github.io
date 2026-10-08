@@ -437,6 +437,16 @@
     50%{box-shadow:0 0 18px rgba(255,212,192,.25)}
   }
 
+  @media (max-width:768px){
+    #term{font-size:13px;text-shadow:0 0 3px rgba(120,255,200,.16)}
+    .cline{font-size:13px;line-height:1.55;padding:2px 5px}
+    .lnum{width:40px;padding-right:10px;margin-right:12px;font-size:11px}
+    .lcode{font-size:13px;letter-spacing:.15px}
+    .tk-k,.tk-f,.tk-s,.tk-n,.tk-t,.tk-x,.tk-g,.tk-b{text-shadow:0 0 5px currentColor}
+    #scanlines{opacity:.55}
+    #vignette{background:radial-gradient(ellipse at center,transparent 16%,rgba(0,0,0,.9) 92%)}
+  }
+
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.001ms!important;
       transition-duration:.001ms!important}
@@ -518,6 +528,17 @@
 (function(){
 'use strict';
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = matchMedia('(max-width: 768px)').matches || navigator.maxTouchPoints > 0;
+/* Mobile rendering is intentionally capped. The horror should scare the user, not cook their phone. */
+const CANVAS_SCALE = isMobile ? 0.62 : 1;
+const MOBILE_FPS_MS = 34;
+function sizeCanvas(cvs){
+  cvs.width = Math.max(1, Math.round(innerWidth * CANVAS_SCALE));
+  cvs.height = Math.max(1, Math.round(innerHeight * CANVAS_SCALE));
+  cvs.style.width = '100vw';
+  cvs.style.height = '100vh';
+}
+
 let prankStopped = false;
 const ambientTimers = [];
 function safeSetInterval(fn, ms){ const id = setInterval(() => { if(!prankStopped) fn(); }, ms); ambientTimers.push(id); return id; }
@@ -723,39 +744,41 @@ function whisper(text){
 /* ============================================================
    HAPTIC / VIBRATION ENGINE
    ============================================================ */
-function canVibrate(){ return !!(navigator.vibrate); }
+function canVibrate(){
+  return !!navigator.vibrate && !document.hidden;
+}
 function vib(pattern){
   if(!canVibrate() || reduceMotion) return;
   try{ navigator.vibrate(pattern); }catch(e){}
 }
-function vibStop(){ if(canVibrate()){ try{ navigator.vibrate(0); }catch(e){} } }
+function vibStop(){
+  if(navigator.vibrate){ try{ navigator.vibrate(0); }catch(e){} }
+}
+addEventListener('visibilitychange', ()=>{ if(document.hidden) vibStop(); });
 
+/* Short, sharp patterns feel stronger than one huge continuous buzz and are cheaper to schedule. */
 const VIB = {
-  tap:       25,
-  tap2:      [35, 50, 35],
+  tap:       22,
+  tap2:      [35, 45, 35],
   tap3:      [35, 45, 35, 45, 35],
-  heart:     [70, 70, 70, 300, 70, 70, 70],
-  panic:     [200, 80, 200, 80, 200, 80, 600],
-  slam:      400,
-  slam2:     [500, 130, 500],
-  long:      1500,
-  longer:    2800,
-  verylong:  4500,
-  final:     [800, 200, 800, 200, 800, 200, 2500],
-  tornado:   [1000,150,1000,150,1000,150,1000,150,4000],
-  codeTick:  [15, 20, 15],
-  warn:      [120, 60, 120],
-  threat:    [300, 100, 300, 100, 500],
-  bite:      [60, 30, 60, 30, 200, 100, 400],
-  crazy:     [80,30,80,30,80,30,80,30,80,30,1500],
-  /* جدید — خیلی شدید */
-  heartAttack: [150, 40, 150, 40, 150, 40, 800, 100, 800, 100, 1200],
-  demon:       [300, 80, 300, 80, 300, 80, 1000, 100, 2000],
-  nightmare:   [500, 100, 500, 100, 500, 100, 500, 100, 3500],
-  chainSaw:    [80,20,80,20,80,20,80,20,80,20,80,20,80,20,80,20,80,20,2500],
-  deathGrip:   [2000, 150, 2000, 150, 4000],
-  seizure:     [40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,
-                40,15,40,15,40,15,40,15,40,15,40,15,40,15,40,15,3000]
+  heart:     [85, 55, 120, 240, 85, 55, 120],
+  panic:     [180, 55, 180, 55, 180, 55, 520],
+  impact:    [140, 35, 240, 50, 520],
+  impact2:   [220, 45, 360],
+  dread:     [420, 80, 120, 60, 520],
+  long:      900,
+  longer:    1400,
+  final:     [220, 55, 220, 55, 650, 100, 900],
+  codeTick:  [12, 18, 12],
+  warn:      [100, 55, 100],
+  threat:    [260, 80, 260, 80, 420],
+  bite:      [55, 30, 70, 30, 180, 80, 360],
+  crazy:     [70, 25, 70, 25, 70, 25, 70, 25, 900],
+  heartAttack: [140, 35, 140, 35, 140, 35, 620, 80, 620],
+  demon:     [260, 70, 260, 70, 260, 70, 900],
+  nightmare: [420, 80, 420, 80, 420, 80, 1100],
+  chainSaw:  [70,20,70,20,70,20,70,20,70,20,70,20,900],
+  deathGrip: [900, 120, 900, 120, 1600]
 };
 function vibe(kind){
   if(typeof kind === 'string' && VIB[kind] !== undefined) vib(VIB[kind]);
@@ -1693,7 +1716,7 @@ function drawKnife(ctx, x, y, angle, scale, dripping){
 
 const knifeEl = document.getElementById('knife');
 const knifeCtx = knifeEl.getContext('2d');
-function resizeKnife(){ knifeEl.width = innerWidth; knifeEl.height = innerHeight; }
+function resizeKnife(){ sizeCanvas(knifeEl); }
 resizeKnife(); addEventListener('resize', resizeKnife);
 
 function knifeSlash(){
@@ -1817,7 +1840,7 @@ function floatMessage(text){
    ============================================================ */
 const faceBg = document.getElementById('face-bg');
 const faceBgCtx = faceBg.getContext('2d');
-function resizeFaceBg(){ faceBg.width = innerWidth; faceBg.height = innerHeight; }
+function resizeFaceBg(){ sizeCanvas(faceBg); }
 resizeFaceBg(); addEventListener('resize', resizeFaceBg);
 let faceBgActive = false;
 function startFaceBg(dur, type){
@@ -1843,7 +1866,7 @@ function startFaceBg(dur, type){
 
 const crawlerEl = document.getElementById('crawler');
 const crawlerCtx = crawlerEl.getContext('2d');
-function resizeCrawler(){ crawlerEl.width = innerWidth; crawlerEl.height = innerHeight; }
+function resizeCrawler(){ sizeCanvas(crawlerEl); }
 resizeCrawler(); addEventListener('resize', resizeCrawler);
 function drawCrawler(ctx, x, y, scale, flip){
   ctx.save();
@@ -1894,7 +1917,7 @@ function launchCrawler(){
 
 const handsEl = document.getElementById('hands');
 const handsCtx = handsEl.getContext('2d');
-function resizeHands(){ handsEl.width = innerWidth; handsEl.height = innerHeight; }
+function resizeHands(){ sizeCanvas(handsEl); }
 resizeHands(); addEventListener('resize', resizeHands);
 function drawHand(ctx, x, y, angle, scale){
   ctx.save();
@@ -1998,8 +2021,14 @@ function faceScare(text, duration, type){
   const t0 = performance.now();
   const faceType = type !== undefined ? type : Math.floor(Math.random()*FACE_COUNT);
   let raf;
-  function loop(){
-    const p = (performance.now()-t0)/duration;
+  let lastFrame = 0;
+  function loop(now){
+    if(isMobile && now-lastFrame < MOBILE_FPS_MS){
+      raf = requestAnimationFrame(loop);
+      return;
+    }
+    lastFrame = now;
+    const p = (now-t0)/duration;
     if(p >= 1){ cancelAnimationFrame(raf); return; }
     ctx.setTransform(1,0,0,1,0,0);
     ctx.fillStyle = '#000'; ctx.fillRect(0,0,cvs.width,cvs.height);
@@ -2010,7 +2039,7 @@ function faceScare(text, duration, type){
       Math.min(cvs.width, cvs.height)*zoom, faceType);
     raf = requestAnimationFrame(loop);
   }
-  loop();
+  loop(performance.now());
   scream(); shake(); tear(200);
   vibe(VIB.final);
   flashRed(200);
@@ -2028,7 +2057,7 @@ function faceScare(text, duration, type){
 function microFaceFlash(){
   if(reduceMotion) return;
   const cvs = document.createElement('canvas');
-  cvs.width = innerWidth; cvs.height = innerHeight;
+  sizeCanvas(cvs);
   cvs.style.cssText = 'position:fixed;inset:0;z-index:990;pointer-events:none;';
   const ctx = cvs.getContext('2d');
   ctx.fillStyle = '#000'; ctx.fillRect(0,0,cvs.width,cvs.height);
@@ -2043,11 +2072,11 @@ function microFaceFlash(){
 function flashHorror(){
   if(reduceMotion) return;
   const cvs = document.createElement('canvas');
-  cvs.width = innerWidth; cvs.height = innerHeight;
+  sizeCanvas(cvs);
   cvs.style.cssText = 'position:fixed;inset:0;z-index:995;pointer-events:none;opacity:.95;';
   const ctx = cvs.getContext('2d');
   ctx.fillStyle = '#000'; ctx.fillRect(0,0,cvs.width,cvs.height);
-  const n = 3 + Math.floor(Math.random()*3);
+  const n = isMobile ? 2 : 3 + Math.floor(Math.random()*3);
   for(let i=0;i<n;i++){
     const scale = 0.7 + Math.random()*0.8;
     const jx = (Math.random()-0.5)*200;
@@ -2056,7 +2085,7 @@ function flashHorror(){
       Math.min(cvs.width, cvs.height)*scale);
   }
   ctx.fillStyle = 'rgba(255,0,51,0.08)';
-  for(let y=0;y<cvs.height;y+=2) ctx.fillRect(0,y,cvs.width,1);
+  for(let y=0;y<cvs.height;y+=(isMobile ? 4 : 2)) ctx.fillRect(0,y,cvs.width,1);
   document.body.appendChild(cvs);
   scream(0.5); flashRed(60); tear(60);
   vibe([30, 20, 60, 20, 120]);
@@ -2069,7 +2098,7 @@ function jumpscare(text, mode){
   el.className = 'scare ' + mode;
   el.innerHTML = '<div class="inner">' + text + '</div>';
   document.body.appendChild(el);
-  scream(); shake(); vibe(VIB.final);
+  scream(); shake(); vibe(isMobile ? VIB.final : VIB.final);
   flashRed(220); tear(180);
   bloodSplatter(5);
   setTimeout(()=>{
