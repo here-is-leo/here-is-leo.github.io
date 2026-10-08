@@ -40,9 +40,6 @@ function el(tag, cls, html) {
   return n;
 }
 
-// small helper: run a render step in isolation so one broken
-// section can never take down the whole page (this was the
-// root cause of the empty-page bug — see renderHome projects loop)
 function safe(label, fn) {
   try {
     fn();
@@ -210,7 +207,7 @@ function animateCounters() {
 }
 
 // ============================================================
-// SPLIT-TEXT TITLES — words fly in on scroll
+// SPLIT-TEXT TITLES
 // ============================================================
 function initSplitTitles() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -314,17 +311,15 @@ function initParallax() {
 }
 
 // ============================================================
-// CINEMATIC MOTION — Premium Cursor & Interactive Effects
+// CINEMATIC MOTION
 // ============================================================
 function initCinematicMotion() {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if (isMobile()) return;
   if (isLowPerformance()) return;
 
-  // Remove existing elements
   document.querySelectorAll(".particle-field,.cursor-glow,.custom-cursor,.cursor-trail").forEach(function(node) { node.remove(); });
 
-  // ---- PARTICLES ----
   var field = document.createElement("div");
   field.className = "particle-field";
   for (var i = 0; i < 28; i++) {
@@ -339,7 +334,6 @@ function initCinematicMotion() {
   }
   document.body.appendChild(field);
 
-  // ---- CUSTOM CURSOR ----
   document.body.classList.add("has-custom-cursor");
   var cursor = document.createElement("div");
   cursor.className = "custom-cursor";
@@ -348,12 +342,10 @@ function initCinematicMotion() {
   var ring = cursor.querySelector(".custom-cursor-ring");
   var dot = cursor.querySelector(".custom-cursor-dot");
 
-  // ---- GLOW ----
   var glow = document.createElement("div");
   glow.className = "cursor-glow";
   document.body.appendChild(glow);
 
-  // ---- TRAIL ----
   var TRAIL_COUNT = 6;
   var trailEls = [];
   var trailContainer = document.createElement("div");
@@ -372,7 +364,6 @@ function initCinematicMotion() {
   var gx = px, gy = py;
   var visible = false;
 
-  // ---- POINTER MOVE ----
   document.addEventListener("pointermove", function(e) {
     px = e.clientX;
     py = e.clientY;
@@ -385,8 +376,6 @@ function initCinematicMotion() {
       glow.classList.add("is-visible");
       trailContainer.classList.add("is-visible");
     }
-
-    // Dot tracks 1:1 (no lag)
     dot.style.transform = "translate3d(" + px + "px," + py + "px,0) translate(-50%,-50%)";
   });
 
@@ -397,7 +386,6 @@ function initCinematicMotion() {
     trailContainer.classList.remove("is-visible");
   });
 
-  // ---- FOLLOW LOOP ----
   function follow() {
     rx += (px - rx) * 0.10;
     ry += (py - ry) * 0.10;
@@ -408,7 +396,6 @@ function initCinematicMotion() {
     glow.style.left = gx + "px";
     glow.style.top = gy + "px";
 
-    // Each trail dot chases the one before it, staggered
     var leadX = px, leadY = py;
     for (var i = 0; i < trailEls.length; i++) {
       var node = trailEls[i];
@@ -418,12 +405,10 @@ function initCinematicMotion() {
       leadX = node.x;
       leadY = node.y;
     }
-
     requestAnimationFrame(follow);
   }
   follow();
 
-  // ---- HOVER DETECTION ----
   var interactiveSelectors = [
     "a", "button", ".btn", ".project-card", ".skill-card", ".focus-card",
     ".contact-card", "input", "textarea", ".repo-card", ".blog-post-card",
@@ -441,7 +426,6 @@ function initCinematicMotion() {
     });
   });
 
-  // ---- TEXT HOVER DETECTION (reading cursor) ----
   var textSelectors = "p, h1, h2, h3, li, .form-field input, .form-field textarea";
   document.querySelectorAll(textSelectors).forEach(function(node) {
     node.addEventListener("pointerenter", function() {
@@ -452,7 +436,6 @@ function initCinematicMotion() {
     });
   });
 
-  // ---- ACTIVE STATE ----
   document.querySelectorAll("a, button, .btn, .donate-btn").forEach(function(node) {
     node.addEventListener("pointerdown", function() {
       cursor.classList.add("is-active");
@@ -462,7 +445,6 @@ function initCinematicMotion() {
     });
   });
 
-  // ---- MAGNETIC BUTTONS ----
   document.querySelectorAll(".btn, .donate-btn").forEach(function(node) {
     node.classList.add("is-magnetic");
     node.addEventListener("pointermove", function(e) {
@@ -476,7 +458,6 @@ function initCinematicMotion() {
     });
   });
 
-  // ---- 3D TILT ON CARDS (+ subtle magnetic drift) ----
   var tiltableCards = document.querySelectorAll(".project-card,.skill-card,.focus-card,.contact-card");
   tiltableCards.forEach(function(card) {
     var cx = 0, cy = 0;
@@ -542,6 +523,29 @@ function renderIcon(key, className) {
 }
 
 // ============================================================
+// PROJECT LINKS BUILDER (shared helper)
+// ============================================================
+function buildProjectLinks(proj, fa) {
+  if (!proj.url && !proj.href && !proj.live) return null;
+  var wrap = el("div", "project-links");
+  if (proj.url || proj.href) {
+    var gh = el("a", "project-link", "GitHub ↗");
+    gh.href = proj.url || proj.href;
+    gh.target = "_blank";
+    gh.rel = "noopener";
+    wrap.appendChild(gh);
+  }
+  if (proj.live) {
+    var lv = el("a", "project-link project-link-live", (fa ? "مشاهده آنلاین ↗" : "Live Demo ↗"));
+    lv.href = proj.live;
+    lv.target = "_blank";
+    lv.rel = "noopener";
+    wrap.appendChild(lv);
+  }
+  return wrap;
+}
+
+// ============================================================
 // RENDER HOME
 // ============================================================
 function renderHome(data) {
@@ -549,6 +553,7 @@ function renderHome(data) {
     console.error('❌ renderHome: data is undefined!');
     return;
   }
+  var fa = data.lang === "fa";
 
   // ====== HERO ======
   safe("hero", function() {
@@ -619,9 +624,9 @@ function renderHome(data) {
             <div class="bar" style="width: ${level}%;" data-level="${level}"></div>
           </div>
           <div class="level-label">
-            <span>${data.lang === "fa" ? "مبتدی" : "Beginner"}</span>
+            <span>${fa ? "مبتدی" : "Beginner"}</span>
             <span>${level}%</span>
-            <span>${data.lang === "fa" ? "حرفه‌ای" : "Advanced"}</span>
+            <span>${fa ? "حرفه‌ای" : "Advanced"}</span>
           </div>
         `;
         skillsGrid.appendChild(card);
@@ -690,14 +695,10 @@ function renderHome(data) {
         var tags = el("div", "tech-tags");
         (proj.tech || []).forEach(function(t) { tags.appendChild(el("span", null, t)); });
         card.append(head, desc, tags);
-        
-        if (proj.url || proj.href) {
-          var link = el("a", "project-link", "GitHub ↗");
-          link.href = proj.url || proj.href;
-          link.target = "_blank";
-          link.rel = "noopener";
-          card.appendChild(link);
-        }
+
+        var links = buildProjectLinks(proj, fa);
+        if (links) card.appendChild(links);
+
         projGrid.appendChild(card);
       });
     }
@@ -854,6 +855,7 @@ function renderAbout(data) {
 // ============================================================
 function renderProjects(data) {
   if (!data) return;
+  var fa = data.lang === "fa";
 
   safe("projects-page", function() {
     var grid = document.getElementById("projects-grid-page");
@@ -886,6 +888,9 @@ function renderProjects(data) {
       var tags = el("div", "tech-tags");
       (proj.tech || []).forEach(function(t) { tags.appendChild(el("span", null, t)); });
       card.append(head, desc, tags);
+
+      var links = buildProjectLinks(proj, fa);
+      if (links) card.appendChild(links);
       
       grid.appendChild(card);
     });
@@ -897,9 +902,8 @@ function renderProjects(data) {
   });
 }
 
-
 // ============================================================
-// RENDER REPOS — class-based (respects design switcher)
+// RENDER REPOS
 // ============================================================
 function renderRepos(data) {
   var page = data && data.repos;
@@ -911,7 +915,6 @@ function renderRepos(data) {
   if (title) title.textContent = page.title || (data.lang === "fa" ? "ریپوها" : "Repositories");
   if (subtitle) subtitle.textContent = page.subtitle || "";
 
-  // GitHub language colors
   var COLORS = {
     TypeScript: "#3178C6", Python: "#3572A5", PHP: "#4F5D95",
     HTML: "#E34F26", CSS: "#563D7C", JavaScript: "#F1E05A",
@@ -960,11 +963,9 @@ function renderRepos(data) {
     });
   }, 100);
 }
+
 // ============================================================
 // RENDER RESUME
-// ============================================================
-// ============================================================
-// RENDER RESUME — Bauhaus Enhanced
 // ============================================================
 function renderResume(data) {
   var page = data && data.resume;
@@ -973,13 +974,11 @@ function renderResume(data) {
 
   var fa = data.lang === "fa";
 
-  // Set title + subtitle + download label
   var set = function (id, v) { var n = document.getElementById(id); if (n) n.textContent = v; };
   set("resume-title", page.title);
   set("resume-subtitle", page.subtitle);
   set("resume-download", fa ? "دانلود رزومه (PDF)" : "Download Resume (PDF)");
 
-  // Avatar
   var avatar = document.getElementById("hero-avatar");
   if (avatar && avatar.innerHTML.trim() === "") {
     avatar.innerHTML = '<img src="logo.png" alt="Ilia Farahani" decoding="async">';
@@ -987,7 +986,6 @@ function renderResume(data) {
 
   var p = page.personal;
 
-  // ---------- PERSONAL CONTACT CARDS ----------
   var contactCards = [
     { icon: "email",    label: fa ? "ایمیل"    : "Email",    value: p.email,    href: "mailto:" + p.email },
     { icon: "phone",    label: fa ? "تلفن"     : "Phone",    value: p.phone,    href: "tel:" + p.phone.replace(/\D/g, "") },
@@ -1007,7 +1005,6 @@ function renderResume(data) {
     '</' + tag + '>';
   }).join("");
 
-  // ---------- SKILLS ----------
   var skillsHtml = page.skills.map(function (s, i) {
     return '<div class="skill-card reveal reveal-delay-' + (i % 4) + '">' +
       '<div class="resume-skill-head">' +
@@ -1020,7 +1017,6 @@ function renderResume(data) {
     '</div>';
   }).join("");
 
-  // ---------- PROJECTS ----------
   var projectsHtml = page.projects.map(function (x, i) {
     return '<div class="project-card reveal reveal-delay-' + (i % 4) + '">' +
       '<div class="project-head">' +
@@ -1030,7 +1026,6 @@ function renderResume(data) {
     '</div>';
   }).join("");
 
-  // ---------- EDUCATION ----------
   var educationHtml = page.education.map(function (x, i) {
     return '<div class="timeline-item reveal reveal-delay-' + (i % 3) + '">' +
       '<h3>' + x.title + '</h3>' +
@@ -1038,12 +1033,10 @@ function renderResume(data) {
     '</div>';
   }).join("");
 
-  // ---------- LANGUAGES ----------
   var languagesHtml = page.languages.map(function (x) {
     return '<span>' + x.name + ' — ' + x.level + '</span>';
   }).join("");
 
-  // ---------- GITHUB STATS ----------
   var gh = page.github;
   var githubCards = [
     { label: fa ? "کامیت"     : "Commits",  value: gh.commits },
@@ -1059,9 +1052,7 @@ function renderResume(data) {
     '</div>';
   }).join("");
 
-  // ---------- BUILD ----------
   root.innerHTML =
-    // Personal info
     '<div class="resume-block">' +
       '<div class="resume-block-head">' +
         '<span class="section-tag"><span class="dot"></span> ' + (fa ? "اطلاعات تماس" : "Personal Info") + '</span>' +
@@ -1069,7 +1060,6 @@ function renderResume(data) {
       '<div class="contact-grid">' + contactHtml + '</div>' +
     '</div>' +
 
-    // About
     '<div class="resume-block">' +
       '<div class="resume-block-head">' +
         '<span class="section-tag"><span class="dot"></span> ' + (fa ? "درباره من" : "About") + '</span>' +
@@ -1077,7 +1067,6 @@ function renderResume(data) {
       '<p class="resume-about">' + page.about + '</p>' +
     '</div>' +
 
-    // Skills
     '<div class="resume-block">' +
       '<div class="resume-block-head">' +
         '<span class="section-tag"><span class="dot"></span> ' + (fa ? "مهارت‌های فنی" : "Technical Skills") + '</span>' +
@@ -1085,7 +1074,6 @@ function renderResume(data) {
       '<div class="skills-grid">' + skillsHtml + '</div>' +
     '</div>' +
 
-    // Projects
     '<div class="resume-block">' +
       '<div class="resume-block-head">' +
         '<span class="section-tag"><span class="dot"></span> ' + (fa ? "پروژه‌های شاخص" : "Selected Projects") + '</span>' +
@@ -1093,7 +1081,6 @@ function renderResume(data) {
       '<div class="projects-grid">' + projectsHtml + '</div>' +
     '</div>' +
 
-    // Education
     '<div class="resume-block">' +
       '<div class="resume-block-head">' +
         '<span class="section-tag"><span class="dot"></span> ' + (fa ? "تحصیلات و دوره‌ها" : "Education & Courses") + '</span>' +
@@ -1101,7 +1088,6 @@ function renderResume(data) {
       '<div class="timeline">' + educationHtml + '</div>' +
     '</div>' +
 
-    // Languages
     '<div class="resume-block">' +
       '<div class="resume-block-head">' +
         '<span class="section-tag"><span class="dot"></span> ' + (fa ? "زبان‌ها" : "Languages") + '</span>' +
@@ -1109,7 +1095,6 @@ function renderResume(data) {
       '<div class="tags-row">' + languagesHtml + '</div>' +
     '</div>' +
 
-    // GitHub — special block
     '<div class="resume-github-block">' +
       '<div class="resume-block-head">' +
         '<span class="section-tag"><span class="dot"></span> ' + (fa ? "فعالیت گیت‌هاب" : "GitHub Activity") + '</span>' +
@@ -1117,12 +1102,10 @@ function renderResume(data) {
       '<div class="stats-grid">' + githubHtml + '</div>' +
     '</div>';
 
-  // Reveal animation
   setTimeout(function () {
     root.querySelectorAll(".reveal").forEach(function (n) {
       n.classList.add("visible");
     });
-    // Animate skill bars
     root.querySelectorAll(".skill-level .bar").forEach(function (bar) {
       var lvl = bar.dataset.level || 0;
       bar.style.width = "0%";
@@ -1130,6 +1113,7 @@ function renderResume(data) {
     });
   }, 80);
 }
+
 // ============================================================
 // CONTACT FORM
 // ============================================================
@@ -1263,7 +1247,6 @@ function boot() {
   setTheme(getTheme());
   render(page);
   initLangToggle(page);
-  // A single owner for the mobile drawer prevents double-toggle bugs.
   initMobileNav();
   initContactForm();
 
@@ -1320,34 +1303,29 @@ function boot() {
     });
   });
 }
-// ============================================================
-// MOBILE DETECTION & OPTIMIZATION (اضافه شده به script.js)
-// ============================================================
 
-// تشخیص موبایل با دقت بالا
+// ============================================================
+// MOBILE HELPERS
+// ============================================================
 function isMobileDevice() {
   return window.innerWidth < 768 || 
          /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent);
 }
 
-// تشخیص تاچ دیوایس
 function isTouchDevice() {
   return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 }
 
-// بهینه‌سازی عملکرد در موبایل
 function optimizeForMobile() {
   if (isMobileDevice()) {
-    // غیرفعال کردن انیمیشن‌های سنگین
     document.querySelectorAll('.orb').forEach(function(orb) {
       orb.style.animation = 'none';
       orb.style.filter = 'blur(40px)';
     });
     
-    // کاهش opacity پس‌زمینه
-    document.querySelector('.bg-ambient')?.style.setProperty('opacity', '0.3');
+    var bg = document.querySelector('.bg-ambient');
+    if (bg) bg.style.setProperty('opacity', '0.3');
     
-    // غیرفعال کردن افکت‌های نشانگر
     document.body.classList.remove('has-custom-cursor');
     document.querySelectorAll('.cursor-glow, .custom-cursor, .cursor-trail').forEach(function(el) {
       if (el) el.style.display = 'none';
@@ -1355,7 +1333,6 @@ function optimizeForMobile() {
   }
 }
 
-// مدیریت ناوبری موبایل
 function initMobileNav() {
   let toggle = document.querySelector('.nav-toggle');
   const navLinks = document.querySelector('.nav-links');
@@ -1377,68 +1354,13 @@ function initMobileNav() {
   panel.querySelectorAll('a').forEach(function (a) { a.onclick = closePanel; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
   navLinks.setAttribute('aria-hidden','true');
-  return;
-  // boot can run more than once after a language/content render. Keep this
-  // initializer idempotent so one tap can never trigger two toggles.
-  // Replace the control once to purge stale listeners left by older cached
-  // script versions or repeated boot cycles.
-  if (toggle.dataset.navBound !== 'true') {
-    const cleanToggle = toggle.cloneNode(true);
-    toggle.replaceWith(cleanToggle);
-    toggle = cleanToggle;
-  }
-  if (toggle.dataset.navBound === 'true') return;
-  toggle.dataset.navBound = 'true';
-  
-  toggle.onclick = function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    var opening = !navLinks.classList.contains('open');
-    navLinks.classList.toggle('open', opening);
-    // Inline state keeps the drawer visible even if a stale document handler
-    // from a cached script removes the class a moment later.
-    navLinks.style.visibility = opening ? 'visible' : 'hidden';
-    navLinks.style.opacity = opening ? '1' : '0';
-    navLinks.style.transform = opening ? 'translateY(0) scale(1)' : '';
-    toggle.setAttribute('aria-expanded', opening ? 'true' : 'false');
-  };
-  
-  // بستن منو با کلیک بیرون
-  document.addEventListener('click', function(e) {
-    if (navLinks.classList.contains('open') && 
-        !navLinks.contains(e.target) && 
-        !toggle.contains(e.target)) {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-  
-  // بستن منو با کلیک روی لینک‌ها
-  navLinks.querySelectorAll('a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-  
-  // بستن منو با کلید ESC
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.focus();
-    }
-  });
 }
 
-// مدیریت ساف‌اری موبایل (fix 100vh)
 function fixMobileViewport() {
   if (isMobileDevice()) {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', vh + 'px');
     
-    // تنظیم height برای hero
     document.querySelectorAll('.hero').forEach(function(el) {
       el.style.minHeight = 'calc(var(--vh, 1vh) * 85)';
     });
@@ -1446,15 +1368,9 @@ function fixMobileViewport() {
 }
 
 // ============================================================
-// اجرای بهینه‌سازی‌ها در زمان لود
-// ============================================================
-// ============================================================
-// PRELOADER — logo intro splash
+// PRELOADER
 // ============================================================
 (function initPreloader() {
-  if (document.readyState !== "loading" && document.readyState !== "interactive") {
-    // Too late to show a splash usefully
-  }
   var pre = document.createElement("div");
   pre.className = "site-preloader";
   pre.innerHTML = '<div class="preloader-mark"><img src="logo.png" alt="" /><span class="preloader-ring"></span></div>';
@@ -1470,12 +1386,11 @@ function fixMobileViewport() {
     setTimeout(function() { pre.remove(); }, 700);
   }
 
-  // Reveal as soon as content is rendered, with a small minimum dwell so it doesn't just flash
   var minDwell = new Promise(function(res) { setTimeout(res, 500); });
   var rendered = new Promise(function(res) {
     document.addEventListener("site:rendered", res, { once: true });
     document.addEventListener("site:render-failed", res, { once: true });
-    setTimeout(res, 2200); // hard safety cap
+    setTimeout(res, 2200);
   });
   Promise.all([minDwell, rendered]).then(finish);
 })();
@@ -1485,7 +1400,6 @@ document.addEventListener('DOMContentLoaded', function() {
   fixMobileViewport();
 });
 
-// به‌روزرسانی در زمان تغییر اندازه
 let resizeTimer;
 window.addEventListener('resize', function() {
   clearTimeout(resizeTimer);
@@ -1495,6 +1409,7 @@ window.addEventListener('resize', function() {
     }
   }, 250);
 });
+
 // ============================================================
 // START
 // ============================================================
