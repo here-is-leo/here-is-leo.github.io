@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" href="favicon-16x16.png" type="image/png" sizes="16x16" />
+  <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="favicon-48x48.png" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <title>صفحه پیدا نشد (۴۰۴) | ایلیا فراهانی</title>
+  <meta name="description" content="صفحه‌ای که دنبالش بودید پیدا نشد. به صفحه اصلی سایت ایلیا فراهانی بازگردید یا پروژه‌ها، وبلاگ و رزومه را مشاهده کنید." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://www.here-is-leo.ir/404.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&family=Vazirmatn:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+  (function () {
+    var design = 'classic';
+    try { design = localStorage.getItem('site-design') || 'classic'; } catch (e) {}
+    if (design !== 'bauhaus' && design !== 'classic') design = 'classic';
+    var file = design === 'bauhaus' ? 'style.css' : 'style-classic.css';
+    document.documentElement.setAttribute('data-design', design);
+    document.write('<link rel="stylesheet" href="' + file + '" id="site-stylesheet">');
+  })();
+  </script>
+  <script src="design-switcher.js" defer></script>
+
+  <style>
+    .error-page {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .error-page .code {
+      font-family: var(--font-display, var(--font));
+      font-weight: 900;
+      font-size: clamp(5rem, 18vw, 9rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent, #5E6AD2), #9aa3ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0 0 8px;
+    }
+    .error-page h1 { font-size: clamp(1.3rem, 3vw, 1.8rem); margin: 0 0 12px; }
+    .error-page p { color: var(--foreground-muted, var(--fg-muted)); max-width: 480px; margin: 0 auto 32px; line-height: 1.9; }
+    .error-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .error-links { display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: center; margin-top: 28px; font-size: .92rem; }
+    .error-links a { color: var(--foreground-muted, var(--fg-muted)); text-decoration: none; border-bottom: 1px dashed currentColor; }
+    .error-links a:hover { color: var(--accent, var(--fg)); }
+  </style>
+</head>
+<body data-page="404">
+  <header class="site-header">
+    <nav class="nav">
+      <a href="index.html" class="brand">
+        <span class="dot"></span>
+        <span>خانه</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="projects.html">پروژه‌ها</a></li>
+        <li><a href="blog.html">وبلاگ</a></li>
+        <li><a href="repos.html">ریپوها</a></li>
+        <li><a href="resume.html">رزومه</a></li>
+        <li><a href="about.html">درباره من</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="error-page container">
+      <div>
+        <p class="code">۴۰۴</p>
+        <h1>این صفحه پیدا نشد</h1>
+        <p>آدرسی که دنبالش بودید وجود ندارد یا جابه‌جا شده. می‌توانید از منوی زیر به بخش‌های دیگر سایت بروید.</p>
+        <div class="error-actions">
+          <a href="index.html" class="btn btn-primary">بازگشت به صفحه اصلی</a>
+          <a href="projects.html" class="btn btn-secondary">مشاهده پروژه‌ها</a>
+        </div>
+        <div class="error-links">
+          <a href="blog.html">وبلاگ</a>
+          <a href="repos.html">ریپوهای گیت‌هاب</a>
+          <a href="resume.html">رزومه</a>
+          <a href="about.html">درباره من</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> ایلیا فراهانی</div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

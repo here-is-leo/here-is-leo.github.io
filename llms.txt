@@ -1,0 +1,27 @@
+# ایلیا فراهانی (Ilia Farahani) | here-is-leo
+
+> صفحه شخصی ایلیا فراهانی (ایلیا عزیزآبادی) — برنامه‌نویس Python و C#، متخصص لینوکس و تست نفوذ با Kali Linux. ساکن تهران، ایران.
+
+Ilia Farahani is a Python & C# developer and Linux/web-security specialist based in Tehran, Iran, also known online as "here-is-leo". This site showcases his projects, GitHub repositories, blog posts, and resume.
+
+## صفحات اصلی (Main Pages)
+
+- [خانه / Home](https://www.here-is-leo.ir/): معرفی، مهارت‌ها، آمار و راه‌های ارتباطی
+- [درباره من / About](https://www.here-is-leo.ir/about.html): بیوگرافی، تحصیلات و مسیر یادگیری
+- [پروژه‌ها / Projects](https://www.here-is-leo.ir/projects.html): پروژه‌های شاخص برنامه‌نویسی و امنیت
+- [وبلاگ / Blog](https://www.here-is-leo.ir/blog.html): مقالات درباره برنامه‌نویسی، امنیت وب و لینوکس
+- [ریپوها / Repos](https://www.here-is-leo.ir/repos.html): فهرست مخازن گیت‌هاب
+- [رزومه / Resume](https://www.here-is-leo.ir/resume.html): رزومه آنلاین
+
+## مهارت‌ها (Skills)
+
+Python, C# (MVC, Entity Framework), Linux, Kali Linux (penetration testing: Nmap, Metasploit, Burp Suite, Wireshark), HTML/CSS/JavaScript, Node.js/Next.js, SQL Server/SQLite, WordPress, Arduino (C/C++), web security.
+
+## تماس (Contact)
+
+- Email: ilyafarahanii@gmail.com
+- GitHub: https://github.com/here-is-leo
+
+## نکات برای خزنده‌ها (Notes for crawlers)
+
+Site content is primarily in Persian (Farsi), with an English translation available via the in-page language toggle. Full sitemap: https://www.here-is-leo.ir/sitemap.xml
