@@ -120,7 +120,7 @@
 
   <script src="content.js"></script>
   <script src="script.js"></script>
-    <script src="cms-override.js"></script>   
+  <script src="live-addon.js"></script>
   <script>
     function renderProjectsPage() {
       var grid = document.getElementById('projects-grid');
@@ -148,6 +148,10 @@
           ? '<a href="' + p.url + '" target="_blank" rel="noopener" class="project-link">' +
               (lang === 'fa' ? 'مشاهده در گیت‌هاب ↗' : 'View on GitHub ↗') + '</a>'
           : '';
+        var liveHtml = p.live
+          ? '<a href="' + p.live + '" target="_blank" rel="noopener" class="project-link project-link-live live-preview-trigger">' +
+              (lang === 'fa' ? '🌐 مشاهده سایت ↗' : '🌐 Live Demo ↗') + '</a>'
+          : '';
 
         return '<div class="project-card reveal reveal-delay-' + (i % 4) + '">' +
                  '<div class="project-head">' +
@@ -156,7 +160,7 @@
                  '</div>' +
                  '<p>' + p.desc + '</p>' +
                  techHtml +
-                 linkHtml +
+                 '<div class="project-links">' + linkHtml + liveHtml + '</div>' +
                '</div>';
       }).join('');
 
