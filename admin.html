@@ -1,449 +1,1711 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>داشبورد مدیریت | ایلیا فراهانی</title>
-  <link rel="icon" href="logo.png">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>پنل مدیریت محتوا | ایلیا فراهانی</title>
+<link rel="icon" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#0a0a0c; --bg-2:#0f0f13; --card:#14141a; --card-2:#1a1a22;
+  --border:rgba(255,255,255,.07); --border-2:rgba(255,255,255,.14);
+  --fg:#EDEDEF; --fg-2:#9ca0aa; --fg-3:#5c5f68;
+  --accent:#5E6AD2; --accent-2:#7c85e0; --accent-soft:rgba(94,106,210,.15);
+  --danger:#ef4444; --danger-soft:rgba(239,68,68,.12);
+  --success:#10b981; --success-soft:rgba(16,185,129,.12);
+  --warn:#f59e0b; --warn-soft:rgba(245,158,11,.12);
+  --radius:12px; --radius-sm:8px; --radius-lg:16px;
+  --sidebar:260px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:'Vazirmatn',system-ui,sans-serif;
+  background:var(--bg); color:var(--fg);
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.18)}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+/* ============ LOGIN ============ */
+.login-wrap{
+  position:fixed;inset:0;display:grid;place-items:center;
+  background:radial-gradient(ellipse at 50% 30%,#141828 0,#0a0a0c 60%);
+  z-index:100;padding:20px;
+}
+.login-box{
+  width:100%;max-width:400px;padding:40px 34px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:0 30px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(94,106,210,.15);
+}
+.login-logo{
+  width:60px;height:60px;margin:0 auto 20px;
+  border-radius:16px; display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent),#8b7fe0);
+  box-shadow:0 10px 30px rgba(94,106,210,.35);
+}
+.login-logo svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:2}
+.login-box h1{font-size:20px;font-weight:800;text-align:center;margin-bottom:6px}
+.login-box > p{font-size:13px;color:var(--fg-2);text-align:center;margin-bottom:28px}
+.login-field{margin-bottom:16px}
+.login-field label{display:block;font-size:12px;font-weight:600;color:var(--fg-2);margin-bottom:6px}
+.login-field input{
+  width:100%;padding:12px 14px;background:var(--bg-2);
+  border:1px solid var(--border-2);border-radius:var(--radius-sm);
+  font-size:14px;outline:none;transition:border-color .2s;
+}
+.login-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.login-btn{
+  width:100%;padding:13px;background:var(--accent);color:#fff;
+  border-radius:var(--radius-sm);font-weight:700;font-size:14px;
+  transition:all .2s;margin-top:8px;
+}
+.login-btn:hover{background:var(--accent-2);transform:translateY(-1px);box-shadow:0 10px 24px rgba(94,106,210,.3)}
+.login-err{
+  color:var(--danger);font-size:12px;text-align:center;margin-top:14px;
+  min-height:18px;font-weight:600;
+}
 
-  <style>
-    body { padding: 60px 0 40px; }
+/* ============ LAYOUT ============ */
+.layout{display:grid;grid-template-columns:var(--sidebar) 1fr;height:100vh;overflow:hidden}
+.sidebar{
+  background:var(--bg-2); border-left:1px solid var(--border);
+  display:flex;flex-direction:column;height:100vh;overflow:hidden;
+}
+.brand{
+  display:flex;align-items:center;gap:12px;padding:22px 20px;
+  border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.brand-logo{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),#8b7fe0);
+  display:grid;place-items:center;flex-shrink:0;
+}
+.brand-logo svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2}
+.brand-info h3{font-size:14px;font-weight:700}
+.brand-info p{font-size:11px;color:var(--fg-3)}
 
-    .login-container {
-      max-width: 420px;
-      margin: 60px auto;
-      padding: 44px 36px;
-      background: var(--card-bg);
-      border: var(--bw) solid var(--border);
-      box-shadow:
-        10px 10px 0 0 var(--bh-red),
-        20px 20px 0 0 var(--bh-yellow);
-    }
-    .login-container h1 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      text-align: center;
-      margin: 0 0 10px;
-      color: var(--fg);
-    }
-    .login-container > p {
-      text-align: center;
-      color: var(--fg-muted);
-      margin: 0 0 30px;
-      font-size: .92rem;
-    }
+.nav-scroll{flex:1;overflow-y:auto;padding:14px 12px}
+.nav-section{margin-bottom:20px}
+.nav-section-title{
+  font-size:10px;font-weight:700;color:var(--fg-3);
+  text-transform:uppercase;letter-spacing:.1em;
+  padding:6px 10px;margin-bottom:4px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:var(--radius-sm);
+  color:var(--fg-2);font-size:13.5px;font-weight:500;
+  transition:all .15s;cursor:pointer;width:100%;text-align:right;
+}
+.nav-item:hover{background:var(--card);color:var(--fg)}
+.nav-item.active{background:var(--accent-soft);color:var(--accent-2);font-weight:600}
+.nav-item svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2}
+.nav-badge{
+  margin-right:auto;font-size:10px;font-weight:700;
+  padding:2px 7px;border-radius:10px;
+  background:var(--card-2);color:var(--fg-2);
+}
+.nav-item.active .nav-badge{background:var(--accent);color:#fff}
 
-    .form-group { margin-bottom: 22px; }
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--fg-muted);
-      font-family: var(--font-display);
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 14px 16px;
-      border: var(--bw-sm) solid var(--border);
-      background: transparent;
-      color: var(--fg);
-      font-family: inherit;
-      font-size: .96rem;
-      transition: border-color var(--motion), box-shadow var(--motion);
-    }
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--bh-red);
-      box-shadow: 4px 4px 0 0 var(--bh-red);
-    }
+.sidebar-footer{
+  padding:14px 12px;border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:6px;flex-shrink:0;
+}
+.sidebar-footer button{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:var(--radius-sm);
+  color:var(--fg-2);font-size:12.5px;font-weight:500;
+  transition:all .15s;text-align:right;
+}
+.sidebar-footer button:hover{background:var(--card);color:var(--fg)}
+.sidebar-footer button svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.sidebar-footer .danger:hover{color:var(--danger);background:var(--danger-soft)}
 
-    .login-btn {
-      width: 100%;
-      padding: 16px;
-      border: var(--bw-sm) solid var(--bh-black);
-      background: var(--bh-red);
-      color: var(--bh-white);
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: .86rem;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 5px 5px 0 0 var(--bh-black);
-      transition: transform var(--motion), box-shadow var(--motion);
-    }
-    .login-btn:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 8px 8px 0 0 var(--bh-black);
-    }
-    .login-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: none;
-    }
+.main{
+  display:flex;flex-direction:column;height:100vh;overflow:hidden;
+  background:var(--bg);
+}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px;border-bottom:1px solid var(--border);
+  background:var(--bg-2);flex-shrink:0;gap:16px;flex-wrap:wrap;
+}
+.topbar-left h1{font-size:18px;font-weight:800}
+.topbar-left p{font-size:12px;color:var(--fg-2);margin-top:2px}
+.topbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-    .error-msg {
-      color: var(--bh-red);
-      text-align: center;
-      margin-top: 16px;
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: .82rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      display: none;
-    }
+.lang-switch{
+  display:flex;gap:3px;padding:3px;background:var(--card);
+  border-radius:10px;border:1px solid var(--border);
+}
+.lang-switch button{
+  padding:6px 12px;border-radius:7px;font-size:12px;font-weight:700;
+  color:var(--fg-2);transition:all .15s;
+}
+.lang-switch button.active{background:var(--accent);color:#fff}
 
-    .dashboard { display: none; }
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:var(--radius-sm);
+  font-size:12.5px;font-weight:600;transition:all .15s;
+  border:1px solid transparent;white-space:nowrap;
+}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-2);transform:translateY(-1px);box-shadow:0 8px 20px rgba(94,106,210,.3)}
+.btn-secondary{background:var(--card);color:var(--fg);border-color:var(--border-2)}
+.btn-secondary:hover{background:var(--card-2);border-color:var(--border)}
+.btn-danger{background:var(--danger-soft);color:var(--danger)}
+.btn-danger:hover{background:var(--danger);color:#fff}
+.btn-ghost{color:var(--fg-2)}
+.btn-ghost:hover{color:var(--fg);background:var(--card)}
+.btn-sm{padding:6px 10px;font-size:11.5px}
 
-    .dash-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      padding: 26px 0;
-      border-bottom: var(--bw-sm) solid var(--border);
-      margin-bottom: 32px;
-    }
-    .dash-header h1 {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin: 0;
-      letter-spacing: -0.02em;
-    }
-    .dash-header .sub {
-      color: var(--fg-muted);
-      font-size: .8rem;
-      font-family: var(--font-display);
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-top: 4px;
-    }
-    .dash-header .user-info {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: var(--fg-muted);
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: .78rem;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
+.content{
+  flex:1;overflow-y:auto;padding:28px;
+}
+.content-inner{max-width:900px;margin:0 auto}
 
-    .logout-btn {
-      padding: 10px 20px;
-      border: var(--bw-sm) solid var(--border);
-      background: transparent;
-      color: var(--fg);
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: .74rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all var(--motion);
-    }
-    .logout-btn:hover {
-      background: var(--bh-red);
-      color: var(--bh-white);
-      border-color: var(--bh-black);
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0 0 var(--bh-black);
-    }
+/* ============ CARDS / FORMS ============ */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:22px;margin-bottom:18px;
+}
+.card-title{
+  font-size:14px;font-weight:700;margin-bottom:4px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-title svg{width:16px;height:16px;stroke:var(--accent-2);fill:none;stroke-width:2}
+.card-desc{font-size:12px;color:var(--fg-2);margin-bottom:18px}
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 18px;
-      margin-bottom: 34px;
-    }
-    .stat-card {
-      background: var(--card-bg);
-      border: var(--bw-sm) solid var(--border);
-      padding: 26px 20px;
-      text-align: center;
-      box-shadow: var(--shadow-md);
-      transition: transform var(--motion), box-shadow var(--motion);
-    }
-    .stat-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: var(--shadow-lg);
-    }
-    .stat-card .number {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      font-weight: 900;
-      color: var(--bh-red);
-      line-height: 1;
-      letter-spacing: -0.04em;
-    }
-    .stat-card .label {
-      color: var(--fg-muted);
-      font-family: var(--font-display);
-      font-size: .68rem;
-      font-weight: 800;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      margin-top: 10px;
-    }
+.field{margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.field label{
+  display:block;font-size:12px;font-weight:600;color:var(--fg-2);
+  margin-bottom:6px;
+}
+.field .hint{font-size:11px;color:var(--fg-3);margin-top:4px}
+.field input[type="text"],
+.field input[type="number"],
+.field input[type="url"],
+.field input[type="email"],
+.field textarea,
+.field select{
+  width:100%;padding:10px 12px;background:var(--bg-2);
+  border:1px solid var(--border-2);border-radius:var(--radius-sm);
+  font-size:13.5px;outline:none;transition:all .15s;
+  font-family:inherit;color:var(--fg);
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);
+}
+.field textarea{min-height:90px;resize:vertical;line-height:1.7}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 
-    .table-wrap {
-      background: var(--card-bg);
-      border: var(--bw-sm) solid var(--border);
-      padding: 28px 24px;
-      box-shadow: var(--shadow-lg);
-      overflow-x: auto;
-    }
-    .table-wrap h2 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin: 0 0 20px;
-      padding-bottom: 12px;
-      border-bottom: var(--bw-sm) solid var(--border);
-      letter-spacing: -0.01em;
-    }
+/* ============ ARRAY LIST ============ */
+.array-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:14px;
+}
+.array-head h3{font-size:14px;font-weight:700}
+.array-list{display:flex;flex-direction:column;gap:8px}
+.array-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;background:var(--bg-2);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  transition:all .15s;
+}
+.array-item:hover{border-color:var(--border-2);background:var(--card-2)}
+.array-item-icon{
+  width:36px;height:36px;border-radius:9px;
+  background:var(--accent-soft);color:var(--accent-2);
+  display:grid;place-items:center;font-size:16px;flex-shrink:0;
+  font-weight:700;
+}
+.array-item-body{flex:1;min-width:0}
+.array-item-title{
+  font-size:13.5px;font-weight:600;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.array-item-sub{
+  font-size:11.5px;color:var(--fg-3);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-top:2px;
+}
+.array-item-actions{display:flex;gap:4px;flex-shrink:0}
+.icon-btn{
+  width:32px;height:32px;border-radius:8px;
+  display:grid;place-items:center;color:var(--fg-2);
+  transition:all .15s;
+}
+.icon-btn:hover{background:var(--card);color:var(--fg)}
+.icon-btn.danger:hover{background:var(--danger-soft);color:var(--danger)}
+.icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
 
-    table { width: 100%; border-collapse: collapse; }
-    th, td {
-      padding: 14px 16px;
-      text-align: right;
-      border-bottom: var(--bw-sm) solid var(--border);
-      font-size: .88rem;
-    }
-    th {
-      font-family: var(--font-display);
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--fg-muted);
-      background: var(--bg-section);
-    }
+.empty{
+  text-align:center;padding:40px 20px;color:var(--fg-3);
+  font-size:13px;border:1px dashed var(--border-2);
+  border-radius:var(--radius-sm);
+}
 
-    .status-badge {
-      padding: 5px 14px;
-      font-family: var(--font-display);
-      font-size: .66rem;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      display: inline-block;
-      border: var(--bw-sm) solid var(--bh-black);
-    }
-    .status-pending   { background: var(--bh-yellow); color: var(--bh-black); }
-    .status-confirmed { background: var(--bh-blue); color: var(--bh-white); }
-    .status-cancelled { background: var(--bh-red); color: var(--bh-white); }
+/* ============ MODAL ============ */
+.modal-back{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  z-index:200;padding:20px;
+}
+.modal-back.open{display:flex}
+.modal{
+  background:var(--card);border:1px solid var(--border-2);
+  border-radius:var(--radius-lg);width:100%;max-width:560px;
+  max-height:90vh;display:flex;flex-direction:column;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+  animation:modalIn .2s ease-out;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+.modal-head{
+  padding:18px 22px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-shrink:0;
+}
+.modal-head h3{font-size:15px;font-weight:700}
+.modal-body{padding:22px;overflow-y:auto;flex:1}
+.modal-foot{
+  padding:14px 22px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:flex-end;gap:8px;
+  flex-shrink:0;
+}
 
-    .empty-state {
-      text-align: center;
-      color: var(--fg-muted);
-      padding: 48px 20px;
-      font-family: var(--font-display);
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      font-size: .82rem;
-    }
-  </style>
+/* ============ DASHBOARD ============ */
+.dash-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:14px;margin-bottom:24px;
+}
+.dash-stat{
+  padding:18px;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);
+}
+.dash-stat .num{
+  font-size:26px;font-weight:800;color:var(--accent-2);
+  line-height:1;margin-bottom:6px;
+}
+.dash-stat .lbl{font-size:12px;color:var(--fg-2)}
+.dash-actions{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;
+}
+.dash-action{
+  display:flex;align-items:center;gap:12px;
+  padding:14px;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);cursor:pointer;text-align:right;
+  transition:all .15s;
+}
+.dash-action:hover{border-color:var(--border-2);background:var(--card-2);transform:translateY(-2px)}
+.dash-action-ic{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--accent-soft);color:var(--accent-2);
+  display:grid;place-items:center;flex-shrink:0;
+}
+.dash-action-ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+.dash-action h4{font-size:13px;font-weight:700}
+.dash-action p{font-size:11px;color:var(--fg-3);margin-top:2px}
 
-  <!-- ====== BLOCKING STYLESHEET RESOLVER (prevents FOUC) ====== -->
-  <script>
-  (function () {
-    var design = 'classic';
-    try { design = localStorage.getItem('site-design') || 'classic'; } catch (e) {}
-    if (design !== 'bauhaus' && design !== 'classic') design = 'classic';
-    var file = design === 'bauhaus' ? 'style.css' : 'style-classic.css';
-    document.documentElement.setAttribute('data-design', design);
-    document.write('<link rel="stylesheet" href="' + file + '" id="site-stylesheet">');
-  })();
-  </script>
+/* ============ TOAST ============ */
+.toast{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(20px);
+  padding:10px 20px;background:var(--card);
+  border:1px solid var(--border-2);border-radius:10px;
+  font-size:13px;font-weight:600;color:var(--fg);
+  box-shadow:0 12px 40px rgba(0,0,0,.5);
+  opacity:0;pointer-events:none;transition:all .25s;
+  z-index:300;display:flex;align-items:center;gap:8px;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--success);color:var(--success)}
+.toast.err{border-color:var(--danger);color:var(--danger)}
 
-  <!-- ====== DESIGN SWITCHER (user clicks only) ====== -->
-  <script src="design-switcher.js" defer></script>
+/* ============ TAG INPUT ============ */
+.tag-input{
+  display:flex;flex-wrap:wrap;gap:6px;padding:8px;
+  background:var(--bg-2);border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);min-height:42px;
+  align-items:center;
+}
+.tag-input input{
+  flex:1;min-width:80px;padding:4px 6px;background:transparent;
+  border:none;outline:none;font-size:13px;color:var(--fg);
+}
+.tag{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 8px;background:var(--accent-soft);color:var(--accent-2);
+  border-radius:6px;font-size:11.5px;font-weight:600;
+}
+.tag button{color:inherit;opacity:.7;font-size:14px;line-height:1}
+.tag button:hover{opacity:1}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:800px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{
+    position:fixed;top:0;bottom:0;right:0;width:var(--sidebar);
+    transform:translateX(100%);transition:transform .25s;
+    z-index:150;box-shadow:-10px 0 40px rgba(0,0,0,.5);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .menu-toggle{display:grid !important}
+  .topbar{padding:14px 16px}
+  .content{padding:16px}
+  .field-row,.field-row-3{grid-template-columns:1fr}
+}
+.menu-toggle{
+  display:none;width:38px;height:38px;border-radius:10px;
+  place-items:center;background:var(--card);border:1px solid var(--border);
+}
+.menu-toggle svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+</style>
 </head>
-<body data-page="admin">
-  <div id="loginPage" class="container">
-    <div class="login-container">
-      <h1>ورود مدیر</h1>
-      <p>برای مشاهده دعوت‌ها وارد شوید</p>
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="username">نام کاربری</label>
-          <input type="text" id="username" value="admin" required autocomplete="username">
+<body>
+
+<!-- ============== LOGIN ============== -->
+<div class="login-wrap" id="loginWrap">
+  <form class="login-box" id="loginForm" autocomplete="on">
+    <div class="login-logo">
+      <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+    <h1>ورود به پنل مدیریت</h1>
+    <p>رمز عبور خود را وارد کنید</p>
+    <div class="login-field">
+      <label for="pw">رمز عبور</label>
+      <input type="password" id="pw" autocomplete="current-password" required />
+    </div>
+    <button type="submit" class="login-btn">ورود</button>
+    <div class="login-err" id="loginErr"></div>
+  </form>
+</div>
+
+<!-- ============== LAYOUT ============== -->
+<div class="layout" id="layout" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24"><path d="M12 2 2 7v10l10 5 10-5V7z"/><path d="M2 7l10 5 10-5"/><path d="M12 12v10"/></svg>
+      </div>
+      <div class="brand-info">
+        <h3>پنل مدیریت</h3>
+        <p>here-is-leo.ir</p>
+      </div>
+    </div>
+
+    <div class="nav-scroll">
+      <div class="nav-section">
+        <div class="nav-section-title">کلی</div>
+        <button class="nav-item" data-section="dashboard">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          داشبورد
+        </button>
+        <button class="nav-item" data-section="settings">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          تنظیمات سایت
+        </button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">صفحه اصلی</div>
+        <button class="nav-item" data-section="hero">
+          <svg viewBox="0 0 24 24"><path d="M3 10.6 12 3.4l9 7.2"/><path d="M5.5 9.4V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.4"/></svg>
+          بخش هیرو
+        </button>
+        <button class="nav-item" data-section="stats">
+          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          آمار
+          <span class="nav-badge" data-count="stats"></span>
+        </button>
+        <button class="nav-item" data-section="skills">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+          مهارت‌ها
+          <span class="nav-badge" data-count="skills"></span>
+        </button>
+        <button class="nav-item" data-section="focus">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+          تمرکز فعلی
+          <span class="nav-badge" data-count="focus"></span>
+        </button>
+        <button class="nav-item" data-section="projects">
+          <svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          پروژه‌ها
+          <span class="nav-badge" data-count="projects"></span>
+        </button>
+        <button class="nav-item" data-section="contact">
+          <svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          تماس
+          <span class="nav-badge" data-count="contact"></span>
+        </button>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">محتوا</div>
+        <button class="nav-item" data-section="blog">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          وبلاگ
+          <span class="nav-badge" data-count="blog"></span>
+        </button>
+        <button class="nav-item" data-section="repos">
+          <svg viewBox="0 0 24 24"><path d="M9 18 3 12l6-6"/><path d="m15 6 6 6-6 6"/></svg>
+          ریپوها
+          <span class="nav-badge" data-count="repos"></span>
+        </button>
+        <button class="nav-item" data-section="resume">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M5.6 16.4a3.6 3.6 0 0 1 6.8 0"/></svg>
+          رزومه
+        </button>
+        <button class="nav-item" data-section="about">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+          درباره من
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <button data-action="view-site">
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        مشاهده سایت
+      </button>
+      <button data-action="logout" class="danger">
+        <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        خروج
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="menu-toggle" id="menuToggle" aria-label="منو">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="topbar-left">
+          <h1 id="pageTitle">داشبورد</h1>
+          <p id="pageSubtitle">خوش آمدید</p>
         </div>
-        <div class="form-group">
-          <label for="password">رمز عبور</label>
-          <input type="password" id="password" required autocomplete="current-password">
+      </div>
+      <div class="topbar-actions">
+        <div class="lang-switch" id="langSwitch">
+          <button data-lang="fa" class="active">فارسی</button>
+          <button data-lang="en">EN</button>
         </div>
-        <button type="submit" class="login-btn">ورود به داشبورد</button>
-        <div id="loginError" class="error-msg"></div>
-      </form>
+        <button class="btn btn-secondary" data-action="reset-section" title="بازگرداندن این بخش">
+          <svg viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6.7 3L3 13"/></svg>
+          بازگردانی
+        </button>
+        <button class="btn btn-primary" data-action="save">
+          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+          ذخیره
+        </button>
+      </div>
+    </header>
+
+    <div class="content" id="content">
+      <div class="content-inner" id="contentInner"></div>
+    </div>
+  </main>
+</div>
+
+<!-- ============== MODAL ============== -->
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">ویرایش</h3>
+      <button class="icon-btn" data-close-modal>
+        <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close-modal>انصراف</button>
+      <button class="btn btn-primary" id="modalSave">ذخیره</button>
     </div>
   </div>
+</div>
 
-  <div id="dashboard" class="container dashboard">
-    <div class="dash-header">
-      <div>
-        <h1>مدیریت قرارها</h1>
-        <div class="sub">داشبورد دعوت‌ها</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================================
+   CMS ADMIN — here-is-leo.ir
+   - Reads content.js + blog-data.js
+   - Saves to localStorage (cms-site, cms-blog)
+   - Exports updated .js files
+   ========================================================================= */
+(function(){
+'use strict';
+
+/* ---------- CONSTANTS ---------- */
+const PASSWORD_KEY = 'cms-password';
+const AUTH_KEY = 'cms-auth';
+const SITE_KEY = 'cms-site';
+const BLOG_KEY = 'cms-blog';
+const DEFAULT_PASS = 'leo@2026';
+
+/* ---------- STATE ---------- */
+const state = {
+  site: null,
+  blog: null,
+  lang: 'fa',
+  section: 'dashboard',
+  editing: null,   // {list, index, isNew}
+  originalSite: null,
+  originalBlog: null,
+};
+
+/* ---------- HELPERS ---------- */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function getNested(obj, path){
+  return path.split('.').reduce((o,k) => (o == null ? o : o[k]), obj);
+}
+function setNested(obj, path, value){
+  const keys = path.split('.');
+  const last = keys.pop();
+  const target = keys.reduce((o,k) => {
+    if (o[k] == null) o[k] = /^\d+$/.test(k) ? [] : {};
+    return o[k];
+  }, obj);
+  target[last] = value;
+}
+function deepClone(o){ return JSON.parse(JSON.stringify(o)); }
+
+function toast(msg, kind){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (kind ? ' ' + kind : '');
+  clearTimeout(t._tm);
+  t._tm = setTimeout(() => { t.className = 'toast'; }, 2200);
+}
+
+function download(filename, content, mime){
+  const blob = new Blob([content], { type: mime || 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+/* ---------- AUTH ---------- */
+function getPassword(){
+  return localStorage.getItem(PASSWORD_KEY) || DEFAULT_PASS;
+}
+function isAuthed(){
+  return sessionStorage.getItem(AUTH_KEY) === 'ok' || localStorage.getItem(AUTH_KEY) === 'ok-remember';
+}
+function setAuthed(remember){
+  if (remember) localStorage.setItem(AUTH_KEY, 'ok-remember');
+  else sessionStorage.setItem(AUTH_KEY, 'ok');
+}
+function logout(){
+  sessionStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem(AUTH_KEY);
+  location.reload();
+}
+
+/* ---------- LOAD DATA ---------- */
+async function loadData(){
+  // Try localStorage first
+  const savedSite = localStorage.getItem(SITE_KEY);
+  const savedBlog = localStorage.getItem(BLOG_KEY);
+  if (savedSite && savedBlog){
+    try {
+      state.site = JSON.parse(savedSite);
+      state.blog = JSON.parse(savedBlog);
+      state.originalSite = deepClone(state.site);
+      state.originalBlog = deepClone(state.blog);
+      return;
+    } catch(e){ console.warn('localStorage parse failed', e); }
+  }
+  // Fall back to source files
+  try {
+    const contentCode = await (await fetch('content.js?v=' + Date.now())).text();
+    state.site = new Function(contentCode + '; return SITE;')();
+  } catch(e){
+    console.error('Failed to load content.js', e);
+    state.site = { fa:{}, en:{} };
+  }
+  try {
+    const blogCode = await (await fetch('blog-data.js?v=' + Date.now())).text();
+    state.blog = new Function(blogCode + '; return blogPosts;')();
+  } catch(e){
+    console.error('Failed to load blog-data.js', e);
+    state.blog = [];
+  }
+  state.originalSite = deepClone(state.site);
+  state.originalBlog = deepClone(state.blog);
+}
+
+function persist(){
+  try {
+    localStorage.setItem(SITE_KEY, JSON.stringify(state.site));
+    localStorage.setItem(BLOG_KEY, JSON.stringify(state.blog));
+    return true;
+  } catch(e){
+    console.error(e);
+    toast('حجم داده زیاد است — از Export استفاده کنید', 'err');
+    return false;
+  }
+}
+
+/* ---------- SCHEMAS FOR ARRAY EDITING ---------- */
+const SCHEMAS = {
+  stats: {
+    title: 'آمار',
+    icon: '📊',
+    fields: [
+      { key:'number', label:'عدد', type:'number' },
+      { key:'suffix', label:'پسوند (مثل +)', type:'text' },
+      { key:'label', label:'برچسب', type:'text' },
+    ],
+    summarize: (it) => (it.label || '') + ' — ' + (it.number ?? '') + (it.suffix || '')
+  },
+  skills: {
+    path: 'skills.items',
+    title: 'مهارت',
+    icon: '💡',
+    fields: [
+      { key:'icon', label:'آیکن', type:'text', hint:'python, csharp, linux, kali, html, js, node, sql, wordpress, security' },
+      { key:'title', label:'عنوان', type:'text' },
+      { key:'desc', label:'توضیح', type:'textarea' },
+      { key:'level', label:'سطح (0 تا 100)', type:'number' },
+    ],
+    summarize: (it) => (it.title || '') + ' — ' + (it.level || 0) + '%'
+  },
+  focus: {
+    path: 'focus.items',
+    title: 'تمرکز',
+    icon: '🎯',
+    fields: [
+      { key:'icon', label:'آیکن', type:'text', hint:'tools, book, opensource, internship' },
+      { key:'title', label:'عنوان', type:'text' },
+      { key:'desc', label:'توضیح', type:'textarea' },
+    ],
+    summarize: (it) => it.title || ''
+  },
+  projects: {
+    path: 'projects.items',
+    title: 'پروژه',
+    icon: '🚀',
+    fields: [
+      { key:'icon', label:'ایموجی/آیکن', type:'text' },
+      { key:'title', label:'عنوان', type:'text' },
+      { key:'date', label:'تاریخ', type:'text' },
+      { key:'desc', label:'توضیحات', type:'textarea' },
+      { key:'tech', label:'تکنولوژی‌ها (با کاما)', type:'tags' },
+      { key:'url', label:'لینک گیت‌هاب', type:'text' },
+      { key:'live', label:'لینک دمو (اختیاری)', type:'text' },
+    ],
+    summarize: (it) => (it.title || '') + (it.date ? ' · ' + it.date : '')
+  },
+  repos: {
+    path: 'repos.items',
+    title: 'ریپو',
+    icon: '📦',
+    fields: [
+      { key:'name', label:'نام ریپو', type:'text' },
+      { key:'desc', label:'توضیحات', type:'textarea' },
+      { key:'lang', label:'زبان', type:'text' },
+      { key:'stars', label:'ستاره', type:'number' },
+      { key:'forks', label:'فورک', type:'number' },
+      { key:'url', label:'لینک', type:'text' },
+    ],
+    summarize: (it) => (it.name || '') + (it.lang ? ' · ' + it.lang : '')
+  },
+  contact: {
+    path: 'contact.items',
+    title: 'راه ارتباطی',
+    icon: '📞',
+    fields: [
+      { key:'icon', label:'آیکن', type:'text', hint:'email, phone, location, github' },
+      { key:'label', label:'برچسب', type:'text' },
+      { key:'value', label:'مقدار', type:'text' },
+      { key:'href', label:'لینک (اختیاری)', type:'text' },
+    ],
+    summarize: (it) => (it.label || '') + ' — ' + (it.value || '')
+  },
+  aboutTimeline: {
+    path: 'about.timeline',
+    title: 'مرحله یادگیری',
+    icon: '📚',
+    fields: [
+      { key:'title', label:'عنوان', type:'text' },
+      { key:'sub', label:'زیرعنوان', type:'text' },
+      { key:'desc', label:'توضیح', type:'textarea' },
+    ],
+    summarize: (it) => it.title || ''
+  },
+  resumeSkills: {
+    path: 'resume.skills',
+    title: 'مهارت رزومه',
+    icon: '⚡',
+    fields: [
+      { key:'name', label:'نام', type:'text' },
+      { key:'level', label:'سطح (0-100)', type:'number' },
+    ],
+    summarize: (it) => (it.name || '') + ' — ' + (it.level || 0) + '%'
+  },
+  resumeProjects: {
+    path: 'resume.projects',
+    title: 'پروژه رزومه',
+    icon: '📁',
+    fields: [
+      { key:'icon', label:'آیکن', type:'text' },
+      { key:'title', label:'عنوان', type:'text' },
+      { key:'desc', label:'توضیح', type:'textarea' },
+    ],
+    summarize: (it) => it.title || ''
+  },
+  resumeEducation: {
+    path: 'resume.education',
+    title: 'تحصیلات',
+    icon: '🎓',
+    fields: [
+      { key:'title', label:'عنوان', type:'text' },
+      { key:'sub', label:'زیرعنوان', type:'text' },
+    ],
+    summarize: (it) => it.title || ''
+  },
+  resumeLanguages: {
+    path: 'resume.languages',
+    title: 'زبان',
+    icon: '🌐',
+    fields: [
+      { key:'name', label:'نام زبان', type:'text' },
+      { key:'level', label:'سطح', type:'text' },
+    ],
+    summarize: (it) => (it.name || '') + ' — ' + (it.level || '')
+  },
+  blogPost: {
+    title: 'پست وبلاگ',
+    icon: '📝',
+    fields: [
+      { key:'title', label:'عنوان', type:'text' },
+      { key:'date', label:'تاریخ', type:'text' },
+      { key:'readTime', label:'زمان مطالعه', type:'text' },
+      { key:'category', label:'دسته‌بندی', type:'text' },
+      { key:'tags', label:'برچسب‌ها (با کاما)', type:'tags' },
+      { key:'excerpt', label:'خلاصه', type:'textarea' },
+      { key:'content', label:'محتوای HTML', type:'textarea', big:true },
+    ],
+    summarize: (it) => it.title || ''
+  },
+};
+
+/* =========================================================================
+   RENDER — SECTIONS
+   ========================================================================= */
+const SECTIONS = {
+  dashboard: { title:'داشبورد', subtitle:'نمای کلی سایت' },
+  settings: { title:'تنظیمات سایت', subtitle:'مدیریت، ورودی و خروجی' },
+  hero: { title:'بخش هیرو', subtitle:'بخش اصلی صفحه خانه' },
+  stats: { title:'آمار', subtitle:'اعداد و آمار صفحه خانه' },
+  skills: { title:'مهارت‌ها', subtitle:'مهارت‌های فنی' },
+  focus: { title:'تمرکز فعلی', subtitle:'کارهایی که روی آن‌ها کار می‌کنم' },
+  projects: { title:'پروژه‌ها', subtitle:'پروژه‌های شاخص' },
+  contact: { title:'تماس', subtitle:'راه‌های ارتباطی' },
+  blog: { title:'وبلاگ', subtitle:'مدیریت پست‌های وبلاگ' },
+  repos: { title:'ریپوها', subtitle:'مخازن گیت‌هاب' },
+  resume: { title:'رزومه', subtitle:'اطلاعات رزومه' },
+  about: { title:'درباره من', subtitle:'محتوای صفحه درباره من' },
+};
+
+function render(){
+  const L = state.lang;
+  const sec = state.section;
+  const meta = SECTIONS[sec] || { title:'', subtitle:'' };
+  $('#pageTitle').textContent = meta.title;
+  $('#pageSubtitle').textContent = meta.subtitle;
+  $$('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.section === sec);
+  });
+  updateNavBadges();
+
+  const el = $('#contentInner');
+  let html = '';
+  switch(sec){
+    case 'dashboard': html = renderDashboard(); break;
+    case 'settings':  html = renderSettings(); break;
+    case 'hero':      html = renderHero(); break;
+    case 'stats':     html = renderStats(); break;
+    case 'skills':    html = renderSkills(); break;
+    case 'focus':     html = renderFocus(); break;
+    case 'projects':  html = renderProjects(); break;
+    case 'contact':   html = renderContact(); break;
+    case 'blog':      html = renderBlog(); break;
+    case 'repos':     html = renderRepos(); break;
+    case 'resume':    html = renderResume(); break;
+    case 'about':     html = renderAbout(); break;
+  }
+  el.innerHTML = html;
+  bindInputs();
+}
+
+function updateNavBadges(){
+  const L = state.lang;
+  const d = state.site?.[L] || {};
+  const set = (k, v) => {
+    const el = document.querySelector(`[data-count="${k}"]`);
+    if (el) el.textContent = v;
+  };
+  set('stats', (d.stats || []).length);
+  set('skills', ((d.skills && d.skills.items) || []).length);
+  set('focus', ((d.focus && d.focus.items) || []).length);
+  set('projects', ((d.projects && d.projects.items) || []).length);
+  set('contact', ((d.contact && d.contact.items) || []).length);
+  set('repos', ((d.repos && d.repos.items) || []).length);
+  const blogEl = document.querySelector('[data-count="blog"]');
+  if (blogEl) blogEl.textContent = state.blog.length;
+}
+
+/* ---------- DASHBOARD ---------- */
+function renderDashboard(){
+  const L = state.lang;
+  const d = state.site?.[L] || {};
+  const stats = [
+    { n: ((d.projects && d.projects.items) || []).length, l:'پروژه' },
+    { n: ((d.skills && d.skills.items) || []).length, l:'مهارت' },
+    { n: state.blog.length, l:'پست وبلاگ' },
+    { n: ((d.repos && d.repos.items) || []).length, l:'ریپو' },
+  ];
+  return `
+    <div class="dash-grid">
+      ${stats.map(s => `
+        <div class="dash-stat">
+          <div class="num">${esc(s.n)}</div>
+          <div class="lbl">${esc(s.l)}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        دسترسی سریع
       </div>
-      <div class="user-info">
-        <span>👤 ادمین</span>
-        <button class="logout-btn" onclick="logout()">خروج</button>
+      <div class="card-desc">بخش مورد نظر را انتخاب کنید</div>
+      <div class="dash-actions">
+        ${[
+          { s:'hero', t:'ویرایش هیرو', d:'متن اصلی صفحه خانه', i:'<path d="M3 10.6 12 3.4l9 7.2"/><path d="M5.5 9.4V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.4"/>' },
+          { s:'projects', t:'مدیریت پروژه‌ها', d:'افزودن و ویرایش پروژه', i:'<path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>' },
+          { s:'blog', t:'نوشتن پست', d:'ایجاد پست جدید وبلاگ', i:'<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4z"/>' },
+          { s:'settings', t:'تنظیمات و خروجی', d:'Export / Import / رمز', i:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4"/>' }
+        ].map(a => `
+          <button class="dash-action" data-goto="${a.s}">
+            <div class="dash-action-ic"><svg viewBox="0 0 24 24">${a.i}</svg></div>
+            <div style="flex:1;min-width:0">
+              <h4>${esc(a.t)}</h4>
+              <p>${esc(a.d)}</p>
+            </div>
+          </button>
+        `).join('')}
       </div>
     </div>
 
-    <div class="stats-grid" id="statsGrid">
-      <div class="stat-card"><div class="number" id="totalCount">0</div><div class="label">مجموع دعوت‌ها</div></div>
-      <div class="stat-card"><div class="number" id="pendingCount">0</div><div class="label">در انتظار</div></div>
-      <div class="stat-card"><div class="number" id="confirmedCount">0</div><div class="label">تأیید شده</div></div>
-      <div class="stat-card"><div class="number" id="yesCount">0</div><div class="label">پاسخ مثبت</div></div>
-    </div>
-
-    <div class="table-wrap">
-      <h2>لیست دعوت‌ها</h2>
-      <div id="invitationsList">
-        <p class="empty-state">در حال بارگذاری…</p>
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        راهنما
+      </div>
+      <div class="card-desc" style="line-height:2;margin-bottom:0">
+        تغییرات به‌صورت خودکار در <b>localStorage</b> ذخیره می‌شوند و بلافاصله روی سایت اعمال می‌شوند
+        (در همان مرورگر). برای انتشار نهایی، از بخش <b>تنظیمات ← خروجی</b> فایل‌های
+        <code style="background:var(--card-2);padding:2px 8px;border-radius:5px;font-size:12px">content.js</code>
+        و <code style="background:var(--card-2);padding:2px 8px;border-radius:5px;font-size:12px">blog-data.js</code>
+        را دانلود و روی هاست آپلود کنید.
       </div>
     </div>
-  </div>
+  `;
+}
 
-  <script>
-    const API_URL = 'https://date.here-is-leo.ir';
+/* ---------- SETTINGS ---------- */
+function renderSettings(){
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        خروجی گرفتن (Export)
+      </div>
+      <div class="card-desc">برای اعمال تغییرات روی سایت نهایی، فایل‌های زیر را دانلود و جایگزین کنید</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" data-action="export-content">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          دانلود content.js
+        </button>
+        <button class="btn btn-primary" data-action="export-blog">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          دانلود blog-data.js
+        </button>
+        <button class="btn btn-secondary" data-action="export-json">
+          <svg viewBox="0 0 24 24"><path d="M12 2 2 7v10l10 5 10-5V7z"/><path d="M2 7l10 5 10-5"/><path d="M12 12v10"/></svg>
+          دانلود پشتیبان (JSON)
+        </button>
+      </div>
+    </div>
 
-    const token = localStorage.getItem('adminToken');
-    if (token) {
-      document.getElementById('loginPage').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      loadDashboard();
-    }
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        ورودی گرفتن (Import)
+      </div>
+      <div class="card-desc">فایل JSON پشتیبان را بارگذاری کنید تا محتوا بازیابی شود</div>
+      <input type="file" id="importFile" accept=".json,application/json" style="display:none" />
+      <button class="btn btn-secondary" data-action="import-json">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        انتخاب فایل JSON
+      </button>
+    </div>
 
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const error = document.getElementById('loginError');
-      error.style.display = 'none';
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        تغییر رمز عبور
+      </div>
+      <div class="card-desc">رمز جدید را وارد کنید — در همین مرورگر ذخیره می‌شود</div>
+      <div class="field">
+        <label>رمز جدید</label>
+        <input type="password" id="newPass" placeholder="حداقل ۶ کاراکتر" />
+      </div>
+      <div class="field">
+        <label>تکرار رمز جدید</label>
+        <input type="password" id="newPass2" placeholder="تکرار" />
+      </div>
+      <button class="btn btn-primary" data-action="change-pass">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        ذخیره رمز جدید
+      </button>
+    </div>
 
-      try {
-        const response = await fetch(`${API_URL}/api/admin/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password })
-        });
-        const data = await response.json();
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+        پاک کردن داده‌های محلی
+      </div>
+      <div class="card-desc">همه‌ی تغییرات محلی پاک می‌شوند و سایت به نسخه فایل اصلی برمی‌گردد</div>
+      <button class="btn btn-danger" data-action="clear-local">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        پاک کردن localStorage
+      </button>
+    </div>
+  `;
+}
 
-        if (data.success) {
-          localStorage.setItem('adminToken', data.token);
-          document.getElementById('loginPage').style.display = 'none';
-          document.getElementById('dashboard').style.display = 'block';
-          loadDashboard();
-        } else {
-          error.textContent = data.message || 'نام کاربری یا رمز عبور اشتباه است';
-          error.style.display = 'block';
-        }
-      } catch {
-        error.textContent = 'خطا در ارتباط با سرور';
-        error.style.display = 'block';
-      }
+/* ---------- HERO ---------- */
+function renderHero(){
+  const L = state.lang;
+  const h = (state.site[L].hero) || (state.site[L].hero = {});
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M3 10.6 12 3.4l9 7.2"/><path d="M5.5 9.4V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.4"/></svg>
+        متن هیرو
+      </div>
+      <div class="field">
+        <label>برچسب بالای عنوان (eyebrow)</label>
+        <input type="text" data-bind="hero.eyebrow" value="${esc(h.eyebrow || '')}" />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>خط اول عنوان</label>
+          <input type="text" data-bind="hero.title1" value="${esc(h.title1 || '')}" />
+        </div>
+        <div class="field">
+          <label>خط دوم (بعد از اسم)</label>
+          <input type="text" data-bind="hero.title2" value="${esc(h.title2 || '')}" />
+        </div>
+      </div>
+      <div class="field">
+        <label>نام شما</label>
+        <input type="text" data-bind="hero.name" value="${esc(h.name || '')}" />
+      </div>
+      <div class="field">
+        <label>عبارات ماشین تحریر (هر خط یک عبارت)</label>
+        <textarea data-bind="hero.typewriter" data-arr="lines" rows="3">${esc((h.typewriter || []).join('\n'))}</textarea>
+        <div class="hint">مثال: برنامه‌نویس Python و C# — هر خط یک عبارت</div>
+      </div>
+      <div class="field">
+        <label>توضیح کوتاه</label>
+        <textarea data-bind="hero.subtitle">${esc(h.subtitle || '')}</textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>متن دکمه اول</label>
+          <input type="text" data-bind="hero.cta1" value="${esc(h.cta1 || '')}" />
+        </div>
+        <div class="field">
+          <label>متن دکمه دوم</label>
+          <input type="text" data-bind="hero.cta2" value="${esc(h.cta2 || '')}" />
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>
+        متادیتا (SEO)
+      </div>
+      <div class="field">
+        <label>عنوان صفحه</label>
+        <input type="text" data-bind="meta.titleHome" value="${esc(state.site[L].meta?.titleHome || '')}" />
+      </div>
+      <div class="field">
+        <label>توضیحات صفحه</label>
+        <textarea data-bind="meta.descHome">${esc(state.site[L].meta?.descHome || '')}</textarea>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- STATS ---------- */
+function renderStats(){
+  const L = state.lang;
+  const items = state.site[L].stats || [];
+  return renderArrayCard(items, 'stats', {
+    empty: 'هنوز آماری اضافه نشده',
+    title: 'آمار صفحه خانه'
+  });
+}
+
+/* ---------- SKILLS ---------- */
+function renderSkills(){
+  const L = state.lang;
+  const sk = state.site[L].skills || {};
+  const items = sk.items || [];
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+        متن‌های بخش
+      </div>
+      <div class="field-row">
+        <div class="field"><label>برچسب</label><input type="text" data-bind="skills.tag" value="${esc(sk.tag || '')}" /></div>
+        <div class="field"><label>عنوان</label><input type="text" data-bind="skills.title" value="${esc(sk.title || '')}" /></div>
+      </div>
+      <div class="field">
+        <label>زیرعنوان</label>
+        <input type="text" data-bind="skills.subtitle" value="${esc(sk.subtitle || '')}" />
+      </div>
+    </div>
+    ${renderArrayCard(items, 'skills', { empty: 'هنوز مهارتی اضافه نشده', title: 'لیست مهارت‌ها' })}
+  `;
+}
+
+/* ---------- FOCUS ---------- */
+function renderFocus(){
+  const L = state.lang;
+  const fo = state.site[L].focus || {};
+  const items = fo.items || [];
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></svg>
+        متن‌های بخش
+      </div>
+      <div class="field-row">
+        <div class="field"><label>برچسب</label><input type="text" data-bind="focus.tag" value="${esc(fo.tag || '')}" /></div>
+        <div class="field"><label>عنوان</label><input type="text" data-bind="focus.title" value="${esc(fo.title || '')}" /></div>
+      </div>
+      <div class="field">
+        <label>زیرعنوان</label>
+        <input type="text" data-bind="focus.subtitle" value="${esc(fo.subtitle || '')}" />
+      </div>
+    </div>
+    ${renderArrayCard(items, 'focus', { empty: 'هنوز آیتمی اضافه نشده', title: 'لیست تمرکز' })}
+  `;
+}
+
+/* ---------- PROJECTS ---------- */
+function renderProjects(){
+  const L = state.lang;
+  const pr = state.site[L].projects || {};
+  const items = pr.items || [];
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
+        متن‌های بخش
+      </div>
+      <div class="field-row">
+        <div class="field"><label>برچسب</label><input type="text" data-bind="projects.tag" value="${esc(pr.tag || '')}" /></div>
+        <div class="field"><label>عنوان</label><input type="text" data-bind="projects.title" value="${esc(pr.title || '')}" /></div>
+      </div>
+      <div class="field">
+        <label>زیرعنوان</label>
+        <input type="text" data-bind="projects.subtitle" value="${esc(pr.subtitle || '')}" />
+      </div>
+    </div>
+    ${renderArrayCard(items, 'projects', { empty: 'هنوز پروژه‌ای اضافه نشده', title: 'لیست پروژه‌ها' })}
+  `;
+}
+
+/* ---------- CONTACT ---------- */
+function renderContact(){
+  const L = state.lang;
+  const ct = state.site[L].contact || {};
+  const items = ct.items || [];
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        متن‌های بخش
+      </div>
+      <div class="field-row">
+        <div class="field"><label>برچسب</label><input type="text" data-bind="contact.tag" value="${esc(ct.tag || '')}" /></div>
+        <div class="field"><label>عنوان</label><input type="text" data-bind="contact.title" value="${esc(ct.title || '')}" /></div>
+      </div>
+      <div class="field">
+        <label>زیرعنوان</label>
+        <input type="text" data-bind="contact.subtitle" value="${esc(ct.subtitle || '')}" />
+      </div>
+    </div>
+    ${renderArrayCard(items, 'contact', { empty: 'هنوز راه ارتباطی اضافه نشده', title: 'لیست راه‌های ارتباطی' })}
+  `;
+}
+
+/* ---------- REPOS ---------- */
+function renderRepos(){
+  const L = state.lang;
+  const rp = state.site[L].repos || {};
+  const items = rp.items || [];
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M9 18 3 12l6-6"/><path d="m15 6 6 6-6 6"/></svg>
+        متن‌های بخش
+      </div>
+      <div class="field-row">
+        <div class="field"><label>برچسب</label><input type="text" data-bind="repos.tag" value="${esc(rp.tag || '')}" /></div>
+        <div class="field"><label>عنوان</label><input type="text" data-bind="repos.title" value="${esc(rp.title || '')}" /></div>
+      </div>
+      <div class="field">
+        <label>زیرعنوان</label>
+        <input type="text" data-bind="repos.subtitle" value="${esc(rp.subtitle || '')}" />
+      </div>
+    </div>
+    ${renderArrayCard(items, 'repos', { empty: 'هنوز ریپویی اضافه نشده', title: 'لیست ریپوها' })}
+  `;
+}
+
+/* ---------- RESUME ---------- */
+function renderResume(){
+  const L = state.lang;
+  const r = state.site[L].resume || {};
+  const p = r.personal || {};
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/></svg>
+        اطلاعات شخصی
+      </div>
+      <div class="field-row">
+        <div class="field"><label>نام</label><input type="text" data-bind="resume.personal.name" value="${esc(p.name || '')}" /></div>
+        <div class="field"><label>شغل</label><input type="text" data-bind="resume.personal.job" value="${esc(p.job || '')}" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>موقعیت</label><input type="text" data-bind="resume.personal.location" value="${esc(p.location || '')}" /></div>
+        <div class="field"><label>ایمیل</label><input type="email" data-bind="resume.personal.email" value="${esc(p.email || '')}" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>تلفن</label><input type="text" data-bind="resume.personal.phone" value="${esc(p.phone || '')}" /></div>
+        <div class="field"><label>گیت‌هاب</label><input type="text" data-bind="resume.personal.github" value="${esc(p.github || '')}" /></div>
+      </div>
+      <div class="field">
+        <label>درباره من</label>
+        <textarea data-bind="resume.about">${esc(r.about || '')}</textarea>
+      </div>
+    </div>
+
+    ${renderArrayCard(r.skills || [], 'resumeSkills', { empty: 'هنوز مهارتی اضافه نشده', title: 'مهارت‌های رزومه' })}
+    ${renderArrayCard(r.projects || [], 'resumeProjects', { empty: 'هنوز پروژه‌ای اضافه نشده', title: 'پروژه‌های رزومه' })}
+    ${renderArrayCard(r.education || [], 'resumeEducation', { empty: 'هنوز تحصیلاتی اضافه نشده', title: 'تحصیلات و دوره‌ها' })}
+    ${renderArrayCard(r.languages || [], 'resumeLanguages', { empty: 'هنوز زبانی اضافه نشده', title: 'زبان‌ها' })}
+  `;
+}
+
+/* ---------- ABOUT ---------- */
+function renderAbout(){
+  const L = state.lang;
+  const a = state.site[L].about || {};
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+        متن‌های صفحه درباره من
+      </div>
+      <div class="field">
+        <label>عنوان صفحه</label>
+        <input type="text" data-bind="about.heroTitle" value="${esc(a.heroTitle || '')}" />
+      </div>
+      <div class="field">
+        <label>زیرعنوان صفحه</label>
+        <input type="text" data-bind="about.heroSubtitle" value="${esc(a.heroSubtitle || '')}" />
+      </div>
+      <div class="field">
+        <label>بیوگرافی</label>
+        <textarea data-bind="about.intro" rows="6">${esc(a.intro || '')}</textarea>
+      </div>
+      <div class="field">
+        <label>عنوان بخش مهارت‌ها</label>
+        <input type="text" data-bind="about.skillsTitle" value="${esc(a.skillsTitle || '')}" />
+      </div>
+      <div class="field">
+        <label>لیست مهارت‌ها (هر خط یکی)</label>
+        <textarea data-bind="about.skillsList" data-arr="lines" rows="6">${esc((a.skillsList || []).join('\n'))}</textarea>
+      </div>
+      <div class="field">
+        <label>عنوان بخش زبان‌ها</label>
+        <input type="text" data-bind="about.langTitle" value="${esc(a.langTitle || '')}" />
+      </div>
+      <div class="field">
+        <label>لیست زبان‌ها (هر خط یکی)</label>
+        <textarea data-bind="about.langList" data-arr="lines" rows="3">${esc((a.langList || []).join('\n'))}</textarea>
+      </div>
+    </div>
+    ${renderArrayCard(a.timeline || [], 'aboutTimeline', { empty: 'هنوز مرحله‌ای اضافه نشده', title: 'مسیر یادگیری' })}
+  `;
+}
+
+/* ---------- BLOG ---------- */
+function renderBlog(){
+  const L = state.lang;
+  const posts = state.blog;
+  const list = posts.map((p, i) => {
+    const data = p[L] || p.fa || {};
+    return { _idx: i, ...data, _id: p.id };
+  });
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        پست‌های وبلاگ
+      </div>
+      <div class="card-desc">پست‌ها به دو زبان ذخیره می‌شوند — از سوییچ بالا برای ویرایش هر زبان استفاده کنید</div>
+      <div class="array-head">
+        <span style="font-size:12px;color:var(--fg-3)">${posts.length} پست</span>
+        <button class="btn btn-primary" data-add="blogPost">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          پست جدید
+        </button>
+      </div>
+      <div class="array-list">
+        ${list.length ? list.map(it => `
+          <div class="array-item">
+            <div class="array-item-icon">📝</div>
+            <div class="array-item-body">
+              <div class="array-item-title">${esc(it.title || 'بدون عنوان')}</div>
+              <div class="array-item-sub">${esc(it.date || '')} · ${esc(it.category || '')} · ${esc(it.readTime || '')}</div>
+            </div>
+            <div class="array-item-actions">
+              <button class="icon-btn" data-edit="blogPost" data-idx="${it._idx}" title="ویرایش">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="icon-btn danger" data-del="blog" data-idx="${it._idx}" title="حذف">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+              </button>
+            </div>
+          </div>
+        `).join('') : `<div class="empty">هنوز پستی نوشته نشده</div>`}
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================================
+   ARRAY CARD RENDERER
+   ========================================================================= */
+function renderArrayCard(items, schemaKey, opts = {}){
+  const schema = SCHEMAS[schemaKey];
+  if (!schema) return '';
+  const arr = Array.isArray(items) ? items : [];
+  return `
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        ${esc(opts.title || schema.title)}
+      </div>
+      <div class="array-head">
+        <span style="font-size:12px;color:var(--fg-3)">${arr.length} آیتم</span>
+        <button class="btn btn-primary" data-add="${schemaKey}">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          افزودن
+        </button>
+      </div>
+      <div class="array-list">
+        ${arr.length ? arr.map((it, i) => `
+          <div class="array-item">
+            <div class="array-item-icon">${esc(schema.icon || '●')}</div>
+            <div class="array-item-body">
+              <div class="array-item-title">${esc(it.title || it.name || it.label || 'بدون عنوان')}</div>
+              <div class="array-item-sub">${esc(schema.summarize ? schema.summarize(it) : '')}</div>
+            </div>
+            <div class="array-item-actions">
+              <button class="icon-btn" data-edit="${schemaKey}" data-idx="${i}" title="ویرایش">
+                <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              </button>
+              <button class="icon-btn danger" data-del="${schemaKey}" data-idx="${i}" title="حذف">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>
+              </button>
+            </div>
+          </div>
+        `).join('') : `<div class="empty">${esc(opts.empty || 'لیست خالی است')}</div>`}
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================================
+   MODAL EDITOR
+   ========================================================================= */
+function openEditor(schemaKey, index, isNew){
+  const schema = SCHEMAS[schemaKey];
+  if (!schema) return;
+  const L = state.lang;
+  let item;
+  if (schemaKey === 'blogPost'){
+    const src = state.blog[index];
+    item = src ? deepClone(src[L] || src.fa || {}) : {};
+  } else {
+    const path = schema.path;
+    const arr = getNested(state.site[L], path) || [];
+    item = isNew ? {} : deepClone(arr[index] || {});
+  }
+
+  state.editing = { schemaKey, index, isNew, item, path: schema.path || null };
+
+  $('#modalTitle').textContent = (isNew ? 'افزودن ' : 'ویرایش ') + schema.title;
+  const body = $('#modalBody');
+  body.innerHTML = schema.fields.map(f => renderField(f, item[f.key])).join('');
+  $('#modalBack').classList.add('open');
+  bindModalInputs();
+}
+
+function renderField(f, value){
+  const id = 'mf_' + f.key;
+  if (f.type === 'textarea'){
+    return `
+      <div class="field">
+        <label for="${id}">${esc(f.label)}</label>
+        <textarea id="${id}" data-mkey="${f.key}" ${f.big ? 'rows="14"' : 'rows="4"'}>${esc(value || '')}</textarea>
+        ${f.hint ? `<div class="hint">${esc(f.hint)}</div>` : ''}
+      </div>
+    `;
+  }
+  if (f.type === 'tags'){
+    const tags = Array.isArray(value) ? value : [];
+    return `
+      <div class="field">
+        <label>${esc(f.label)}</label>
+        <div class="tag-input" data-tag-input data-mkey="${f.key}">
+          ${tags.map(t => `<span class="tag">${esc(t)}<button type="button" data-tag-remove>×</button></span>`).join('')}
+          <input type="text" placeholder="افزودن + Enter" data-tag-field />
+        </div>
+        ${f.hint ? `<div class="hint">${esc(f.hint)}</div>` : ''}
+      </div>
+    `;
+  }
+  return `
+    <div class="field">
+      <label for="${id}">${esc(f.label)}</label>
+      <input type="${f.type || 'text'}" id="${id}" data-mkey="${f.key}" value="${esc(value ?? '')}" />
+      ${f.hint ? `<div class="hint">${esc(f.hint)}</div>` : ''}
+    </div>
+  `;
+}
+
+function bindModalInputs(){
+  // Tag inputs
+  $$('[data-tag-input]').forEach(box => {
+    const key = box.dataset.mkey;
+    const input = box.querySelector('[data-tag-field]');
+    const removeBtns = () => $$('[data-tag-remove]', box).forEach(b => {
+      b.onclick = () => {
+        b.parentElement.remove();
+      };
     });
-
-    function logout() {
-      localStorage.removeItem('adminToken');
-      document.getElementById('loginPage').style.display = 'block';
-      document.getElementById('dashboard').style.display = 'none';
-    }
-
-    async function loadDashboard() {
-      const token = localStorage.getItem('adminToken');
-      if (!token) return;
-      try {
-        await loadStats(token);
-        await loadInvitations(token);
-      } catch (error) {
-        if (error.message === 'Unauthorized') logout();
+    removeBtns();
+    input.onkeydown = (e) => {
+      if (e.key === 'Enter' || e.key === ','){
+        e.preventDefault();
+        const v = input.value.trim().replace(/,$/, '');
+        if (!v) return;
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.innerHTML = `${esc(v)}<button type="button" data-tag-remove>×</button>`;
+        box.insertBefore(tag, input);
+        input.value = '';
+        removeBtns();
       }
-    }
+    };
+  });
+}
 
-    async function loadStats(token) {
-      const response = await fetch(`${API_URL}/api/admin/stats`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (response.status === 401) throw new Error('Unauthorized');
-      const data = await response.json();
-      document.getElementById('totalCount').textContent = data.total || 0;
-      document.getElementById('pendingCount').textContent = data.pending || 0;
-      document.getElementById('confirmedCount').textContent = data.confirmed || 0;
-      document.getElementById('yesCount').textContent = data.yesCount || 0;
-    }
+function saveModal(){
+  const { schemaKey, index, isNew, path } = state.editing;
+  const schema = SCHEMAS[schemaKey];
+  const L = state.lang;
+  const newItem = {};
 
-    async function loadInvitations(token) {
-      const response = await fetch(`${API_URL}/api/admin/invitations`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (response.status === 401) throw new Error('Unauthorized');
-      const invitations = await response.json();
-      renderTable(invitations);
-    }
-
-    function renderTable(invitations) {
-      const container = document.getElementById('invitationsList');
-      if (!invitations || invitations.length === 0) {
-        container.innerHTML = `<p class="empty-state">هنوز هیچ دعوتی ثبت نشده است</p>`;
-        return;
+  schema.fields.forEach(f => {
+    const el = $(`[data-mkey="${f.key}"]`);
+    if (!el){
+      const box = $(`[data-tag-input][data-mkey="${f.key}"]`);
+      if (box){
+        newItem[f.key] = $$('.tag', box).map(t => t.childNodes[0].textContent.trim());
       }
-
-      let html = `<table><thead><tr>
-        <th>#</th><th>مکان</th><th>تاریخ</th><th>ساعت</th>
-        <th>وضعیت</th><th>IP</th><th>زمان ثبت</th>
-      </tr></thead><tbody>`;
-      invitations.forEach((inv, i) => {
-        const statusClass = {
-          'pending': 'status-pending',
-          'confirmed': 'status-confirmed',
-          'cancelled': 'status-cancelled'
-        }[inv.status] || 'status-pending';
-        const statusText = {
-          'pending': 'در انتظار',
-          'confirmed': 'تأیید شده',
-          'cancelled': 'لغو شده'
-        }[inv.status] || 'در انتظار';
-        html += `<tr>
-          <td>${i + 1}</td>
-          <td>${inv.place || '-'}</td>
-          <td>${inv.date || '-'}</td>
-          <td>${inv.time || '-'}</td>
-          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-          <td>${inv.ipAddress || '-'}</td>
-          <td>${formatDate(inv.createdAt)}</td>
-        </tr>`;
-      });
-      html += `</tbody></table>`;
-      container.innerHTML = html;
+      return;
     }
-
-    function formatDate(dateStr) {
-      if (!dateStr) return '-';
-      const d = new Date(dateStr);
-      return d.toLocaleDateString('fa-IR', {
-        year: 'numeric', month: 'long', day: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-      });
+    if (f.type === 'number'){
+      newItem[f.key] = el.value === '' ? 0 : Number(el.value);
+    } else {
+      newItem[f.key] = el.value;
     }
-  </script>
+  });
+
+  if (schemaKey === 'blogPost'){
+    if (isNew){
+      const newPost = { id: Date.now(), fa: {}, en: {} };
+      newPost[L] = newItem;
+      state.blog.push(newPost);
+    } else {
+      state.blog[index][L] = newItem;
+    }
+  } else {
+    const arr = getNested(state.site[L], path);
+    if (isNew) arr.push(newItem);
+    else arr[index] = newItem;
+  }
+
+  persist();
+  closeModal();
+  render();
+  toast(isNew ? 'اضافه شد' : 'ذخیره شد', 'ok');
+}
+
+function closeModal(){
+  $('#modalBack').classList.remove('open');
+  state.editing = null;
+}
+
+/* =========================================================================
+   INPUT BINDING (main content)
+   ========================================================================= */
+function bindInputs(){
+  $$('#contentInner input[data-bind], #contentInner textarea[data-bind]').forEach(el => {
+    el.oninput = (e) => {
+      const bind = e.target.dataset.bind;
+      const isArr = e.target.dataset.arr === 'lines';
+      let value = e.target.value;
+      if (isArr){
+        value = value.split('\n').map(s => s.trim()).filter(Boolean);
+      } else if (e.target.type === 'number'){
+        value = Number(value) || 0;
+      }
+      setNested(state.site[state.lang], bind, value);
+      persist();
+    };
+  });
+}
+
+/* =========================================================================
+   EVENT DELEGATION
+   ========================================================================= */
+document.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-section], [data-goto], [data-action], [data-add], [data-edit], [data-del], [data-close-modal], [data-lang]');
+  if (!t) return;
+
+  if (t.dataset.section){
+    state.section = t.dataset.section;
+    $('#sidebar').classList.remove('open');
+    render();
+    return;
+  }
+  if (t.dataset.goto){
+    state.section = t.dataset.goto;
+    render();
+    return;
+  }
+  if (t.dataset.lang){
+    state.lang = t.dataset.lang;
+    $$('#langSwitch button').forEach(b => b.classList.toggle('active', b.dataset.lang === state.lang));
+    render();
+    return;
+  }
+  if (t.hasAttribute('data-close-modal')){ closeModal(); return; }
+
+  const action = t.dataset.action;
+  if (action === 'save'){
+    if (persist()) toast('ذخیره شد ✓', 'ok');
+    return;
+  }
+  if (action === 'logout'){ logout(); return; }
+  if (action === 'view-site'){ window.open('index.html', '_blank'); return; }
+  if (action === 'reset-section'){
+    if (!confirm('تغییرات این بخش به حالت اولیه برگردد؟')) return;
+    state.site = deepClone(state.originalSite);
+    state.blog = deepClone(state.originalBlog);
+    persist();
+    render();
+    toast('بازگردانی شد', 'ok');
+    return;
+  }
+  if (action === 'export-content'){
+    const js = `const SITE=${JSON.stringify(state.site, null, 2)};`;
+    download('content.js', js, 'application/javascript;charset=utf-8');
+    toast('content.js دانلود شد', 'ok');
+    return;
+  }
+  if (action === 'export-blog'){
+    const js = `let blogPosts=${JSON.stringify(state.blog, null, 2)};`;
+    download('blog-data.js', js, 'application/javascript;charset=utf-8');
+    toast('blog-data.js دانلود شد', 'ok');
+    return;
+  }
+  if (action === 'export-json'){
+    const data = { site: state.site, blog: state.blog, exported: new Date().toISOString() };
+    download('cms-backup-' + Date.now() + '.json', JSON.stringify(data, null, 2), 'application/json');
+    toast('پشتیبان دانلود شد', 'ok');
+    return;
+  }
+  if (action === 'import-json'){
+    $('#importFile').click();
+    return;
+  }
+  if (action === 'change-pass'){
+    const p1 = $('#newPass').value;
+    const p2 = $('#newPass2').value;
+    if (p1.length < 6){ toast('رمز باید حداقل ۶ کاراکتر باشد', 'err'); return; }
+    if (p1 !== p2){ toast('رمزها یکسان نیستند', 'err'); return; }
+    localStorage.setItem(PASSWORD_KEY, p1);
+    toast('رمز تغییر کرد — دفعه بعد با رمز جدید وارد شوید', 'ok');
+    $('#newPass').value = ''; $('#newPass2').value = '';
+    return;
+  }
+  if (action === 'clear-local'){
+    if (!confirm('همه تغییرات محلی پاک شود؟')) return;
+    localStorage.removeItem(SITE_KEY);
+    localStorage.removeItem(BLOG_KEY);
+    location.reload();
+    return;
+  }
+
+  // Add
+  if (t.dataset.add){
+    openEditor(t.dataset.add, -1, true);
+    return;
+  }
+  // Edit
+  if (t.dataset.edit){
+    openEditor(t.dataset.edit, Number(t.dataset.idx), false);
+    return;
+  }
+  // Delete
+  if (t.dataset.del){
+    const key = t.dataset.del;
+    const idx = Number(t.dataset.idx);
+    if (!confirm('حذف شود؟')) return;
+    if (key === 'blog'){
+      state.blog.splice(idx, 1);
+    } else {
+      const schema = SCHEMAS[key];
+      const arr = getNested(state.site[state.lang], schema.path);
+      arr.splice(idx, 1);
+    }
+    persist();
+    render();
+    toast('حذف شد', 'ok');
+    return;
+  }
+});
+
+$('#modalSave').addEventListener('click', saveModal);
+$('#modalBack').addEventListener('click', (e) => {
+  if (e.target === $('#modalBack')) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && $('#modalBack').classList.contains('open')) closeModal();
+  if ((e.ctrlKey || e.metaKey) && e.key === 's'){
+    e.preventDefault();
+    if (persist()) toast('ذخیره شد ✓', 'ok');
+  }
+});
+
+$('#importFile').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.site) state.site = data.site;
+      if (data.blog) state.blog = data.blog;
+      persist();
+      render();
+      toast('بازیابی شد ✓', 'ok');
+    } catch(err){
+      toast('فایل نامعتبر', 'err');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+$('#menuToggle').addEventListener('click', () => {
+  $('#sidebar').classList.toggle('open');
+});
+
+/* =========================================================================
+   LOGIN
+   ========================================================================= */
+$('#loginForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const pw = $('#pw').value;
+  if (pw === getPassword()){
+    setAuthed(true);
+    boot();
+  } else {
+    $('#loginErr').textContent = 'رمز عبور اشتباه است';
+  }
+});
+
+/* =========================================================================
+   BOOT
+   ========================================================================= */
+async function boot(){
+  $('#loginWrap').style.display = 'none';
+  $('#layout').hidden = false;
+  await loadData();
+  render();
+}
+
+if (isAuthed()){
+  boot();
+} else {
+  $('#loginWrap').style.display = 'grid';
+  $('#layout').hidden = true;
+}
+
+})();
+</script>
 </body>
 </html>
