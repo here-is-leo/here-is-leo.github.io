@@ -1,0 +1,843 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>رأی‌یار دبیرستان شهید احمدی روشن</title>
+<style>
+  /*
+    Layout concept: mobile-first, card-based sections stacked in a single
+    column on phones, expanding to parallel columns on desktop. A floating
+    glass notification card sits over the hero to demonstrate the glass-UI
+    requirement. Light theme is primary per the brief; dark follows via
+    prefers-color-scheme and an explicit data-theme toggle.
+  */
+  :root {
+    --bg: #F7F9F8;
+    --surface: #FFFFFF;
+    --border: #E3E8E6;
+    --text: #0E1A16;
+    --text-dim: #51615A;
+    --text-faint: #8C9A94;
+
+    --green-900: #0B3B2E;
+    --green-700: #115E42;
+    --green-500: #1A8F5C;
+    --blue-900: #0B2545;
+    --blue-700: #13356B;
+    --accent: #FF8A3D;
+    --accent-hover: #FF7A1F;
+    --accent-ink: #5A2A00;
+
+    --success: #1A8F5C;
+    --shadow-sm: 0 1px 2px rgba(11,37,69,.06), 0 1px 1px rgba(11,37,69,.04);
+    --shadow-md: 0 8px 24px -8px rgba(11,37,69,.14), 0 2px 6px rgba(11,37,69,.06);
+    --shadow-lg: 0 24px 48px -16px rgba(11,37,69,.22);
+
+    --font-display: 'Vazirmatn', 'Inter', Tahoma, sans-serif;
+    --font-body: 'Vazirmatn', 'Inter', Tahoma, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #081210;
+      --surface: #0F1D19;
+      --border: #1C2E28;
+      --text: #EAF3EF;
+      --text-dim: #9DB0A8;
+      --text-faint: #65776F;
+      --green-900: #0B3B2E;
+      --green-700: #16A571;
+      --green-500: #22C07F;
+      --blue-900: #0B2545;
+      --blue-700: #2E5BB8;
+      --accent: #FF9A52;
+      --accent-hover: #FFAD72;
+      --accent-ink: #3A1900;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+      --shadow-md: 0 8px 24px -8px rgba(0,0,0,.5);
+      --shadow-lg: 0 24px 48px -16px rgba(0,0,0,.6);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #081210;
+    --surface: #0F1D19;
+    --border: #1C2E28;
+    --text: #EAF3EF;
+    --text-dim: #9DB0A8;
+    --text-faint: #65776F;
+    --green-900: #0B3B2E;
+    --green-700: #16A571;
+    --green-500: #22C07F;
+    --blue-900: #0B2545;
+    --blue-700: #2E5BB8;
+    --accent: #FF9A52;
+    --accent-hover: #FFAD72;
+    --accent-ink: #3A1900;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.3);
+    --shadow-md: 0 8px 24px -8px rgba(0,0,0,.5);
+    --shadow-lg: 0 24px 48px -16px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    direction: rtl;
+    overflow-x: hidden;
+  }
+
+  body {
+    padding-inline: 20px;
+    padding-block: 28px;
+  }
+
+  a { color: var(--green-700); }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  /* ---------- nav ---------- */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .brand .mark {
+    width: 32px; height: 32px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--green-700), var(--blue-700));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex;
+    gap: 22px;
+    font-size: .9rem;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+  }
+  .nav-links a { text-decoration: none; color: inherit; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+  .theme-toggle {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--text-dim);
+    transition: border-color .2s, transform .2s;
+  }
+  .theme-toggle:hover { border-color: var(--green-500); }
+  .theme-toggle:active { transform: scale(.94); }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    font-family: inherit;
+    font-size: .92rem;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s, filter .2s, background .2s, border-color .2s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--accent-ink);
+    box-shadow: var(--shadow-md);
+  }
+  .btn-primary:hover { filter: brightness(1.04); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--green-500); color: var(--green-700); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 44px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .78rem;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: var(--green-700);
+    background: color-mix(in srgb, var(--green-500) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--green-500) 28%, transparent);
+    padding: 6px 14px;
+    border-radius: 999px;
+    width: fit-content;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 4.8vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.22;
+    margin: 0 0 16px;
+    text-wrap: balance;
+    color: var(--text);
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--green-700), var(--blue-700));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .lede {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    line-height: 1.85;
+    max-width: 50ch;
+    margin: 0 0 30px;
+  }
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 560px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 8px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .stat b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green-700);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat span {
+    font-size: .74rem;
+    color: var(--text-faint);
+  }
+
+  /* ---------- hero visual: phone + glass notification ---------- */
+  .hero-visual {
+    position: relative;
+    max-width: 340px;
+    margin-inline: auto;
+  }
+  .phone {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    padding: 14px;
+    box-shadow: var(--shadow-lg);
+  }
+  .phone-screen {
+    background: var(--bg);
+    border-radius: 16px;
+    padding: 18px 16px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .phone-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .phone-avatar {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--green-700), var(--blue-700));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .phone-title { font-weight: 700; font-size: .9rem; }
+  .phone-sub { font-size: .72rem; color: var(--success); display: flex; align-items: center; gap: 5px; }
+  .phone-sub .pulse-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--success);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 45%, transparent); }
+    70% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--success) 0%, transparent); }
+    100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 0%, transparent); }
+  }
+
+  .bubble {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 11px 13px;
+    font-size: .83rem;
+    line-height: 1.65;
+    max-width: 90%;
+    box-shadow: var(--shadow-sm);
+  }
+  .bubble.bot { align-self: flex-start; border-top-right-radius: 4px; }
+  .bubble.me {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--green-700), var(--green-500));
+    border-color: transparent;
+    color: #fff;
+    border-top-left-radius: 4px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .candidates { display: flex; flex-direction: column; gap: 7px; margin-top: 2px; }
+  .candidate {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 9px 12px;
+    font-size: .8rem;
+    transition: border-color .15s, background .15s;
+  }
+  .candidate:hover { border-color: var(--green-500); cursor: pointer; }
+  .candidate .num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: color-mix(in srgb, var(--green-500) 14%, transparent);
+    color: var(--green-700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .66rem; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .candidate-name { flex: 1; margin-inline: 10px; }
+  .radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--text-faint); flex-shrink: 0; }
+
+  /* floating glass notification — demonstrates backdrop-filter glass UI */
+  .glass-note {
+    position: absolute;
+    top: -18px;
+    left: -26px;
+    width: 230px;
+    background: color-mix(in srgb, var(--surface) 68%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  @media (max-width: 860px) {
+    .glass-note { left: 0; top: -16px; }
+  }
+  .glass-note .ic {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: color-mix(in srgb, var(--accent) 20%, transparent);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .glass-note b { display: block; font-size: .78rem; }
+  .glass-note span { font-size: .72rem; color: var(--text-dim); }
+
+  /* ---------- section heads ---------- */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.8vw, 1.9rem);
+    font-weight: 700;
+    margin: 0;
+  }
+  .section-head p { color: var(--text-dim); font-size: .92rem; margin: 0; max-width: 40ch; }
+
+  /* ---------- features (card grid) ---------- */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 760px) { .features { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .features { grid-template-columns: 1fr; } }
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s, transform .2s;
+  }
+  .feature:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .feature .icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--green-500) 14%, transparent);
+    color: var(--green-700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .feature h3 { margin: 0; font-size: 1rem; font-weight: 700; }
+  .feature p { margin: 0; font-size: .86rem; color: var(--text-dim); line-height: 1.7; }
+
+  /* ---------- flow ---------- */
+  .flow { display: flex; flex-direction: column; gap: 0; }
+  .flow-step { display: grid; grid-template-columns: 42px 1fr; gap: 16px; padding-bottom: 26px; position: relative; }
+  .flow-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 20px;
+    top: 42px;
+    bottom: -4px;
+    width: 2px;
+    background: var(--border);
+  }
+  .flow-num {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--green-700);
+    font-family: var(--font-display);
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+    z-index: 1;
+    font-variant-numeric: tabular-nums;
+    box-shadow: var(--shadow-sm);
+  }
+  .flow-body h4 { margin: 2px 0 6px; font-size: .98rem; }
+  .flow-body p { margin: 0; color: var(--text-dim); font-size: .87rem; line-height: 1.75; max-width: 56ch; }
+
+  /* ---------- security ---------- */
+  .sec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  @media (max-width: 620px) { .sec-grid { grid-template-columns: 1fr; } }
+  .sec-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 15px 16px;
+    min-width: 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .sec-item .check {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: color-mix(in srgb, var(--green-500) 15%, transparent);
+    color: var(--green-700);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .sec-item b { display: block; font-size: .88rem; margin-bottom: 3px; }
+  .sec-item span { font-size: .8rem; color: var(--text-dim); line-height: 1.6; }
+
+  /* ---------- stack ---------- */
+  .stack-row { display: flex; flex-wrap: wrap; gap: 9px; }
+  .pill {
+    font-family: var(--font-mono);
+    font-size: .76rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 7px 14px;
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ---------- footer cta ---------- */
+  .footer-cta {
+    text-align: center;
+    background: linear-gradient(160deg, var(--green-900), var(--blue-900));
+    border-radius: 24px;
+    padding: 52px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: #F2F7F4;
+  }
+  .footer-cta h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.2vw, 2rem);
+    margin: 0;
+    max-width: 24ch;
+    text-wrap: balance;
+  }
+  .footer-cta p { margin: 0; color: #C3D4CB; max-width: 46ch; }
+
+  /* ---------- author ---------- */
+  .author-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 26px;
+    box-shadow: var(--shadow-sm);
+    flex-wrap: wrap;
+  }
+  .author-avatar {
+    width: 64px; height: 64px; border-radius: 16px;
+    background: linear-gradient(135deg, var(--green-700), var(--blue-700));
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .author-info { flex: 1; min-width: 180px; }
+  .author-info b { display: block; font-size: 1.05rem; margin-bottom: 2px; }
+  .author-info span { font-size: .85rem; color: var(--text-dim); }
+  .author-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .author-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: .8rem;
+    color: var(--text-dim);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 14px;
+    text-decoration: none;
+    transition: border-color .2s, color .2s, transform .2s;
+  }
+  .author-link:hover { border-color: var(--green-500); color: var(--green-700); transform: translateY(-1px); }
+  .author-link .ic { font-size: .85rem; }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--text-faint);
+    font-size: .8rem;
+    border-top: 1px solid var(--border);
+    padding-top: 22px;
+  }
+  footer a { color: var(--text-dim); text-decoration: none; }
+  footer a:hover { color: var(--green-700); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<div class="wrap">
+
+  <nav class="nav">
+    <div class="brand">
+      <span class="mark">🗳</span>
+      رأی‌یار دبیرستان شهید احمدی روشن
+    </div>
+    <div class="nav-links">
+      <a href="#features">ویژگی‌ها</a>
+      <a href="#flow">روند رأی‌گیری</a>
+      <a href="#security">امنیت</a>
+      <a href="#stack">فناوری</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="تغییر تم" title="روشن/تیره">🌓</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">🗳 ساخته‌شده برای پیام‌رسان بله</div>
+      <h1>انتخابات شورای دانش‌آموزی، <em>شفاف و قابل اعتماد</em></h1>
+      <p class="lede">رأی‌یار دبیرستان شهید احمدی روشن یک ربات رأی‌گیری امن برای بله است؛ هر دانش‌آموز با کد ملی خودش، دقیقاً یک‌بار رأی می‌دهد و نتیجه، لحظه‌به‌لحظه قابل مشاهده است.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#flow">دیدن روند رأی‌گیری</a>
+        <a class="btn btn-ghost" href="#features">ویژگی‌ها</a>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><b>۲</b><span>نوع نظرسنجی</span></div>
+        <div class="stat"><b>۱۰+</b><span>ویژگی</span></div>
+        <div class="stat"><b>۵</b><span>دسته کامند</span></div>
+        <div class="stat"><b>۴</b><span>سطح دسترسی</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="glass-note">
+        <div class="ic">✓</div>
+        <div><b>رأی ثبت شد</b><span>علی رضایی — همین الان</span></div>
+      </div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-avatar">🗳</div>
+            <div>
+              <div class="phone-title">رأی‌یار دبیرستان شهید احمدی روشن</div>
+              <div class="phone-sub"><span class="pulse-dot"></span>آنلاین</div>
+            </div>
+          </div>
+
+          <div class="bubble bot">کد ملی شما تأیید شد ✅<br>لطفاً کاندیدای موردنظر را انتخاب کنید (صفحه ۱ از ۲):</div>
+
+          <div class="candidates">
+            <div class="candidate"><span class="num">۱</span><span class="candidate-name">علی رضایی</span><span class="radio"></span></div>
+            <div class="candidate"><span class="num">۲</span><span class="candidate-name">سارا محمدی</span><span class="radio"></span></div>
+            <div class="candidate"><span class="num">۳</span><span class="candidate-name">امیر حسینی</span><span class="radio"></span></div>
+            <div class="candidate"><span class="num">۴</span><span class="candidate-name">نگار کریمی</span><span class="radio"></span></div>
+          </div>
+
+          <div class="bubble me" style="margin-top:4px;">علی رضایی را انتخاب می‌کنم</div>
+          <div class="bubble bot">رأی شما با موفقیت ثبت شد 🎉</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-head">
+      <h2>یک ربات، همه‌چیز انتخابات</h2>
+      <p>از ورود دانش‌آموز تا خروجی اکسل نتایج، همه در یک جریان ساده.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="icon">🗳</div>
+        <h3>دو نوع نظرسنجی</h3>
+        <p>کاندیدامحور برای انتخابات واقعی، گزینه‌محور برای تصمیم‌های جمعی ساده‌تر.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🪪</div>
+        <h3>ورود با کد ملی</h3>
+        <p>هر کد ملی دقیقاً یک حق رأی دارد؛ هویت واقعی، رأی واقعی.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🛠</div>
+        <h3>پنل ادمین کامل</h3>
+        <p>ساخت نظرسنجی، مدیریت کاندیداها، فعال‌سازی و پایان‌دادن، همه از داخل چت.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📊</div>
+        <h3>آمار زنده</h3>
+        <p>نمودار میله‌ای متنی، تفکیک بر اساس کلاس و روند رأی‌دهی ساعتی.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">📥</div>
+        <h3>ورود و خروجی اکسل</h3>
+        <p>افزودن لیست دانش‌آموزان و دریافت نتایج، بدون کار دستی.</p>
+      </div>
+      <div class="feature">
+        <div class="icon">🔄</div>
+        <h3>مقاوم به ری‌استارت</h3>
+        <p>وضعیت مکالمه در دیتابیس ذخیره می‌شود؛ قطعی سرور، رأی را از بین نمی‌برد.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="flow">
+    <div class="section-head">
+      <h2>روند رأی‌گیری در چهار قدم</h2>
+      <p>از دید یک دانش‌آموز، از شروع تا تشکر.</p>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">۱</div>
+        <div class="flow-body">
+          <h4>ورود کد ملی</h4>
+          <p>دانش‌آموز با دستور <code>/vote</code> شروع می‌کند و کد ملی خود را وارد می‌کند؛ فرمت و صحت کد بلافاصله بررسی می‌شود.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">۲</div>
+        <div class="flow-body">
+          <h4>بررسی رأی قبلی</h4>
+          <p>اگر این کد ملی قبلاً رأی داده باشد، ربات بلافاصله اطلاع می‌دهد و اجازه‌ی رأی دوباره نمی‌دهد.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">۳</div>
+        <div class="flow-body">
+          <h4>انتخاب کاندیدا</h4>
+          <p>کاندیداها در صفحات ۵تایی با دکمه‌های inline نمایش داده می‌شوند و دانش‌آموز یکی را انتخاب می‌کند.</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">۴</div>
+        <div class="flow-body">
+          <h4>تأیید و ثبت</h4>
+          <p>پس از تأیید نهایی، رأی در دیتابیس با قید یکتا بودن کد ملی ثبت می‌شود و پیام تشکر نمایش داده می‌شود.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="security">
+    <div class="section-head">
+      <h2>امنیت در هسته‌ی طراحی</h2>
+      <p>نه یک لایه‌ی اضافه، بلکه بخشی از ساختار دیتابیس.</p>
+    </div>
+    <div class="sec-grid">
+      <div class="sec-item">
+        <div class="check">✓</div>
+        <div><b>UNIQUE Constraint</b><span>رأی تکراری در سطح دیتابیس، نه فقط در منطق برنامه، مسدود می‌شود.</span></div>
+      </div>
+      <div class="sec-item">
+        <div class="check">✓</div>
+        <div><b>اعتبارسنجی کد ملی</b><span>فرمت و الگوریتم کد ملی ایرانی پیش از ثبت رأی بررسی می‌شود.</span></div>
+      </div>
+      <div class="sec-item">
+        <div class="check">✓</div>
+        <div><b>Rate Limiting</b><span>درخواست‌های مشکوک و حملات خودکار محدود می‌شوند.</span></div>
+      </div>
+      <div class="sec-item">
+        <div class="check">✓</div>
+        <div><b>جداسازی دسترسی ادمین</b><span>پنل مدیریت فقط برای شناسه‌های تعریف‌شده در تنظیمات قابل‌دسترسی است.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="section-head">
+      <h2>فناوری‌های استفاده‌شده</h2>
+      <p>سبک، پایدار و مناسب مقیاس یک مدرسه.</p>
+    </div>
+    <div class="stack-row">
+      <span class="pill">Python 3.11+</span>
+      <span class="pill">balethon</span>
+      <span class="pill">SQLAlchemy 2.x</span>
+      <span class="pill">SQLite</span>
+      <span class="pill">pandas</span>
+      <span class="pill">openpyxl</span>
+      <span class="pill">jdatetime</span>
+      <span class="pill">APScheduler</span>
+    </div>
+  </section>
+
+  <section class="footer-cta">
+    <h2>آماده‌ی برگزاری یک انتخابات شفاف هستید؟</h2>
+    <p>ربات را روی بله راه‌اندازی کنید و در چند دقیقه اولین نظرسنجی مدرسه‌تان را بسازید.</p>
+    <a class="btn btn-primary" href="#">مشاهده‌ی مستندات نصب</a>
+  </section>
+
+  <section id="author">
+    <div class="section-head">
+      <h2>توسعه‌دهنده</h2>
+      <p>سازنده و نگهدارنده‌ی این پروژه.</p>
+    </div>
+    <div class="author-card">
+      <div class="author-avatar">ای‌ف</div>
+      <div class="author-info">
+        <b>ایلیا فراهانی</b>
+        <span>Developer — Here is Leo</span>
+      </div>
+      <div class="author-links">
+        <a class="author-link" href="mailto:ilyafarahanii@gmail.com"><span class="ic">✉️</span>ایمیل</a>
+        <a class="author-link" href="https://here-is-leo.ir/" target="_blank" rel="noopener">🌐 here-is-leo.ir</a>
+        <a class="author-link" href="https://t.me/Here_is_leo" target="_blank" rel="noopener">✈️ تلگرام</a>
+        <a class="author-link" href="https://www.linkedin.com/in/ilya-farahani" target="_blank" rel="noopener">💼 لینکدین</a>
+        <a class="author-link" href="https://www.coffeebede.com/leo" target="_blank" rel="noopener">☕ حمایت (قهوه)</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>رأی‌یار دبیرستان شهید احمدی روشن · ساخته‌شده برای پیام‌رسان بله</span>
+    <span>طراحی و توسعه: ایلیا فراهانی</span>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var KEY = 'raiyar-theme';
+    function apply(mode) {
+      if (mode === 'light' || mode === 'dark') root.setAttribute('data-theme', mode);
+      else root.removeAttribute('data-theme');
+    }
+    var saved = null;
+    try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved);
+    btn.addEventListener('click', function () {
+      var current = root.getAttribute('data-theme');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var effectiveDark = current ? current === 'dark' : prefersDark;
+      var next = effectiveDark ? 'light' : 'dark';
+      apply(next);
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+    });
+  })();
+</script>
+
+</body></html>
